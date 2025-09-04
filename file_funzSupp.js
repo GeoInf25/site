@@ -1,9 +1,9 @@
 
 function gestioneSchede( scheda ) {
 	
-	var schedaPython = document.getElementById( "tab_Python" ); 
-	var schedaCSharp = document.getElementById( "tab_CSharp" ); 
-	var schedaJavascript = document.getElementById( "tab_Javascript" ); 
+	var schedaPython = document.getElementById( "schedaPython" ); 
+	var schedaCSharp = document.getElementById( "schedaCSharp" ); 
+	var schedaJavascript = document.getElementById( "schedaJavascript" ); 
 	
 	if( scheda == "Python" ) {
 		schedaPython.style.display = "block"; 
@@ -32,5 +32,6 @@ function gestioneSchede( scheda ) {
 	
 
 }
+
 
 
