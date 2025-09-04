@@ -1,9 +1,9 @@
 
 function gestioneSchede( scheda ) {
 	
-	var schedaPython = document.getElementById( "Python" ); 
-	var schedaC# = document.getElementById( "C#" ); 
-	var schedaJavascript = document.getElementById( "Javascript" ); 
+	var schedaPython = document.getElementById( "tab_Python" ); 
+	var schedaC# = document.getElementById( "tab_C#" ); 
+	var schedaJavascript = document.getElementById( "tab_Javascript" ); 
 	
 	if( scheda == "Python" ) {
 		schedaPython.style.display = "block"; 
@@ -30,4 +30,5 @@ function gestioneSchede( scheda ) {
 		schedaJavascript.style.visibility = "visible"; 
 	}
 	
+
 }
