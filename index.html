@@ -25,6 +25,7 @@
     body {
       font-family:Tahoma; 
 	  font-size:14px; 
+	  font-style: italic;
       height: 100%;
       margin: 0px;
     }
@@ -56,9 +57,9 @@
 <body>
 
 	<div class="tab">
-  		<button class="tablinks" onclick="openLanguage(event, 'Python')">London</button>
-  		<button class="tablinks" onclick="openLanguage(event, 'C#')">Paris</button>
-  		<button class="tablinks" onclick="openLanguage(event, 'Javascript')">Tokyo</button>
+	  	<button id="button_schedaInput" class="tabSingolo" onclick="gestioneSchede( 'schedaInput' )">INITIAL DATA</button>
+	  	<button id="button_schedaColonnine" class="tabSingolo" onclick="gestioneSchede( 'schedaColonnine' )">CHARGE COLUMNS LOCALIZATION</button>
+	  	<button id="button_schedaPercorso"  class="tabSingolo" onclick="gestioneSchede( 'schedaPercorso' )">ROUTE SEARCH</button>
 	</div>
 
     <py-config>
@@ -71,16 +72,16 @@
 		        
 		    </div>
 
-			<div id="quad03" class = "quad" >
+			<div id="quad02" class = "quad" >
 		        <py-script>
-		        	print( str( 7*3 ) )
+		        	print( str( 8*3 ) )
 		        </py-script>
 		    </div>
 		    
 		</div>
 	
 		<div id="DX" class = "DX" >
-		    <div id="quad02" class = "quad" >
+		    <div id="quad03" class = "quad" >
 		        <p>Console <b>MicroPython</b>: </br> </p> 
 		        <script id="terminal" type="mpy" terminal>
         			import code
@@ -102,6 +103,7 @@
 
 
 </html>
+
 
 
 
