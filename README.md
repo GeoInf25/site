@@ -1,1 +1,1 @@
-# GeoInf25App.github.io
+# geoInf25App
