@@ -67,9 +67,10 @@
 		
 		    <div id="quad02" class = "quad" >
 		        <p>Console <b>MicroPython</b>: </br> </p> 
-		        <script type="py" terminal>
-					print( "Hello" )
-		        </script>
+		        <script type="py" terminal worker>
+					name = input("What is your name? ")
+					print(f"Hello, {name}")
+				</script>
 		    </div>
 		</div>
 	
@@ -94,6 +95,7 @@
 
 
 </html>
+
 
 
 
