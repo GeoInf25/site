@@ -47,30 +47,32 @@
          packages = ["sqlite3" ]
     </py-config>
 
-	<div id="SX">
-	    <div id="quad01" class="quad">
-	        
-	    </div>
+	<div id="corpo">
+		<div id="SX">
+		    <div id="quad01" class="quad">
+		        
+		    </div>
+		
+		    <div id="quad02" class="quad">
+		        Console MicroPython 
+		        <script id="terminal" type="mpy" terminal>
+		            import code
+		            code.interact()
+		        </script>
+		    </div>
+		</div>
 	
-	    <div id="quad02" class="quad">
-	        Console MicroPython 
-	        <script id="terminal" type="mpy" terminal>
-	            import code
-	            code.interact()
-	        </script>
-	    </div>
-	</div>
-
-	<div id="DX">
-	    <div id="quad03" class="quad">
-	        <py-script>
-	            print( str( 22*3 ) )
-	        </py-script>
-	    </div>
-	
-	    <div id="quad04" class="quad">
-	        
-	    </div>
+		<div id="DX">
+		    <div id="quad03" class="quad">
+		        <py-script>
+		            print( str( 22*3 ) )
+		        </py-script>
+		    </div>
+		
+		    <div id="quad04" class="quad">
+		        
+		    </div>
+		</div>
 	</div>
 
     <!-- <script type="py" terminal>print("hello world")</script> -->
@@ -81,6 +83,7 @@
 
 
 </html>
+
 
 
 
