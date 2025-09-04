@@ -8,28 +8,29 @@ function gestioneSchede( scheda ) {
 	if( scheda == "Python" ) {
 		schedaPython.style.display = "block"; 
 		schedaPython.style.visibility = "visible";
-		schedaC#.style.display = "none"; 
-		schedaC#.style.visibility = "hidden"; 
+		schedaCSharp.style.display = "none"; 
+		schedaCSharp.style.visibility = "hidden"; 
 		schedaJavascript.style.display = "none"; 
 		schedaJavascript.style.visibility = "hidden"; 
 		
 	} else if( scheda == "CSharp" ) {
 		schedaPython.style.display = "none"; 
 		schedaPython.style.visibility = "hidden";
-		schedaC#.style.display = "block"; 
-		schedaC#.style.visibility = "visible"; 
+		schedaCSharp.style.display = "block"; 
+		schedaCSharp.style.visibility = "visible"; 
 		schedaJavascript.style.display = "none"; 
 		schedaJavascript.style.visibility = "hidden"; 
 		
 	} else if( scheda == "Javascript" ) {
 		schedaPython.style.display = "none"; 
 		schedaPython.style.visibility = "hidden";
-		schedaC#.style.display = "none"; 
-		schedaC#.style.visibility = "hidden"; 
+		schedaCSharp.style.display = "none"; 
+		schedaCSharp.style.visibility = "hidden"; 
 		schedaJavascript.style.display = "block"; 
 		schedaJavascript.style.visibility = "visible"; 
 	}
 	
 
 }
+
 
