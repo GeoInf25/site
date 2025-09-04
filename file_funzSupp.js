@@ -2,7 +2,7 @@
 function gestioneSchede( scheda ) {
 	
 	var schedaPython = document.getElementById( "tab_Python" ); 
-	var schedaC# = document.getElementById( "tab_C#" ); 
+	var schedaCSharp = document.getElementById( "tab_CSharp" ); 
 	var schedaJavascript = document.getElementById( "tab_Javascript" ); 
 	
 	if( scheda == "Python" ) {
@@ -13,7 +13,7 @@ function gestioneSchede( scheda ) {
 		schedaJavascript.style.display = "none"; 
 		schedaJavascript.style.visibility = "hidden"; 
 		
-	} else if( scheda == "C#" ) {
+	} else if( scheda == "CSharp" ) {
 		schedaPython.style.display = "none"; 
 		schedaPython.style.visibility = "hidden";
 		schedaC#.style.display = "block"; 
@@ -32,3 +32,4 @@ function gestioneSchede( scheda ) {
 	
 
 }
+
