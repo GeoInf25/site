@@ -21,6 +21,8 @@
     src="https://pyscript.net/releases/2025.7.2/core.js"
 ></script>
 
+<script type="text/javascript" src="./file_funzSupp.js"></script>
+
 <style>
     body {
       font-family:Tahoma; 
@@ -50,6 +52,10 @@
 		height: 50%; 
 	}
 
+	.tabSingolo {
+
+	}
+
 </style>
     
 </head>
@@ -57,9 +63,9 @@
 <body>
 
 	<div class="tab">
-	  	<button id="button_schedaInput" class="tabSingolo" onclick="gestioneSchede( 'schedaInput' )">INITIAL DATA</button>
-	  	<button id="button_schedaColonnine" class="tabSingolo" onclick="gestioneSchede( 'schedaColonnine' )">CHARGE COLUMNS LOCALIZATION</button>
-	  	<button id="button_schedaPercorso"  class="tabSingolo" onclick="gestioneSchede( 'schedaPercorso' )">ROUTE SEARCH</button>
+	  	<button id="tab_Python" class="tabSingolo" onclick="gestioneSchede( 'Python' )">Python</button>
+	  	<button id="tab_C#" class="tabSingolo" onclick="gestioneSchede( 'C#' )">C#</button>
+	  	<button id="tab_Javascript"  class="tabSingolo" onclick="gestioneSchede( 'Javascript' )">Javascript</button>
 	</div>
 
     <py-config>
@@ -103,6 +109,7 @@
 
 
 </html>
+
 
 
 
