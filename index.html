@@ -77,16 +77,38 @@
 		width: 100%;
 		height: 10%;
 	}
-	
-	.griglia {
-		display: grid;
-  		grid-template-columns: 1fr 1fr;
-  		grid-template-rows: 500px 500px;
+
+	#riga01sx {
+		width: 50%; 
+		height: 60%; 
+		float: left;  
+		border-style:none;
+		<!-- border-color:#CCCCCC; -->
+		<!-- border-width:1px; -->
 	}
 
-	.quad {
+	#riga01dx {
 		width: 50%; 
-		height: 50%; 
+		height: 60%; 
+		float: right;  
+		border-style:none;
+		<!-- border-color:#CCCCCC; -->
+		<!-- border-width:1px; -->
+	}
+
+	#riga02sx {
+		width: 50%; 
+		height: 40%; 
+		float: left;  
+		border-style:none;
+		<!-- border-color:#CCCCCC; -->
+		<!-- border-width:1px; -->
+	}
+
+	#riga02dx {
+		width: 50%; 
+		height: 40%; 
+		float: right;  
 		border-style:none;
 		<!-- border-color:#CCCCCC; -->
 		<!-- border-width:1px; -->
@@ -110,7 +132,7 @@
 	
 	<div id="schedaPython" class = "griglia" >
 	
-		<div id="quad01" >
+		<div id="riga01sx" >
 
 			<textarea id="codeArea">Write some Python code ...</textarea>
 			
@@ -120,7 +142,7 @@
 
 		</div>
 
-		<div id="quad02" >
+		<div id="riga01dx" >
 			
 			<textarea id="printResult"></textarea>
 
@@ -138,10 +160,10 @@
 			
 		</div>
 
-		<div id="quad03" >
+		<div id="riga02sx" >
 		</div>
 
-		<div id="quad04" >
+		<div id="riga02dx" >
 		</div>
 		    
 	</div>
