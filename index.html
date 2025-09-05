@@ -79,7 +79,7 @@
 			try:
 				code = document.getElementById("txt_code").value
 				output = document.getElementById("txt_output")
-				output.innerHTML = "List of variables / objects: \n"
+				output.innerHTML = "Show global variables / objects: \n"
 				exec( code , globals(), elencoVar)
 				for item in elencoVar.items():
 					output.innerHTML = output.innerHTML + str( item ) + "\n" #elencoVar.items() 
