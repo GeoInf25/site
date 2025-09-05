@@ -63,9 +63,17 @@
 		#from js import document 
 		#from pyodide.ffi import create_proxy
 
+		elencoVar = {} #dictionary
+
 		def runPython( event ):
-			code = document.getElementById("txt_code").value
-			exec( code )
+			try:
+				code = document.getElementById("txt_code").value
+				output = document.getElementById("txt_output")
+				exec( code , globals(), elencoVar)
+				output.innerHTML = elencoVar.items() 
+
+			except Exception as e:
+                output.innerHTML = f"Error detected: {str(e)}"
 
 		function_proxy02 = create_proxy(runPython)
 		document.getElementById("btn_executePy").addEventListener("click", function_proxy02)
