@@ -34,7 +34,19 @@
 <div id="schedaPython" >
 
 	<h1>Hello World</h1>
-	Click on the button <button id="btn_helloWorld" onclick="alert( 'Hello World in Console ...' )" >Click Here</button>
+	Click on the button and run Python ... <button id="btn_helloWorld" onclick="alert( 'Hello World in Console ...' )" >Click Here</button>
+
+	<py-script>
+		from js import document 
+		from pyodide.ffi import create_proxy
+
+		def runPython( event ):
+			print("Hello World!")
+
+		function_proxy = create_proxy(runPython)
+		document.getElementById("btn_executePy").addEventListener("click", function_proxy)
+
+	</py-script>
 
 	<hr>
 
@@ -50,19 +62,11 @@
 
 	</textarea>
 
+	<br>
+	
 	<button id="btn_executePy" >Execute Python Code</button>
 
-	<py-script>
-		from js import document 
-		from pyodide.ffi import create_proxy
-
-		def runPython( event ):
-			print("Hello World!")
-
-		function_proxy = create_proxy(runPython)
-		document.getElementById("btn_executePy").addEventListener("click", function_proxy)
-
-	</py-script>
+	<hr>
 
 </div>
 
