@@ -109,10 +109,10 @@
 		<div id="sx" class = "sx" >
 			<div id="quad01" class = "quad" >
 
-				<textarea id="codeArea">Scrivi del codice Python ...</textarea>
+				<textarea id="codeArea">Write some Python code ...</textarea>
 				
 				<button id="executePy" style="position: relative; left: 50%; transform: translateX(-50%);" >
-					*** Esegui Codice ***
+					*** Execute code ***
 				</button>
 
 			</div>
@@ -140,7 +140,21 @@
 		
 		    <div id="quad04" class = "quad" >
 		        <py-script>
-		        	print( str( 8*3 ) )
+		        	from js import document
+        			from pyodide.ffi import create_proxy
+
+       				def run_code(event):
+            			code_area = document.getElementById("code-area")
+            			output_div = document.getElementById("output")
+            		try:
+                		exec(code_area.value)
+            		except Exception as e:
+                		output_div.innerHTML = f"Error: {str(e)}"
+        
+					run_code_proxy = create_proxy(run_code)
+					run_button = document.getElementById("run-button")
+					run_button.addEventListener("click", run_code_proxy)
+
 		        </py-script>
 		    </div>
 		</div>
