@@ -32,7 +32,7 @@
 <div id="schedaPython" >
 
 	<h1>Hello World</h1>
-	Click on the button and run Python on Console ... <button id="btn_helloWorld" onclick="alert( 'Hello World in Console ...' )" >Click Here</button>
+	Click on the button and run Python in Console ... <button id="btn_helloWorld" onclick="alert( 'Hello World in Console ...' )" >Click Here</button>
 
 	<py-script>
 		from js import document 
@@ -65,7 +65,7 @@
 
 		def runPython( event ):
 			code = document.getElementById("txt_code").value
-			print( code )
+			exec( code )
 
 		function_proxy02 = create_proxy(runPython)
 		document.getElementById("btn_executePy").addEventListener("click", function_proxy02)
