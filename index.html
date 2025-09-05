@@ -23,6 +23,7 @@
 
 <script type="text/javascript" src="./file_funzSupp.js"></script>
 
+
 <style>
 
 	@font-face {
@@ -60,13 +61,32 @@
 
 <body>
 
+	<py-config>
+		packages = ["sqlite3" ]
+        </py-config>
+
 	<div class="tab">
 	  	<button id="tab_Python" class="tabSingolo" onclick="gestioneSchede( 'Python' )">- PYTHON -</button>
 	  	<button id="tab_CSharp" class="tabSingolo" onclick="gestioneSchede( 'CSharp' )">- C# -</button>
 	  	<button id="tab_Javascript"  class="tabSingolo" onclick="gestioneSchede( 'Javascript' )">- JAVASCRIPT -</button>
 	</div>
+	
+	<div id="schedaPython">
+	
+	
+	</div>
+	
+	<div id="schedaCSharp">
+	
+	
+	</div>
+	
+	<div id="schedaJavascript">
+	
+	
+	</div>
 
-	Hello
+	
 
 </body>
 
