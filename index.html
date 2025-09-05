@@ -64,8 +64,8 @@
 		#from pyodide.ffi import create_proxy
 
 		def runPython( event ):
-			code = document.getElementById("txt_code").innerHTML
-			exec( code )
+			code = document.getElementById("txt_code").value
+			print( code )
 
 		function_proxy02 = create_proxy(runPython)
 		document.getElementById("btn_executePy").addEventListener("click", function_proxy02)
