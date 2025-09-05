@@ -4,13 +4,13 @@
 <head>
 
 <style>
-  #code{
+  #txt_code{
 	width: 100%; 
 	heigth: 20%; 
 	resize: none;
   }
 
-  #output {
+  #txt_output {
 	width: 100%; 
   }
 
@@ -22,16 +22,20 @@
 
 <body>
 
-<h1>PyScript Terminal</h1>
-
 <div id="schedaPython" >
+
+	<h1>Hello World</h1>
+	<button id="btn_helloWorld" onclick="alert( 'Hello World!' )" >Click Here</button>
+
+	<h1>PyScript Terminal</h1>
+
 	<p>Write some Python code ... </p>
-	<textarea id="code" >
+	<textarea id="txt_code" >
 
 	</textarea>
 
 	<p>Show the result of your code ... </p>
-	<textarea id="output" >
+	<textarea id="txt_output" >
 
 	</textarea>
 
