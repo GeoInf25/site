@@ -56,7 +56,7 @@
 		from js import document 
 		from pyodide.ffi import create_proxy
 
-		def runPython():
+		def runPython( event ):
 			print("Hello World!")
 
 		function_proxy = create_proxy(runPython)
