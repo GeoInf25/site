@@ -21,6 +21,7 @@
     src="https://pyscript.net/releases/2025.7.2/core.js"
 ></script>
 
+
 <script type="text/javascript" src="./file_funzSupp.js"></script>
 
 
@@ -54,6 +55,26 @@
   		width: 100%;
   		height: 100%;
 	}
+	
+	.SX {
+		width: 50%; 
+		height: 100%; 
+		float: left;
+	}
+
+	.DX {
+		width: 50%; 
+		height: 100%; 
+		float: right;
+	}
+
+	.quad {
+		width: 100%; 
+		height: 50%; 
+		border-style:solid;
+		<!-- border-color:#CCCCCC; -->
+		border-width:1px;
+	}
 
 </style>
     
@@ -73,6 +94,39 @@
 	
 	<div id="schedaPython">
 	
+		<div id="SX" class = "SX" >
+			<div id="quad01" class = "quad" >
+				HELLO 
+				<textarea id="code-area">Python Code</textarea>
+			</div>
+
+			<div id="quad03" class = "quad" >
+		        
+		    </div>
+		    
+		</div>
+	
+		<div id="DX" class = "DX" >
+			<div id="quad02" class = "quad" >
+		        <script type="py" terminal>
+					print("hello world")
+				</script> 
+
+				<!-- 
+		        <script id="terminal" type="mpy" terminal>
+        			import code
+        			code.interact()
+    			</script>
+				-->
+				
+		    </div>
+		
+		    <div id="quad04" class = "quad" >
+		        <py-script>
+		        	print( str( 8*3 ) )
+		        </py-script>
+		    </div>
+		</div>
 	
 	</div>
 	
