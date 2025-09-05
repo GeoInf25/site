@@ -4,6 +4,7 @@ function gestioneSchede( scheda ) {
 	var schedaPython = document.getElementById( "schedaPython" ); 
 	var schedaCSharp = document.getElementById( "schedaCSharp" ); 
 	var schedaJavascript = document.getElementById( "schedaJavascript" ); 
+	var schedaOtherLinks = document.getElementById( "schedaOtherLinks" );
 	
 	if( scheda == "Python" ) {
 		schedaPython.style.display = "block"; 
@@ -12,6 +13,8 @@ function gestioneSchede( scheda ) {
 		schedaCSharp.style.visibility = "hidden"; 
 		schedaJavascript.style.display = "none"; 
 		schedaJavascript.style.visibility = "hidden"; 
+		schedaOtherLinks.style.display = "none"; 
+		schedaOtherLinks.style.visibility = "hidden"; 
 		
 	} else if( scheda == "CSharp" ) {
 		schedaPython.style.display = "none"; 
@@ -20,6 +23,8 @@ function gestioneSchede( scheda ) {
 		schedaCSharp.style.visibility = "visible"; 
 		schedaJavascript.style.display = "none"; 
 		schedaJavascript.style.visibility = "hidden"; 
+		schedaOtherLinks.style.display = "none"; 
+		schedaOtherLinks.style.visibility = "hidden"; 
 		
 	} else if( scheda == "Javascript" ) {
 		schedaPython.style.display = "none"; 
@@ -28,6 +33,18 @@ function gestioneSchede( scheda ) {
 		schedaCSharp.style.visibility = "hidden"; 
 		schedaJavascript.style.display = "block"; 
 		schedaJavascript.style.visibility = "visible"; 
+		schedaOtherLinks.style.display = "none"; 
+		schedaOtherLinks.style.visibility = "hidden"; 
+
+	} else if( scheda == "otherLinks" ) {
+		schedaPython.style.display = "none"; 
+		schedaPython.style.visibility = "hidden";
+		schedaCSharp.style.display = "none"; 
+		schedaCSharp.style.visibility = "hidden"; 
+		schedaJavascript.style.display = "none"; 
+		schedaJavascript.style.visibility = "hidden"; 
+		schedaOtherLinks.style.display = "block"; 
+		schedaOtherLinks.style.visibility = "visible"; 
 	}
 	
 
