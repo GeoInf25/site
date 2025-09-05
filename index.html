@@ -3,6 +3,8 @@
 
 <head>
 
+	<script type="text/javascript" src="./file_funzSupp.js"></script> 
+
 	<link
     rel="stylesheet"
     href="https://pyscript.net/releases/2025.7.2/core.css"
@@ -76,7 +78,8 @@
 				code = document.getElementById("txt_code").value
 				output = document.getElementById("txt_output")
 				exec( code , globals(), elencoVar)
-				output.innerHTML = elencoVar.items() 
+				for item in elencoVar.items():
+					output.innerHTML = output.innerHTML + str( item ) + "\n" #elencoVar.items() 
 
 			except Exception as e:
                 output.innerHTML = f"Error detected: {str(e)}"
