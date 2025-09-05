@@ -85,11 +85,6 @@
 		<!-- border-width:1px; -->
 	}
 
-	#wrapButton {
-		display: flex;
-		align-items: center;
-	}
-
 </style>
     
 </head>
@@ -113,11 +108,9 @@
 
 				<textarea id="codeArea">Write some Python Code ...</textarea>
 				
-				<div id="wrapButton">
-					<button id="executePy">
-						Execute Python Code
-					</button>
-				</div>
+				<button id="executePy" style="position: absolute; left: 50%; transform: translateX(-50%);" >
+					Execute Python Code
+				</button>
 
 			</div>
 
