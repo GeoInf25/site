@@ -110,8 +110,22 @@
 <div id="schedaJavascript" >
 
 	<h1>PictureBox</h1>
-	<div id="pictureBox"></div>
-
+	<div id="div_pictureBox"></div>
+	<input type="range" min="0" max="255" id="sliderRed" value="0" oninput="changeColor();">
+	<input type="range" min="0" max="255" id="sliderGreen" value="0" oninput="changeColor();">
+	<input type="range" min="0" max="255" id="sliderBlue" value="0" oninput="changeColor();">
+	<script>
+		function changeColor() {
+			valueRed = document.getElementById( "sliderRed" ).value;
+			valueGreen = document.getElementById( "sliderGreen" ).value;
+			valueBlue = document.getElementById( "sliderBlue" ).value;
+			document.getElementById("div_pictureBox").style.backgroundColor = 'rgb(' + valueRed + ',' + valueGreen + ',' + valueBlue + ')';
+			document.getElementById("txt_valueColor").value = 'rgb(' + valueRed + ',' + valueGreen + ',' + valueBlue + ')'
+		}
+	</script>
+	<br>
+	Value color: <input type="text" id="txt_valueColor">
+	<br>
 	<hr>
 
 </div>
