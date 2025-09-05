@@ -1,185 +1,34 @@
-<html>
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-     crossorigin=""
-/>
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-     crossorigin="">
-</script>
-
-    
-<link
-    rel="stylesheet"
-    href="https://pyscript.net/releases/2025.7.2/core.css"
-/>
-<script
-    type="module"
-    src="https://pyscript.net/releases/2025.7.2/core.js"
-></script>
-
-
-<script type="text/javascript" src="./file_funzSupp.js"></script>
-
-
-<style>
-
-	@font-face {
-		font-family: 'SpaceMono';
-		src: url('/site/SpaceMonoFonts/SpaceMono-Regular.ttf');
-		font-style: normal; /*italic*/
-	}
-
-	body {
-		font-family: 'SpaceMono'; 
-		font-size: 15px; 
-		/* font-style: italic; */
-		height: 100%;
-		margin: 0px;
-	}
-	
-	.tab {
-		overflow: hidden;
-	}
-
-	.tabSingolo {
-		font-family: 'SpaceMono'; 
-		font-size: 20px; 
-		border: none;
-		height: 4%;
-		margin: 0px; 
-	}
-
-	#codeArea {
-		font-family: 'SpaceMono'; 
-		font-size: 15px; 
-  		width: 100%;
-  		height: 90%;
-		resize: none; 
-	}
-
-	#printResult {
-		font-family: 'SpaceMono'; 
-		font-size: 15px; 
-  		width: 100%;
-  		height: 90%;
-		resize: none; 
-		background-color: black;
-		color: white
-	}
-
-	#executePy { /*button*/
-		font-family: 'SpaceMono'; 
-		font-size: 15px; 
-		width: 100%;
-		height: 10%;
-	}
-
-	#riga01sx {
-		width: 50%; 
-		height: 60%; 
-		float: left;  
-		border-style:none;
-		<!-- border-color:#CCCCCC; -->
-		<!-- border-width:1px; -->
-	}
-
-	#riga01dx {
-		width: 50%; 
-		height: 60%; 
-		float: right;  
-		border-style:none;
-		<!-- border-color:#CCCCCC; -->
-		<!-- border-width:1px; -->
-	}
-
-	#riga02sx {
-		width: 50%; 
-		height: 40%; 
-		float: left;  
-		border-style:none;
-		<!-- border-color:#CCCCCC; -->
-		<!-- border-width:1px; -->
-	}
-
-	#riga02dx {
-		width: 50%; 
-		height: 40%; 
-		float: right;  
-		border-style:none;
-		<!-- border-color:#CCCCCC; -->
-		<!-- border-width:1px; -->
-	}
-
-</style>
-    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PyScript Terminal</title>
+    <!-- Include PyScript -->
+    <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
+    <script defer src="https://pyscript.net/latest/pyscript.js"></script>
 </head>
-
 <body>
+    <h1>PyScript Terminal</h1>
+    <textarea id="code-area" rows="10" cols="50">print("Hello, PyScript!")</textarea><br>
+    <button id="run-button">Run Code</button>
+    <div id="output"></div>
 
-	<py-config>
-		packages = ["sqlite3" ]
-    </py-config>
+    <py-script>
+        from js import document
+        from pyodide.ffi import create_proxy
 
-	<div class="tab">
-	  	<button id="tab_Python" class="tabSingolo" onclick="gestioneSchede( 'Python' )">- Python -</button>
-	  	<button id="tab_CSharp" class="tabSingolo" onclick="gestioneSchede( 'CSharp' )">- C# -</button>
-	  	<button id="tab_Javascript"  class="tabSingolo" onclick="gestioneSchede( 'Javascript' )">- Javascript -</button>
-	</div>
-	
-	<div id="schedaPython" class = "griglia" >
-	
-		<div id="riga01sx" >
-
-			<textarea id="codeArea">Write some Python code ...</textarea>
-			
-			<button id="executePy" style="position: relative; left: 50%; transform: translateX(-50%);" >
-				* Execute code *
-			</button>
-
-		</div>
-
-		<div id="riga01dx" >
-			
-			<textarea id="printResult">QQQ</textarea>
-
-			<!-- 
-
-			<script type="py" terminal>
-				print("...")
-			</script> 
-
-			<script id="terminal" type="mpy" terminal>
-				import code
-				code.interact()
-			</script>
-			-->
-			
-		</div>
-
-		<div id="riga02sx" >
-		</div>
-
-		<div id="riga02dx" >
-		</div>
-		    
-	</div>
-	
-	<div id="schedaCSharp">
-	
-	
-	</div>
-	
-	<div id="schedaJavascript">
-	
-	
-	</div>
-
-	<!-- <script type="py" terminal>print("hello world")</script> -->
-
+        def run_code(event):
+            code_area = document.getElementById("code-area")
+            output_div = document.getElementById("output")
+            try:
+                exec(code_area.value)
+            except Exception as e:
+                output_div.innerHTML = f"Error: {str(e)}"
+        
+        run_code_proxy = create_proxy(run_code)
+        run_button = document.getElementById("run-button")
+        run_button.addEventListener("click", run_code_proxy)
+    </py-script>
 </body>
-
 </html>
