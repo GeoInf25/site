@@ -40,103 +40,13 @@
           margin: 0px;
     }
 
-	.schedaPython {
-	}
-
-	.SX {
-		width: 50%; 
-		height: 100%; 
-		float: left;
-	}
-
-	.DX {
-		width: 50%; 
-		height: 100%; 
-		float: right;
-	}
-
-	.quad {
-		width: 100%; 
-		height: 50%; 
-		border-style:solid;
-		<!-- border-color:#CCCCCC; -->
-		border-width:1px;
-	}
-
-	.tab {
-		overflow: hidden;
-	}
-
-	.tabSingolo {
-		font-size: 30px; 
-		border: none;
-	}
-
-	textarea {
-  		width: 100%;
-  		height: 100%;
-	}
-
 </style>
     
 </head>
 
 <body>
 
-	<div class="tab">
-	  	<button id="tab_Python" class="tabSingolo" onclick="gestioneSchede( 'Python' )">-PYTHON</button>
-	  	<button id="tab_CSharp" class="tabSingolo" onclick="gestioneSchede( 'CSharp' )">-C#</button>
-	  	<button id="tab_Javascript"  class="tabSingolo" onclick="gestioneSchede( 'Javascript' )">-JAVASCRIPT</button>
-	</div>
-
-    <py-config>
-         packages = ["sqlite3" ]
-    </py-config>
-
-	<div id="schedaPython">
-		<div id="SX" class = "SX" >
-		    <div id="quad01" class = "quad" >
-		         <textarea id="code-area">Python Code</textarea>
-		    </div>
-
-			<div id="quad03" class = "quad" >
-		        
-		    </div>
-		    
-		</div>
-	
-		<div id="DX" class = "DX" >
-		    <div id="quad02" class = "quad" >
-		        <script type="py" terminal>
-					print("hello world")
-				</script> 
-
-				<!-- 
-		        <script id="terminal" type="mpy" terminal>
-        			import code
-        			code.interact()
-    			</script>
-				-->
-				
-		    </div>
-		
-		    <div id="quad04" class = "quad" >
-		        <py-script>
-		        	print( str( 8*3 ) )
-		        </py-script>
-		    </div>
-		</div>
-	</div>
-
-	<div id="schedaCSharp">
-
-	</div>
-
-	<div id="schedaJavascript">
-
-	</div>
-
-    <!-- <script type="py" terminal>print("hello world")</script> -->
+	HELLO
 
 </body>
 
