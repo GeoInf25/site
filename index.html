@@ -78,16 +78,13 @@
 		height: 10%;
 	}
 	
-	.row01 {
-		width: 100%; 
-		height: 50%; 
+	.griglia {
+		display: grid;
+  		grid-template-columns: auto auto;
+  		grid-template-rows: auto auto;
 	}
 
-	.row02 {
-		width: 100%; 
-		height: 50%; 
-	}
-
+	<!--
 	.quad {
 		width: 50%; 
 		height: 100%; 
@@ -95,6 +92,7 @@
 		<!-- border-color:#CCCCCC; -->
 		<!-- border-width:1px; -->
 	}
+	--> 
 
 </style>
     
@@ -106,74 +104,48 @@
 		packages = ["sqlite3" ]
     </py-config>
 
-	<py-script>
-		from js import document
-		from pyodide.ffi import create_proxy
-
-		def runCode(event):
-			codeArea = document.getElementById("codeArea")
-			printResult = document.getElementById("printResult")
-		try:
-			printResult.innerHTML = exec(codeArea.value)
-		except Exception as e:
-			printResult.innerHTML = f"Error: {str(e)}"
-
-		runCodeProxy = create_proxy(runCode)
-		runButton = document.getElementById("executePy")
-		runButton.addEventListener("click", runCodeProxy)
-
-	</py-script>
-
 	<div class="tab">
 	  	<button id="tab_Python" class="tabSingolo" onclick="gestioneSchede( 'Python' )">- Python -</button>
 	  	<button id="tab_CSharp" class="tabSingolo" onclick="gestioneSchede( 'CSharp' )">- C# -</button>
 	  	<button id="tab_Javascript"  class="tabSingolo" onclick="gestioneSchede( 'Javascript' )">- Javascript -</button>
 	</div>
 	
-	<div id="schedaPython">
+	<div id="schedaPython" class = "griglia" >
 	
-		<div id="row01" class = "row01" >
-			<div id="quad01" class = "quad" >
+		<div id="quad01" >
 
-				<textarea id="codeArea">Write some Python code ...</textarea>
-				
-				<button id="executePy" style="position: relative; left: 50%; transform: translateX(-50%);" >
-					*** Execute code ***
-				</button>
-
-			</div>
-
-			<div id="quad02" class = "quad" >
-		        
-				<textarea id="printResult"></textarea>
-
-				<!-- 
-
-				<script type="py" terminal>
-					print("...")
-				</script> 
-
-		        <script id="terminal" type="mpy" terminal>
-        			import code
-        			code.interact()
-    			</script>
-				-->
-				
-		    </div>
-		    
-		</div>
-	
-		<div id="row02" class = "row02" >
+			<textarea id="codeArea">Write some Python code ...</textarea>
 			
-			<div id="quad03" class = "quad" >
-		        
-		    </div>
-		
-		    <div id="quad04" class = "quad" >
-		        
-		    </div>
+			<button id="executePy" style="position: relative; left: 50%; transform: translateX(-50%);" >
+				*** Execute code ***
+			</button>
+
 		</div>
-	
+
+		<div id="quad02" >
+			
+			<textarea id="printResult"></textarea>
+
+			<!-- 
+
+			<script type="py" terminal>
+				print("...")
+			</script> 
+
+			<script id="terminal" type="mpy" terminal>
+				import code
+				code.interact()
+			</script>
+			-->
+			
+		</div>
+
+		<div id="quad03" >
+		</div>
+
+		<div id="quad04" >
+		</div>
+		    
 	</div>
 	
 	<div id="schedaCSharp">
@@ -188,11 +160,6 @@
 
 	<!-- <script type="py" terminal>print("hello world")</script> -->
 
-	
-
 </body>
-
-
-
 
 </html>
