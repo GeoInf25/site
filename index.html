@@ -79,6 +79,17 @@
 	<p>Show the result of your code ... </p>
 	<textarea id="txt_output" ></textarea>
 
+	<script>
+		tempStr = "" +
+			"#(Python Code) " + "\n" + 
+			"import math as m " + "\n" + 
+			"a = m.cos( 1 ) " + "\n" +
+			"b = 22 " + "\n" +
+			"c = b ** 2 ";
+
+		document.getElementById("txt_code").innerHTML = tempStr;
+	</script> 
+
 	<py-script>
 		#from js import document 
 		#from pyodide.ffi import create_proxy
@@ -100,20 +111,10 @@
 		function_proxy02 = create_proxy(runPython)
 		document.getElementById("btn_executePy").addEventListener("click", function_proxy02)
 
+		#Test iniziale all'apertura della Pagina Web
 		document.getElementById("btn_executePy").click();  
 
 	</py-script>
-
-	<script>
-	tempStr = "" +
-		"#(Python Code) " + "\n" + 
-		"import math as m " + "\n" + 
-		"a = m.cos( 1 ) " + "\n" +
-		"b = 22 " + "\n" +
-		"c = b ** 2 ";
-
-	document.getElementById("txt_code").innerHTML = tempStr;
-	</script> 
 
 	<hr>
 
