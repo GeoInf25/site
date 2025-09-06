@@ -103,13 +103,13 @@
 	</py-script>
 
 	<script>
-	tempStr = " \
-		#(Python Code) \
-		import math as m \
-		a = m.cos( 1 ) \
-		b = 22 \
-		c = b ** 2 \
-	"
+	tempStr = "" +
+		"#(Python Code) " + "\n" + 
+		"import math as m " + "\n" + 
+		"a = m.cos( 1 ) " + "\n" +
+		"b = 22 " + "\n" +
+		"c = b ** 2 ";
+
 	document.getElementById("txt_code").innerHTML = tempStr;
 	document.getElementById("btn_executePy").click();
 	</script> 
