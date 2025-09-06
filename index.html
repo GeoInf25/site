@@ -73,18 +73,18 @@
 
 	<p>Write some Python code ... </p>
 	<textarea id="txt_code" >
-
+	#(Python Code)
 	import math as m 
 	a = m.cos( 1 )
 	b = 22
 	c = b ** 2 
-	
+
 	</textarea>
 
 	<button id="btn_executePy" >Execute Python Code</button>
 
 	<p>Show the result of your code ... </p>
-	<textarea id="txt_output" >(Result)</textarea>
+	<textarea id="txt_output" ></textarea>
 
 	<py-script>
 		#from js import document 
@@ -108,6 +108,8 @@
 		document.getElementById("btn_executePy").addEventListener("click", function_proxy02)
 
 	</py-script>
+
+	document.getElementById("btn_executePy").click(); 
 
 	<hr>
 
