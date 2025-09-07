@@ -168,7 +168,8 @@
 	<textarea id="txt_outputFibonacci" ></textarea>
 	<script>
 		function calculateFibonacci( ) {
-			arrFib = [ ];   
+			arrFib = [ ];
+			strFib = "";    
 			for( var i = 2; i <= 20; i++ ) {
 				if( i == 2 ) {
 					arrFib.push( 0 ); 
@@ -178,7 +179,12 @@
 				arrFib.push( arrFib[ i - 2 ] + arrFib[ i - 1 ] ); 
 
 			}
-			document.getElementById( "txt_outputFibonacci" ).innerHTML = arrFib;
+
+			for( var i = 0; i < arrFib.length; i++ ) {
+				strFib = "pos. " + (i <= 9 ? "0" : "" ) + i + " :: " + arrFib[ i ];
+			}
+
+			document.getElementById( "txt_outputFibonacci" ).innerHTML = strFib;
 			document.getElementById( "txt_outputFibonacci" ).readOnly = true;
 
 		}
