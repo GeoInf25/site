@@ -151,8 +151,7 @@
 	<textarea id="txt_outputFibonacci" ></textarea>
 	<script>
 		function calculateFibonacci( ) {
-			arrFib = [ ]; 
-			tempRes = null;  
+			arrFib = [ ];   
 			for( var i = 2; i <= 100; i++ ) {
 				if( i == 2 ) {
 					arrFib.push( 0 ); 
@@ -162,7 +161,11 @@
 				}
 
 			}
+			document.getElementById( "txt_outputFibonacci" ).innerHTML = arrFib;
+
 		}
+
+		calculateFibonacci();
 
 	</script>
 
