@@ -110,12 +110,12 @@
 	</script> 
 
 	<py-script>
-		#from js import document 
-		#from pyodide.ffi import create_proxy
+		from js import console, document
+    	from pyodide.ffi.wrappers import add_event_listener
 
 		elencoVar = {} #dictionary
 
-		def runPython( event ):
+		def runPython( *args ):
 			try:
 				code = document.getElementById("txt_code").value
 				output = document.getElementById("txt_output")
@@ -127,10 +127,11 @@
 			except Exception as e:
                 output.innerHTML = f"Error detected: {str(e)}"
 
-		document.getElementById("btn_executePy").addEventListener("click", create_proxy(runPython))
+		add_event_listener( document.getElementById("btn_executePy") , "click", runPython)
+		#.addEventListener("click", create_proxy(runPython))
 
 		#Test iniziale all'apertura della Pagina Web
-		#document.getElementById("btn_executePy").click();  
+		document.getElementById("btn_executePy").click();  
 
 	</py-script>
 
