@@ -39,10 +39,6 @@
 	resize: none;
   }
 
-  #txt_red, #txt_green, #txt_blue {
-	width: 100px;
-  }
-
 </style>
 
 </head>
@@ -169,11 +165,11 @@
 	<h1>PictureBox</h1>
 	Varia i tre Slider e cambia colore ... 
 	<div id="div_pictureBox"></div>
-	<p id="txt_red">Rosso:</p> <input type="range" min="0" max="255" id="sliderRed" value="0" oninput="changeColor();">
+	<pre style="white-space:pre">Rosso:&#9;<pre> <input type="range" min="0" max="255" id="sliderRed" value="0" oninput="changeColor();">
 	<br>
-	<p id="txt_green">Verde:</p> <input type="range" min="0" max="255" id="sliderGreen" value="0" oninput="changeColor();">
+	<pre style="white-space:pre">Verde:&#9;<pre> <input type="range" min="0" max="255" id="sliderGreen" value="0" oninput="changeColor();">
 	<br>
-	<p id="txt_blue">Blu:</p> <input type="range" min="0" max="255" id="sliderBlue" value="0" oninput="changeColor();">
+	<pre style="white-space:pre">Blu:&#9;<pre> <input type="range" min="0" max="255" id="sliderBlue" value="0" oninput="changeColor();">
 
 	<script>
 		function changeColor() {
