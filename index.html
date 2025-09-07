@@ -37,7 +37,6 @@
 	width: 100%; 
 	height: 10%; 
 	resize: none;
-	readOnly: true; 
   }
 
 </style>
@@ -56,7 +55,7 @@
 <div id="schedaPython" >
 
 	<br>
-	Alcune Applicazioni sviluppate in Python, C#, Javascript tramite GitHub Desktop e Visual Studio Code, ed altri Link eventualmente utili.
+	Alcune Applicazioni sviluppate in Python tramite GitHub Desktop e Visual Studio Code.
 	<br>
 	<br>
 	<b>
@@ -142,9 +141,19 @@
 
 <div id="schedaCSharp" >
 
+	<br>
+	Alcune Applicazioni sviluppate in C# tramite GitHub Desktop e Visual Studio Code.
+	<br>
+	<br>
+
 </div>
 
 <div id="schedaJavascript" >
+
+	<br>
+	Alcune Applicazioni sviluppate in Javascript tramite GitHub Desktop e Visual Studio Code.
+	<br>
+	<br>
 
 	<h1>Fibonacci sequence</h1>
 	Elenco dei valori della serie ...  
@@ -156,12 +165,13 @@
 				if( i == 2 ) {
 					arrFib.push( 0 ); 
 					arrFib.push( 1 );
-				} else {
-					arrFib.push( arrFib[ i - 2 ] + arrFib[ i - 1 ] ); 
 				}
+
+				arrFib.push( arrFib[ i - 2 ] + arrFib[ i - 1 ] ); 
 
 			}
 			document.getElementById( "txt_outputFibonacci" ).innerHTML = arrFib;
+			document.getElementById( "txt_outputFibonacci" ).readOnly = true;
 
 		}
 
