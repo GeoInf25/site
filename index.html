@@ -110,13 +110,14 @@
 	</script> 
 
 	<py-script>
-		#from js import document 
+		#from js import document, alert 
 		#from pyodide.ffi import create_proxy
 
 		elencoVar = {} #dictionary
 
 		def runPython( event ):
 			try:
+				alert( "Click" )
 				code = document.getElementById("txt_code").value
 				output = document.getElementById("txt_output")
 				output.innerHTML = "Show global variables / objects: \n"
