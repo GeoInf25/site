@@ -139,12 +139,29 @@
 
 <div id="schedaJavascript" >
 
+	<h1>Fibonacci sequence</h1>
+	<textarea id="txt_outputFibonacci" ></textarea>
+	<script>
+		function calculateFibonacci( numbFrom, numbTo ) {
+			arr_Fib = [ ]; 
+			tempRes = null;  
+			for( var i = 0; i <= numbTo; i++ ) {
+				if( i == 0 ) {
+					
+				}
+			}
+		}
+
+	</script>
+
+	<hr>
+
 	<h1>PictureBox</h1>
 	Varia i tre Slider e cambia colore ... 
 	<div id="div_pictureBox"></div>
-	<input type="range" min="0" max="255" id="sliderRed" value="0" oninput="changeColor();">
-	<input type="range" min="0" max="255" id="sliderGreen" value="0" oninput="changeColor();">
-	<input type="range" min="0" max="255" id="sliderBlue" value="0" oninput="changeColor();">
+	Rosso: <input type="range" min="0" max="255" id="sliderRed" value="0" oninput="changeColor();">
+	Verde: <input type="range" min="0" max="255" id="sliderGreen" value="0" oninput="changeColor();">
+	Blu: <input type="range" min="0" max="255" id="sliderBlue" value="0" oninput="changeColor();">
 	<script>
 		function changeColor() {
 			valueRed = document.getElementById( "sliderRed" ).value;
@@ -177,7 +194,7 @@
 		<li> <a href="https://skilldrick.github.io/easy6502/">Skilldrick 6502</a> (Assembly Microprocessore 6502) </li>
 		<li> <a href="https://profzanghi.weebly.com/">Prof. Zanghi</a> (Appunti ambito Geometra) </li>
 		<li> <a href="https://www.spyder-ide.org/">Spyder IDE</a> (IDE Python) </li>
-		<li> <a href="https://remix-project.org/?lang=it">Remix IDE</a> (IDE Solidity) </li>
+		<li> <a href="https://remix-project.org/?lang=it">Remix IDE</a> (IDE Solidity / Blockchain) </li>
 	</ul>
 
 </div>
