@@ -110,14 +110,13 @@
 	</script> 
 
 	<py-script>
-		#from js import document, alert 
+		#from js import document 
 		#from pyodide.ffi import create_proxy
 
 		elencoVar = {} #dictionary
 
 		def runPython( event ):
 			try:
-				alert( "Click" )
 				code = document.getElementById("txt_code").value
 				output = document.getElementById("txt_output")
 				output.innerHTML = "Show global variables / objects: \n"
@@ -128,11 +127,10 @@
 			except Exception as e:
                 output.innerHTML = f"Error detected: {str(e)}"
 
-		function_proxy02 = create_proxy(runPython)
-		document.getElementById("btn_executePy").addEventListener("click", function_proxy02)
+		document.getElementById("btn_executePy").addEventListener("click", create_proxy(runPython))
 
 		#Test iniziale all'apertura della Pagina Web
-		document.getElementById("btn_executePy").click();  
+		#document.getElementById("btn_executePy").click();  
 
 	</py-script>
 
