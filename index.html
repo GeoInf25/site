@@ -106,6 +106,7 @@
 
 		document.getElementById("txt_code").innerHTML = tempStr;
 		document.getElementById("txt_output").innerHTML = "Attendi ... ";
+		document.getElementById("txt_output").readOnly = true;
 
 	</script> 
 
@@ -128,7 +129,6 @@
                 output.innerHTML = f"Error detected: {str(e)}"
 
 		add_event_listener( document.getElementById("btn_executePy") , "click", runPython)
-		#.addEventListener("click", create_proxy(runPython))
 
 		#Test iniziale all'apertura della Pagina Web
 		document.getElementById("btn_executePy").click();  
