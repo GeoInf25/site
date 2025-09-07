@@ -37,6 +37,7 @@
 	width: 100%; 
 	height: 10%; 
 	resize: none;
+	readOnly: true; 
   }
 
 </style>
@@ -146,16 +147,20 @@
 <div id="schedaJavascript" >
 
 	<h1>Fibonacci sequence</h1>
-	Calcola la serie partendo da 
+	Elenco dei valori della serie ...  
 	<textarea id="txt_outputFibonacci" ></textarea>
 	<script>
-		function calculateFibonacci( numbFrom, numbTo ) {
-			arr_Fib = [ ]; 
+		function calculateFibonacci( ) {
+			arrFib = [ ]; 
 			tempRes = null;  
-			for( var i = 0; i <= numbTo; i++ ) {
-				if( i == 0 ) {
-					
+			for( var i = 2; i <= 100; i++ ) {
+				if( i == 2 ) {
+					arrFib.push( 0 ); 
+					arrFib.push( 1 );
+				} else {
+					arrFib.push( arrFib[ i - 2 ] + arrFib[ i - 1 ] ); 
 				}
+
 			}
 		}
 
