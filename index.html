@@ -54,7 +54,7 @@
 		<button id="tab_schedaPython" onclick="gestioneSchede( 'Python' )">- Python -</button>
 		<button id="tab_schedaCSharp" onclick="gestioneSchede( 'CSharp' )">- CSharp -</button>
 		<button id="tab_schedaJavascript" onclick="gestioneSchede( 'Javascript' )">- Javascript -</button>
-		<button id="tab_schedaJavascript" onclick="gestioneSchede( 'otherLinks' )">- other Links -</button>
+		<button id="tab_schedaJavascript" onclick="gestioneSchede( 'otherLinks' )">- altri Links -</button>
 	</div>
 
 <div id="schedaPython" >
@@ -107,7 +107,10 @@
 			"z = foo()" + "\n" +
 			"a = m.cos( 1 ) " + "\n" +
 			"b = 22 " + "\n" +
-			"c = b ** 2 ";
+			"c = b ** 2 "; + "\n" +
+			"for n in range( 0 , 3 ): "; + "\n" +
+			"	print( 'Hello n.' + str( n ) )"; + "\n" +
+			""
 
 		document.getElementById("txt_code").innerHTML = tempStr;
 		document.getElementById("txt_output").innerHTML = "Attendi ... ";
