@@ -39,6 +39,11 @@
 	resize: none;
   }
 
+  #descrApp001CSharp {
+  	text-align: justify;
+  	text-justify: inter-word;
+  }
+
 </style>
 
 </head>
@@ -152,7 +157,7 @@
 	<br>
 	<b>APP001:</b>
 	<br>
-	<p>
+	<p id="descrApp001CSharp" >
 	Dopo aver creato un WinForm .NET project (in C#) ed aver preparato la relativa WebView2 oltre al componente ReoGrid - .NET Spreadsheet (anche mediante l'utilizzo del relativo pacchetto NuGet), l'Applicazione in questione utilizza una pagina HTML mediante la quale richiamare le funzioni ed i Marker della Libreria Leaflet (Javascript). Le coordinate di inserimento dei Marker saranno poi elencate nel foglio disposto a lato dell'Applicazione. In questo contesto la comunicazione tra C# e Javascript viene assicurata tramite l'istruzione webView21.ExecuteScriptAsync e dalle istruzioni chrome.webview.postMessage. La gestione degli handlers / eventi è definita partendo dall'evento WinForm Load, attraverso espressioni come webView21.NavigationCompleted += (,_ args) => {...}. Link alle immagini di esempio:
 	</p>
 	<li> <a href="https://github.com/GeoInf25/site/blob/27659e61c8a2f617220bd6c2e029d42985bd15b9/CSharp/App001/Image/Image01.png">Immagine01</a> </li>
@@ -174,7 +179,7 @@
 	<br>
 
 	<h1>Fibonacci sequence</h1>
-	Elenco dei valori della serie ...  
+	Elenco dei primi 20 valori della serie ...  
 	<textarea id="txt_outputFibonacci" ></textarea>
 	<script>
 		function calculateFibonacci( ) {
@@ -245,8 +250,9 @@
 
 <div id="schedaOtherLinks" >
 	<br> <!-- <p></p> -->
-	Alcuni Link utili relativi al mondo dell'Informatica ed al mondo CAT (Costruzioni-Ambiente-Territorio):  
+	Alcuni Link utili relativi al mondo dell'Informatica / Elettronica e del mondo CAT (Costruzioni-Ambiente-Territorio):  
 	<ul>
+		<li> <a href="http://150.146.207.184:8080/chargefinder/WebContent/file_view.html">ChargeFinder LabGeoInf</a> (Applicazione in ambito GIS) </li>
 		<li> <a href="https://www.w3schools.com/">W3Schools</a> (Linguaggi di programmazione) </li>
 		<li> <a href="https://www.edutecnica.it/">EduTecnica</a> (Appunti ambito meccanico / elettronico / informatico) </li>
 		<li> <a href="https://www.circuitlab.com/">CircuitLab</a> (Simulazione circuiti elettrici) </li>
