@@ -132,8 +132,9 @@
 	<textarea id="txt_code" ></textarea>
 
 	<button id="btn_executePy" >Esegui il Codice Python</button>
+	<button id="btn_clearPy" >Elimina le variabili</button>
 
-	<p>Mostra i risultati del tuo Codice ... </p>
+	<p>Mostra le variabili dichiarate o stampa a video i relativi valori all'interno della Console ... </p>
 	<textarea id="txt_output" ></textarea>
 
 	<script>
@@ -179,6 +180,8 @@
 		from js import console, document
 		from pyodide.ffi.wrappers import add_event_listener
 
+		import sys
+
 		elencoVar = {} #dictionary
 
 		def runPython( *args ):
@@ -193,7 +196,16 @@
 			except Exception as e:
                 output.innerHTML = f"Error detected: {str(e)}"
 
+		def clearPython( *args ):
+			try:
+				sys.modules[__name__].__dict__[ "elencoVar" ].clear()
+
+			except Exception as e:
+                output.innerHTML = f"Error detected: {str(e)}"
+
 		add_event_listener( document.getElementById("btn_executePy") , "click", runPython)
+
+		add_event_listener( document.getElementById("btn_clearPy") , "click", clearPython)
 
 		#Test iniziale all'apertura della Pagina Web
 		document.getElementById("btn_executePy").click();  
