@@ -4,7 +4,7 @@ function gestioneSchede( scheda ) {
 	var schedaPython = document.getElementById( "schedaPython" ); 
 	var schedaCSharp = document.getElementById( "schedaCSharp" ); 
 	var schedaJavascript = document.getElementById( "schedaJavascript" ); 
-	var schedaOtherLinks = document.getElementById( "schedaOtherLinks" );
+	var schedaOtherLinks = document.getElementById( "schedaAltriLinks" );
 	
 	if( scheda == "Python" ) {
 		schedaPython.style.display = "block"; 
@@ -36,7 +36,7 @@ function gestioneSchede( scheda ) {
 		schedaOtherLinks.style.display = "none"; 
 		schedaOtherLinks.style.visibility = "hidden"; 
 
-	} else if( scheda == "otherLinks" ) {
+	} else if( scheda == "altriLinks" ) {
 		schedaPython.style.display = "none"; 
 		schedaPython.style.visibility = "hidden";
 		schedaCSharp.style.display = "none"; 
