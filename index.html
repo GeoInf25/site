@@ -44,6 +44,14 @@
   	text-justify: inter-word;
   }
 
+  .btn {
+	border: 2px solid black;
+  	background-color: white;
+  	color: black;
+  	padding: 14px 28px;
+  	font-size: 16px;
+  }
+
 </style>
 
 </head>
@@ -51,10 +59,10 @@
 <body>
 
 	<div class="tab">
-		<button id="tab_schedaPython" onclick="gestioneSchede( 'Python' )">- Python -</button>
-		<button id="tab_schedaCSharp" onclick="gestioneSchede( 'CSharp' )">- CSharp -</button>
-		<button id="tab_schedaJavascript" onclick="gestioneSchede( 'Javascript' )">- Javascript -</button>
-		<button id="tab_schedaJavascript" onclick="gestioneSchede( 'otherLinks' )">- altri Links -</button>
+		<button id="tab_schedaPython" class="btn tabPython" onclick="gestioneSchede( 'Python' )">- Python -</button>
+		<button id="tab_schedaCSharp" class="btn tabCSharp" onclick="gestioneSchede( 'CSharp' )">- CSharp -</button>
+		<button id="tab_schedaJavascript" class="btn tabJavascript" onclick="gestioneSchede( 'Javascript' )">- Javascript -</button>
+		<button id="tab_schedaAltriLinks" class="btn tabAltriLinks" onclick="gestioneSchede( 'altriLinks' )">- altri Links -</button>
 	</div>
 
 <div id="schedaPython" >
@@ -87,7 +95,7 @@
 
 	<h1>PyScript Terminal</h1>
 
-	<p>Scrivi Codice Python ed eseguilo tramite <a href "https://pyscript.net/"></a> </p>
+	<p>Scrivi Codice Python ed eseguilo tramite <a href "https://pyscript.net/">PyScript</a> </p>
 	<textarea id="txt_code" ></textarea>
 
 	<button id="btn_executePy" >Esegui il Codice Python</button>
@@ -251,11 +259,12 @@
 
 </div>
 
-<div id="schedaOtherLinks" >
+<div id="schedaAltriLinks" >
 	<br> <!-- <p></p> -->
 	Alcuni Link utili relativi al mondo dell'Informatica / Elettronica e del mondo CAT (Costruzioni-Ambiente-Territorio):  
 	<ul>
 		<li> <a href="http://150.146.207.184:8080/chargefinder/WebContent/file_view.html">ChargeFinder LabGeoInf</a> (Applicazione in ambito GIS) </li>
+		<br>
 		<li> <a href="https://www.w3schools.com/">W3Schools</a> (Linguaggi di programmazione) </li>
 		<li> <a href="https://www.edutecnica.it/">EduTecnica</a> (Appunti ambito meccanico / elettronico / informatico) </li>
 		<li> <a href="https://www.circuitlab.com/">CircuitLab</a> (Simulazione circuiti elettrici) </li>
