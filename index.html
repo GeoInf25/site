@@ -254,6 +254,9 @@
 		<tr>
 			<td>Blu: </td> <td><input type="range" min="0" max="255" id="sliderBlue" value="0" oninput="changeColor();"></td>
 		</tr>
+		<tr>
+			<td>Alpha (trasparenza): </td> <td><input type="range" min="0" max="255" id="sliderAlpha" value="0" oninput="changeColor();"></td>
+		</tr>
 
 	</table>
 
@@ -262,8 +265,9 @@
 			valueRed = document.getElementById( "sliderRed" ).value;
 			valueGreen = document.getElementById( "sliderGreen" ).value;
 			valueBlue = document.getElementById( "sliderBlue" ).value;
-			document.getElementById("div_pictureBox").style.backgroundColor = 'rgb(' + valueRed + ',' + valueGreen + ',' + valueBlue + ')';
-			document.getElementById("txt_valueColor").value = 'rgb(' + valueRed + ',' + valueGreen + ',' + valueBlue + ')'
+			valueAlpha = document.getElementById( "sliderAlpha" ).value;
+			document.getElementById("div_pictureBox").style.backgroundColor = 'rgba(' + valueRed + ',' + valueGreen + ',' + valueBlue + ',' + valueAlpha + ')';
+			document.getElementById("txt_valueColor").value = 'rgba(' + valueRed + ',' + valueGreen + ',' + valueBlue + ',' + valueAlpha + ')'
 		}
 
 	</script>
