@@ -199,6 +199,7 @@
 		def clearPython( *args ):
 			try:
 				sys.modules[__name__].__dict__[ "elencoVar" ].clear()
+				output = document.getElementById("txt_output")
 				output.innerHTML = "Show global variables / objects: \n"
 
 			except Exception as e:
