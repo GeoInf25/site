@@ -4,7 +4,7 @@ function gestioneSchede( scheda ) {
 	var schedaPython = document.getElementById( "schedaPython" ); 
 	var schedaCSharp = document.getElementById( "schedaCSharp" ); 
 	var schedaJavascript = document.getElementById( "schedaJavascript" ); 
-	var schedaOtherLinks = document.getElementById( "schedaAltriLinks" );
+	var schedaOtherLinks = document.getElementById( "schedaAltriLinks" ); 
 	
 	if( scheda == "Python" ) {
 		schedaPython.style.display = "block"; 
