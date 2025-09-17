@@ -15,62 +15,70 @@
 	></script>
 
 <style>
-  #txt_code{
-	width: 100%; 
-	height: 30%; 
-	resize: none;
-  }
+	#txt_code{
+		width: 100%; 
+		height: 30%; 
+		resize: none;
+  	}
 
-  #txt_output {
-	width: 100%; 
-	height: 20%; 
-	resize: none;
-  }
+  	#txt_output {
+		width: 100%; 
+		height: 20%; 
+		resize: none;
+  	}
 
-  #div_pictureBox {
-	width : 20%;
-	height: 20%;
-	background-color: white;
-  }
+  	#div_pictureBox {
+		width : 20%;
+		height: 20%;
+		background-color: white;
+  	}
 
-  #txt_outputFibonacci {
-	width: 100%; 
-	height: 20%; 
-	resize: none;
-  }
+  	#txt_outputFibonacci {
+		width: 100%; 
+		height: 20%; 
+		resize: none;
+  	}
 
-  #descrApp001CSharp {
-  	text-align: justify;
-  	text-justify: inter-word;
-  }
+  	#descrApp001CSharp {
+  		text-align: justify;
+  		text-justify: inter-word;
+  	}
 
-  .btn {
-	border: 2px solid black;
-  	background-color: white;
-  	color: black;
-  	padding: 7px 14px;
-  	font-size: 14px;
-  }
+  	.btn {
+		border: 2px solid black;
+		background-color: white;
+		color: black;
+		padding: 7px 14px;
+		font-size: 14px;
+  	}
 
-  .tabPython {
-	border-color: green;
-  	color: green;
-  }
+  	.tabPython {
+		border-color: green;
+  		color: green;
+  	}
 
-  .tabCSharp {
-	border-color: dodgerblue;
-  	color: dodgerblue;
-  }
+  	.tabCSharp {
+		border-color: dodgerblue;
+		color: dodgerblue;
+  	}
 
-  .tabJavascript {
-	border-color: darkorange;
-  	color: darkorange;
-  }
+  	.tabJavascript {
+		border-color: darkorange;
+		color: darkorange;
+  	}
 
-  .tabAltriLinks {
-	border-color: red;
-  	color: red;
-  }
+  	.tabAltriLinks {
+		border-color: red;
+		color: red;
+  	}
+
+  	img {
+		display: block;
+		max-width:500px;
+		max-height:333px;
+		width: auto;
+		height: auto;
+	}
 
 </style>
 
@@ -190,8 +198,8 @@
 	<p id="descrApp001CSharp" >
 	Dopo aver creato un WinForm .NET project (in C#) ed aver preparato la relativa WebView2 oltre al componente ReoGrid - .NET Spreadsheet (anche mediante l'utilizzo del relativo pacchetto NuGet), l'Applicazione in questione utilizza una pagina HTML mediante la quale richiamare le funzioni ed i Marker della Libreria Leaflet (Javascript). Le coordinate di inserimento dei Marker saranno poi elencate nel foglio disposto a lato dell'Applicazione. In questo contesto la comunicazione tra C# e Javascript viene assicurata tramite l'istruzione webView21.ExecuteScriptAsync e dalle istruzioni chrome.webview.postMessage. La gestione degli handlers / eventi è definita partendo dall'evento WinForm Load, attraverso espressioni come webView21.NavigationCompleted += (,_ args) => {...}. Link alle immagini di esempio:
 	</p>
-	<img src="./CSharp/App001/Image/Image01.png" alt="Image01" width="500" height="333">
-	<img src="./CSharp/App001/Image/Image02.png" alt="Image02" width="500" height="333">
+	<img src="./CSharp/App001/Image/Image01.png" alt="Image01" >
+	<img src="./CSharp/App001/Image/Image02.png" alt="Image02" >
 
 	<hr>
 
