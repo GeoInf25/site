@@ -205,7 +205,7 @@
 
 		def clearPython( *args ):
 			try:
-				print( sys.modules[__name__].__dict__ )
+				#print( sys.modules[__name__].__dict__ )
 				sys.modules[__name__].__dict__[ "elencoVar" ].clear()
 				output = document.getElementById("txt_output")
 				output.innerHTML = "Show global variables / objects: \n"
