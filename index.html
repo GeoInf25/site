@@ -205,6 +205,7 @@
 
 		def clearPython( *args ):
 			try:
+				print( sys.modules[__name__].__dict__ )
 				sys.modules[__name__].__dict__[ "elencoVar" ].clear()
 				output = document.getElementById("txt_output")
 				output.innerHTML = "Show global variables / objects: \n"
@@ -341,6 +342,7 @@
 		<b>
 			*** ATTENZIONE ***: i contenuti proposti nei Link che seguono appartengono ai rispettivi proprietari. 
 		</b>
+		<br>
 		<br>
 		<li> <a href="https://www.w3schools.com/">W3Schools</a> (Linguaggi di programmazione) </li>
 		<li> <a href="https://www.edutecnica.it/">EduTecnica</a> (Appunti ambito meccanico / elettronico / informatico) </li>
