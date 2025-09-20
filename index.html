@@ -363,7 +363,7 @@
 			}
 
 			for( var i = 0; i < arrFib.length; i++ ) {
-				strFib = strFib + "pos. " + (i <= 9 ? "0" : "" ) + i + " :: " + arrFib[ i ] + "\n";
+				strFib = strFib + "pos. " + (i <= 9 ? "0" : "" ) + i + " :: " + arrFib[ i ].toLocaleString() + "\n";
 			}
 
 			document.getElementById( "txt_outputFibonacci" ).innerHTML = strFib;
