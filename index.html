@@ -259,13 +259,26 @@
 	<br>
 
 	<h1>• Fibonacci sequence</h1>
-	Elenco dei primi 20 valori della serie ...  
+	Inserici un valore numerico <input type="text" id="txt_upperLimitFibonacci" value="(>=2)" > per calcolare i valori della serie: 
 	<textarea id="txt_outputFibonacci" ></textarea>
 	<script>
+
+		var upperLimitFibonacci = 20;
+
+		document.getElementById('txt_upperLimitFibonacci').addEventListener('onblur', function(e) { 
+			var tempUpperLimit = document.getElementById('txt_upperLimitFibonacci').value;
+			if( isNaN( tempUpperLimit ) || ( tempUpperLimit % 1 != 0 ) ) {
+				alert( "Inserisci un valore numerico intero." );
+			} else {
+				upperLimitFibonacci = int( tempUpperLimit ); 
+				calculateFibonacci( ); 
+			}
+		});  
+
 		function calculateFibonacci( ) {
 			arrFib = [ ];
 			strFib = "";    
-			for( var i = 2; i <= 19; i++ ) {
+			for( var i = 2; i <= upperLimitFibonacci; i++ ) {
 				if( i == 2 ) {
 					arrFib.push( 0 ); 
 					arrFib.push( 1 );
