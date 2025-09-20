@@ -259,22 +259,34 @@
 	<br>
 
 	<h1>• Fibonacci sequence</h1>
-	Inserici un valore numerico <input type="text" id="txt_upperLimitFibonacci" value="(>=2)" > per calcolare i valori della serie: 
+	Inserici un valore numerico ( >=2 && <=99 ) <input type="text" id="txt_upperLimitFibonacci" > per calcolare i valori della serie: 
 	<br>
 	<textarea id="txt_outputFibonacci" ></textarea>
 	<script>
 
 		var upperLimitFibonacci = 20;
-
+		
 		document.getElementById('txt_upperLimitFibonacci').addEventListener('blur', function(e) {
+			controlAndCalcFibonacci(); 
+		});
+
+		document.getElementById('txt_upperLimitFibonacci').addEventListener('keydown', function(e) {
+			if (e.key == "Enter" ) {
+				controlAndCalcFibonacci(); 
+			}
+		});
+
+		function controlAndCalcFibonacci() {
 			var tempUpperLimit = document.getElementById('txt_upperLimitFibonacci').value;
 			if( isNaN( tempUpperLimit ) || ( tempUpperLimit % 1 != 0 ) ) {
 				alert( "Inserisci un valore numerico intero." );
+			} else if( tempUpperLimit < 2 && tempUpperLimit > 99 ) {
+				alert( "Inserisci un valore numerico compreso fra 2 e 99." );
 			} else {
 				upperLimitFibonacci = parseInt( tempUpperLimit ); 
 				calculateFibonacci( ); 
 			}
-		});  
+		}
 
 		function calculateFibonacci( ) {
 			arrFib = [ ];
