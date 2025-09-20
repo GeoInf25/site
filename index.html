@@ -265,13 +265,9 @@
 	<script>
 
 		var upperLimitFibonacci = 20;
-		
-		document.getElementById('txt_upperLimitFibonacci').addEventListener('blur', function(e) {
-			controlAndCalcFibonacci(); 
-		});
 
 		document.getElementById('txt_upperLimitFibonacci').addEventListener('keydown', function(e) {
-			if (e.key == "Enter" ) {
+			if (e.key == 13 ) { //Invio
 				controlAndCalcFibonacci(); 
 			}
 		});
