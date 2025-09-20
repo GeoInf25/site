@@ -113,6 +113,18 @@
 	#div_pictureBox {
 		border:1px solid black;
 	}
+
+	#leafletMap {
+		float: left;
+		width: 100%; 
+		height: 50%; 
+	}
+
+	#controlliLeafletMap {
+		float: right;
+		width: 100%; 
+		height: 50%; 
+	}
 	
 
 </style>
@@ -398,6 +410,10 @@
 	<div id="appLeafletMap">
 		<div id="leafletMap">
 
+			<script>
+				var map = L.map('leafletMap').setView([51.505, -0.09], 13);
+
+			</script>
 
 		</div>
 
