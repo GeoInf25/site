@@ -265,7 +265,7 @@
 
 		var upperLimitFibonacci = 20;
 
-		document.getElementById('txt_upperLimitFibonacci').addEventListener('onblur', function(e) { 
+		document.getElementById('txt_upperLimitFibonacci').addEventListener('blur', function(e) {
 			var tempUpperLimit = document.getElementById('txt_upperLimitFibonacci').value;
 			if( isNaN( tempUpperLimit ) || ( tempUpperLimit % 1 != 0 ) ) {
 				alert( "Inserisci un valore numerico intero." );
