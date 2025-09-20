@@ -274,7 +274,7 @@
 
 		function controlAndCalcFibonacci() {
 			var tempUpperLimit = document.getElementById('txt_upperLimitFibonacci').value;
-			alert( tempUpperLimit );
+			alert( isNaN( tempUpperLimit ) );
 			if( isNaN( tempUpperLimit ) || ( tempUpperLimit % 1 != 0 ) ) {
 				alert( "Inserisci un valore numerico intero." );
 			} else if( tempUpperLimit < 2 && tempUpperLimit > 99 ) {
