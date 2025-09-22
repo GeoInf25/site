@@ -4,7 +4,7 @@ function gestioneSchede( scheda ) {
 	var schedaPython = document.getElementById( "schedaPython" ); 
 	var schedaCSharp = document.getElementById( "schedaCSharp" ); 
 	var schedaJavascript = document.getElementById( "schedaJavascript" ); 
-	var schedaMySQL = document.getElementById( "schedaDatabase" );
+	var schedaDatabase = document.getElementById( "schedaDatabase" );
 	var schedaOtherLinks = document.getElementById( "schedaAltriLinks" ); 
 	
 	if( scheda == "Python" ) {
@@ -14,8 +14,8 @@ function gestioneSchede( scheda ) {
 		schedaCSharp.style.visibility = "hidden"; 
 		schedaJavascript.style.display = "none"; 
 		schedaJavascript.style.visibility = "hidden"; 
-		schedaMySQL.style.display = "none"; 
-		schedaMySQL.style.visibility = "hidden"; 
+		schedaDatabase.style.display = "none"; 
+		schedaDatabase.style.visibility = "hidden"; 
 		schedaOtherLinks.style.display = "none"; 
 		schedaOtherLinks.style.visibility = "hidden"; 
 		
@@ -26,8 +26,8 @@ function gestioneSchede( scheda ) {
 		schedaCSharp.style.visibility = "visible"; 
 		schedaJavascript.style.display = "none"; 
 		schedaJavascript.style.visibility = "hidden"; 
-		schedaMySQL.style.display = "none"; 
-		schedaMySQL.style.visibility = "hidden"; 
+		schedaDatabase.style.display = "none"; 
+		schedaDatabase.style.visibility = "hidden"; 
 		schedaOtherLinks.style.display = "none"; 
 		schedaOtherLinks.style.visibility = "hidden"; 
 		
@@ -38,8 +38,8 @@ function gestioneSchede( scheda ) {
 		schedaCSharp.style.visibility = "hidden"; 
 		schedaJavascript.style.display = "block"; 
 		schedaJavascript.style.visibility = "visible";
-		schedaMySQL.style.display = "none"; 
-		schedaMySQL.style.visibility = "hidden";  
+		schedaDatabase.style.display = "none"; 
+		schedaDatabase.style.visibility = "hidden";  
 		schedaOtherLinks.style.display = "none"; 
 		schedaOtherLinks.style.visibility = "hidden"; 
 
@@ -50,8 +50,8 @@ function gestioneSchede( scheda ) {
 		schedaCSharp.style.visibility = "hidden"; 
 		schedaJavascript.style.display = "none"; 
 		schedaJavascript.style.visibility = "hidden"; 
-		schedaMySQL.style.display = "block"; 
-		schedaMySQL.style.visibility = "visible"; 
+		schedaDatabase.style.display = "block"; 
+		schedaDatabase.style.visibility = "visible"; 
 		schedaOtherLinks.style.display = "none"; 
 		schedaOtherLinks.style.visibility = "hidden"; 
 
@@ -62,8 +62,8 @@ function gestioneSchede( scheda ) {
 		schedaCSharp.style.visibility = "hidden"; 
 		schedaJavascript.style.display = "none"; 
 		schedaJavascript.style.visibility = "hidden"; 
-		schedaMySQL.style.display = "none"; 
-		schedaMySQL.style.visibility = "hidden"; 
+		schedaDatabase.style.display = "none"; 
+		schedaDatabase.style.visibility = "hidden"; 
 		schedaOtherLinks.style.display = "block"; 
 		schedaOtherLinks.style.visibility = "visible"; 
 	}
