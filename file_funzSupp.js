@@ -43,7 +43,7 @@ function gestioneSchede( scheda ) {
 		schedaOtherLinks.style.display = "none"; 
 		schedaOtherLinks.style.visibility = "hidden"; 
 
-	} else if( scheda == "MySQL" ) {
+	} else if( scheda == "Database" ) {
 		schedaPython.style.display = "none"; 
 		schedaPython.style.visibility = "hidden";
 		schedaCSharp.style.display = "none"; 
