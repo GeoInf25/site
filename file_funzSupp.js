@@ -18,7 +18,7 @@ function gestioneSchede( scheda ) {
 	]; 
 	
 	if( scheda == "Python" ) {
-		console.log( schede[0].name );  
+		console.log( schede[0].id );  
 		schedaPython.style.display = "block"; 
 		schedaPython.style.visibility = "visible";
 		schedaCSharp.style.display = "none"; 
