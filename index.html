@@ -486,7 +486,12 @@
 	<hr>
 
 	<h2>• Database SQLITE</h2>
+	
+	<script>
+		console.log( "AAA + " + schede.length );  
 
+	</script>
+		
 	<hr>
 
 
@@ -537,16 +542,21 @@
 
 <script>
 
-	schede = [ 
-		schedaPython = document.getElementById( "schedaPython" ),
-		schedaCSharp = document.getElementById( "schedaCSharp" ),
-		schedaJavascript = document.getElementById( "schedaJavascript" ), 
-		schedaDatabase = document.getElementById( "schedaDatabase" ),
-		schedaDisegni3D = document.getElementById( "schedaDisegni3D" ),
-		schedaAltriLinks = document.getElementById( "schedaAltriLinks" )
-	]; 
+	var schedaPython = document.getElementById( "schedaPython" );
+	var schedaCSharp = document.getElementById( "schedaCSharp" );
+	var schedaJavascript = document.getElementById( "schedaJavascript" );
+	var schedaDatabase = document.getElementById( "schedaDatabase" );
+	var schedaDisegni3D = document.getElementById( "schedaDisegni3D" );
+	var schedaAltriLinks = document.getElementById( "schedaAltriLinks" );
 
-	console.log( schede.length );  
+	schede = [ 
+		schedaPython,
+		schedaCSharp,
+		schedaJavascript, 
+		schedaDatabase,
+		schedaDisegni3D,
+		schedaAltriLinks
+	]; 
 
 	gestioneSchede( "schedaPython" );
 
