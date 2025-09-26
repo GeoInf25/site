@@ -238,103 +238,107 @@
 
 		</div>
 
+		<hr>
+
 	</div>
 
-	<hr>
+	<div id="blocco02">
 
-	<h2>• PyScript Terminal</h2>
+		<h2>• PyScript Terminal</h2>
 
-	<p>Scrivi Codice Python ed eseguilo tramite <a href="https://pyscript.net/">PyScript</a>, ovvero</p>
-	<textarea id="txt_code" ></textarea>
+		<p>Scrivi Codice Python ed eseguilo tramite <a href="https://pyscript.net/">PyScript</a>, ovvero</p>
+		<textarea id="txt_code" ></textarea>
 
-	<button id="btn_executePy" >Esegui il Codice Python</button>
-	<button id="btn_clearPy" >Elimina le variabili create</button>
+		<button id="btn_executePy" >Esegui il Codice Python</button>
+		<button id="btn_clearPy" >Elimina le variabili create</button>
 
-	<p>Mostra le variabili dichiarate o stampa a video i relativi valori all'interno della Console ... </p>
-	<textarea id="txt_output" ></textarea>
+		<p>Mostra le variabili dichiarate o stampa a video i relativi valori all'interno della Console ... </p>
+		<textarea id="txt_output" ></textarea>
 
-	<script>
-		tempStr = "" +
-			"#(Python Code) " + "\n" + 
-			"import math as m " + "\n" + 
-			"import numpy as np " + "\n" + 
-			"def foo():" + "\n" + 
-			"	global m" + "\n" +
-			"	z = m.sqrt( 4 )" + "\n" +
-			"	return z" + "\n" +  
-			"" + "\n" + 
-			"z = foo()" + "\n" +
-			"a = m.cos( 1 ) " + "\n" +
-			"b = 22 " + "\n" +
-			"c = b ** 2 " + "\n" +
-			"arr = np.array([1, 2, 3]) ** 2" + "\n" +
-			"print( 'Console: ' + str( arr ) ) " + "\n" +
-			"for n in range( 0 , 3 ): " + "\n" +
-			"	print( 'Hello in Console n.' + str( n ) )" + "\n" +
-			""  
+		<script>
+			tempStr = "" +
+				"#(Python Code) " + "\n" + 
+				"import math as m " + "\n" + 
+				"import numpy as np " + "\n" + 
+				"def foo():" + "\n" + 
+				"	global m" + "\n" +
+				"	z = m.sqrt( 4 )" + "\n" +
+				"	return z" + "\n" +  
+				"" + "\n" + 
+				"z = foo()" + "\n" +
+				"a = m.cos( 1 ) " + "\n" +
+				"b = 22 " + "\n" +
+				"c = b ** 2 " + "\n" +
+				"arr = np.array([1, 2, 3]) ** 2" + "\n" +
+				"print( 'Console: ' + str( arr ) ) " + "\n" +
+				"for n in range( 0 , 3 ): " + "\n" +
+				"	print( 'Hello in Console n.' + str( n ) )" + "\n" +
+				""  
 
-		document.getElementById("txt_code").innerHTML = tempStr;
-		document.getElementById("txt_output").innerHTML = "Attendi ... ";
-		document.getElementById("txt_output").readOnly = true;
+			document.getElementById("txt_code").innerHTML = tempStr;
+			document.getElementById("txt_output").innerHTML = "Attendi ... ";
+			document.getElementById("txt_output").readOnly = true;
 
-		document.getElementById('txt_code').addEventListener('keydown', function(e) {
-			if (e.key == 'Tab') {
-				e.preventDefault();
-				var start = this.selectionStart;
-				var end = this.selectionEnd;
+			document.getElementById('txt_code').addEventListener('keydown', function(e) {
+				if (e.key == 'Tab') {
+					e.preventDefault();
+					var start = this.selectionStart;
+					var end = this.selectionEnd;
 
-				// set textarea value to: text before caret + tab + text after caret
-				this.value = this.value.substring(0, start) +
-				"\t" + this.value.substring(end);
+					// set textarea value to: text before caret + tab + text after caret
+					this.value = this.value.substring(0, start) +
+					"\t" + this.value.substring(end);
 
-				// put caret at right position again
-				this.selectionStart =
-				this.selectionEnd = start + 1;
-			}
-		});
+					// put caret at right position again
+					this.selectionStart =
+					this.selectionEnd = start + 1;
+				}
+			});
 
-	</script> 
+		</script> 
 
-	<py-script>
-		from js import console, document
-		from pyodide.ffi.wrappers import add_event_listener
+		<py-script>
+			from js import console, document
+			from pyodide.ffi.wrappers import add_event_listener
 
-		import sys
+			import sys
 
-		elencoVar = {} #dictionary
+			elencoVar = {} #dictionary
 
-		def runPython( *args ):
-			try:
-				code = document.getElementById("txt_code").value
-				output = document.getElementById("txt_output")
-				output.innerHTML = "Show global variables / objects: \n"
-				exec( code , globals(), elencoVar)
-				for item in elencoVar.items():
-					output.innerHTML = output.innerHTML + str( item ) + "\n" #elencoVar.items() 
+			def runPython( *args ):
+				try:
+					code = document.getElementById("txt_code").value
+					output = document.getElementById("txt_output")
+					output.innerHTML = "Show global variables / objects: \n"
+					exec( code , globals(), elencoVar)
+					for item in elencoVar.items():
+						output.innerHTML = output.innerHTML + str( item ) + "\n" #elencoVar.items() 
 
-			except Exception as e:
-                output.innerHTML = f"Error detected: {str(e)}"
+				except Exception as e:
+					output.innerHTML = f"Error detected: {str(e)}"
 
-		def clearPython( *args ):
-			try:
-				#print( sys.modules[__name__].__dict__ )
-				sys.modules[__name__].__dict__[ "elencoVar" ].clear()
-				output = document.getElementById("txt_output")
-				output.innerHTML = "Show global variables / objects: \n"
+			def clearPython( *args ):
+				try:
+					#print( sys.modules[__name__].__dict__ )
+					sys.modules[__name__].__dict__[ "elencoVar" ].clear()
+					output = document.getElementById("txt_output")
+					output.innerHTML = "Show global variables / objects: \n"
 
-			except Exception as e:
-                output.innerHTML = f"Error detected: {str(e)}"
+				except Exception as e:
+					output.innerHTML = f"Error detected: {str(e)}"
 
-		add_event_listener( document.getElementById("btn_executePy") , "click", runPython)
+			add_event_listener( document.getElementById("btn_executePy") , "click", runPython)
 
-		add_event_listener( document.getElementById("btn_clearPy") , "click", clearPython)
+			add_event_listener( document.getElementById("btn_clearPy") , "click", clearPython)
 
-		#Test iniziale all'apertura della Pagina Web
-		document.getElementById("btn_executePy").click();  
+			#Test iniziale all'apertura della Pagina Web
+			document.getElementById("btn_executePy").click();  
 
-	</py-script>
+		</py-script>
 
-	<hr>
+		<hr>
+
+	</div>
 
 </div>
 
