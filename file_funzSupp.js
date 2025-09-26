@@ -1,19 +1,12 @@
 
-var schedaPython = document.getElementById( "schedaPython" );
-var schedaCSharp = document.getElementById( "schedaCSharp" );
-var schedaJavascript = document.getElementById( "schedaJavascript" );
-var schedaDatabase = document.getElementById( "schedaDatabase" );
-var schedaDisegni3D = document.getElementById( "schedaDisegni3D" );
-var schedaAltriLinks = document.getElementById( "schedaAltriLinks" );
+var schedaPython = null;
+var schedaCSharp = null;
+var schedaJavascript = null;
+var schedaDatabase = null;
+var schedaDisegni3D = null;
+var schedaAltriLinks = null;
 
-var schede = [ 
-	schedaPython,
-	schedaCSharp,
-	schedaJavascript, 
-	schedaDatabase,
-	schedaDisegni3D,
-	schedaAltriLinks
-]; 
+var schede = null; 
 
 function gestioneSchede( scheda ) {
 
