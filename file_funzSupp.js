@@ -1,4 +1,6 @@
 
+var schede = null; 
+
 function gestioneSchede( scheda ) {
 
 	for( var i = 0; i < schede.length; i++ ) {
