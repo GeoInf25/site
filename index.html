@@ -26,7 +26,7 @@
 <style>
 
 	body {
-		font-family: "Sans Serif";
+		font-family: "Georgia";
 		overflow: hidden;
 	}
 
@@ -154,15 +154,21 @@
 
 	#leafletMap {
 		border: 1px solid black;
-		float: left;
 		width: 50%; 
 		height: 100%; 
 	}
 
 	#controlliLeafletMap {
-		float: right;
 		width: 49%; 
 		height: 100%; 
+	}
+
+	.sx {
+		float: left;
+	}
+
+	.dx {
+		float: right;
 	}
 	
 
@@ -176,7 +182,7 @@
     	packages = ["sqlite3", "numpy" ]
     </py-config>
 
-	<div class="tab">
+	<div id="tab_scheda">
 		<button id="tab_schedaPython" class="btn tabPython" onclick="gestioneSchede( 'schedaPython' )">- PYTHON -</button>
 		<button id="tab_schedaCSharp" class="btn tabCSharp" onclick="gestioneSchede( 'schedaCSharp' )">- C# -</button>
 		<button id="tab_schedaJavascript" class="btn tabJavascript" onclick="gestioneSchede( 'schedaJavascript' )">- JAVASCRIPT -</button>
@@ -197,34 +203,42 @@
 	</b>
 	<br>
 
-	<h2>• Hello World</h2>
-	Clicca sul pulsante e stampa a video una stringa (vedi Console) ... <button id="btn_helloWorld" onclick="alert( 'Hello World in Console ...' )" >Clicca qui</button>
+	<div id="blocco01">
 
-	<py-script>
-		from js import document 
-		from pyodide.ffi import create_proxy
+		<div id="blocco01sx" class="sx">
+			<h2>• Hello World</h2>
+			Clicca sul pulsante e stampa a video una stringa (vedi Console) ... <button id="btn_helloWorld" onclick="alert( 'Hello World in Console ...' )" >Clicca qui</button>
 
-		import js
-		js.window.alert("Fase di loading completata ... ")
+			<py-script>
+				from js import document 
+				from pyodide.ffi import create_proxy
 
-		def printHW( event ):
-			print("Hello World!")
+				import js
+				js.window.alert("Fase di loading completata ... ")
 
-		function_proxy01 = create_proxy(printHW)
-		document.getElementById("btn_helloWorld").addEventListener("click", function_proxy01)
+				def printHW( event ):
+					print("Hello World!")
 
-	</py-script>
+				function_proxy01 = create_proxy(printHW)
+				document.getElementById("btn_helloWorld").addEventListener("click", function_proxy01)
 
-	<hr>
+			</py-script>
 
-	<h2>• Preview Jupyter Notebook</h2>
-	Anteprima Jupyter Notebook tramite il servizio <a href="https://nbviewer.org/">nbviewer</a> e Visual Studio Code:
-	<br>
-	<ul style="list-style-type:square;">
-		<!-- Copy permalink GitHub -->
-		<li> <a href="https://nbviewer.org/urls/geoinf25.github.io/site/Python/Model.ipynb">Model.ipynb</a> </li>
-	</ul>
-	<!-- <br> -->
+		</div>
+
+		<div id="blocco01dx" class="dx">
+			<h2>• Preview Jupyter Notebook</h2>
+			Anteprima Jupyter Notebook tramite il servizio <a href="https://nbviewer.org/">nbviewer</a> e Visual Studio Code:
+			<br>
+			<ul style="list-style-type:square;">
+				<!-- Copy permalink GitHub -->
+				<li> <a href="https://nbviewer.org/urls/geoinf25.github.io/site/Python/Model.ipynb">Model.ipynb</a> </li>
+			</ul>
+			<!-- <br> -->
+
+		</div>
+
+	</div>
 
 	<hr>
 
@@ -454,7 +468,7 @@
 	<br> 
 
 	<div id="appLeafletMap">
-		<div id="leafletMap">
+		<div id="leafletMap" class="sx" >
 
 			<script>
 				var map = L.map('leafletMap').setView([51.505, -0.09], 13);
@@ -468,7 +482,7 @@
 
 		</div>
 
-		<div id="controlliLeafletMap" > <!-- style="background-color:red;" -->
+		<div id="controlliLeafletMap" class="dx" > <!-- style="background-color:red;" -->
 			In costruzione ... 
 
 		</div>
