@@ -84,36 +84,42 @@
   	}
 
   	.btn {
-		border: 2px solid black;
-		background-color: white;
-		color: black;
+		/* border: 2px solid yellow; */
+		background-color: lightblue ;
+		color: white;
 		padding: 7px 14px;
 		font-size: 14px;
+		font-weight: bold;
   	}
 
   	.tabPython {
-		border-color: green;
-  		color: green;
+		border-color: lightblue;
+  		color: white;
   	}
 
   	.tabCSharp {
-		border-color: dodgerblue;
-		color: dodgerblue;
+		border-color: lightblue;
+		color: white;
   	}
 
   	.tabJavascript {
-		border-color: darkorange;
-		color: darkorange;
+		border-color: lightblue;
+		color: white;
   	}
 
 	.tabDatabase {
-		border-color: violet;
-		color: violet;
+		border-color: lightblue;
+		color: white;
+  	}
+
+	.tabDisegni3D {
+		border-color: lightblue;
+		color: white;
   	}
 
   	.tabAltriLinks {
-		border-color: red;
-		color: red;
+		border-color: lightblue;
+		color: white;
   	}
 
   	img {
@@ -158,11 +164,12 @@
     </py-config>
 
 	<div class="tab">
-		<button id="tab_schedaPython" class="btn tabPython" onclick="gestioneSchede( 'Python' )">- Python -</button>
-		<button id="tab_schedaCSharp" class="btn tabCSharp" onclick="gestioneSchede( 'CSharp' )">- C# -</button>
-		<button id="tab_schedaJavascript" class="btn tabJavascript" onclick="gestioneSchede( 'Javascript' )">- Javascript -</button>
-		<button id="tab_schedaDatabase" class="btn tabDatabase" onclick="gestioneSchede( 'Database' )">- Database -</button>
-		<button id="tab_schedaAltriLinks" class="btn tabAltriLinks" onclick="gestioneSchede( 'altriLinks' )">- altri Links -</button>
+		<button id="tab_schedaPython" class="btn tabPython" onclick="gestioneSchede( 'schedaPython' )">- Python -</button>
+		<button id="tab_schedaCSharp" class="btn tabCSharp" onclick="gestioneSchede( 'schedaCSharp' )">- C# -</button>
+		<button id="tab_schedaJavascript" class="btn tabJavascript" onclick="gestioneSchede( 'schedaJavascript' )">- Javascript -</button>
+		<button id="tab_schedaDatabase" class="btn tabDatabase" onclick="gestioneSchede( 'schedaDatabase' )">- Database -</button>
+		<button id="tab_schedaDisegni3D" class="btn tabDisegni3D" onclick="gestioneSchede( 'schedaDisegni3D' )">- Disegni 3D -</button>
+		<button id="tab_schedaAltriLinks" class="btn tabAltriLinks" onclick="gestioneSchede( 'schedaAltriLinks' )">- altri Links -</button>
 		<br>
 		<br>
 	</div>
@@ -471,6 +478,12 @@
 
 </div>
 
+<div id="schedaDisegni3D" > 
+
+
+
+</div>
+
 <div id="schedaAltriLinks" >
 
 	<!-- <br>  <p></p> -->
@@ -498,12 +511,6 @@
 		<li> <a href="https://www.tinkercad.com/">Tinkercad</a> (Disegni 3D e simulazioni (Arduino)) </li>
 
 	</ul>
-
-</div>
-
-<div id="schedaDisegni3D" > 
-
-	
 
 </div>
 
