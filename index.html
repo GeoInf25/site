@@ -170,6 +170,11 @@
 		height: 15%;
 	}
 
+	#blocco01Js {
+		width: 100%;
+		height: 15%;
+	}
+
 	.bloccoSX {
 		width: 50%; 
 		height: 100%; 
@@ -376,125 +381,137 @@
 	</b>
 	<br>
 
-	<h2>• Fibonacci sequence</h2>
-	Inserici un valore numerico ( >=2 && <=99 ) <input type="text" id="txt_upperLimitFibonacci" size="4" > per calcolare i valori della serie (premi INVIO): 
-	<br>
-	<textarea id="txt_outputFibonacci" ></textarea>
-	<script>
+	<div id="blocco01Js" >
 
-		var upperLimitFibonacci = 20;
+		<div id = "blocco01JsSX" class = "bloccoSX" >
 
-		document.getElementById('txt_upperLimitFibonacci').addEventListener('keydown', function(e) {
-			if (e.key == 'Enter' ) { //Blur, onBlur
-				controlAndCalcFibonacci(); 
-			}
-		});
+			<h2>• Fibonacci sequence</h2>
+				Inserici un valore numerico ( >=2 && <=99 ) <input type="text" id="txt_upperLimitFibonacci" size="4" > per calcolare i valori della serie (premi INVIO): 
+				<br>
+				<textarea id="txt_outputFibonacci" ></textarea>
+				<script>
 
-		function controlAndCalcFibonacci() {
-			var tempUpperLimit = document.getElementById('txt_upperLimitFibonacci').value;
-			if( isNaN( tempUpperLimit ) || ( tempUpperLimit % 1 != 0 ) ) {
-				alert( "Inserisci un valore numerico intero." );
-			} else if( tempUpperLimit < 2 || tempUpperLimit > 99 ) {
-				alert( "Inserisci un valore numerico compreso fra 2 e 99." );
-			} else {
-				upperLimitFibonacci = parseInt( tempUpperLimit ); 
-				calculateFibonacci( ); 
-			}
-		}
+					var upperLimitFibonacci = 20;
 
-		function calculateFibonacci( ) {
-			arrFib = [ ];
-			strFib = "";    
-			for( var i = 2; i <= upperLimitFibonacci; i++ ) {
-				if( i == 2 ) {
-					arrFib.push( 0 ); 
-					arrFib.push( 1 );
-				}
+					document.getElementById('txt_upperLimitFibonacci').addEventListener('keydown', function(e) {
+						if (e.key == 'Enter' ) { //Blur, onBlur
+							controlAndCalcFibonacci(); 
+						}
+					});
 
-				arrFib.push( arrFib[ i - 2 ] + arrFib[ i - 1 ] ); 
+					function controlAndCalcFibonacci() {
+						var tempUpperLimit = document.getElementById('txt_upperLimitFibonacci').value;
+						if( isNaN( tempUpperLimit ) || ( tempUpperLimit % 1 != 0 ) ) {
+							alert( "Inserisci un valore numerico intero." );
+						} else if( tempUpperLimit < 2 || tempUpperLimit > 99 ) {
+							alert( "Inserisci un valore numerico compreso fra 2 e 99." );
+						} else {
+							upperLimitFibonacci = parseInt( tempUpperLimit ); 
+							calculateFibonacci( ); 
+						}
+					}
 
-			}
+					function calculateFibonacci( ) {
+						arrFib = [ ];
+						strFib = "";    
+						for( var i = 2; i <= upperLimitFibonacci; i++ ) {
+							if( i == 2 ) {
+								arrFib.push( 0 ); 
+								arrFib.push( 1 );
+							}
 
-			for( var i = 0; i < arrFib.length; i++ ) {
-				strFib = strFib + "Posizione " + (i <= 9 ? "0" : "" ) + i + " :: " + arrFib[ i ].toLocaleString() + "\n";
-			}
+							arrFib.push( arrFib[ i - 2 ] + arrFib[ i - 1 ] ); 
 
-			document.getElementById( "txt_outputFibonacci" ).innerHTML = strFib;
-			document.getElementById( "txt_outputFibonacci" ).readOnly = true;
+						}
 
-		}
+						for( var i = 0; i < arrFib.length; i++ ) {
+							strFib = strFib + "Posizione " + (i <= 9 ? "0" : "" ) + i + " :: " + arrFib[ i ].toLocaleString() + "\n";
+						}
 
-		calculateFibonacci();
+						document.getElementById( "txt_outputFibonacci" ).innerHTML = strFib;
+						document.getElementById( "txt_outputFibonacci" ).readOnly = true;
 
-	</script>
+					}
 
-	<h2>• PictureBox</h2>
-	Varia i quattro Slider e cambia colore ... 
-	<div id="div_pictureBox"></div>
-	<table>
-		<tr>
-			<td>Rosso: </td> <td><input type="range" min="0" max="255" id="sliderRed" value="255" oninput="changeColor();"></td>
-		</tr>
-		<tr>
-			<td>Verde: </td> <td><input type="range" min="0" max="255" id="sliderGreen" value="150" oninput="changeColor();"></td>
-		</tr>
-		<tr>
-			<td>Blu: </td> <td><input type="range" min="0" max="255" id="sliderBlue" value="0" oninput="changeColor();"></td>
-		</tr>
-		<tr>
-			<td>Alpha (trasparenza): </td> <td><input type="range" min="0" max="100" id="sliderAlpha" value="255" oninput="changeColor();"></td>
-		</tr>
+					calculateFibonacci();
 
-	</table>
-
-	<script>
-		function changeColor() {
-			valueRed = document.getElementById( "sliderRed" ).value;
-			valueGreen = document.getElementById( "sliderGreen" ).value;
-			valueBlue = document.getElementById( "sliderBlue" ).value;
-			valueAlpha = document.getElementById( "sliderAlpha" ).value;
-			valueAlphaFloat = ( valueAlpha / 100.00 ).toFixed(2);
-			document.getElementById("div_pictureBox").style.backgroundColor = 'rgba(' + valueRed + ',' + valueGreen + ',' + valueBlue + ',' + valueAlphaFloat + ')';
-			document.getElementById("txt_valueColor").value = 'rgba(' + valueRed + ',' + valueGreen + ',' + valueBlue + ',' + valueAlphaFloat + ')'
-		}
-
-	</script>
-	<br>
-	Valore del colore: <input type="text" id="txt_valueColor">
-	<br>
-
-	<script>
-		changeColor();
-	</script>
-
-	<h2>• Leaflet Map</h2>
-	Esempio di Applicazione della libreria Javascript <a href="https://leafletjs.com/">leafletJS</a>, ovvero:
-	<br> 
-
-	<div id="appLeafletMap">
-		<div id="leafletMap" >
-
-			<script>
-				var map = L.map('leafletMap').setView([51.505, -0.09], 13);
-
-				L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    				maxZoom: 22,
-    				attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-				}).addTo(map);
-
-			</script>
+				</script>
 
 		</div>
 
-		<div id="controlliLeafletMap" > <!-- style="background-color:red;" -->
-			In costruzione ... 
+		<div id = "blocco01JsDX" class = "bloccoDX" ></div>
+			<h2>• PictureBox</h2>
+			Varia i quattro Slider e cambia colore ... 
+			<div id="div_pictureBox"></div>
+			<table>
+				<tr>
+				<td>Rosso: </td> <td><input type="range" min="0" max="255" id="sliderRed" value="255" oninput="changeColor();"></td>
+				</tr>
+				<tr>
+				<td>Verde: </td> <td><input type="range" min="0" max="255" id="sliderGreen" value="150" oninput="changeColor();"></td>
+				</tr>
+				<tr>
+					<td>Blu: </td> <td><input type="range" min="0" max="255" id="sliderBlue" value="0" oninput="changeColor();"></td>
+				</tr>
+				<tr>
+					<td>Alpha (trasparenza): </td> <td><input type="range" min="0" max="100" id="sliderAlpha" value="255" oninput="changeColor();"></td>
+				</tr>
+
+			</table>
+
+			<script>
+				function changeColor() {
+					valueRed = document.getElementById( "sliderRed" ).value;
+					valueGreen = document.getElementById( "sliderGreen" ).value;
+					valueBlue = document.getElementById( "sliderBlue" ).value;
+					valueAlpha = document.getElementById( "sliderAlpha" ).value;
+					valueAlphaFloat = ( valueAlpha / 100.00 ).toFixed(2);
+					document.getElementById("div_pictureBox").style.backgroundColor = 'rgba(' + valueRed + ',' + valueGreen + ',' + valueBlue + ',' + valueAlphaFloat + ')';
+					document.getElementById("txt_valueColor").value = 'rgba(' + valueRed + ',' + valueGreen + ',' + valueBlue + ',' + valueAlphaFloat + ')'
+				}
+
+			</script>
+			<br>
+			Valore del colore: <input type="text" id="txt_valueColor">
+			<br>
+
+			<script>
+				changeColor();
+			</script>
 
 		</div>
 
 	</div>
 
+	<div id="blocco02Js">
 
-</div>
+		<h2>• Leaflet Map</h2>
+		Esempio di Applicazione della libreria Javascript <a href="https://leafletjs.com/">leafletJS</a>, ovvero:
+		<br> 
+
+		<div id="appLeafletMap">
+			<div id="leafletMap" >
+
+				<script>
+					var map = L.map('leafletMap').setView([51.505, -0.09], 13);
+
+					L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+						maxZoom: 22,
+						attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+					}).addTo(map);
+
+				</script>
+
+			</div>
+
+			<div id="controlliLeafletMap" > <!-- style="background-color:red;" -->
+				In costruzione ... 
+
+			</div>
+
+		</div>
+
+	</div>
 
 <div id="schedaDatabase" > 
 
