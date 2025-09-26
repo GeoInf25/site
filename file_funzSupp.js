@@ -18,7 +18,8 @@ function gestioneSchede( scheda ) {
 	]; 
 
 	for( var i = 0; i < schede.length; i++ ) {
-		if( schede[ i ].id == ( "" + scheda ) ) { //vedi nome schede
+		var tempNomeScheda = schede[ i ].id; 
+		if( tempNomeScheda == ( "" + scheda ) ) { //vedi nome schede
 			schede[ i ].style.display = "block"; 
 			schede[ i ].style.visibility = "visible";
 		} else {
