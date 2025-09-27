@@ -182,6 +182,18 @@
   		grid-column: span 2;
 	}
 
+	.row01ItemCSharp {
+		grid-column: span 2;
+	}
+
+	.row01ItemJs {
+		grid-column: span 1;
+	}
+
+	.row02ItemJs {
+		grid-column: span 2;
+	}
+
 	.roundBorder {
   		/*border: 1px solid red;*/
 		border-style: outset;
@@ -369,12 +381,22 @@
 		*** ATTENZIONE ***: le Librerie, i Framework ed eventuali altri elementi ad essi associati appartengono ai rispettivi proprietari. 
 	</b>
 	<br>
-	<h2><b>• App001:</b></h2>
-	<p id="descrApp001CSharp" >
-	Dopo aver creato un WinForm .NET project (in C#) ed aver preparato la relativa WebView2 oltre al componente ReoGrid - .NET Spreadsheet (anche mediante l'utilizzo del relativo pacchetto NuGet), l'Applicazione in questione utilizza una pagina HTML mediante la quale richiamare le funzioni ed i Marker della Libreria Leaflet (Javascript). Le coordinate di inserimento dei Marker saranno poi elencate nel foglio disposto a lato dell'Applicazione. In questo contesto la comunicazione tra C# e Javascript viene assicurata tramite l'istruzione webView21.ExecuteScriptAsync e dalle istruzioni chrome.webview.postMessage. La gestione degli handlers / eventi è definita partendo dall'evento WinForm Load, attraverso espressioni come webView21.NavigationCompleted += (,_ args) => {...}. Link alle immagini di esempio:
-	</p>
-	<img src="./CSharp/App001/Image/Image01.png" alt="Image01" >
-	<img src="./CSharp/App001/Image/Image02.png" alt="Image02" >
+	<br>
+
+	<div id="tabellaCSharp" class="grid">
+
+		<div id="blocco01CSharpSXDX" class="row01ItemCSharp roundBorder" >
+
+			<h2><b>• App001:</b></h2>
+			<p id="descrApp001CSharp" >
+			Dopo aver creato un WinForm .NET project (in C#) ed aver preparato la relativa WebView2 oltre al componente ReoGrid - .NET Spreadsheet (anche mediante l'utilizzo del relativo pacchetto NuGet), l'Applicazione in questione utilizza una pagina HTML mediante la quale richiamare le funzioni ed i Marker della Libreria Leaflet (Javascript). Le coordinate di inserimento dei Marker saranno poi elencate nel foglio disposto a lato dell'Applicazione. In questo contesto la comunicazione tra C# e Javascript viene assicurata tramite l'istruzione webView21.ExecuteScriptAsync e dalle istruzioni chrome.webview.postMessage. La gestione degli handlers / eventi è definita partendo dall'evento WinForm Load, attraverso espressioni come webView21.NavigationCompleted += (,_ args) => {...}. Link alle immagini di esempio:
+			</p>
+			<img src="./CSharp/App001/Image/Image01.png" alt="Image01" >
+			<img src="./CSharp/App001/Image/Image02.png" alt="Image02" >
+
+		</div>
+
+	</div>
 
 </div>
 
@@ -387,66 +409,67 @@
 		*** ATTENZIONE ***: le Librerie, i Framework ed eventuali altri elementi ad essi associati appartengono ai rispettivi proprietari. 
 	</b>
 	<br>
+	<br>
 
-	<div id="blocco01Js" >
+	<div id="tabellaJs" class="grid">
 
-		<div id = "blocco01JsSX" class = "bloccoSX" >
+		<div id="blocco01JsSX" class="row01ItemJs roundBorder" >
 
 			<h2>• Fibonacci sequence</h2>
-				Inserici un valore numerico ( >=2 && <=99 ) <input type="text" id="txt_upperLimitFibonacci" size="4" > per calcolare i valori della serie (premi INVIO): 
-				<br>
-				<textarea id="txt_outputFibonacci" ></textarea>
-				<script>
+			Inserici un valore numerico ( >=2 && <=99 ) <input type="text" id="txt_upperLimitFibonacci" size="4" > per calcolare i valori della serie (premi INVIO): 
+			<br>
+			<textarea id="txt_outputFibonacci" ></textarea>
+			<script>
 
-					var upperLimitFibonacci = 20;
+				var upperLimitFibonacci = 20;
 
-					document.getElementById('txt_upperLimitFibonacci').addEventListener('keydown', function(e) {
-						if (e.key == 'Enter' ) { //Blur, onBlur
-							controlAndCalcFibonacci(); 
-						}
-					});
-
-					function controlAndCalcFibonacci() {
-						var tempUpperLimit = document.getElementById('txt_upperLimitFibonacci').value;
-						if( isNaN( tempUpperLimit ) || ( tempUpperLimit % 1 != 0 ) ) {
-							alert( "Inserisci un valore numerico intero." );
-						} else if( tempUpperLimit < 2 || tempUpperLimit > 99 ) {
-							alert( "Inserisci un valore numerico compreso fra 2 e 99." );
-						} else {
-							upperLimitFibonacci = parseInt( tempUpperLimit ); 
-							calculateFibonacci( ); 
-						}
+				document.getElementById('txt_upperLimitFibonacci').addEventListener('keydown', function(e) {
+					if (e.key == 'Enter' ) { //Blur, onBlur
+						controlAndCalcFibonacci(); 
 					}
+				});
 
-					function calculateFibonacci( ) {
-						arrFib = [ ];
-						strFib = "";    
-						for( var i = 2; i <= upperLimitFibonacci; i++ ) {
-							if( i == 2 ) {
-								arrFib.push( 0 ); 
-								arrFib.push( 1 );
-							}
+				function controlAndCalcFibonacci() {
+					var tempUpperLimit = document.getElementById('txt_upperLimitFibonacci').value;
+					if( isNaN( tempUpperLimit ) || ( tempUpperLimit % 1 != 0 ) ) {
+						alert( "Inserisci un valore numerico intero." );
+					} else if( tempUpperLimit < 2 || tempUpperLimit > 99 ) {
+						alert( "Inserisci un valore numerico compreso fra 2 e 99." );
+					} else {
+						upperLimitFibonacci = parseInt( tempUpperLimit ); 
+						calculateFibonacci( ); 
+					}
+				}
 
-							arrFib.push( arrFib[ i - 2 ] + arrFib[ i - 1 ] ); 
-
+				function calculateFibonacci( ) {
+					arrFib = [ ];
+					strFib = "";    
+					for( var i = 2; i <= upperLimitFibonacci; i++ ) {
+						if( i == 2 ) {
+							arrFib.push( 0 ); 
+							arrFib.push( 1 );
 						}
 
-						for( var i = 0; i < arrFib.length; i++ ) {
-							strFib = strFib + "Posizione " + (i <= 9 ? "0" : "" ) + i + " :: " + arrFib[ i ].toLocaleString() + "\n";
-						}
-
-						document.getElementById( "txt_outputFibonacci" ).innerHTML = strFib;
-						document.getElementById( "txt_outputFibonacci" ).readOnly = true;
+						arrFib.push( arrFib[ i - 2 ] + arrFib[ i - 1 ] ); 
 
 					}
 
-					calculateFibonacci();
+					for( var i = 0; i < arrFib.length; i++ ) {
+						strFib = strFib + "Posizione " + (i <= 9 ? "0" : "" ) + i + " :: " + arrFib[ i ].toLocaleString() + "\n";
+					}
 
-				</script>
+					document.getElementById( "txt_outputFibonacci" ).innerHTML = strFib;
+					document.getElementById( "txt_outputFibonacci" ).readOnly = true;
+
+				}
+
+				calculateFibonacci();
+
+			</script>
 
 		</div>
 
-		<div id = "blocco01JsDX" class = "bloccoDX" >
+		<div id = "blocco01JsDX" class = "row01ItemJs roundBorder" >
 			<h2>• PictureBox</h2>
 			Varia i quattro Slider e cambia colore ... 
 			<div id="div_pictureBox">
@@ -490,31 +513,31 @@
 
 		</div> 
 
-	</div>
+		<div id = "blocco02JsSXDX" class = "row02ItemJs roundBorder" >
 
-	<div id="blocco02Js">
+			<h2>• Leaflet Map</h2>
+			Esempio di Applicazione della libreria Javascript <a href="https://leafletjs.com/">leafletJS</a>, ovvero:
+			<br> 
 
-		<h2>• Leaflet Map</h2>
-		Esempio di Applicazione della libreria Javascript <a href="https://leafletjs.com/">leafletJS</a>, ovvero:
-		<br> 
+			<div id="appLeafletMap">
+				<div id="leafletMap" >
 
-		<div id="appLeafletMap">
-			<div id="leafletMap" >
+					<script>
+						var map = L.map('leafletMap').setView([51.505, -0.09], 13);
 
-				<script>
-					var map = L.map('leafletMap').setView([51.505, -0.09], 13);
+						L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+							maxZoom: 22,
+							attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+						}).addTo(map);
 
-					L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-						maxZoom: 22,
-						attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-					}).addTo(map);
+					</script>
 
-				</script>
+				</div>
 
-			</div>
+				<div id="controlliLeafletMap" > <!-- style="background-color:red;" -->
+					In costruzione ... 
 
-			<div id="controlliLeafletMap" > <!-- style="background-color:red;" -->
-				In costruzione ... 
+				</div>
 
 			</div>
 
