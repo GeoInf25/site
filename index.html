@@ -111,13 +111,13 @@
 
 	#txt_code{
 		width: 100%; 
-		height: 300px; 
+		height: 35vh; 
 		resize: none;
   	}
 
   	#txt_output {
 		width: 100%; 
-		height: 200px; 
+		height: 25vh; 
 		resize: none;
   	}
 
@@ -134,13 +134,14 @@
 		max-height: auto;
 		width: auto;
 		height: auto;
-		justify-content: center;
+		margin-left: auto; /* center image */
+  		margin-right: auto; /* center image */
 	}
 
 	/* JS */
 
 	#div_pictureBox {
-		width : 20vh;
+		width : 45vh;
 		height: 20vh;
 		background-color: white;
 		border:1px solid black;
@@ -159,13 +160,13 @@
 
 	#leafletMap {
 		border: 1px solid black;
-		width: 50%; /* % of container */ 
+		width: 49%; /* % of container */ 
 		height: 50vh; /* 50% of screensize */
 		float: left; 
 	}
 
 	#controlliLeafletMap {
-		width: 49%; 
+		width: 50%; 
 		height: 50vh; 
 		float: right;
 	}
@@ -417,7 +418,7 @@
 		<div id="blocco01JsSX" class="row01ItemJs roundBorder" >
 
 			<h2>• Fibonacci sequence</h2>
-			Inserici un valore numerico ( >=2 && <=99 ) <input type="text" id="txt_upperLimitFibonacci" size="4" > per calcolare i valori della serie (premi INVIO): 
+			Inserici un valore numerico ( >=2 && <=99 ) <input type="text" id="txt_upperLimitFibonacci" size="4" value="20" > per calcolare i valori della serie (premi INVIO): 
 			<br>
 			<textarea id="txt_outputFibonacci" ></textarea>
 			<script>
