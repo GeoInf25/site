@@ -373,10 +373,10 @@
 
 				#Test iniziale all'apertura della Pagina Web
 				if( window.sessionStorage.getItem( "superatoPrimoAvvio" ) is None ):
-					document.getElementById("btn_executePy").click();
+					document.getElementById("btn_executePy").click()
 					window.sessionStorage.setItem( "superatoPrimoAvvio" , 1 )  
 				#else:  
-					#Vuoto
+					output.innerHTML = "Mancato aggiornamento automatico a seguito del Refresh della Pagina Web."
 
 			</py-script>
 
