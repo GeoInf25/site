@@ -155,6 +155,12 @@
 		resize: none;
   	}
 
+	#txt_outputPrimeNumbers {
+		width: 100%; 
+		height: 40vh; 
+		resize: none;
+  	}
+
 	#appLeafletMap {
 		width: 100%;
 		height: auto;
@@ -416,7 +422,7 @@
 		<div id="blocco01Js" class="span1 roundBorder" >
 
 			<h2>• Fibonacci sequence</h2>
-			Inserici un valore numerico ( >=2 && <=99 ) <input type="text" id="txt_upperLimitFibonacci" size="4" value="20" > per calcolare i valori della serie (premi INVIO): 
+			Inserici un valore numerico ( >=2 && <=99 ) <input type="text" id="txt_upperLimitFibonacci" size="2" value="20" > per calcolare i valori della serie (premi INVIO): 
 			<br>
 			<textarea id="txt_outputFibonacci" ></textarea>
 			<script>
@@ -469,7 +475,73 @@
 
 		</div>
 
-		<div id = "blocco02Js" class = "span1 roundBorder" >
+		<div id="blocco02Js" class="span1 roundBorder" >
+
+			<h2>• Prime numbers</h2>
+			Inserici un valore numerico massimo ( >=1 && <=999 ) <input type="text" id="txt_upperLimitPrimeNumbers" size="2" value="20" > entro il quale calcolare i numeri primi (premi INVIO): 
+			<br>
+			<textarea id="txt_outputPrimeNumbers" ></textarea>
+			<script>
+
+				var upperLimitPrimeNumbers = 20;
+
+				document.getElementById('txt_upperLimitPrimeNumbers').addEventListener('keydown', function(e) {
+					if (e.key == 'Enter' ) { //Blur, onBlur
+						controlAndCalcPrimeNumbers(); 
+					}
+				});
+
+				function controlAndCalcPrimeNumbers() {
+					var tempUpperLimit = document.getElementById('txt_upperLimitPrimeNumbers').value;
+					if( isNaN( tempUpperLimit ) || ( tempUpperLimit % 1 != 0 ) ) {
+						alert( "Inserisci un valore numerico intero." );
+					} else if( tempUpperLimit < 1 || tempUpperLimit > 999 ) {
+						alert( "Inserisci un valore numerico compreso fra 1 e 999." );
+					} else {
+						upperLimitPrimeNumbers = parseInt( tempUpperLimit ); 
+						calculatePrimeNumbers( ); 
+					}
+				}
+
+				function calculatePrimeNumbers( ) {
+					arrPrime = [ ];
+					strPrime = "";    
+					for( var i = 1; i <= upperLimitPrimeNumbers; i++ ) {
+						
+						//Control of prime numbers
+						var contRestDiv = 0; 
+						for( var j = 1; j <= i; j++ ) {
+							if( i % j == 0 ) {
+								contRestDiv++;
+							}
+
+							if( i == 1 ) { //special case for 1
+								contRestDiv++;
+							}
+						} 
+
+						if( contRestDiv == 2 ) { //for 1 and for itself
+							arrPrime.push( i );
+						} 
+
+					}
+
+					for( var i = 0; i < arrPrime.length; i++ ) {
+						strPrime = strPrime + "Posizione " + (i <= 9 ? "0" : "" ) + i + " :: " + arrPrime[ i ].toLocaleString() + "\n";
+					}
+
+					document.getElementById( "txt_outputPrimeNumbers" ).innerHTML = strPrime;
+					document.getElementById( "txt_outputPrimeNumbers" ).readOnly = true;
+
+				}
+
+				calculatePrimeNumbers();
+
+			</script>
+
+		</div>
+
+		<div id = "blocco03Js" class = "span1 roundBorder" >
 			<h2>• PictureBox</h2>
 			Varia i quattro Slider e cambia colore ... 
 			<div id="div_pictureBox">
@@ -477,16 +549,16 @@
 			</div>
 			<table>
 				<tr>
-				<td>Rosso: </td> <td><input type="range" min="0" max="255" id="sliderRed" value="255" oninput="changeColor();"></td>
+					<td><li style="list-style-type:square;">Rosso: </li></td> <td><input type="range" min="0" max="255" id="sliderRed" value="255" oninput="changeColor();"></td>
 				</tr>
 				<tr>
-					<td>Verde: </td> <td><input type="range" min="0" max="255" id="sliderGreen" value="150" oninput="changeColor();"></td>
+					<td><li style="list-style-type:square;">Verde: </li></td> <td><input type="range" min="0" max="255" id="sliderGreen" value="150" oninput="changeColor();"></td>
 				</tr>
 				<tr>
-					<td>Blu: </td> <td><input type="range" min="0" max="255" id="sliderBlue" value="0" oninput="changeColor();"></td>
+					<td><li style="list-style-type:square;">Blu: </li></td> <td><input type="range" min="0" max="255" id="sliderBlue" value="0" oninput="changeColor();"></td>
 				</tr>
 				<tr>
-					<td>Alpha (trasparenza): </td> <td><input type="range" min="0" max="100" id="sliderAlpha" value="255" oninput="changeColor();"></td>
+					<td><li style="list-style-type:square;">Alpha (trasparenza): </li></td> <td><input type="range" min="0" max="100" id="sliderAlpha" value="255" oninput="changeColor();"></td>
 				</tr>
 
 			</table>
@@ -513,7 +585,12 @@
 
 		</div> 
 
-		<div id = "blocco03Js" class = "span4 roundBorder" >
+		<div id = "blocco04Js" class = "span1 roundBorder" >
+			<h2>• Calculating machine</h2>
+
+		</div>
+
+		<div id = "blocco05Js" class = "span4 roundBorder" >
 
 			<h2>• Leaflet Map</h2>
 			Esempio di Applicazione della libreria Javascript <a href="https://leafletjs.com/">LeafletJS</a>, ovvero:
