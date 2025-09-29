@@ -371,6 +371,8 @@
 
 				add_event_listener( document.getElementById("btn_clearPy") , "click", clearPython)
 
+				print( window.sessionStorage.getItem( "superatoPrimoAvvio" ) )
+
 				#Test iniziale all'apertura della Pagina Web
 				if( window.sessionStorage.getItem( "superatoPrimoAvvio" ) is None ):
 					document.getElementById("btn_executePy").click()
