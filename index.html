@@ -258,7 +258,7 @@
 				from pyodide.ffi import create_proxy
 
 				import js
-				js.window.alert("Fase di loading completata ... ")
+				#js.window.alert("Fase di loading completata ... ")
 
 				def printHW( event ):
 					print("Hello World!")
@@ -376,7 +376,7 @@
 					document.getElementById("btn_executePy").click()
 					window.sessionStorage.setItem( "superatoPrimoAvvio" , 1 )  
 				#else:  
-					output.innerHTML = "Mancato aggiornamento automatico a seguito del Refresh della Pagina Web."
+					output.innerHTML = "Mancato aggiornamento automatico a seguito del Refresh della Pagina Web (utilizzare l'apposito pulsante di cui sopra)."
 
 			</py-script>
 
