@@ -338,7 +338,7 @@
 			</script> 
 
 			<py-script>
-				from js import console, document
+				from js import console, document, window
 				from pyodide.ffi.wrappers import add_event_listener
 
 				import sys
@@ -348,12 +348,12 @@
 				output = document.getElementById("txt_output")
 
 				def runPython( *args ):
-					try:
+					try: 
 						code = document.getElementById("txt_code").value
 						output.innerHTML = "Show global variables / objects: \n"
 						exec( code , globals(), elencoVar)
 						for item in elencoVar.items():
-							output.innerHTML = output.innerHTML + str( item ) + "\n" #elencoVar.items() 
+							output.innerHTML = output.innerHTML + str( item ) + "\n" #elencoVar.items()
 
 					except Exception as e:
 						output.innerHTML = f"Error detected: {str(e)}"
@@ -372,8 +372,9 @@
 				add_event_listener( document.getElementById("btn_clearPy") , "click", clearPython)
 
 				#Test iniziale all'apertura della Pagina Web
-				if( output.innerHTML == "Attendi ... " ):
-					document.getElementById("btn_executePy").click();  
+				if( window.sessionStorage.getItem( "superatoPrimoAvvio" ) is None ):
+					document.getElementById("btn_executePy").click();
+					window.sessionStorage.setItem( "superatoPrimoAvvio" , 1 )  
 				#else:  
 					#Vuoto
 
@@ -551,12 +552,12 @@
 		<div id="blocco03Js" class="span1 roundBorder" >
 
 			<h2>• Number Base</h2>
-			Conversioni rispetto al valore (>=1 && <=1'000'000'000'000) scelto <input type="text" id="txt_numberBaseValue" size="12" value="1000000" > (premi INVIO): 
+			Conversioni rispetto al valore (>=1 && <=1'000'000'000'000) scelto <input type="text" id="txt_numberBaseValue" size="12" value="1000000" > in base 10 (premi INVIO): 
 			<br>
 			<textarea id="txt_outputNumberBase" ></textarea>
 			<script>
 
-				var numberBaseValue = 20;
+				var numberBaseValue = 1000000;
 
 				document.getElementById('txt_numberBaseValue').addEventListener('keydown', function(e) {
 					if (e.key == 'Enter' ) { //Blur, onBlur
