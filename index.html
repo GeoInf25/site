@@ -26,8 +26,9 @@
 <style>
 
 	body {
-		font-family: "Times New Roman";
-		font-size: 1em;
+		font-family: "Trebuchet MS";
+		font-size: 14px;
+		/* font-size: 1 em rem ... ; */
 		overflow: hidden;
 	}
 
@@ -156,6 +157,12 @@
   	}
 
 	#txt_outputPrimeNumbers {
+		width: 100%; 
+		height: 40vh; 
+		resize: none;
+  	}
+
+	#txt_outputNumberBase {
 		width: 100%; 
 		height: 40vh; 
 		resize: none;
@@ -422,7 +429,7 @@
 		<div id="blocco01Js" class="span1 roundBorder" >
 
 			<h2>• Fibonacci sequence</h2>
-			Inserici un valore numerico ( >=2 && <=99 ) <input type="text" id="txt_upperLimitFibonacci" size="2" value="20" > per calcolare i valori della serie (premi INVIO): 
+			Inserici un valore numerico (>=2 && <=99) <input type="text" id="txt_upperLimitFibonacci" size="1" value="20" > per calcolare i valori della serie (premi INVIO): 
 			<br>
 			<textarea id="txt_outputFibonacci" ></textarea>
 			<script>
@@ -461,7 +468,7 @@
 					}
 
 					for( var i = 0; i < arrFib.length; i++ ) {
-						strFib = strFib + "Posizione " + (i <= 9 ? "0" : "" ) + i + " :: " + arrFib[ i ].toLocaleString() + "\n";
+						strFib = strFib + "Posizione " + (i <= 9 ? "0" : "" ) + i + " - " + arrFib[ i ].toLocaleString() + "\n";
 					}
 
 					document.getElementById( "txt_outputFibonacci" ).innerHTML = strFib;
@@ -478,7 +485,7 @@
 		<div id="blocco02Js" class="span1 roundBorder" >
 
 			<h2>• Prime numbers</h2>
-			Inserici un valore numerico massimo ( >=1 && <=999 ) <input type="text" id="txt_upperLimitPrimeNumbers" size="2" value="20" > entro il quale calcolare i numeri primi (premi INVIO): 
+			Inserici un valore massimo (>=1 && <=999) <input type="text" id="txt_upperLimitPrimeNumbers" size="1" value="20" > entro il quale calcolare i numeri primi (premi INVIO): 
 			<br>
 			<textarea id="txt_outputPrimeNumbers" ></textarea>
 			<script>
@@ -527,7 +534,7 @@
 					}
 
 					for( var i = 0; i < arrPrime.length; i++ ) {
-						strPrime = strPrime + "Posizione " + (i <= 9 ? "0" : "" ) + i + " :: " + arrPrime[ i ].toLocaleString() + "\n";
+						strPrime = strPrime + "Posizione " + (i <= 9 ? "0" : "" ) + i + " - " + arrPrime[ i ].toLocaleString() + "\n";
 					}
 
 					document.getElementById( "txt_outputPrimeNumbers" ).innerHTML = strPrime;
@@ -541,7 +548,54 @@
 
 		</div>
 
-		<div id = "blocco03Js" class = "span1 roundBorder" >
+		<div id="blocco03Js" class="span1 roundBorder" >
+
+			<h2>• Number Base</h2>
+			Conversioni rispetto al valore (>=1 && <=1'000'000'000'000) scelto <input type="text" id="txt_numberBaseValue" size="12" value="20" > (premi INVIO): 
+			<br>
+			<textarea id="txt_outputNumberBase" ></textarea>
+			<script>
+
+				var numberBaseValue = 20;
+
+				document.getElementById('txt_numberBaseValue').addEventListener('keydown', function(e) {
+					if (e.key == 'Enter' ) { //Blur, onBlur
+						controlAndCalcNumberBase(); 
+					}
+				});
+
+				function controlAndCalcNumberBase() {
+					var tempNumberBaseValue = document.getElementById('txt_numberBaseValue').value;
+					if( isNaN( tempNumberBaseValue ) || ( tempNumberBaseValue % 1 != 0 ) ) {
+						alert( "Inserisci un valore numerico intero." );
+					} else if( tempNumberBaseValue < 1 || tempNumberBaseValue > 1000000000000 ) {
+						alert( "Inserisci un valore numerico compreso fra 1 e 1'000'000'000'000." );
+					} else {
+						numberBaseValue = parseInt( tempNumberBaseValue ); 
+						calculateNumberBase( ); 
+					}
+				}
+
+				function calculateNumberBase( ) {
+					//arrNumbBase = [ ];
+					strNumbBase = "";   
+					
+					for( var base = 2; base <= 16; base++ ) {
+						strNumbBase = strNumbBase + "Base " + (base <= 9 ? "0" : "" ) + base + " - " + numberBaseValue.toString( base ) + "\n";
+					}					
+
+					document.getElementById( "txt_outputNumberBase" ).innerHTML = strNumbBase;
+					document.getElementById( "txt_outputNumberBase" ).readOnly = true;
+
+				}
+
+				calculateNumberBase();
+
+			</script>
+
+		</div>
+
+		<div id = "blocco04Js" class = "span1 roundBorder" >
 			<h2>• PictureBox</h2>
 			Varia i quattro Slider e cambia colore ... 
 			<div id="div_pictureBox">
@@ -584,11 +638,6 @@
 			</script>
 
 		</div> 
-
-		<div id = "blocco04Js" class = "span1 roundBorder" >
-			<h2>• Calculating machine</h2>
-
-		</div>
 
 		<div id = "blocco05Js" class = "span4 roundBorder" >
 
