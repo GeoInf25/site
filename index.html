@@ -3,6 +3,8 @@
 
 <head>
 
+	<script type="text/javascript" src="./bundle.js"></script> 
+
 	<script type="text/javascript" src="./file_funzSupp.js"></script> 
 
 	<link
@@ -428,13 +430,18 @@
 	</b>
 	<br>
 	<br>
+	Impiego del pacchetto NPM (Node.js) <a href="https://github.com/jyotiska/prettytable">Jyotiska/Prettytable</a> e del Bundler / Impacchettatore lato Client (per Browser) <a href="https://github.com/browserify/browserify?tab=readme-ov-file#external-requires">Browserify</a> (vedi <i>browserify -r prettytable > bundle.js</i>).
+	<br>
+	<br>
 
 	<div id="tabellaJs" class="grid">
 
 		<div id="blocco01Js" class="span1 roundBorder" >
 
 			<h2>• Fibonacci sequence</h2>
-			Inserici un valore numerico (>=2 && <=99) <input type="text" id="txt_upperLimitFibonacci" size="1" value="20" > per calcolare i valori della serie (premi INVIO): 
+			Inserici un valore numerico (>=2 && <=99) <input type="text" id="txt_upperLimitFibonacci" size="1" value="20" > 
+			<br>
+			per calcolare i valori della serie (premi INVIO): 
 			<br>
 			<textarea id="txt_outputFibonacci" ></textarea>
 			<script>
@@ -459,24 +466,34 @@
 					}
 				}
 
+				const PrettyTable = require("prettytable");
+
 				function calculateFibonacci( ) {
-					arrFib = [ ];
-					strFib = "";    
-					for( var i = 2; i <= upperLimitFibonacci; i++ ) {
-						if( i == 2 ) {
-							arrFib.push( 0 ); 
-							arrFib.push( 1 );
+
+					var tableFib = new PrettyTable();
+					var headersFib = [ "Posizione", "Valore" ];
+					var rowsFib = [ ];  
+					
+					for( var i = 0; i <= upperLimitFibonacci; i++ ) {
+
+						var strPos = "" + (i <= 9 ? "0" : "" ) + i; 
+
+						if( i == 0 ) {
+							rowsFib.push( [ strPos , 0 ] ); 
+						} else if( i == 1 ) {
+							rowsFib.push( [ strPos , 1 ] ); 
+						} else {
+							//var tempNumb = "" + ( rowsFib[ i - 2 ][ 1 ] + rowsFib[ i - 1 ][ 1 ] ).toLocaleString(); //separatore migliaia
+							rowsFib.push( [ strPos , rowsFib[ i - 2 ][ 1 ] + rowsFib[ i - 1 ][ 1 ] ] ); 
 						}
 
-						arrFib.push( arrFib[ i - 2 ] + arrFib[ i - 1 ] ); 
-
 					}
 
-					for( var i = 0; i < arrFib.length; i++ ) {
-						strFib = strFib + "Posizione " + (i <= 9 ? "0" : "" ) + i + " - " + arrFib[ i ].toLocaleString() + "\n";
-					}
+					tableFib.create( headersFib , rowsFib );
+					var tableFibString = tableFib.toString();
+					//console.log( tableFibString );
 
-					document.getElementById( "txt_outputFibonacci" ).innerHTML = strFib;
+					document.getElementById( "txt_outputFibonacci" ).innerHTML = tableFibString;
 					document.getElementById( "txt_outputFibonacci" ).readOnly = true;
 
 				}
@@ -490,7 +507,9 @@
 		<div id="blocco02Js" class="span1 roundBorder" >
 
 			<h2>• Prime numbers</h2>
-			Inserici un valore massimo (>=1 && <=999) <input type="text" id="txt_upperLimitPrimeNumbers" size="1" value="20" > entro il quale calcolare i numeri primi (premi INVIO): 
+			Inserici un valore massimo (>=1 && <=999) <input type="text" id="txt_upperLimitPrimeNumbers" size="1" value="20" > 
+			<br>
+			entro il quale calcolare i numeri primi (premi INVIO): 
 			<br>
 			<textarea id="txt_outputPrimeNumbers" ></textarea>
 			<script>
@@ -736,9 +755,11 @@
 		<li> <a href="https://stackoverflow.com/questions">stackoverflow</a> (StackOverflow Questions) </li>
 		<li> <a href="https://gis.stackexchange.com/">gis.stackexchange</a> (GIS StackExchange Questions) </li>
 		<li> <a href="https://qgis.org/">QGIS</a> (QGIS Project) </li>
+		<li> <a href="https://overpass-turbo.eu/">Overpass OpenStreetMap API</a> (Overpass Query) </li>
 		<li> <a href="https://www.prismacad.it/disegni-meccanici/">PrismaCad</a> (Disegni meccanici) </li>
 		<li> <a href="https://www.tinkercad.com/">Tinkercad</a> (Disegni 3D e simulazioni (Arduino)) </li>
 		<li> <a href="https://cheerpj.com/">CheerpJ</a> (Java / JVM for the Browser) </li>
+		<li> <a href="https://browserify.org/">Browserify</a> (Bundler / Impacchettatore lato Client (per Browser), utile per riutilizzare pacchetti NPM pensati lato Server (Node.js)) </li>
 
 	</ul>
 
