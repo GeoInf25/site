@@ -29,44 +29,61 @@
 
 	body {
 		font-family: "Trebuchet MS";
-		font-size: 14px;
-		/* font-size: 1 em rem ... ; */
+		font-size: 1.75vh;
+		/* font-size: 1 em rem ... 14 px ; */
 		overflow: hidden;
+	}
+
+	button {
+		font-family: "Arial";
+		font-size: 1.75vh;
+	}
+
+	textarea {
+		font-size: 1.75vh;
+	}
+
+	input {
+		font-size: 1.75vh;
+	}
+
+	table {
+		font-size: 1.75vh;
 	}
 
 	#schedaPython {
   		width: 100%;
-  		height: 94%;
+  		/* height: 94%; */
 		overflow-x: hidden;
   		overflow-y: scroll;
 	}
 	#schedaCSharp {
 		width: 100%;
-  		height: 94%;
+  		/* height: 94%; */
 		overflow-x: hidden;
   		overflow-y: scroll;
 	}
 	#schedaJavascript {
 		width: 100%;
-  		height: 94%;
+  		/* height: 94%; */
 		overflow-x: hidden;
   		overflow-y: scroll;
 	}
 	#schedaDatabase {
 		width: 100%;
-  		height: 94%;
+  		/* height: 94%; */
 		overflow-x: hidden;
   		overflow-y: scroll;
 	}
 	#schedaDisegni3D {
 		width: 100%;
-  		height: 94%;
+  		/* height: 94%; */
 		overflow-x: hidden;
   		overflow-y: scroll;
 	}
 	#schedaAltriLinks {
 		width: 100%;
-  		height: 94%;
+  		/* height: 94%; */
 		overflow-x: hidden;
   		overflow-y: scroll;
 	}
@@ -75,10 +92,30 @@
 		/* border: 2px solid yellow; */
 		background-color: lightblue ;
 		color: white;
-		padding: 7px 14px;
-		font-size: 16px;
+		padding: 1vh 1vh;
+		font-size: 2.0vh; /* 16px */
 		font-weight: bold;
+
+		/*height: auto; */
   	}
+
+	#tab_scheda {
+
+	}
+
+	/*
+	@media screen and (max-width: 594px) {
+		#tab_scheda {
+			height: 10.75vh;
+		}
+	}
+
+	@media screen and (min-width: 595px) {
+		#tab_scheda {
+			height: 5.0vh;
+		}
+	}
+	*/
 
   	.tabPython {
 		border-color: lightblue;
@@ -114,7 +151,7 @@
 
 	#txt_code{
 		width: 100%; 
-		height: 35vh; 
+		height: 45vh; 
 		color: white;  
 		background-color: black;
 		resize: none;
@@ -122,7 +159,7 @@
 
   	#txt_output {
 		width: 100%; 
-		height: 25vh; 
+		height: 35vh; 
 		resize: none;
   	}
 
@@ -170,6 +207,10 @@
 		resize: none;
   	}
 
+	.slider {
+  		width: 80%;
+	}
+
 	#appLeafletMap {
 		width: 100%;
 		height: auto;
@@ -212,8 +253,8 @@
 	.roundBorder {
   		/*border: 1px solid red;*/
 		border-style: outset;
-  		border-radius: 10px;
-  		padding: 5px;
+  		border-radius: 1vh;
+  		padding: 1vh;
 	}
 	
 </style>
@@ -227,6 +268,31 @@
 	<py-config>
     	packages = ["sqlite3", "numpy" ]
     </py-config>
+
+	<script>
+
+		function resizeWindow() {
+			var hBody = window.innerHeight; 
+			var hTabScheda = document.getElementById( "tab_scheda" ).offsetHeight; 
+			var hDiff = hBody - hTabScheda - 15; 
+			//alert( hDiff );
+			document.getElementById( "schedaPython" ).style.height = hDiff; 
+			document.getElementById( "schedaCSharp" ).style.height = hDiff; 
+			document.getElementById( "schedaJavascript" ).style.height = hDiff; 
+			document.getElementById( "schedaDatabase" ).style.height = hDiff; 
+			document.getElementById( "schedaDisegni3D" ).style.height = hDiff; 
+			document.getElementById( "schedaAltriLinks" ).style.height = hDiff; 
+		}
+
+		window.addEventListener( 'load' , function(event) {
+			resizeWindow();
+		});
+
+		window.addEventListener( 'resize' , function(event) {
+			resizeWindow();
+		});
+
+	</script>
 
 	<div id="tab_scheda">
 		<button id="tab_schedaPython" class="btn tabPython" onclick="gestioneSchede( 'schedaPython' )">- PYTHON -</button>
@@ -255,7 +321,7 @@
 		<div id="blocco01Py" class="span1 roundBorder" >
 
 			<h2>• Hello World</h2> 
-			Clicca sul pulsante e stampa a video una stringa (vedi Console) ... <button id="btn_helloWorld" onclick="alert( 'Hello World in Console ...' )" >Clicca qui</button>
+			Clicca sul pulsante e stampa a video una stringa (vedi Console) ... <button id="btn_helloWorld" onclick="alert( 'Hello World in Console ...' ); " >Clicca qui</button>
 
 			<py-script>
 				from js import document 
@@ -382,7 +448,7 @@
 					document.getElementById("btn_executePy").click()
 					window.sessionStorage.setItem( "superatoPrimoAvvio" , 1 )  
 				else:  
-					output.innerHTML = "Mancato aggiornamento automatico a seguito del Refresh della Pagina Web (utilizzare l'apposito pulsante di cui sopra)."
+					output.innerHTML = "Mancato aggiornamento automatico previsto a seguito del Refresh della Pagina Web (utilizzare l'apposito pulsante di cui sopra)."
 
 			</py-script>
 
@@ -430,7 +496,10 @@
 	</b>
 	<br>
 	<br>
-	Impiego del pacchetto NPM (Node.js) <a href="https://github.com/jyotiska/prettytable">Jyotiska/Prettytable</a> e del Bundler / Impacchettatore lato Client (per Browser) <a href="https://github.com/browserify/browserify?tab=readme-ov-file#external-requires">Browserify</a> (vedi <i>browserify -r prettytable > bundle.js</i>).
+	Impiego di:
+	- pacchetto NPM (Node.js) <a href="https://github.com/jyotiska/prettytable">Jyotiska/Prettytable</a>;
+	<br>
+	- Bundler / Impacchettatore lato Client (per Browser) <a href="https://github.com/browserify/browserify?tab=readme-ov-file#external-requires">Browserify</a> (vedi <i>browserify -r prettytable > bundle.js</i>).
 	<br>
 	<br>
 
@@ -627,16 +696,16 @@
 			</div>
 			<table>
 				<tr>
-					<td><li style="list-style-type:square;">Rosso: </li></td> <td><input type="range" min="0" max="255" id="sliderRed" value="255" oninput="changeColor();"></td>
+					<td>Rosso: </td> <td><input type="range" id="sliderRed" class = "slider" min="0" max="255"  value="255" oninput="changeColor();"></td>
 				</tr>
 				<tr>
-					<td><li style="list-style-type:square;">Verde: </li></td> <td><input type="range" min="0" max="255" id="sliderGreen" value="150" oninput="changeColor();"></td>
+					<td>Verde: </td> <td><input type="range" id="sliderGreen" class = "slider" min="0" max="255"  value="150" oninput="changeColor();"></td>
 				</tr>
 				<tr>
-					<td><li style="list-style-type:square;">Blu: </li></td> <td><input type="range" min="0" max="255" id="sliderBlue" value="0" oninput="changeColor();"></td>
+					<td>Blu: </td> <td><input type="range" id="sliderBlue" class = "slider" min="0" max="255"  value="0" oninput="changeColor();"></td>
 				</tr>
 				<tr>
-					<td><li style="list-style-type:square;">Alpha (trasparenza): </li></td> <td><input type="range" min="0" max="100" id="sliderAlpha" value="255" oninput="changeColor();"></td>
+					<td>Alpha (trasparenza): </td> <td><input type="range" id="sliderAlpha" class = "slider" min="0" max="100"  value="255" oninput="changeColor();"></td>
 				</tr>
 
 			</table>
@@ -654,7 +723,7 @@
 
 			</script>
 			<br>
-			Valore del colore: <input type="text" id="txt_valueColor">
+			Valore del colore: <input type="text" id="txt_valueColor" size="8" >
 			<br>
 
 			<script>
@@ -700,8 +769,10 @@
 
 <div id="schedaDatabase" > 
 
-	<h2>• W3School Database MySQL</h2>
+	<h2>• Link esterni per Database</h2>
 	Query di esempio in ambito MySQL: <a href="https://www.w3schools.com/MySQL/trymysql.asp?filename=trysql_select_all">W3School MySQL</a>
+	<br>
+	Query di esempio in ambito PostgreSQL, SQL Server, MySQL: <a href="https://runsql.com/r">Run SQL</a>
 	
 
 	<h2>• Database SQLITE</h2>
