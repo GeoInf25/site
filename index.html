@@ -207,8 +207,22 @@
 		resize: none;
   	}
 
+	.textAreaNoBorder {
+		border: none;
+		overflow-x: scroll;
+  		overflow-y: scroll;
+		resize: none;
+		/* white-space: nowrap; */
+		white-space: pre;
+	}
+
 	.slider {
-  		width: 80%;
+		width: 80%;
+	}
+
+	.centerInputText {
+		margin: auto;
+  		display: block;
 	}
 
 	#appLeafletMap {
@@ -228,6 +242,8 @@
 		height: 50vh; 
 		float: right;
 	}
+
+	/* Layout */
 
 	.grid {
   		display: grid;
@@ -497,7 +513,8 @@
 	<br>
 	<br>
 	Impiego di:
-	- pacchetto NPM (Node.js) <a href="https://github.com/jyotiska/prettytable">Jyotiska/Prettytable</a>;
+	<br>
+	- pacchetto NPM disponibile tramite <a href="https://github.com/jyotiska/prettytable">GitHub Jyotiska/Prettytable</a> o <a href="https://www.jsdelivr.com/package/npm/prettytable">JsDelivr Jyotiska/Prettytable</a>;
 	<br>
 	- Bundler / Impacchettatore lato Client (per Browser) <a href="https://github.com/browserify/browserify?tab=readme-ov-file#external-requires">Browserify</a> (vedi <i>browserify -r prettytable > bundle.js</i>).
 	<br>
@@ -508,11 +525,13 @@
 		<div id="blocco01Js" class="span1 roundBorder" >
 
 			<h2>• Fibonacci sequence</h2>
-			Inserici un valore numerico (>=2 && <=99) <input type="text" id="txt_upperLimitFibonacci" size="1" value="20" > 
+			Inserici un valore numerico (>=2 && <=99) 
 			<br>
+			<input type="text" id="txt_upperLimitFibonacci" class= "centerInputText" size="1" value="20" >
+			<!-- <br> -->
 			per calcolare i valori della serie (premi INVIO): 
 			<br>
-			<textarea id="txt_outputFibonacci" ></textarea>
+			<textarea id="txt_outputFibonacci" class="textAreaNoBorder" ></textarea>
 			<script>
 
 				var upperLimitFibonacci = 20;
@@ -576,11 +595,13 @@
 		<div id="blocco02Js" class="span1 roundBorder" >
 
 			<h2>• Prime numbers</h2>
-			Inserici un valore massimo (>=1 && <=999) <input type="text" id="txt_upperLimitPrimeNumbers" size="1" value="20" > 
+			Inserici un valore massimo (>=1 && <=999) 
 			<br>
+			<input type="text" id="txt_upperLimitPrimeNumbers" class= "centerInputText" size="1" value="20" >
+			<!-- <br> -->
 			entro il quale calcolare i numeri primi (premi INVIO): 
 			<br>
-			<textarea id="txt_outputPrimeNumbers" ></textarea>
+			<textarea id="txt_outputPrimeNumbers" class="textAreaNoBorder" ></textarea>
 			<script>
 
 				var upperLimitPrimeNumbers = 20;
@@ -644,9 +665,13 @@
 		<div id="blocco03Js" class="span1 roundBorder" >
 
 			<h2>• Number Base</h2>
-			Conversioni rispetto al valore (>=1 && <=1'000'000'000'000) scelto <input type="text" id="txt_numberBaseValue" size="12" value="1000000" > in base 10 (premi INVIO): 
+			Conversioni sul valore (>=1 && <=1000000000000) scelto  
 			<br>
-			<textarea id="txt_outputNumberBase" ></textarea>
+			<input type="text" id="txt_numberBaseValue" class= "centerInputText" size="12" value="1000000" > 
+			<!-- <br> -->
+			in base 10 (premi INVIO):
+			<br>
+			<textarea id="txt_outputNumberBase" class="textAreaNoBorder" ></textarea>
 			<script>
 
 				var numberBaseValue = 1000000;
@@ -692,23 +717,25 @@
 			<h2>• PictureBox</h2>
 			Varia i quattro Slider e cambia colore ... 
 			<div id="div_pictureBox">
-
 			</div>
-			<table>
-				<tr>
-					<td>Rosso: </td> <td><input type="range" id="sliderRed" class = "slider" min="0" max="255"  value="255" oninput="changeColor();"></td>
-				</tr>
-				<tr>
-					<td>Verde: </td> <td><input type="range" id="sliderGreen" class = "slider" min="0" max="255"  value="150" oninput="changeColor();"></td>
-				</tr>
-				<tr>
-					<td>Blu: </td> <td><input type="range" id="sliderBlue" class = "slider" min="0" max="255"  value="0" oninput="changeColor();"></td>
-				</tr>
-				<tr>
-					<td>Alpha (trasparenza): </td> <td><input type="range" id="sliderAlpha" class = "slider" min="0" max="100"  value="255" oninput="changeColor();"></td>
-				</tr>
 
-			</table>
+			<div >
+				<table>
+					<tr>
+						<td>Rosso: </td> <td ><input type="range" id="sliderRed" class="slider"  min="0" max="255"  value="255" oninput="changeColor();"></td>
+					</tr>
+					<tr>
+						<td>Verde: </td> <td ><input type="range" id="sliderGreen" class="slider" min="0" max="255"  value="150" oninput="changeColor();"></td>
+					</tr>
+					<tr>
+						<td>Blu: </td> <td ><input type="range" id="sliderBlue" class="slider" min="0" max="255"  value="0" oninput="changeColor();"></td>
+					</tr>
+					<tr>
+						<td>Alpha: </td> <td ><input type="range" id="sliderAlpha" class="slider" min="0" max="100"  value="255" oninput="changeColor();"></td>
+					</tr>
+
+				</table>
+			</div>
 
 			<script>
 				function changeColor() {
@@ -718,12 +745,14 @@
 					valueAlpha = document.getElementById( "sliderAlpha" ).value;
 					valueAlphaFloat = ( valueAlpha / 100.00 ).toFixed(2);
 					document.getElementById("div_pictureBox").style.backgroundColor = 'rgba(' + valueRed + ',' + valueGreen + ',' + valueBlue + ',' + valueAlphaFloat + ')';
-					document.getElementById("txt_valueColor").value = 'rgba(' + valueRed + ',' + valueGreen + ',' + valueBlue + ',' + valueAlphaFloat + ')'
+					document.getElementById("txt_valueColor").value = '(' + valueRed + ',' + valueGreen + ',' + valueBlue + ',' + valueAlphaFloat + ')'
 				}
 
 			</script>
 			<br>
-			Valore del colore: <input type="text" id="txt_valueColor" size="8" >
+			Valore del colore (rgba, con a / alpha trasparenza):
+			<br>
+			<input type="text" id="txt_valueColor" size="12" >
 			<br>
 
 			<script>
@@ -770,9 +799,14 @@
 <div id="schedaDatabase" > 
 
 	<h2>• Link esterni per Database</h2>
-	Query di esempio in ambito MySQL: <a href="https://www.w3schools.com/MySQL/trymysql.asp?filename=trysql_select_all">W3School MySQL</a>
+	<b>
+		*** ATTENZIONE ***: i Servizi di Database richiamati nel seguito appartengono ai rispettivi proprietari. 
+	</b>
 	<br>
-	Query di esempio in ambito PostgreSQL, SQL Server, MySQL: <a href="https://runsql.com/r">Run SQL</a>
+	<br>
+	- Query di esempio in ambito MySQL: <a href="https://www.w3schools.com/MySQL/trymysql.asp?filename=trysql_select_all">W3School MySQL</a>
+	<br>
+	- Query di esempio in ambito PostgreSQL, SQL Server, MySQL: <a href="https://runsql.com/r">Run SQL</a>
 	
 
 	<h2>• Database SQLITE</h2>
