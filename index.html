@@ -252,9 +252,73 @@
 
 	#controlliLeafletMap {
 		width: 50%; 
-		height: 50vh; 
+		height: 75vh; 
 		float: right;
 	}
+
+	/* Java */
+
+	/* Database */
+
+	#displayTabDbEs01 {
+		width: 100%;
+		height: 50vh;
+	}
+
+	#displayTabStudentDbEs01 {
+		width: 49%; 
+		height: auto;
+		float: left; 
+	}
+
+	#displayTabClassDbEs01 {
+		width: 50%; 
+		height: auto; 
+		float: right;
+	}
+
+	#txt_displayTabStudentDbEs01 {
+		width: 100%; 
+		height: 100%; 
+		resize: none; 
+	}
+
+	#txt_displayTabClassDbEs01 {
+		width: 100%; 
+		height: 100%; 
+		resize: none; 
+	}
+
+	#querySQLResultDbEs01 {
+		width: 100%;
+		height: auto;
+	}
+
+	#querySQLDbEs01 {
+		width: 100%; 
+		height: auto;
+	}
+
+	#resultSQLDbEs01 {
+		width: 100%; 
+		height: auto;
+	}
+
+	#txt_displayQuerySQLDbEs01 {
+		width: 100%; 
+		height: 25vh; 
+		resize: none; 
+	}
+
+	#txt_displayResultDbEs01 {
+		width: 100%; 
+		height: 40vh; 
+		resize: none; 
+	}
+
+	/* Disegni3D */
+
+	/* Altri Links */
 
 	/* Layout */
 
@@ -301,6 +365,7 @@
 
 	<py-config>
     	packages = ["sqlite3", "numpy" ]
+
     </py-config>
 
 	<script>
@@ -868,9 +933,79 @@
 
 		<div id = "blocco02Db" class = "span4 roundBorder" >
 
-			<h2>• Database SQLITE</h2>
+			<h2>• Database SQLITE - esempio 01</h2>
 
+			Defnizione di due Tabelle: Studente, Classe. 
+			<br>
+			Popolamento / Valorizzazione delle Tabelle in riferimento al numero di righe scelto:
+			<br>
+			<table>
+				<tr><td>- nr. righe Tabella Studente: </td> <td><input type="number" id="totRowsTabStudent" min="1" max="5000" value="100" ></td><tr>
+				<tr><td>- nr. righe Tabella Classe: </td> <td><input type="number" id="totRowsTabClass" min="1" max="5000" value="100" ></td><tr>
+			</table>
+			<button id="btn_tablePopulating" >Valorizza Tabelle</button>
 
+			<div id="displayTabDbEs01">
+
+				<div id="displayTabStudentDbEs01" >
+					<br>
+					<u> - Tabella "Studente" - </u> 
+					<br>
+					<textarea id="txt_displayTabStudentDbEs01" ></textarea>
+
+				</div>
+
+				<div id="displayTabClassDbEs01" >
+					<br>
+					<u> - Tabella "Classe" - </u> 
+					<br>
+					<textarea id="txt_displayTabClassDbEs01" ></textarea>
+
+				</div>
+
+				<script>
+					document.getElementById("txt_displayTabStudentDbEs01").readOnly = true;
+					document.getElementById("txt_displayTabClassDbEs01").readOnly = true;
+				</script>
+
+			</div>
+
+			<br>
+
+			<div id="querySQLResultDbEs01" >
+				<div id="querySQLDbEs01" >
+					<br>
+					<br>
+					<u> - Query SQL - </u> 
+					<br>
+					<textarea id="txt_displayQuerySQLDbEs01" ></textarea>
+				</div>
+				<div id="resultDbEs01" >
+					<br>
+					<u> - Risultato dell'interrogazione - </u> 
+					<br>
+					<textarea id="txt_displayResultDbEs01" ></textarea>
+				</div>
+
+				<script>
+					document.getElementById("txt_displayQuerySQLDbEs01").readOnly = true;
+					document.getElementById("txt_displayResultDbEs01").readOnly = true;
+				</script>
+
+			</div>
+			
+			<py-script>
+				import sqlite3
+
+				def tablePopulating( *args ):
+					connection = sqlite3.connect("./Database/dbSqliteEs01.db")
+					print(connection.total_changes)
+					connection.close()
+
+				add_event_listener( document.getElementById("btn_tablePopulating") , "click", tablePopulating)				
+
+			</py-script>
+			
 
 		</div>
 
