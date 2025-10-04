@@ -51,6 +51,14 @@
 		font-size: 1.75vh;
 	}
 
+	h2 {
+		font-size: 2.25vh;
+	}
+
+	ul {
+		padding: 0.0vh 4.0vh; 
+	}
+
 	#schedaPython {
   		width: 100%;
   		/* height: 94%; */
@@ -132,6 +140,11 @@
 		color: white;
   	}
 
+	.tabJava {
+		border-color: lightblue;
+		color: white;
+  	}
+
 	.tabDatabase {
 		border-color: lightblue;
 		color: white;
@@ -166,8 +179,7 @@
 	/* C# */
 
   	#descrApp001CSharp {
-  		text-align: justify;
-  		text-justify: inter-word;
+  		
   	}
 
 	img {
@@ -221,6 +233,7 @@
 	}
 
 	.centerInputText {
+		width: 100%;
 		margin: auto;
   		display: block;
 	}
@@ -272,6 +285,11 @@
   		border-radius: 1vh;
   		padding: 1vh;
 	}
+
+	.justify {
+		text-align: justify;
+  		text-justify: inter-word;
+	}
 	
 </style>
 
@@ -295,6 +313,7 @@
 			document.getElementById( "schedaPython" ).style.height = hDiff; 
 			document.getElementById( "schedaCSharp" ).style.height = hDiff; 
 			document.getElementById( "schedaJavascript" ).style.height = hDiff; 
+			document.getElementById( "schedaJava" ).style.height = hDiff; 
 			document.getElementById( "schedaDatabase" ).style.height = hDiff; 
 			document.getElementById( "schedaDisegni3D" ).style.height = hDiff; 
 			document.getElementById( "schedaAltriLinks" ).style.height = hDiff; 
@@ -314,6 +333,7 @@
 		<button id="tab_schedaPython" class="btn tabPython" onclick="gestioneSchede( 'schedaPython' )">- PYTHON -</button>
 		<button id="tab_schedaCSharp" class="btn tabCSharp" onclick="gestioneSchede( 'schedaCSharp' )">- C# -</button>
 		<button id="tab_schedaJavascript" class="btn tabJavascript" onclick="gestioneSchede( 'schedaJavascript' )">- JAVASCRIPT -</button>
+		<button id="tab_schedaJava" class="btn tabJava" onclick="gestioneSchede( 'schedaJava' )">- JAVA -</button>
 		<button id="tab_schedaDatabase" class="btn tabDatabase" onclick="gestioneSchede( 'schedaDatabase' )">- DATABASE -</button>
 		<button id="tab_schedaDisegni3D" class="btn tabDisegni3D" onclick="gestioneSchede( 'schedaDisegni3D' )">- DISEGNI 3D -</button>
 		<button id="tab_schedaAltriLinks" class="btn tabAltriLinks" onclick="gestioneSchede( 'schedaAltriLinks' )">- ALTRI LINKS -</button>
@@ -490,7 +510,7 @@
 		<div id="blocco01CSharp" class="span4 roundBorder" >
 
 			<h2><b>• App001:</b></h2>
-			<p id="descrApp001CSharp" >
+			<p id="descrApp001CSharp" class="justify" >
 			Dopo aver creato un WinForm .NET project (in C#) ed aver preparato la relativa WebView2 oltre al componente ReoGrid - .NET Spreadsheet (anche mediante l'utilizzo del relativo pacchetto NuGet), l'Applicazione in questione utilizza una pagina HTML mediante la quale richiamare le funzioni ed i Marker della Libreria Leaflet (Javascript). Le coordinate di inserimento dei Marker saranno poi elencate nel foglio disposto a lato dell'Applicazione. In questo contesto la comunicazione tra C# e Javascript viene assicurata tramite l'istruzione webView21.ExecuteScriptAsync e dalle istruzioni chrome.webview.postMessage. La gestione degli handlers / eventi è definita partendo dall'evento WinForm Load, attraverso espressioni come webView21.NavigationCompleted += (,_ args) => {...}. Link alle immagini di esempio:
 			</p>
 			<img src="./CSharp/App001/Image/Image01.png" alt="Image01" >
@@ -559,7 +579,7 @@
 				function calculateFibonacci( ) {
 
 					var tableFib = new PrettyTable();
-					var headersFib = [ "Posizione", "Valore" ];
+					var headersFib = [ "Indice", "Valore" ];
 					var rowsFib = [ ];  
 					
 					for( var i = 0; i <= upperLimitFibonacci; i++ ) {
@@ -752,7 +772,7 @@
 			<br>
 			Valore del colore (rgba, con a / alpha trasparenza):
 			<br>
-			<input type="text" id="txt_valueColor" size="12" >
+			<input type="text" id="txt_valueColor" class= "centerInputText" size="12" >
 			<br>
 
 			<script>
@@ -796,22 +816,50 @@
 
 </div>
 
-<div id="schedaDatabase" > 
+<div id="schedaJava" > 
 
-	<h2>• Link esterni per Database</h2>
+	<h2>• Applet Java</h2>
 	<b>
-		*** ATTENZIONE ***: i Servizi di Database richiamati nel seguito appartengono ai rispettivi proprietari. 
+		*** ATTENZIONE ***: i Servizi richiamati appartengono ai rispettivi proprietari. 
 	</b>
 	<br>
 	<br>
-	- Query di esempio in ambito MySQL: <a href="https://www.w3schools.com/MySQL/trymysql.asp?filename=trysql_select_all">W3School MySQL</a>
-	<br>
-	- Query di esempio in ambito PostgreSQL, SQL Server, MySQL: <a href="https://runsql.com/r">Run SQL</a>
-	
+	<div id="descApplet" class="justify" >
+		Applet Java considerate generalmente defunte, in quest'ambito l'Estensione per Browser <a href="https://labs.leaningtech.com/docs/cheerpj-applet-runner">CheerpJ Applet Runner</a> permette di ottenere nuovi risultati; la visualizzazione delle Applet relative risulta possibile tramite la semplice installazione ed attivazione dell'Estensione di cui sopra. 
+	</div>
 
-	<h2>• Database SQLITE</h2>
+</div>
+
+<div id="schedaDatabase" > 
+
+	<div>
+		<b>
+			*** ATTENZIONE ***: i Servizi di Database richiamati nel seguito appartengono ai rispettivi proprietari. 
+		</b>
+		<br>
+		<br>
 		
+	</div>
 
+	<div id = "blocco01Db" class = "span1 roundBorder" >
+
+		<h2>• Link esterni per Database</h2>
+		
+		- Query di esempio in ambito MySQL: <a href="https://www.w3schools.com/MySQL/trymysql.asp?filename=trysql_select_all">W3School MySQL</a>
+		<br>
+		- Query di esempio in ambito PostgreSQL, SQL Server, MySQL: <a href="https://runsql.com/r">Run SQL</a>
+		<br>
+		<br>
+
+	</div>
+
+	<div id = "blocco02Db" class = "span1 roundBorder" >
+
+		<h2>• Database SQLITE</h2>
+
+
+
+	</div>
 
 </div>
 
@@ -875,6 +923,7 @@
 	schedaPython = document.getElementById( "schedaPython" );
 	schedaCSharp = document.getElementById( "schedaCSharp" );
 	schedaJavascript = document.getElementById( "schedaJavascript" );
+	schedaJava = document.getElementById( "schedaJava" );
 	schedaDatabase = document.getElementById( "schedaDatabase" );
 	schedaDisegni3D = document.getElementById( "schedaDisegni3D" );
 	schedaAltriLinks = document.getElementById( "schedaAltriLinks" );
@@ -882,7 +931,8 @@
 	schede = [ 
 		schedaPython,
 		schedaCSharp,
-		schedaJavascript, 
+		schedaJavascript,
+		schedaJava, 
 		schedaDatabase,
 		schedaDisegni3D,
 		schedaAltriLinks
