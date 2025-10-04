@@ -2,6 +2,7 @@
 var schedaPython = null;
 var schedaCSharp = null;
 var schedaJavascript = null;
+var schedaJava = null;
 var schedaDatabase = null;
 var schedaDisegni3D = null;
 var schedaAltriLinks = null;
