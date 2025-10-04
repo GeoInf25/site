@@ -1021,7 +1021,7 @@
 
 				def tablePopulating( *args ):
 					connection = sqlite3.connect("https://geoinf25.github.io/site/Database/dbSqliteEs01.db")
-					print(connection.total_changes)
+					print("connection.total_changes: " + str( connection.total_changes ) )
 					cursor = connection.cursor()
 
 					cursor.execute("DROP TABLE IF EXISTS Studente");
