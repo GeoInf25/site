@@ -1,4 +1,4 @@
 
 
-aaa = 33
-print( "Test"); 
+def greeting(name):
+  print("Hello, " + name)
