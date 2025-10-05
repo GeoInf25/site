@@ -1,32 +1,29 @@
 
 # __all__ necessario 
-# __all_ = [ "variable" ]
-__all__ = [  ]
+# __all_ = [ "variable" ] #Esportazione variabili
 
 import sqlite3
 from prettytable import from_db_cursor
 from random import randint
 
+from js import console, document, window
+from pyodide.ffi.wrappers import add_event_listener
+
+import js
+
 connection = None
 
-add_event_listener( document.getElementById("btn_tablePopulating") , "click", tablePopulating)
-add_event_listener( document.getElementById("btn_executeQuerySQL") , "click", executeQuerySQL)	
-
-#Schede
-add_event_listener( document.getElementById("tab_schedaPython") , "click", controlConnection( "schedaPython" ) )	
-add_event_listener( document.getElementById("tab_schedaCSharp") , "click", controlConnection( "schedaCSharp" ) )	
-add_event_listener( document.getElementById("tab_schedaJavascript") , "click", controlConnection ("schedaJavascript" ) )	
-add_event_listener( document.getElementById("tab_schedaJava") , "click", controlConnection( "schedaJava" ) )	
-add_event_listener( document.getElementById("tab_schedaDatabase") , "click", controlConnection( "schedaDatabase" ) )	
-add_event_listener( document.getElementById("tab_schedaDisegni3D") , "click", controlConnection( "schedaDisegni3D" ) )
-add_event_listener( document.getElementById("tab_schedaAltriLinks") , "click", controlConnection( "schedaAltriLinks" ) )		
-
-def controlConnection( scheda ):
-  if( scheda == "schedaDatabase" ):
+def controlConnection( *args ):
+  global connection
+  print( " Controllo: " + str( js.schedaDabaseCliccata ) )
+  if( js.schedaDabaseCliccata == True ):
     connection = sqlite3.connect( ":memory:" ) #https://geoinf25.github.io/site/Database/dbSqliteEs01.db
   else:
-    connection.close()
+    if( not ( connection is None ) ):
+      connection.close()
+    print( "Controllo connessione terminata ... " )
 
+#Variables
 idStudente = 0 #incr
 idClasse = 0 #incr
 nome = [ 'Alessandro', 'Marco', 'Michele', 'Rolando', 'Chiara', 'Francesca', 'Fernanda', 'Giulia', 'Alberto', 'Daniele', 'Gianni', 'Paolo', 'Veronica', 'Margherita', 'Annalisa' ]
@@ -38,6 +35,7 @@ piano = [ -1, 0, 1, 2, 3, 4, 5 ]
 tipo = [ "Aula", "Laboratorio", "Palestra" ]
   
 def tablePopulating( *args ):
+  global connection
   totRowsTabStudent = int( document.getElementById( "totRowsTabStudent" ).value )
   totRowsTabClass = int( document.getElementById( "totRowsTabClass" ).value )
   #connection = sqlite3.connect( ":memory:" ) #https://geoinf25.github.io/site/Database/dbSqliteEs01.db
@@ -88,6 +86,7 @@ def tablePopulating( *args ):
   print( "-- Fine valorizzazione Tabelle -- " )
 
 def executeQuerySQL( *args ):
+  global connection
   #print( document.getElementById("txt_displayQuerySQLDbEs01").value )
   #connection = sqlite3.connect( ":memory:" ) #https://geoinf25.github.io/site/Database/dbSqliteEs01.db
   cursor = connection.cursor()
@@ -101,5 +100,17 @@ def executeQuerySQL( *args ):
 #if( window.sessionStorage.getItem( "superatoPrimoAvvio2" ) is None ):
 #document.getElementById("btn_tablePopulating").click(); 
 #window.sessionStorage.setItem( "superatoPrimoAvvio2" , 1 ) 
+
+add_event_listener( document.getElementById("btn_tablePopulating") , "click", tablePopulating)
+add_event_listener( document.getElementById("btn_executeQuerySQL") , "click", executeQuerySQL)	
+
+#Schede
+add_event_listener( document.getElementById("tab_schedaPython") , "click", controlConnection ) #Privo di argomenti 
+add_event_listener( document.getElementById("tab_schedaCSharp") , "click", controlConnection )	
+add_event_listener( document.getElementById("tab_schedaJavascript") , "click", controlConnection )	
+add_event_listener( document.getElementById("tab_schedaJava") , "click", controlConnection )	
+add_event_listener( document.getElementById("tab_schedaDatabase") , "click", controlConnection )	
+add_event_listener( document.getElementById("tab_schedaDisegni3D") , "click", controlConnection )
+add_event_listener( document.getElementById("tab_schedaAltriLinks") , "click", controlConnection )	
 
 document.getElementById("txt_displayQuerySQLDbEs01").innerHTML = "select * from Classe where tipo = 'Aula' ";
