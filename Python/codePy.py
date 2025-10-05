@@ -18,9 +18,13 @@ def controlConnection( *args ):
   print( " Controllo: " + str( js.schedaDabaseCliccata ) )
   if( js.schedaDabaseCliccata == True ):
     connection = sqlite3.connect( ":memory:" ) #https://geoinf25.github.io/site/Database/dbSqliteEs01.db
+    tablePopulating()
+    
   else:
     if( not ( connection is None ) ):
       connection.close()
+    document.getElementById("txt_displayTabStudentDbEs01").innerHTML = ""
+    document.getElementById("txt_displayTabClassDbEs01").innerHTML = ""
     #print( "Controllo connessione terminata ... " )
 
 #Variables
@@ -102,11 +106,6 @@ def executeQuerySQL( *args ):
     #connection.close()
     print( "-- Fine Esecuzione Query SQL -- " )
 
-    #Test iniziale all'apertura della Pagina Web
-    #if( window.sessionStorage.getItem( "superatoPrimoAvvio2" ) is None ):
-    #document.getElementById("btn_tablePopulating").click(); 
-    #window.sessionStorage.setItem( "superatoPrimoAvvio2" , 1 ) 
-
   except Exception as e:
     document.getElementById("txt_displayResultDbEs01").innerHTML = f"Error detected: {str(e)}"
 
@@ -123,3 +122,8 @@ add_event_listener( document.getElementById("tab_schedaDisegni3D") , "click", co
 add_event_listener( document.getElementById("tab_schedaAltriLinks") , "click", controlConnection )	
 
 document.getElementById("txt_displayQuerySQLDbEs01").innerHTML = "select * from Classe where tipo = 'Aula' ";
+
+#Test iniziale all'apertura della Pagina Web
+#if( window.sessionStorage.getItem( "superatoPrimoAvvio2" ) is None ):
+#document.getElementById("btn_tablePopulating").click(); 
+#window.sessionStorage.setItem( "superatoPrimoAvvio2" , 1 ) 
