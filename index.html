@@ -373,10 +373,9 @@
 
 	<py-config>
     	packages = ["sqlite3", "numpy",  "prettytable" ]
-		[[fetch]]
-  		files = [ "https://geoinf25.github.io/site/codePy.py" ]
 
-		
+		# [[fetch]]
+     	# files = ["https://geoinf25.github.io/site/Database/dbSqliteEs01.db"]
 
     </py-config>
 
@@ -1009,14 +1008,15 @@
 				</script>
 
 			</div>
+
+			<script type="py" config='{ "files": { "./codePy.py": ""} }'>
+				import codePy
+			</script>
 			
 			<py-script>
 				import sqlite3
 				from prettytable import from_db_cursor
 				from random import randint
-
-				import codePy
-				#codePy.greeting("Jonathan")
 
 				idStudente = 0 #incr
 				idClasse = 0 #incr
