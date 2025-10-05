@@ -1,5 +1,6 @@
 
-__all__ = [ "zzz" ]
+# __all__ necessario 
+__all__ = [ "zzz", "greeting" ]
 
 def greeting(name):
   print("Hello, " + name)
