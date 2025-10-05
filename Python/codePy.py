@@ -1,5 +1,5 @@
 
-__all__ =  [ "zzz" ]
+__all__ = [ "zzz" ]
 
 def greeting(name):
   print("Hello, " + name)
