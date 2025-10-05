@@ -21,7 +21,7 @@ def controlConnection( *args ):
   else:
     if( not ( connection is None ) ):
       connection.close()
-    print( "Controllo connessione terminata ... " )
+    #print( "Controllo connessione terminata ... " )
 
 #Variables
 idStudente = 0 #incr
@@ -36,8 +36,8 @@ tipo = [ "Aula", "Laboratorio", "Palestra" ]
   
 def tablePopulating( *args ):
   global connection
-  totRowsTabStudent = int( document.getElementById( "totRowsTabStudent" ).value )
-  totRowsTabClass = int( document.getElementById( "totRowsTabClass" ).value )
+  totIDTabStudent = int( document.getElementById( "totIDTabStudent" ).value )
+  totIDTabClass = int( document.getElementById( "totIDTabClass" ).value )
   #connection = sqlite3.connect( ":memory:" ) #https://geoinf25.github.io/site/Database/dbSqliteEs01.db
   print("connection.total_changes: " + str( connection.total_changes ) )
   cursor = connection.cursor()
@@ -45,30 +45,30 @@ def tablePopulating( *args ):
   cursor.execute("DROP TABLE IF EXISTS Studente");
   cursor.execute("DROP TABLE IF EXISTS Classe");
 
-  cursor.execute("CREATE TABLE IF NOT EXISTS Studente (idStudente INTEGER, nome TEXT, cognome TEXT, eta INTEGER, luogoNascita TEXT )")
-  cursor.execute("CREATE TABLE IF NOT EXISTS Classe (idClasse INTEGER, superficie INTEGER, piano INTEGER, tipo TEXT, idStudente INTEGER )")
+  cursor.execute("CREATE TABLE IF NOT EXISTS Studente (idStudente INTEGER, nome TEXT, cognome TEXT, eta INTEGER, luogoNascita TEXT, idClasse INTEGER )")
+  cursor.execute("CREATE TABLE IF NOT EXISTS Classe (idClasse INTEGER, superficie INTEGER, piano INTEGER, tipo TEXT )")
 
   idStudente = 0
   idClasse = 0
 
   #print( nome[ randint(0, len(nome)-1) ] )
 
-  for i in range(0, totRowsTabStudent, 1): #limite escluso 
+  for i in range(0, totIDTabStudent, 1): #limite escluso 
     cursor.execute("INSERT INTO Studente VALUES ( ?, ?, ?, ?, ? )", ( 
       idStudente, nome[ randint(0, len(nome)-1) ], 
       cognome[ randint(0, len(cognome)-1) ], 
       randint(18, 45), 
-      luogoNascita[ randint(0, len(luogoNascita)-1) ] 
+      luogoNascita[ randint(0, len(luogoNascita)-1) ],
+      randint(0, totIDTabClass )
     ))
     idStudente = idStudente + 1
 
-  for i in range(0, totRowsTabClass, 1): #limite escluso 
-    cursor.execute("INSERT INTO Classe VALUES ( ?, ?, ?, ?, ? )", ( 
+  for i in range(0, totIDTabClass, 1): #limite escluso 
+    cursor.execute("INSERT INTO Classe VALUES ( ?, ?, ?, ? )", ( 
       idClasse, 
       superficie[ randint(0, len(superficie)-1) ], 
       piano[ randint(0, len(piano)-1) ], 
-      tipo[ randint(0, len(tipo)-1) ], 
-      randint(0, totRowsTabStudent) 
+      tipo[ randint(0, len(tipo)-1) ]
     ))
     idClasse = idClasse + 1
 
