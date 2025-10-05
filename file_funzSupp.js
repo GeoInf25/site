@@ -9,7 +9,11 @@ var schedaAltriLinks = null;
 
 var schede = null; 
 
+var schedaDabaseCliccata = null; 
+
 function gestioneSchede( scheda ) {
+
+	//console.log( "" + scheda )
 
 	for( var i = 0; i < schede.length; i++ ) {
 		var tempNomeScheda = schede[ i ].id; 
@@ -21,6 +25,14 @@ function gestioneSchede( scheda ) {
 			schede[ i ].style.visibility = "hidden";
 		}
 	}
+	
+	if( scheda == "schedaDatabase" ) {
+		schedaDabaseCliccata = true; 
+		//console.log( "lato JS " + schedaDabaseCliccata )
+	} else {
+		schedaDabaseCliccata = false; 
+	}
+	
 
 }
 
