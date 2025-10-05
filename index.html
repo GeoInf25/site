@@ -374,7 +374,7 @@
 	<py-config>
     	packages = ["sqlite3", "numpy",  "prettytable" ]
 		[[fetch]]
-  		files = [ "https://geoinf25.github.io/site/codePy.py" ]
+  		files = [ "./codePy.py" ]
 
 		# [[fetch]]
      	# files = ["https://geoinf25.github.io/site/Database/dbSqliteEs01.db"]
@@ -1017,7 +1017,7 @@
 				from random import randint
 
 				import codePy
-				print( codePy.aaa )
+				codePy.greeting("Jonathan")
 
 				idStudente = 0 #incr
 				idClasse = 0 #incr
