@@ -15,7 +15,7 @@ connection = None
 
 def controlConnection( *args ):
   global connection
-  print( " Controllo: " + str( js.schedaDabaseCliccata ) )
+  print( " Controllo Scheda: " + str( js.schedaDabaseCliccata ) )
   if( js.schedaDabaseCliccata == True ):
     connection = sqlite3.connect( ":memory:" ) #https://geoinf25.github.io/site/Database/dbSqliteEs01.db
     tablePopulating()
