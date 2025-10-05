@@ -47,7 +47,7 @@ def tablePopulating( *args ):
     cursor.execute("DROP TABLE IF EXISTS Classe");
 
     cursor.execute("CREATE TABLE IF NOT EXISTS Studente (idStud INTEGER, nome TEXT, cognome TEXT, eta INTEGER, luogoNascita TEXT, idClasse INTEGER )")
-    cursor.execute("CREATE TABLE IF NOT EXISTS Classe (idClass INTEGER, superficie INTEGER, piano INTEGER, tipo TEXT )")
+    cursor.execute("CREATE TABLE IF NOT EXISTS Classe (idClass INTEGER, superficieMq INTEGER, piano INTEGER, tipo TEXT )")
 
     idStudente = 0
     idClasse = 0
