@@ -280,13 +280,17 @@
 	#txt_displayTabStudentDbEs01 {
 		width: 100%; 
 		height: 100%; 
-		resize: none; 
+		resize: none;
+		overflow: scroll; 
+		white-space: pre; 
 	}
 
 	#txt_displayTabClassDbEs01 {
 		width: 100%; 
 		height: 100%; 
 		resize: none; 
+		overflow: scroll; 
+		white-space: pre; 
 	}
 
 	#querySQLResultDbEs01 {
@@ -308,12 +312,16 @@
 		width: 100%; 
 		height: 25vh; 
 		resize: none; 
+		overflow: scroll; 
+		white-space: pre; 
 	}
 
 	#txt_displayResultDbEs01 {
 		width: 100%; 
 		height: 40vh; 
 		resize: none; 
+		overflow: scroll; 
+		white-space: pre; 
 	}
 
 	/* Disegni3D */
@@ -365,9 +373,11 @@
 
 	<py-config>
     	packages = ["sqlite3", "numpy",  "prettytable" ]
-
 		[[fetch]]
-     	files = ["https://geoinf25.github.io/site/Database/dbSqliteEs01.db"]
+  		files = [ "https://geoinf25.github.io/site/codePy.py" ]
+
+		# [[fetch]]
+     	# files = ["https://geoinf25.github.io/site/Database/dbSqliteEs01.db"]
 
     </py-config>
 
@@ -1006,6 +1016,8 @@
 				from prettytable import from_db_cursor
 				from random import randint
 
+				print( aaa )
+
 				idStudente = 0 #incr
 				idClasse = 0 #incr
 				nome = [ 'Alessandro', 'Marco', 'Michele', 'Rolando', 'Chiara', 'Francesca', 'Fernanda', 'Giulia', 'Alberto', 'Daniele', 'Gianni', 'Paolo', 'Veronica', 'Margherita', 'Annalisa' ]
@@ -1020,7 +1032,7 @@
 				totRowsTabClass = int( document.getElementById( "totRowsTabClass" ).value )
 
 				def tablePopulating( *args ):
-					connection = sqlite3.connect("https://geoinf25.github.io/site/Database/dbSqliteEs01.db")
+					connection = sqlite3.connect( ":memory:" ) #https://geoinf25.github.io/site/Database/dbSqliteEs01.db
 					print("connection.total_changes: " + str( connection.total_changes ) )
 					cursor = connection.cursor()
 
@@ -1058,7 +1070,7 @@
 
 				def executeQuerySQL( *args ):
 					#print( document.getElementById("txt_displayQuerySQLDbEs01").value )
-					connection = sqlite3.connect("https://geoinf25.github.io/site/Database/dbSqliteEs01.db")
+					connection = sqlite3.connect( ":memory:" ) #https://geoinf25.github.io/site/Database/dbSqliteEs01.db
 					cursor = connection.cursor()
 					cursor.execute( document.getElementById("txt_displayQuerySQLDbEs01").value )
 					tempResultQuerySQL = from_db_cursor(cursor)
