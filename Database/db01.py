@@ -17,8 +17,13 @@ def controlConnection( *args ):
   global connection
   print( "Controllo Scheda Database: " + str( js.schedaDabaseCliccata ) )
   if( js.schedaDabaseCliccata == True ):
+    #document.getElementById("txt_displayTabClassDbEs01").innerHTML = ""
+    #document.getElementById("txt_displayTabStudentDbEs01").innerHTML = ""
+    document.getElementById("txt_displayQuerySQLDbEs01").innerHTML = "select * from Classe where tipo = 'Aula' ";
     connection = sqlite3.connect( ":memory:" ) #https://geoinf25.github.io/site/Database/dbSqliteEs01.db
     tablePopulating()
+    executeQuerySQL()
+
     
   else:
     if( not ( connection is None ) ):
@@ -30,20 +35,17 @@ def controlConnection( *args ):
 #Variables
 idClasse = 0 #incr
 idStudente = 0 #incr
-nome = [ 'Alessandro', 'Marco', 'Michele', 'Rolando', 'Chiara', 'Francesca', 'Fernanda', 'Giulia', 'Alberto', 'Daniele', 'Gianni', 'Paolo', 'Veronica', 'Margherita', 'Annalisa' ]
-cognome = [ "Veroli", "Bertoldi", "D'Addetta", "Del Fabbro", "Malfer", "Bassetti", "Ferri", "Righi", "Calza", "Viola", "Rossi", "Neri", "Bianchi", "Bettoni", "Flessati" ]
+nome = [ "Alessandro", "Marco", "Michele", "Rolando", "Chiara", "Francesca", "Fernanda", "Giulia", "Alberto", "Daniele", "Gianni", "Paolo", "Veronica", "Margherita", "Annalisa", "Carmelo", "Pasquale", "Sonia", "Vincenzo", "Salvatore" ]
+cognome = [ "Veroli", "Bertoldi", "D'Addetta", "Del Fabbro", "Malfer", "Bassetti", "Ferri", "Righi", "Calza'", "Viola", "Rossi", "Neri", "Bianchi", "Bettoni", "Flessati", "Russo", "Greco", "Bianco", "Esposito", "Romeo" ]
 #eta randint(18, 45) limite incluso
-luogoNascita = [ "Arco", "Riva del Garda", "Rovereto", "Storo", "Trento", "Bolzano", "Brescia", "Concesio", "Affi", "Verona", "Treviso", "Portograuro", "Vicenza", "Sirmione", "Mantova" ]
+luogoNascita = [ "Arco", "Riva del Garda", "Rovereto", "Storo", "Trento", "Bolzano", "Brescia", "Palermo", "Affi", "Verona", "Treviso", "Portograuro", "Vicenza", "Napoli", "Mantova" ]
 superficie = [ 25, 30, 35, 40, 45, 50, 70, 100 ]
 piano = [ -1, 0, 1, 2, 3, 4, 5 ]
-tipo = [ "Aula", "Laboratorio chimico", "Palestra", "Laboratorio CAD" ]
+tipo = [ "Aula", "Laboratorio fisica", "Palestra", "Aula CAD", "Aula informatica" ]
   
 def tablePopulating( *args ):
   try: 
     global connection
-
-    document.getElementById("txt_displayTabClassDbEs01").innerHTML = "Attendi ... "
-    document.getElementById("txt_displayTabStudentDbEs01").innerHTML = "Attendi ... "
 
     totIDTabClass = int( document.getElementById( "totIDTabClass" ).value )
     totIDTabStudent = int( document.getElementById( "totIDTabStudent" ).value )
@@ -78,7 +80,7 @@ def tablePopulating( *args ):
         cognome[ randint(0, len(cognome)-1) ], 
         randint(18, 45), #entrambi i limiti inclusi 
         luogoNascita[ randint(0, len(luogoNascita)-1) ],
-        randint(0, ( totIDTabClass - 1 ) )
+        randint(0, ( totIDTabClass - 1 ) ) #conteggio a partire da 0
       ))
       idStudente = idStudente + 1
 
@@ -93,6 +95,8 @@ def tablePopulating( *args ):
     tempResultQuerySQL = from_db_cursor(cursor)
     tempResultQuerySQL.align = "l" 
     document.getElementById("txt_displayTabStudentDbEs01").innerHTML = tempResultQuerySQL.get_string()
+
+    document.getElementById("txt_displayResultDbEs01").innerHTML = ""
 
     #connection.close()
     print( "-- Fine valorizzazione Tabelle -- " )
@@ -129,8 +133,6 @@ add_event_listener( document.getElementById("tab_schedaDatabase") , "click", con
 add_event_listener( document.getElementById("tab_schedaGIS") , "click", controlConnection )	
 add_event_listener( document.getElementById("tab_schedaDisegni3D") , "click", controlConnection )
 add_event_listener( document.getElementById("tab_schedaAltriLinks") , "click", controlConnection )	
-
-document.getElementById("txt_displayQuerySQLDbEs01").innerHTML = "select * from Classe where tipo = 'Aula' ";
 
 #Test iniziale all'apertura della Pagina Web
 #if( window.sessionStorage.getItem( "superatoPrimoAvvio2" ) is None ):
