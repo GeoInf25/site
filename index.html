@@ -43,6 +43,10 @@
 		font-size: 1.75vh;
 	}
 
+	select {
+		font-size: 1.75vh;
+	}
+
 	input {
 		font-size: 1.75vh;
 	}
@@ -176,8 +180,8 @@
 	#txt_code{
 		width: 100%; 
 		height: 45vh; 
-		color: white;  
-		background-color: black;
+		color: black;  
+		background-color: lightgray;
 		resize: none;
   	}
 
@@ -319,17 +323,25 @@
 		height: auto;
 	}
 
+	#select_listQuerySQLDb01{
+		font-family: "Trebuchet MS";
+		font-weight: bold;
+		/*font-style: italic;*/
+		width: 100%; 
+		heigth: 5vh; 
+	}
+
 	#txt_displayQuerySQLDbEs01 {
 		width: 100%; 
 		height: 15vh; 
 		resize: none; 
-		overflow: scroll; 
-		white-space: pre; 
+		overflow-y: scroll; 
+		/*white-space: pre; */
 	}
 
 	#txt_displayResultDbEs01 {
 		width: 100%; 
-		height: 40vh; 
+		height: 50vh; 
 		resize: none; 
 		overflow: scroll; 
 		white-space: pre; 
@@ -373,7 +385,34 @@
 		text-align: justify;
   		text-justify: inter-word;
 	}
-	
+
+	/* Popup */
+
+	.popup {
+		position: relative;
+	}
+
+	.popup .popuptext {
+		visibility: hidden;
+		font-size: 1.75vh;
+		/*width: 40vh;
+		height: 5vh;*/
+		color: #fff;
+		text-align: center;
+		border-radius: 1vh;
+		position: absolute;
+		background-color: #555;
+		padding: 1vh;
+		/*bottom: 100%;
+		left: 50%;
+		margin: ... */
+
+	}
+/*
+	.popup .show {
+		visibility: visible;
+	}
+	*/
 </style>
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="utf-8" >
@@ -384,7 +423,7 @@
 <body>
 
 	<py-config>
-    	packages = ["sqlite3", "numpy",  "prettytable" ]
+    	packages = ["sqlite3", "numpy",  "prettytable", "folium" ]
 
 		#[[fetch]]
 		#from = 'https://geoinf25.github.io/site/Python/'
@@ -958,7 +997,7 @@
 		<br>
 		Alcune note:
 		<br> 
-		- Fase di Test eseguita in locale (vedi <u>python -m http.server 3000</u> in riferimento alle <a href="https://www.youtube.com/watch?v=H7ZTrqhonHc">CORS Policy</a>). 
+		- Fase di Test eseguita in locale (vedi <u>python -m http.server 3000, localhost:3000</u>, in riferimento alle <a href="https://www.youtube.com/watch?v=H7ZTrqhonHc">CORS Policy</a>). 
 		<br>
 		<br>
 		
@@ -986,10 +1025,68 @@
 			<br>
 			Popolamento / Valorizzazione delle Tabelle in riferimento al numero di ID scelti:
 			<br>
-			<table>
-				<tr><td>- nr. ID Tabella Classe: </td> <td><input type="number" id="totIDTabClass" min="1" max="25" value="15" ></td><tr>
-				<tr><td>- nr. ID Tabella Studente: </td> <td><input type="number" id="totIDTabStudent" min="1" max="150" value="120" ></td><tr>
-			</table>
+
+			<div class="popup" > <!-- posizione Popup -->
+				<table>
+					<tr><td>- nr. ID Tabella Classe (valore compreso fra 1 e 25, predefinito 15): </td> <td>
+						<input type="number" id="totIDTabClass" min="1" max="25" value="15" ></td>
+					<tr>
+					<tr><td>- nr. ID Tabella Studente (valore compreso fra 1 e 150, predefinito 120): </td> <td>
+						<input type="number" id="totIDTabStudent" min="1" max="150" value="120" ></td>
+					<tr>
+				</table>
+				<span class="popuptext" id="popupInputDb01" 
+					onclick="/*this.style.display = 'none';*/ this.style.visibility = 'hidden'; " >
+				</span>
+			</div>
+
+			<script>
+
+				var totIDTabClass = { obj: document.getElementById( "totIDTabClass" ), limInf: 1,  limSup: 25, predef: 15 };
+				var totIDTabStudent = { obj: document.getElementById( "totIDTabStudent" ), limInf: 1,  limSup: 150, predef: 120 }; 
+
+				totIDTabClass.obj.addEventListener( "keydown", function(e) {
+					if( e.key == "Enter" ) {
+						contrIDTableDb01( totIDTabClass.obj, totIDTabClass.limInf, totIDTabClass.limSup, totIDTabClass.predef ); 
+					}
+				}); 
+				totIDTabClass.obj.addEventListener( "blur", function(e) {
+					contrIDTableDb01( totIDTabClass.obj, totIDTabClass.limInf, totIDTabClass.limSup, totIDTabClass.predef ); 
+				}); 
+
+				totIDTabStudent.obj.addEventListener( "keydown", function(e) {
+					if( e.key == "Enter" ) {
+						contrIDTableDb01( totIDTabStudent.obj, totIDTabStudent.limInf, totIDTabStudent.limSup, totIDTabStudent.predef ); 
+					}
+				}); 
+				totIDTabStudent.obj.addEventListener( "blur", function(e) {
+					contrIDTableDb01( totIDTabStudent.obj, totIDTabStudent.limInf, totIDTabStudent.limSup, totIDTabStudent.predef ); 
+				}); 
+				
+				function contrIDTableDb01( obj, min, max, predef ) {
+					//NON utilizzare Alert
+					//var tempTotIDTabClass = document.getElementById('totIDTabClass').value;
+					var popupInputDb01 = document.getElementById("popupInputDb01");
+					if( obj.value == "" || ( obj.value % 1 != 0 ) ) {
+						popupInputDb01.innerHTML = "Inserisci un valore numerico intero <br>(Clicca qui per chiudere)";
+						//popupInputDb01.style.display = "display";  
+						popupInputDb01.style.visibility = "visible";
+						//obj.value = predef;
+
+					} else if( obj.value < min || obj.value > max ) {
+						popupInputDb01.innerHTML = "Inserisci un valore numerico compreso fra "+ min + " e " + max + " <br>(Clicca qui per chiudere)";
+						//popupInputDb01.style.display = "display";  
+						popupInputDb01.style.visibility = "visible";  
+						//obj.value = predef;
+
+					} else {
+						//tempTotIDTabClass = parseInt( tempTotIDTabClass );  
+						//Do nothing, value ok
+					}
+				}
+
+			</script>
+
 			<br>
 			<button id="btn_tablePopulating" >Valorizza Tabelle</button>
 
@@ -1012,6 +1109,9 @@
 				</div>
 
 				<script>
+					document.getElementById("txt_displayTabClassDbEs01").innerHTML = "Attendi ... ";
+    				document.getElementById("txt_displayTabStudentDbEs01").innerHTML = "Attendi ... ";
+
 					document.getElementById("txt_displayTabClassDbEs01").readOnly = true;
 					document.getElementById("txt_displayTabStudentDbEs01").readOnly = true;
 				</script>
@@ -1026,7 +1126,42 @@
 					<br>
 					<u> - Query SQL - </u> 
 					<br>
+					<br>
+					Scegli una delle Query esistenti: 
+					<br>
+					<select id="select_listQuerySQLDb01">
+						<!-- <option value="query01">query01Text</option> -->
+					</select>
+
 					<textarea id="txt_displayQuerySQLDbEs01" ></textarea>
+
+					<script>
+
+						var select_listQuerySQLDb01 = document.getElementById("select_listQuerySQLDb01"); 
+						array_listQuerySQLDb01 = [
+							"select * from Classe /* Descrizione delle Classi presenti */", 
+							"select * from Studente /* Descrizione degli Studenti presenti */",  
+							"select * from Classe where tipo = 'Aula' /* Descrizione del tipo 'Aula' */",
+							"select count(*) as num_stud from Studente /* Numero totale di Studenti */", 
+							"select sum(superficieMq) as totSuperficieMq from Classe /* Superficie totale coperta */", 
+							"select distinct( tipo ) as disTipo from Classe order by disTipo asc /* Elenco delle tipologie di spazi */", 
+							"select count(idStud) as numStud, round( avg( eta ) , 2 ) as etaMediaPerClasse, idClass from Studente group by idClass /* Numero di Studenti ed Età media degli stessi per ciascuna Classe */"
+						]; 
+
+						array_listQuerySQLDb01.forEach( function( query ) {
+							var tempOpt = document.createElement('option');
+							tempOpt.value = query;
+    						tempOpt.innerHTML = query.substring( 0 , query.indexOf("/") ).toUpperCase();
+							select_listQuerySQLDb01.appendChild( tempOpt ); 
+						}); 
+
+						select_listQuerySQLDb01.addEventListener( "change", function( e ) {
+							document.getElementById("txt_displayQuerySQLDbEs01").innerHTML = select_listQuerySQLDb01.value; 
+						});
+
+						document.getElementById("txt_displayQuerySQLDbEs01").innerHTML = "Attendi ... ";
+					</script>
+
 				</div>
 
 				<button id="btn_executeQuerySQL" >Esegui Query SQL</button>
@@ -1060,6 +1195,19 @@
 </div>
 
 <div id="schedaGIS" > 
+	Folium map
+	<div id="contMap" style="width: 1000px; height:20px">
+		<div id="map" style="width:100%; height: 100%"></div>
+	</div>
+
+	<py-script output="map">
+		import folium 
+		from pyscript import display
+
+		m = folium.Map(location=[48, -102], zoom_start=3 )
+		display( m, target="map")
+
+	</py-script>
 
 </div>
 
