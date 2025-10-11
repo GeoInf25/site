@@ -83,6 +83,12 @@
 		overflow-x: hidden;
   		overflow-y: scroll;
 	}
+	#schedaGIS {
+		width: 100%;
+  		/* height: 94%; */
+		overflow-x: hidden;
+  		overflow-y: scroll;
+	}
 	#schedaDisegni3D {
 		width: 100%;
   		/* height: 94%; */
@@ -146,6 +152,11 @@
   	}
 
 	.tabDatabase {
+		border-color: lightblue;
+		color: white;
+  	}
+
+	.tabGIS {
 		border-color: lightblue;
 		color: white;
   	}
@@ -268,13 +279,13 @@
 	#displayTabStudentDbEs01 {
 		width: 49%; 
 		height: auto;
-		float: left; 
+		float: right; 
 	}
 
 	#displayTabClassDbEs01 {
 		width: 50%; 
 		height: auto; 
-		float: right;
+		float: left;
 	}
 
 	#txt_displayTabStudentDbEs01 {
@@ -365,7 +376,8 @@
 	
 </style>
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" charset="utf-8" >
+<!-- charset per Font in localhost -->
 
 </head>
 
@@ -380,8 +392,8 @@
 
 		#Test
 		[[fetch]]
-		from = './Python/'
-    	files = ['codePy.py']
+		from = './Database/'
+    	files = [ "db01.py" ]
 
 		# [[fetch]]
      	# files = ["https://geoinf25.github.io/site/Database/dbSqliteEs01.db"]
@@ -405,6 +417,7 @@
 			document.getElementById( "schedaJavascript" ).style.height = hDiff; 
 			document.getElementById( "schedaJava" ).style.height = hDiff; 
 			document.getElementById( "schedaDatabase" ).style.height = hDiff; 
+			document.getElementById( "schedaGIS" ).style.height = hDiff; 
 			document.getElementById( "schedaDisegni3D" ).style.height = hDiff; 
 			document.getElementById( "schedaAltriLinks" ).style.height = hDiff; 
 		}
@@ -425,6 +438,7 @@
 		<button id="tab_schedaJavascript" class="btn tabJavascript" onclick="gestioneSchede( 'schedaJavascript' )">- JAVASCRIPT -</button>
 		<button id="tab_schedaJava" class="btn tabJava" onclick="gestioneSchede( 'schedaJava' )">- JAVA -</button>
 		<button id="tab_schedaDatabase" class="btn tabDatabase" onclick="gestioneSchede( 'schedaDatabase' )">- DATABASE -</button>
+		<button id="tab_schedaGIS" class="btn tabGIS" onclick="gestioneSchede( 'schedaGIS' )">- GIS -</button>
 		<button id="tab_schedaDisegni3D" class="btn tabDisegni3D" onclick="gestioneSchede( 'schedaDisegni3D' )">- DISEGNI 3D -</button>
 		<button id="tab_schedaAltriLinks" class="btn tabAltriLinks" onclick="gestioneSchede( 'schedaAltriLinks' )">- ALTRI LINKS -</button>
 		<br>
@@ -775,7 +789,7 @@
 		<div id="blocco03Js" class="span1 roundBorder" >
 
 			<h2>• Number Base</h2>
-			Conversioni sul valore (>=1 && <=1000000000000) scelto  
+			Conversioni sul valore (>=1 && <=10<sup>12</sup>) scelto  
 			<br>
 			<input type="text" id="txt_numberBaseValue" class= "centerInputText" size="12" value="1000000" > 
 			<!-- <br> -->
@@ -934,9 +948,17 @@
 <div id="schedaDatabase" > 
 
 	<div>
+		Esempi di Applicazione del Database Sqlite / Spatialite. 
+		<br>
+		<br>
 		<b>
 			*** ATTENZIONE ***: i Servizi di Database richiamati nel seguito appartengono ai rispettivi proprietari. 
 		</b>
+		<br>
+		<br>
+		Alcune note:
+		<br> 
+		- Fase di Test eseguita in locale (vedi <u>python -m http.server 3000</u> in riferimento alle <a href="https://www.youtube.com/watch?v=H7ZTrqhonHc">CORS Policy</a>). 
 		<br>
 		<br>
 		
@@ -958,30 +980,20 @@
 
 		<div id = "blocco02Db" class = "span4 roundBorder" >
 
-			<h2>• Database Relazionale SQLITE - esempio 01</h2>
+			<h2>• Database Relazionale SQLITE (esempio 01)</h2>
 
-			Defnizione di due Tabelle: Studente, Classe. 
+			Definizione di due Tabelle: Classe, Studente. 
 			<br>
 			Popolamento / Valorizzazione delle Tabelle in riferimento al numero di ID scelti:
 			<br>
 			<table>
+				<tr><td>- nr. ID Tabella Classe: </td> <td><input type="number" id="totIDTabClass" min="1" max="25" value="15" ></td><tr>
 				<tr><td>- nr. ID Tabella Studente: </td> <td><input type="number" id="totIDTabStudent" min="1" max="150" value="120" ></td><tr>
-				<tr><td>- nr. ID Tabella Classe: </td> <td><input type="number" id="totIDTabClass" min="1" max="20" value="10" ></td><tr>
 			</table>
-			Fase di Test eseguita in locale (vedi <u>python -m http.server 3000</u> in riferimento alle <a href="https://www.youtube.com/watch?v=H7ZTrqhonHc">CORS Policy</a>) 
-			<br>
 			<br>
 			<button id="btn_tablePopulating" >Valorizza Tabelle</button>
 
 			<div id="displayTabDbEs01">
-
-				<div id="displayTabStudentDbEs01" >
-					<br>
-					<u> - Tabella "Studente" - </u> 
-					<br>
-					<textarea id="txt_displayTabStudentDbEs01" ></textarea>
-
-				</div>
 
 				<div id="displayTabClassDbEs01" >
 					<br>
@@ -991,9 +1003,17 @@
 
 				</div>
 
+				<div id="displayTabStudentDbEs01" >
+					<br>
+					<u> - Tabella "Studente" - </u> 
+					<br>
+					<textarea id="txt_displayTabStudentDbEs01" ></textarea>
+
+				</div>
+
 				<script>
-					document.getElementById("txt_displayTabStudentDbEs01").readOnly = true;
 					document.getElementById("txt_displayTabClassDbEs01").readOnly = true;
+					document.getElementById("txt_displayTabStudentDbEs01").readOnly = true;
 				</script>
 
 			</div>
@@ -1028,7 +1048,7 @@
 			
 			<py-script>
 
-				from codePy import *
+				from db01 import *
 
 			</py-script>
 			
@@ -1036,6 +1056,10 @@
 		</div>
 
 	</div>
+
+</div>
+
+<div id="schedaGIS" > 
 
 </div>
 
@@ -1104,6 +1128,7 @@
 	schedaJavascript = document.getElementById( "schedaJavascript" );
 	schedaJava = document.getElementById( "schedaJava" );
 	schedaDatabase = document.getElementById( "schedaDatabase" );
+	schedaGIS = document.getElementById( "schedaGIS" );
 	schedaDisegni3D = document.getElementById( "schedaDisegni3D" );
 	schedaAltriLinks = document.getElementById( "schedaAltriLinks" );
 
@@ -1115,6 +1140,7 @@
 		schedaJavascript,
 		schedaJava, 
 		schedaDatabase,
+		schedaGIS,
 		schedaDisegni3D,
 		schedaAltriLinks
 	]; 
