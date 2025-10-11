@@ -4,6 +4,7 @@ var schedaCSharp = null;
 var schedaJavascript = null;
 var schedaJava = null;
 var schedaDatabase = null;
+var schedaGIS = null;
 var schedaDisegni3D = null;
 var schedaAltriLinks = null;
 
