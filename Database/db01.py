@@ -19,7 +19,7 @@ def controlConnection( *args ):
   if( js.schedaDabaseCliccata == True ):
     #document.getElementById("txt_displayTabClassDbEs01").innerHTML = ""
     #document.getElementById("txt_displayTabStudentDbEs01").innerHTML = ""
-    document.getElementById("txt_displayQuerySQLDbEs01").innerHTML = "select * from Classe where tipo = 'Aula' ";
+    document.getElementById("txt_displayQuerySQLDbEs01").value = "select * from Classe where tipo = 'Aula' /* Query SQL predefinita */"; #innerHTML
     connection = sqlite3.connect( ":memory:" ) #https://geoinf25.github.io/site/Database/dbSqliteEs01.db
     tablePopulating()
     executeQuerySQL()
