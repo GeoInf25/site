@@ -47,6 +47,10 @@
 		font-size: 1.75vh;
 	}
 
+	option {
+		font-size: 1.75vh;
+	}
+
 	input {
 		font-size: 1.75vh;
 	}
@@ -433,6 +437,10 @@
 		[[fetch]]
 		from = './Database/'
     	files = [ "db01.py" ]
+
+		[[fetch]]
+		from = './GIS/'
+    	files = [ "gis01.py" ]
 
 		# [[fetch]]
      	# files = ["https://geoinf25.github.io/site/Database/dbSqliteEs01.db"]
@@ -1195,19 +1203,43 @@
 </div>
 
 <div id="schedaGIS" > 
-	Folium map
-	<div id="contMap" style="width: 1000px; height:20px">
-		<div id="map" style="width:100%; height: 100%"></div>
+	
+	<div>
+		Cartografia in ambito Web-GIS, alcuni esempi. 
+		<br>
+		<br>
+		<b>
+			*** ATTENZIONE ***: gli elementi richiamati nel seguito appartengono ai rispettivi proprietari. 
+		</b>
+		<br>
+		<br>
+		Alcune note:
+		<br> 
+		- Link GitHub di riferimento <a href="https://github.com/planetsig/ufo-reports">Ufo Reports Dataset</a>; 
+		- Link al file CSV <a href="https://raw.githubusercontent.com/planetsig/ufo-reports/master/csv-data/ufo-scrubbed-geocoded-time-standardized.csv">File CSV</a>; 
+		- Articolo di riferimento <a href="https://drlee.io/exploring-ufo-sightings-with-python-pandas-and-google-colab-3cf24d1843d3">Exploring UFO Sightings with Python, Pandas, and Google Colab!</a>; 
+		<br>
+		<br>
+		
 	</div>
 
-	<py-script output="map">
-		import folium 
-		from pyscript import display
+	<div id="tabellaGIS" class="grid">
 
-		m = folium.Map(location=[48, -102], zoom_start=3 )
-		display( m, target="map")
+		<div id = "blocco01GIS" class = "span4 roundBorder" >
 
-	</py-script>
+			<div id="contMap" style="width: 60%; ">
+				<div id="foliumMap" style="width:100%; height: 100%"></div>
+			</div>
+
+			<py-script output="foliumMap">
+
+				from gis01 import *
+
+			</py-script>
+
+		</div>
+
+	</div>
 
 </div>
 
