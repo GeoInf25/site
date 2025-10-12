@@ -1155,14 +1155,30 @@
 							"select count(idStud) as numStud, round( avg( eta ) , 2 ) as etaMediaPerClasse, idClass from Studente group by idClass \n/* Numero di Studenti ed Età media degli stessi per ciascuna Classe */",
 							"WITH const AS (SELECT max(eta) as maxEta from Studente) \nselect * from Studente, const where eta = const.maxEta \n/* Elenco degli Studenti più anziani - Common Table Expression (CTE) */",
 							"select * from Classe where tipo like '%Aula%' order by tipo asc\n/* Elenco delle tipologie di 'Aula' */", 
-							"Update Studente set luogoNascita = 'Roma' where idStud = 6 /* Aggiornamento riga Database con condizioni relative */", 
+							"Update Studente set luogoNascita = 'Roma' where idStud = 6 \n/* Aggiornamento riga Database con condizioni relative */", 
+							"Update Studente set luogoNascita = 'Roma' \n/*Aggiornamento del Luogo di Nascita per ogni riga della Tabella 'Studente' */",
+							"select idStud, nome, cognome, eta, luogoNascita, C.idClass, superficieMq, piano, tipo from Studente as S inner join Classe as C on S.idClass = C.idClass \n/* Inner Join fra le due Tabelle dove NON risulta consentito il ripetersi di C.idClass, S.idClass */",
+							"select idStud, nome, cognome, eta, luogoNascita, C.idClass, superficieMq, piano, tipo from Studente as S inner join Classe as C \n" + 
+							"on S.idClass = C.idClass where piano = '1' \n/* Elenco degli Studenti presenti al Piano '1' */",
 						]; 
 
+						var contListQuerySQLDb01 = 0; 
 						array_listQuerySQLDb01.forEach( function( query ) {
 							var tempOpt = document.createElement('option');
 							tempOpt.value = query;
-    						tempOpt.innerHTML = query.substring( 0 , query.indexOf("/") ).toUpperCase();
+							var tempExpr = query.substring( 0 , query.indexOf("\n/*") ).toUpperCase();  
+							if( tempExpr.length <= 75 ) {
+    							tempOpt.innerHTML = tempExpr; 
+							} else {
+								tempOpt.innerHTML = tempExpr.substring( 0 , 75 + 1 ); 
+							} 
+
+							if( contListQuerySQLDb01 == 11 ) {
+								tempOpt.selected = "true"; //Opzione selezionata
+							}
 							select_listQuerySQLDb01.appendChild( tempOpt ); 
+
+							contListQuerySQLDb01++; 
 						}); 
 
 						select_listQuerySQLDb01.addEventListener( "change", function( e ) {
