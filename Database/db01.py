@@ -19,7 +19,7 @@ def controlConnection( *args ):
   if( js.schedaDabaseCliccata == True ):
     #document.getElementById("txt_displayTabClassDbEs01").innerHTML = ""
     #document.getElementById("txt_displayTabStudentDbEs01").innerHTML = ""
-    document.getElementById("txt_displayQuerySQLDbEs01").value = "select * from Classe where tipo = 'Aula' /* Query SQL predefinita */"; #innerHTML
+    document.getElementById("txt_displayQuerySQLDbEs01").value = "" + document.getElementById("select_listQuerySQLDb01").value; #innerHTML
     connection = sqlite3.connect( ":memory:" ) #https://geoinf25.github.io/site/Database/dbSqliteEs01.db
     tablePopulating()
     executeQuerySQL()
@@ -111,11 +111,16 @@ def executeQuerySQL( *args ):
     #print( document.getElementById("txt_displayQuerySQLDbEs01").value )
     #connection = sqlite3.connect( ":memory:" ) #https://geoinf25.github.io/site/Database/dbSqliteEs01.db
     cursor = connection.cursor()
-    cursor.execute( document.getElementById("txt_displayQuerySQLDbEs01").value )
+    tempResQuery = cursor.execute( document.getElementById("txt_displayQuerySQLDbEs01").value )
+    #Condizione tempResQuery is None Falsa
     tempResultQuerySQL = from_db_cursor(cursor)
-    tempResultQuerySQL.align = "l" 
-    document.getElementById("txt_displayResultDbEs01").innerHTML = tempResultQuerySQL.get_string()
-    #connection.close()
+    if( not( tempResultQuerySQL is None ) ):
+      tempResultQuerySQL.align = "l" 
+      document.getElementById("txt_displayResultDbEs01").innerHTML = tempResultQuerySQL.get_string()
+      #connection.close()
+    else: 
+      document.getElementById("txt_displayResultDbEs01").innerHTML = "Operazione eseguita; mancata restituzione di un Oggetto SQL (None / NoneType Python Object). "
+
     print( "-- Fine Esecuzione Query SQL -- " )
 
   except Exception as e:
