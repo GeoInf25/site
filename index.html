@@ -1140,19 +1140,22 @@
 						<!-- <option value="query01">query01Text</option> -->
 					</select>
 
-					<textarea id="txt_displayQuerySQLDbEs01" ></textarea>
+					<textarea id="txt_displayQuerySQLDbEs01" ></textarea> <!-- </textarea> input ... -->
 
 					<script>
 
 						var select_listQuerySQLDb01 = document.getElementById("select_listQuerySQLDb01"); 
 						array_listQuerySQLDb01 = [
-							"select * from Classe /* Descrizione delle Classi presenti */", 
-							"select * from Studente /* Descrizione degli Studenti presenti */",  
-							"select * from Classe where tipo = 'Aula' /* Descrizione del tipo 'Aula' */",
-							"select count(*) as num_stud from Studente /* Numero totale di Studenti */", 
-							"select sum(superficieMq) as totSuperficieMq from Classe /* Superficie totale coperta */", 
-							"select distinct( tipo ) as disTipo from Classe order by disTipo asc /* Elenco delle tipologie di spazi */", 
-							"select count(idStud) as numStud, round( avg( eta ) , 2 ) as etaMediaPerClasse, idClass from Studente group by idClass /* Numero di Studenti ed Età media degli stessi per ciascuna Classe */"
+							"select * from Classe \n/* Descrizione delle Classi presenti */", 
+							"select * from Studente \n/* Descrizione degli Studenti presenti */",  
+							"select * from Classe where tipo = 'Aula' \n/* Descrizione del tipo 'Aula' */",
+							"select count(*) as num_stud from Studente \n/* Numero totale di Studenti */", 
+							"select sum(superficieMq) as totSuperficieMq from Classe \n/* Superficie totale coperta */", 
+							"select distinct( tipo ) as disTipo from Classe order by disTipo asc \n/* Elenco delle tipologie di spazi */", 
+							"select count(idStud) as numStud, round( avg( eta ) , 2 ) as etaMediaPerClasse, idClass from Studente group by idClass \n/* Numero di Studenti ed Età media degli stessi per ciascuna Classe */",
+							"WITH const AS (SELECT max(eta) as maxEta from Studente) \nselect * from Studente, const where eta = const.maxEta \n/* Elenco degli Studenti più anziani - Common Table Expression (CTE) */",
+							"select * from Classe where tipo like '%Aula%' order by tipo asc\n/* Elenco delle tipologie di 'Aula' */", 
+							"Update Studente set luogoNascita = 'Roma' where idStud = 6 /* Aggiornamento riga Database con condizioni relative */", 
 						]; 
 
 						array_listQuerySQLDb01.forEach( function( query ) {
@@ -1163,10 +1166,10 @@
 						}); 
 
 						select_listQuerySQLDb01.addEventListener( "change", function( e ) {
-							document.getElementById("txt_displayQuerySQLDbEs01").innerHTML = select_listQuerySQLDb01.value; 
+							document.getElementById("txt_displayQuerySQLDbEs01").value = "" + select_listQuerySQLDb01.value; 
 						});
 
-						document.getElementById("txt_displayQuerySQLDbEs01").innerHTML = "Attendi ... ";
+						/*document.getElementById("txt_displayQuerySQLDbEs01").value = "Attendi ... "; */ /*innerHTML*/  
 					</script>
 
 				</div>
@@ -1218,7 +1221,9 @@
 		<br>
 		- Link al file CSV <a href="https://raw.githubusercontent.com/planetsig/ufo-reports/master/csv-data/ufo-scrubbed-geocoded-time-standardized.csv">File CSV</a>; 
 		<br>
-		- Articolo di riferimento <a href="https://drlee.io/exploring-ufo-sightings-with-python-pandas-and-google-colab-3cf24d1843d3">Exploring UFO Sightings with Python, Pandas, and Google Colab</a>.
+		- Articolo di riferimento <a href="https://drlee.io/exploring-ufo-sightings-with-python-pandas-and-google-colab-3cf24d1843d3">Exploring UFO Sightings with Python, Pandas, and Google Colab</a>; 
+		<br>
+		- Impiego della Libreria Python <a href="https://python-visualization.github.io/folium/latest/">Folium</a>.
 		<br>
 		<br>
 		
@@ -1290,6 +1295,7 @@
 		<li> <a href="https://gis.stackexchange.com/">gis.stackexchange</a> (GIS StackExchange Questions) </li>
 		<li> <a href="https://qgis.org/">QGIS</a> (QGIS Project) </li>
 		<li> <a href="https://overpass-turbo.eu/">Overpass OpenStreetMap API</a> (Overpass Query) </li>
+		<li> <a href="https://www.nicoladeinnocentis.it/">Geopillole</a> (Pillole di GIS) </li>
 		<li> <a href="https://www.prismacad.it/disegni-meccanici/">PrismaCad</a> (Disegni meccanici) </li>
 		<li> <a href="https://www.tinkercad.com/">Tinkercad</a> (Disegni 3D e simulazioni (Arduino)) </li>
 		<li> <a href="https://cheerpj.com/">CheerpJ</a> (Java / JVM for the Browser) </li>
@@ -1297,6 +1303,7 @@
 		<li> <a href="https://pygame-web.github.io/wiki/pygbag/">Pygbag / Pygame wasm</a> (Pygame eseguibile sul Web) </li>
 		<li> <a href="https://pypi.org/project/pikepdf/">PikePdf</a> (Gestione file Pdf) </li>
 		<li> <a href="https://github.com/copy/v86?tab=readme-ov-file#demos">copy/v86</a> (Emuazione Sistemi Operativi del passato) </li>
+		<li> <a href="https://duckdb.org/">DuckDB</a> (Database DuckDB) </li>
 
 	</ul>
 
