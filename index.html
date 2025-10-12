@@ -34,6 +34,11 @@
 		overflow: hidden;
 	}
 
+	p {
+		margin: 0;
+		padding: 0;
+	}
+
 	button {
 		font-family: "Arial";
 		font-size: 1.75vh;
@@ -112,7 +117,7 @@
 
 	.btn {
 		/* border: 2px solid yellow; */
-		background-color: lightblue ;
+		background-color: lightseagreen ;
 		color: white;
 		padding: 1vh 1vh;
 		font-size: 2.0vh; /* 16px */
@@ -140,42 +145,42 @@
 	*/
 
   	.tabPython {
-		border-color: lightblue;
+		border-color: lightseagreen;
   		color: white;
   	}
 
   	.tabCSharp {
-		border-color: lightblue;
+		border-color: lightseagreen;
 		color: white;
   	}
 
   	.tabJavascript {
-		border-color: lightblue;
+		border-color: lightseagreen;
 		color: white;
   	}
 
 	.tabJava {
-		border-color: lightblue;
+		border-color: lightseagreen;
 		color: white;
   	}
 
 	.tabDatabase {
-		border-color: lightblue;
+		border-color: lightseagreen;
 		color: white;
   	}
 
 	.tabGIS {
-		border-color: lightblue;
+		border-color: lightseagreen;
 		color: white;
   	}
 
 	.tabDisegni3D {
-		border-color: lightblue;
+		border-color: lightseagreen;
 		color: white;
   	}
 
   	.tabAltriLinks {
-		border-color: lightblue;
+		border-color: lightseagreen;
 		color: white;
   	}
 
@@ -264,7 +269,7 @@
 
 	#leafletMap {
 		border: 2px solid black;
-		width: 49%; /* % of container */ 
+		width: 48%; /* % of container */ 
 		height: 75vh; /* % of screen */
 		float: left; 
 	}
@@ -332,7 +337,7 @@
 		font-weight: bold;
 		/*font-style: italic;*/
 		width: 100%; 
-		heigth: 5vh; 
+		height: 4vh; 
 	}
 
 	#txt_displayQuerySQLDbEs01 {
@@ -387,7 +392,9 @@
 
 	.justify {
 		text-align: justify;
-  		text-justify: inter-word;
+		text-align-last: left;
+  		/*text-justify: inter-word;*/
+
 	}
 
 	/* Popup */
@@ -427,7 +434,7 @@
 <body>
 
 	<py-config>
-    	packages = ["sqlite3", "numpy",  "prettytable", "folium" ]
+    	packages = ["sqlite3", "numpy",  "prettytable", "folium", "pandas" ]
 
 		#[[fetch]]
 		#from = 'https://geoinf25.github.io/site/Python/'
@@ -440,6 +447,10 @@
 		[[fetch]]
 		from = './GIS/'
     	files = [ "gis01.py" ]
+
+		[[fetch]]
+		from = './GIS/'
+    	files = [ "UfoDataset.csv" ]
 
 		# [[fetch]]
      	# files = ["https://geoinf25.github.io/site/Database/dbSqliteEs01.db"]
@@ -488,872 +499,930 @@
 		<button id="tab_schedaDisegni3D" class="btn tabDisegni3D" onclick="gestioneSchede( 'schedaDisegni3D' )">- DISEGNI 3D -</button>
 		<button id="tab_schedaAltriLinks" class="btn tabAltriLinks" onclick="gestioneSchede( 'schedaAltriLinks' )">- ALTRI LINKS -</button>
 		<br>
+		<div id="barTot" style= "width: 100%; background-color: lightgreen; " >
+			<!-- <br> -->
+  			<div id="barLoading" 
+				style= "width: 10%; height: 2vh; background-color: green; font-family: 'Trebuchet MS'; text-align: center; line-height: 2vh; color: white; " >Loading ... 10%
+			</div>
+		</div>
 		<br>
-	</div>
 
-<div id="schedaPython" >
+		<script>
+			//Progress Bar
 
-	Alcune Applicazioni sviluppate in Python tramite GitHub Desktop e Visual Studio Code.
-	<br>
-	<br>
-	<b>
-		*** ATTENZIONE ***: le Librerie, i Framework ed eventuali altri elementi ad essi associati appartengono ai rispettivi proprietari. 
-	</b>
-	<br>
-	<br>
+			barTot = document.getElementById( "barTot" );
+			barLoading = document.getElementById( "barLoading" );
 
-	<div id="tabellaPy" class="grid">
+			barTot.style.display = "block"; 
+			barTot.style.visibility = "visible";
+			barLoading.style.display = "block"; 
+			barLoading.style.visibility = "visible";
 
-		<div id="blocco01Py" class="span1 roundBorder" >
-
-			<h2>• Hello World</h2> 
-			Clicca sul pulsante e stampa a video una stringa (vedi Console) ... <button id="btn_helloWorld" onclick="alert( 'Hello World in Console ...' ); " >Clicca qui</button>
-
-			<py-script>
-				from js import document 
-				from pyodide.ffi import create_proxy
-
-				import js
-				#js.window.alert("Fase di loading completata ... ")
-
-				def printHW( event ):
-					print("Hello World!")
-
-				function_proxy01 = create_proxy(printHW)
-				document.getElementById("btn_helloWorld").addEventListener("click", function_proxy01)
-
-			</py-script>
-
-		</div>
-
-		<div id="blocco02Py" class = "span1 roundBorder" > 
-			<h2>• Preview Jupyter Notebook</h2>
-			Anteprima Jupyter Notebook tramite il servizio <a href="https://nbviewer.org/">nbviewer</a> e Visual Studio Code:
-			<br>
-			<ul style="list-style-type:square;">
-				<!-- Copy permalink GitHub -->
-				<li> <a href="https://nbviewer.org/urls/geoinf25.github.io/site/Python/Model.ipynb">Model.ipynb</a> </li>
-			</ul>
-			<!-- <br> -->
-
-		</div>
-
-		<div id="blocco03Py" class = "span4 roundBorder" > 
-
-			<h2>• PyScript Terminal</h2>
-
-			<p>Scrivi Codice Python ed eseguilo tramite <a href="https://pyscript.net/">PyScript</a>, ovvero</p>
-			<textarea id="txt_code" ></textarea>
-
-			<button id="btn_executePy" >Esegui il Codice Python</button>
-			<button id="btn_clearPy" >Elimina le variabili create</button>
-
-			<p>Mostra le variabili dichiarate o stampa a video i relativi valori all'interno della Console ... </p>
-			<textarea id="txt_output" ></textarea>
-
-			<script>
-				tempStr = "" +
-					"#(Python Code) " + "\n" + 
-					"import math as m " + "\n" + 
-					"import numpy as np " + "\n" + 
-					"def foo():" + "\n" + 
-					"	global m" + "\n" +
-					"	z = m.sqrt( 4 )" + "\n" +
-					"	return z" + "\n" +  
-					"" + "\n" + 
-					"z = foo()" + "\n" +
-					"a = m.cos( 1 ) " + "\n" +
-					"b = 22 " + "\n" +
-					"c = b ** 2 " + "\n" +
-					"arr = np.array([1, 2, 3]) ** 2" + "\n" +
-					"print( 'Console: ' + str( arr ) ) " + "\n" +
-					"for n in range( 0 , 3 ): " + "\n" +
-					"	print( 'Hello in Console n.' + str( n ) )" + "\n" +
-					""  
-
-				document.getElementById("txt_code").innerHTML = tempStr;
-				document.getElementById("txt_output").innerHTML = "Attendi ... ";
-				document.getElementById("txt_output").readOnly = true;
-
-				document.getElementById('txt_code').addEventListener('keydown', function(e) {
-					if (e.key == 'Tab') {
-						e.preventDefault();
-						var start = this.selectionStart;
-						var end = this.selectionEnd;
-
-						// set textarea value to: text before caret + tab + text after caret
-						this.value = this.value.substring(0, start) +
-						"\t" + this.value.substring(end);
-
-						// put caret at right position again
-						this.selectionStart =
-						this.selectionEnd = start + 1;
-					}
-				});
-
-			</script> 
-
-			<py-script>
-				from js import console, document, window
-				from pyodide.ffi.wrappers import add_event_listener
-
-				import sys
-
-				elencoVar = {} #dictionary
-
-				output = document.getElementById("txt_output")
-
-				def runPython( *args ):
-					try: 
-						code = document.getElementById("txt_code").value
-						output.innerHTML = "Show global variables / objects: \n"
-						exec( code , globals(), elencoVar)
-						for item in elencoVar.items():
-							output.innerHTML = output.innerHTML + str( item ) + "\n" #elencoVar.items()
-
-					except Exception as e:
-						output.innerHTML = f"Error detected: {str(e)}"
-
-				def clearPython( *args ):
-					try:
-						#print( sys.modules[__name__].__dict__ )
-						sys.modules[__name__].__dict__[ "elencoVar" ].clear()
-						output.innerHTML = "Show global variables / objects: \n"
-
-					except Exception as e:
-						output.innerHTML = f"Error detected: {str(e)}"
-
-				add_event_listener( document.getElementById("btn_executePy") , "click", runPython)
-
-				add_event_listener( document.getElementById("btn_clearPy") , "click", clearPython)
-
-				#print( window.sessionStorage.getItem( "superatoPrimoAvvio" ) )
-
-				#Test iniziale all'apertura della Pagina Web
-				if( window.sessionStorage.getItem( "superatoPrimoAvvio" ) is None ):
-					document.getElementById("btn_executePy").click()
-					window.sessionStorage.setItem( "superatoPrimoAvvio" , 1 )  
-				else:  
-					output.innerHTML = "Mancato aggiornamento automatico previsto a seguito del Refresh della Pagina Web (utilizzare l'apposito pulsante di cui sopra)."
-
-			</py-script>
-
-		</div>
+		</script>
 
 	</div>
 
-</div>
+	<div id="schedaPython" >
 
-<div id="schedaCSharp" >
+		Alcune Applicazioni sviluppate in Python tramite GitHub Desktop e Visual Studio Code.
+		<br>
+		<br>
+		<b>
+			*** ATTENZIONE ***: le Librerie, i Framework ed eventuali altri elementi ad essi associati appartengono ai rispettivi proprietari. 
+		</b>
+		<br>
+		<br>
 
-	Alcune Applicazioni sviluppate in C# tramite GitHub Desktop e Visual Studio Code.
-	<br>
-	<br>
-	<b>
-		*** ATTENZIONE ***: le Librerie, i Framework ed eventuali altri elementi ad essi associati appartengono ai rispettivi proprietari. 
-	</b>
-	<br>
-	<br>
+		<div id="tabellaPy" class="grid">
 
-	<div id="tabellaCSharp" class="grid">
+			<div id="blocco01Py" class="span1 roundBorder" >
 
-		<div id="blocco01CSharp" class="span4 roundBorder" >
+				<h2>• Hello World</h2> 
+				<div>
+					<p class="justify">Clicca sul pulsante e stampa a video una stringa (vedi inoltre la Console in Strumenti per Sviluppatori): </p> 
+					<br>
+					<button id="btn_helloWorld" onclick="alert( 'Hello World in Console ...' ); " style="width: 100%; " >Hello World in Console</button>
+				</div>
 
-			<h2><b>• App001:</b></h2>
-			<p id="descrApp001CSharp" class="justify" >
-			Dopo aver creato un WinForm .NET project (in C#) ed aver preparato la relativa WebView2 oltre al componente ReoGrid - .NET Spreadsheet (anche mediante l'utilizzo del relativo pacchetto NuGet), l'Applicazione in questione utilizza una pagina HTML mediante la quale richiamare le funzioni ed i Marker della Libreria Leaflet (Javascript). Le coordinate di inserimento dei Marker saranno poi elencate nel foglio disposto a lato dell'Applicazione. In questo contesto la comunicazione tra C# e Javascript viene assicurata tramite l'istruzione webView21.ExecuteScriptAsync e dalle istruzioni chrome.webview.postMessage. La gestione degli handlers / eventi è definita partendo dall'evento WinForm Load, attraverso espressioni come webView21.NavigationCompleted += (,_ args) => {...}. Link alle immagini di esempio:
-			</p>
-			<img src="./CSharp/App001/Image/Image01.png" alt="Image01" >
-			<img src="./CSharp/App001/Image/Image02.png" alt="Image02" >
+				<py-script>
+					from js import document 
+					from pyodide.ffi import create_proxy
+
+					import js
+					#js.window.alert("Fase di loading completata ... ")
+
+					def printHW( event ):
+						print("Hello World!")
+
+					function_proxy01 = create_proxy(printHW)
+					document.getElementById("btn_helloWorld").addEventListener("click", function_proxy01)
+
+				</py-script>
+
+			</div>
+
+			<div id="blocco02Py" class = "span1 roundBorder" > 
+				<h2>• Preview Jupyter Notebook</h2>
+				<div>
+					<p class="justify">Anteprima Jupyter Notebook tramite il servizio <a href="https://nbviewer.org/">nbviewer</a> e Visual Studio Code: 
+						<a href="https://nbviewer.org/urls/geoinf25.github.io/site/Python/Model.ipynb">Model.ipynb</a>
+					</p>
+					<!-- <ul style="list-style-type:square;"> -->
+						<!-- Copy permalink GitHub -->
+					<!-- <br> -->
+				</div>
+
+			</div>
+
+			<div id="blocco03Py" class = "span4 roundBorder" > 
+
+				<h2>• PyScript Terminal</h2>
+
+				<p>Scrivi Codice Python ed eseguilo tramite <a href="https://pyscript.net/">PyScript</a>, ovvero</p>
+				<textarea id="txt_code" ></textarea>
+
+				<button id="btn_executePy" >Esegui il Codice Python</button>
+				<button id="btn_clearPy" >Elimina le variabili create</button>
+				<br>
+				<br>
+				<p>Mostra le variabili dichiarate o stampa a video i relativi valori all'interno della Console ... </p>
+				<textarea id="txt_output" ></textarea>
+
+				<script>
+					tempStr = "" +
+						"#(Python Code) " + "\n" + 
+						"import math as m " + "\n" + 
+						"import numpy as np " + "\n" + 
+						"def foo():" + "\n" + 
+						"	global m" + "\n" +
+						"	z = m.sqrt( 4 )" + "\n" +
+						"	return z" + "\n" +  
+						"" + "\n" + 
+						"z = foo()" + "\n" +
+						"a = m.cos( 1 ) " + "\n" +
+						"b = 22 " + "\n" +
+						"c = b ** 2 " + "\n" +
+						"arr = np.array([1, 2, 3]) ** 2" + "\n" +
+						"print( 'Console: ' + str( arr ) ) " + "\n" +
+						"for n in range( 0 , 3 ): " + "\n" +
+						"	print( 'Hello in Console n.' + str( n ) )" + "\n" +
+						""  
+
+					document.getElementById("txt_code").innerHTML = tempStr;
+					document.getElementById("txt_output").innerHTML = "Attendi ... ";
+					document.getElementById("txt_output").readOnly = true;
+
+					document.getElementById('txt_code').addEventListener('keydown', function(e) {
+						if (e.key == 'Tab') {
+							e.preventDefault();
+							var start = this.selectionStart;
+							var end = this.selectionEnd;
+
+							// set textarea value to: text before caret + tab + text after caret
+							this.value = this.value.substring(0, start) +
+							"\t" + this.value.substring(end);
+
+							// put caret at right position again
+							this.selectionStart =
+							this.selectionEnd = start + 1;
+						}
+					});
+
+				</script> 
+
+				<py-script>
+					from js import console, document, window
+					from pyodide.ffi.wrappers import add_event_listener
+
+					import sys
+
+					#import js
+
+					elencoVar = {} #dictionary
+
+					output = document.getElementById("txt_output")
+
+					def runPython( *args ):
+						try: 
+							code = document.getElementById("txt_code").value
+							output.innerHTML = "Show global variables / objects: \n"
+							exec( code , globals(), elencoVar)
+							for item in elencoVar.items():
+								output.innerHTML = output.innerHTML + str( item ) + "\n" #elencoVar.items()
+
+						except Exception as e:
+							output.innerHTML = f"Error detected: {str(e)}"
+
+					def clearPython( *args ):
+						try:
+							#print( sys.modules[__name__].__dict__ )
+							sys.modules[__name__].__dict__[ "elencoVar" ].clear()
+							output.innerHTML = "Show global variables / objects: \n"
+
+						except Exception as e:
+							output.innerHTML = f"Error detected: {str(e)}"
+
+					add_event_listener( document.getElementById("btn_executePy") , "click", runPython)
+
+					add_event_listener( document.getElementById("btn_clearPy") , "click", clearPython)
+
+					#print( window.sessionStorage.getItem( "superatoPrimoAvvio" ) )
+
+					#Test iniziale all'apertura della Pagina Web
+					if( window.sessionStorage.getItem( "superatoPrimoAvvio" ) is None ):
+						document.getElementById("btn_executePy").click()
+						window.sessionStorage.setItem( "superatoPrimoAvvio" , 1 )  
+					else:  
+						output.innerHTML = "Mancato aggiornamento automatico previsto a seguito del Refresh della Pagina Web (utilizzare l'apposito pulsante di cui sopra)."
+
+					js.barLoading.style.width = "35%"; 
+					js.barLoading.innerHTML = "Loading ... 35%"; 
+
+				</py-script>
+
+				<script>
+					//
+				</script>
+
+			</div>
 
 		</div>
 
 	</div>
 
-</div>
+	<div id="schedaCSharp" >
 
-<div id="schedaJavascript" > 
+		Alcune Applicazioni sviluppate in C# tramite GitHub Desktop e Visual Studio Code.
+		<br>
+		<br>
+		<b>
+			*** ATTENZIONE ***: le Librerie, i Framework ed eventuali altri elementi ad essi associati appartengono ai rispettivi proprietari. 
+		</b>
+		<br>
+		<br>
 
-	Alcune Applicazioni sviluppate in Javascript tramite GitHub Desktop e Visual Studio Code.
-	<br>
-	<br>
-	<b>
-		*** ATTENZIONE ***: le Librerie, i Framework ed eventuali altri elementi ad essi associati appartengono ai rispettivi proprietari. 
-	</b>
-	<br>
-	<br>
-	Impiego di:
-	<br>
-	- pacchetto NPM disponibile tramite <a href="https://github.com/jyotiska/prettytable">GitHub Jyotiska/Prettytable</a> o <a href="https://www.jsdelivr.com/package/npm/prettytable">JsDelivr Jyotiska/Prettytable</a>;
-	<br>
-	- Bundler / Impacchettatore lato Client (per Browser) <a href="https://github.com/browserify/browserify?tab=readme-ov-file#external-requires">Browserify</a> (vedi <u>browserify -r prettytable > bundle.js</u>).
-	<br>
-	<br>
+		<div id="tabellaCSharp" class="grid">
 
-	<div id="tabellaJs" class="grid">
+			<div id="blocco01CSharp" class="span4 roundBorder" >
 
-		<div id="blocco01Js" class="span1 roundBorder" >
+				<h2><b>• App001:</b></h2>
+				<p id="descrApp001CSharp" class="justify" >
+				Dopo aver creato un WinForm .NET project (in C#) ed aver preparato la relativa WebView2 oltre al componente ReoGrid - .NET Spreadsheet (anche mediante l'utilizzo del relativo pacchetto NuGet), l'Applicazione in questione utilizza una pagina HTML mediante la quale richiamare le funzioni ed i Marker della Libreria Leaflet (Javascript). Le coordinate di inserimento dei Marker saranno poi elencate nel foglio disposto a lato dell'Applicazione. In questo contesto la comunicazione tra C# e Javascript viene assicurata tramite l'istruzione webView21.ExecuteScriptAsync e dalle istruzioni chrome.webview.postMessage. La gestione degli handlers / eventi è definita partendo dall'evento WinForm Load, attraverso espressioni come webView21.NavigationCompleted += (,_ args) => {...}. Link alle immagini di esempio:
+				</p>
+				<br>
+				<img src="./CSharp/App001/Image/Image01.png" alt="Image01" >
+				<img src="./CSharp/App001/Image/Image02.png" alt="Image02" >
 
-			<h2>• Fibonacci sequence</h2>
-			Inserici un valore numerico (>=2 && <=99) 
-			<br>
-			<input type="text" id="txt_upperLimitFibonacci" class= "centerInputText" size="1" value="20" >
-			<!-- <br> -->
-			per calcolare i valori della serie (premi INVIO): 
-			<br>
-			<textarea id="txt_outputFibonacci" class="textAreaNoBorder" ></textarea>
-			<script>
+			</div>
 
-				var upperLimitFibonacci = 20;
+		</div>
 
-				document.getElementById('txt_upperLimitFibonacci').addEventListener('keydown', function(e) {
-					if (e.key == 'Enter' ) { //Blur, onBlur
-						controlAndCalcFibonacci(); 
-					}
-				});
+	</div>
 
-				function controlAndCalcFibonacci() {
-					var tempUpperLimit = document.getElementById('txt_upperLimitFibonacci').value;
-					if( isNaN( tempUpperLimit ) || ( tempUpperLimit % 1 != 0 ) ) {
-						alert( "Inserisci un valore numerico intero." );
-					} else if( tempUpperLimit < 2 || tempUpperLimit > 99 ) {
-						alert( "Inserisci un valore numerico compreso fra 2 e 99." );
-					} else {
-						upperLimitFibonacci = parseInt( tempUpperLimit ); 
-						calculateFibonacci( ); 
-					}
-				}
+	<div id="schedaJavascript" > 
 
-				const PrettyTable = require("prettytable");
+		Alcune Applicazioni sviluppate in Javascript tramite GitHub Desktop e Visual Studio Code.
+		<br>
+		<br>
+		<b>
+			*** ATTENZIONE ***: le Librerie, i Framework ed eventuali altri elementi ad essi associati appartengono ai rispettivi proprietari. 
+		</b>
+		<br>
+		<br>
+		Impiego di:
+		<br>
+		- pacchetto NPM disponibile tramite <a href="https://github.com/jyotiska/prettytable">GitHub Jyotiska/Prettytable</a> o <a href="https://www.jsdelivr.com/package/npm/prettytable">JsDelivr Jyotiska/Prettytable</a>;
+		<br>
+		- Bundler / Impacchettatore lato Client (per Browser) <a href="https://github.com/browserify/browserify?tab=readme-ov-file#external-requires">Browserify</a> (vedi <u>browserify -r prettytable > bundle.js</u>).
+		<br>
+		<br>
 
-				function calculateFibonacci( ) {
+		<div id="tabellaJs" class="grid">
 
-					var tableFib = new PrettyTable();
-					var headersFib = [ "Indice", "Valore" ];
-					var rowsFib = [ ];  
-					
-					for( var i = 0; i <= upperLimitFibonacci; i++ ) {
+			<div id="blocco01Js" class="span1 roundBorder" >
 
-						var strPos = "" + (i <= 9 ? "0" : "" ) + i; 
+				<h2>• Fibonacci sequence</h2>
+				Inserici un valore numerico (>=2 && <=99) 
+				<br>
+				<input type="text" id="txt_upperLimitFibonacci" class= "centerInputText" size="1" value="20" >
+				<!-- <br> -->
+				per calcolare i valori della serie (premi INVIO): 
+				<br>
+				<textarea id="txt_outputFibonacci" class="textAreaNoBorder" ></textarea>
+				<script>
 
-						if( i == 0 ) {
-							rowsFib.push( [ strPos , 0 ] ); 
-						} else if( i == 1 ) {
-							rowsFib.push( [ strPos , 1 ] ); 
+					var upperLimitFibonacci = 20;
+
+					document.getElementById('txt_upperLimitFibonacci').addEventListener('keydown', function(e) {
+						if (e.key == 'Enter' ) { //Blur, onBlur
+							controlAndCalcFibonacci(); 
+						}
+					});
+
+					function controlAndCalcFibonacci() {
+						var tempUpperLimit = document.getElementById('txt_upperLimitFibonacci').value;
+						if( isNaN( tempUpperLimit ) || ( tempUpperLimit % 1 != 0 ) ) {
+							alert( "Inserisci un valore numerico intero." );
+						} else if( tempUpperLimit < 2 || tempUpperLimit > 99 ) {
+							alert( "Inserisci un valore numerico compreso fra 2 e 99." );
 						} else {
-							//var tempNumb = "" + ( rowsFib[ i - 2 ][ 1 ] + rowsFib[ i - 1 ][ 1 ] ).toLocaleString(); //separatore migliaia
-							rowsFib.push( [ strPos , rowsFib[ i - 2 ][ 1 ] + rowsFib[ i - 1 ][ 1 ] ] ); 
+							upperLimitFibonacci = parseInt( tempUpperLimit ); 
+							calculateFibonacci( ); 
+						}
+					}
+
+					const PrettyTable = require("prettytable");
+
+					function calculateFibonacci( ) {
+
+						var tableFib = new PrettyTable();
+						var headersFib = [ "Indice", "Valore" ];
+						var rowsFib = [ ];  
+						
+						for( var i = 0; i <= upperLimitFibonacci; i++ ) {
+
+							var strPos = "" + (i <= 9 ? "0" : "" ) + i; 
+
+							if( i == 0 ) {
+								rowsFib.push( [ strPos , 0 ] ); 
+							} else if( i == 1 ) {
+								rowsFib.push( [ strPos , 1 ] ); 
+							} else {
+								//var tempNumb = "" + ( rowsFib[ i - 2 ][ 1 ] + rowsFib[ i - 1 ][ 1 ] ).toLocaleString(); //separatore migliaia
+								rowsFib.push( [ strPos , rowsFib[ i - 2 ][ 1 ] + rowsFib[ i - 1 ][ 1 ] ] ); 
+							}
+
 						}
 
-					}
+						tableFib.create( headersFib , rowsFib );
+						var tableFibString = tableFib.toString();
+						//console.log( tableFibString );
 
-					tableFib.create( headersFib , rowsFib );
-					var tableFibString = tableFib.toString();
-					//console.log( tableFibString );
-
-					document.getElementById( "txt_outputFibonacci" ).innerHTML = tableFibString;
-					document.getElementById( "txt_outputFibonacci" ).readOnly = true;
-
-				}
-
-				calculateFibonacci();
-
-			</script>
-
-		</div>
-
-		<div id="blocco02Js" class="span1 roundBorder" >
-
-			<h2>• Prime numbers</h2>
-			Inserici un valore massimo (>=1 && <=999) 
-			<br>
-			<input type="text" id="txt_upperLimitPrimeNumbers" class= "centerInputText" size="1" value="20" >
-			<!-- <br> -->
-			entro il quale calcolare i numeri primi (premi INVIO): 
-			<br>
-			<textarea id="txt_outputPrimeNumbers" class="textAreaNoBorder" ></textarea>
-			<script>
-
-				var upperLimitPrimeNumbers = 20;
-
-				document.getElementById('txt_upperLimitPrimeNumbers').addEventListener('keydown', function(e) {
-					if (e.key == 'Enter' ) { //Blur, onBlur
-						controlAndCalcPrimeNumbers(); 
-					}
-				});
-
-				function controlAndCalcPrimeNumbers() {
-					var tempUpperLimit = document.getElementById('txt_upperLimitPrimeNumbers').value;
-					if( isNaN( tempUpperLimit ) || ( tempUpperLimit % 1 != 0 ) ) {
-						alert( "Inserisci un valore numerico intero." );
-					} else if( tempUpperLimit < 1 || tempUpperLimit > 999 ) {
-						alert( "Inserisci un valore numerico compreso fra 1 e 999." );
-					} else {
-						upperLimitPrimeNumbers = parseInt( tempUpperLimit ); 
-						calculatePrimeNumbers( ); 
-					}
-				}
-
-				function calculatePrimeNumbers( ) {
-					arrPrime = [ ];
-					strPrime = "";    
-					for( var i = 1; i <= upperLimitPrimeNumbers; i++ ) {
-						
-						//Control of prime numbers
-						var contRestDiv = 0; 
-						for( var j = 1; j <= i; j++ ) {
-							if( i % j == 0 ) {
-								contRestDiv++;
-							}
-
-							if( i == 1 ) { //special case for 1
-								contRestDiv++;
-							}
-						} 
-
-						if( contRestDiv == 2 ) { //for 1 and for itself
-							arrPrime.push( i );
-						} 
+						document.getElementById( "txt_outputFibonacci" ).innerHTML = tableFibString;
+						document.getElementById( "txt_outputFibonacci" ).readOnly = true;
 
 					}
 
-					for( var i = 0; i < arrPrime.length; i++ ) {
-						strPrime = strPrime + "Posizione " + (i <= 9 ? "0" : "" ) + i + " - " + arrPrime[ i ].toLocaleString() + "\n";
-					}
+					calculateFibonacci();
 
-					document.getElementById( "txt_outputPrimeNumbers" ).innerHTML = strPrime;
-					document.getElementById( "txt_outputPrimeNumbers" ).readOnly = true;
-
-				}
-
-				calculatePrimeNumbers();
-
-			</script>
-
-		</div>
-
-		<div id="blocco03Js" class="span1 roundBorder" >
-
-			<h2>• Number Base</h2>
-			Conversioni sul valore (>=1 && <=10<sup>12</sup>) scelto  
-			<br>
-			<input type="text" id="txt_numberBaseValue" class= "centerInputText" size="12" value="1000000" > 
-			<!-- <br> -->
-			in base 10 (premi INVIO):
-			<br>
-			<textarea id="txt_outputNumberBase" class="textAreaNoBorder" ></textarea>
-			<script>
-
-				var numberBaseValue = 1000000;
-
-				document.getElementById('txt_numberBaseValue').addEventListener('keydown', function(e) {
-					if (e.key == 'Enter' ) { //Blur, onBlur
-						controlAndCalcNumberBase(); 
-					}
-				});
-
-				function controlAndCalcNumberBase() {
-					var tempNumberBaseValue = document.getElementById('txt_numberBaseValue').value;
-					if( isNaN( tempNumberBaseValue ) || ( tempNumberBaseValue % 1 != 0 ) ) {
-						alert( "Inserisci un valore numerico intero." );
-					} else if( tempNumberBaseValue < 1 || tempNumberBaseValue > 1000000000000 ) {
-						alert( "Inserisci un valore numerico compreso fra 1 e 1'000'000'000'000." );
-					} else {
-						numberBaseValue = parseInt( tempNumberBaseValue ); 
-						calculateNumberBase( ); 
-					}
-				}
-
-				function calculateNumberBase( ) {
-					//arrNumbBase = [ ];
-					strNumbBase = "";   
-					
-					for( var base = 2; base <= 16; base++ ) {
-						strNumbBase = strNumbBase + "Base " + (base <= 9 ? "0" : "" ) + base + " - " + numberBaseValue.toString( base ) + "\n";
-					}					
-
-					document.getElementById( "txt_outputNumberBase" ).innerHTML = strNumbBase;
-					document.getElementById( "txt_outputNumberBase" ).readOnly = true;
-
-				}
-
-				calculateNumberBase();
-
-			</script>
-
-		</div>
-
-		<div id = "blocco04Js" class = "span1 roundBorder" >
-			<h2>• PictureBox</h2>
-			Varia i quattro Slider e cambia colore ... 
-			<div id="div_pictureBox">
-			</div>
-
-			<div >
-				<table>
-					<tr>
-						<td>Rosso: </td> <td ><input type="range" id="sliderRed" class="slider"  min="0" max="255"  value="255" oninput="changeColor();"></td>
-					</tr>
-					<tr>
-						<td>Verde: </td> <td ><input type="range" id="sliderGreen" class="slider" min="0" max="255"  value="150" oninput="changeColor();"></td>
-					</tr>
-					<tr>
-						<td>Blu: </td> <td ><input type="range" id="sliderBlue" class="slider" min="0" max="255"  value="0" oninput="changeColor();"></td>
-					</tr>
-					<tr>
-						<td>Alpha: </td> <td ><input type="range" id="sliderAlpha" class="slider" min="0" max="100"  value="255" oninput="changeColor();"></td>
-					</tr>
-
-				</table>
-			</div>
-
-			<script>
-				function changeColor() {
-					valueRed = document.getElementById( "sliderRed" ).value;
-					valueGreen = document.getElementById( "sliderGreen" ).value;
-					valueBlue = document.getElementById( "sliderBlue" ).value;
-					valueAlpha = document.getElementById( "sliderAlpha" ).value;
-					valueAlphaFloat = ( valueAlpha / 100.00 ).toFixed(2);
-					document.getElementById("div_pictureBox").style.backgroundColor = 'rgba(' + valueRed + ',' + valueGreen + ',' + valueBlue + ',' + valueAlphaFloat + ')';
-					document.getElementById("txt_valueColor").value = '(' + valueRed + ',' + valueGreen + ',' + valueBlue + ',' + valueAlphaFloat + ')'
-				}
-
-			</script>
-			<br>
-			Valore del colore (rgba, con a / alpha trasparenza):
-			<br>
-			<input type="text" id="txt_valueColor" class= "centerInputText" size="12" >
-			<br>
-
-			<script>
-				changeColor();
-			</script>
-
-		</div> 
-
-		<div id = "blocco05Js" class = "span4 roundBorder" >
-
-			<h2>• Leaflet Map</h2>
-			Esempio di Applicazione della libreria Javascript <a href="https://leafletjs.com/">LeafletJS</a>, ovvero:
-			<br> 
-			<br> 
-
-			<div id="appLeafletMap">
-				<div id="leafletMap" >
-
-					<script>
-						var map = L.map('leafletMap').setView([51.505, -0.09], 13);
-
-						L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-							maxZoom: 22,
-							attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-						}).addTo(map);
-
-					</script>
-
-				</div>
-
-				<div id="controlliLeafletMap" > <!-- style="background-color:red;" -->
-					In costruzione ... 
-
-				</div>
-
-			</div>
-
-		</div>
-
-	</div>
-
-</div>
-
-<div id="schedaJava" > 
-
-	<div id="descrApplet" class="justify" >
-		Applet Java considerate generalmente defunte, in quest'ambito l'Estensione per Browser <a href="https://labs.leaningtech.com/docs/cheerpj-applet-runner">CheerpJ Applet Runner</a> permette di ottenere nuovi risultati; la visualizzazione delle Applet relative risulta possibile tramite la semplice installazione ed attivazione dell'Estensione di cui sopra. 
-		<br>
-		<br>
-		<b>
-			*** ATTENZIONE ***: i Servizi richiamati appartengono ai rispettivi proprietari. 
-		</b>
-		<br>
-		<br>
-
-	</div>
-
-	<div id="tabellaJava" class="grid">
-
-		<div id = "blocco01Java" class = "span1 roundBorder" >
-			<h2>• Applet Java</h2>
-
-		</div>
-
-	</div>
-	
-</div>
-
-<div id="schedaDatabase" > 
-
-	<div>
-		Esempi di Applicazione del Database Sqlite / Spatialite. 
-		<br>
-		<br>
-		<b>
-			*** ATTENZIONE ***: i Servizi di Database richiamati nel seguito appartengono ai rispettivi proprietari. 
-		</b>
-		<br>
-		<br>
-		Alcune note:
-		<br> 
-		- Fase di Test eseguita in locale (vedi <u>python -m http.server 3000, localhost:3000</u>, in riferimento alle <a href="https://www.youtube.com/watch?v=H7ZTrqhonHc">CORS Policy</a>). 
-		<br>
-		<br>
-		
-	</div>
-
-	<div id="tabellaDb" class="grid">
-
-		<div id = "blocco01Db" class = "span4 roundBorder" >
-
-			<h2>• Link esterni per Database</h2>
-			
-			- Query di esempio in ambito MySQL: <a href="https://www.w3schools.com/MySQL/trymysql.asp?filename=trysql_select_all">W3School MySQL</a>
-			<br>
-			- Query di esempio in ambito PostgreSQL, SQL Server, MySQL: <a href="https://runsql.com/r">Run SQL</a>
-			<br>
-			<br>
-
-		</div>
-
-		<div id = "blocco02Db" class = "span4 roundBorder" >
-
-			<h2>• Database Relazionale SQLITE (esempio 01)</h2>
-
-			Definizione di due Tabelle: Classe, Studente. 
-			<br>
-			Popolamento / Valorizzazione delle Tabelle in riferimento al numero di ID scelti:
-			<br>
-
-			<div class="popup" > <!-- posizione Popup -->
-				<table>
-					<tr><td>- nr. ID Tabella Classe (valore compreso fra 1 e 25, predefinito 15): </td> <td>
-						<input type="number" id="totIDTabClass" min="1" max="25" value="15" style="width: 10vh" ></td> <!-- No size -->
-					<tr>
-					<tr><td>- nr. ID Tabella Studente (valore compreso fra 1 e 150, predefinito 120): </td> <td>
-						<input type="number" id="totIDTabStudent" min="1" max="150" value="120" style="width: 10vh" ></td> <!-- No size -->
-					<tr>
-				</table>
-				<span class="popuptext" id="popupInputDb01" 
-					onclick="/*this.style.display = 'none';*/ this.style.visibility = 'hidden'; " >
-				</span>
-			</div>
-
-			<script>
-
-				var totIDTabClass = { obj: document.getElementById( "totIDTabClass" ), limInf: 1,  limSup: 25, predef: 15 };
-				var totIDTabStudent = { obj: document.getElementById( "totIDTabStudent" ), limInf: 1,  limSup: 150, predef: 120 }; 
-
-				totIDTabClass.obj.addEventListener( "keydown", function(e) {
-					if( e.key == "Enter" ) {
-						contrIDTableDb01( totIDTabClass.obj, totIDTabClass.limInf, totIDTabClass.limSup, totIDTabClass.predef ); 
-					}
-				}); 
-				totIDTabClass.obj.addEventListener( "blur", function(e) {
-					contrIDTableDb01( totIDTabClass.obj, totIDTabClass.limInf, totIDTabClass.limSup, totIDTabClass.predef ); 
-				}); 
-
-				totIDTabStudent.obj.addEventListener( "keydown", function(e) {
-					if( e.key == "Enter" ) {
-						contrIDTableDb01( totIDTabStudent.obj, totIDTabStudent.limInf, totIDTabStudent.limSup, totIDTabStudent.predef ); 
-					}
-				}); 
-				totIDTabStudent.obj.addEventListener( "blur", function(e) {
-					contrIDTableDb01( totIDTabStudent.obj, totIDTabStudent.limInf, totIDTabStudent.limSup, totIDTabStudent.predef ); 
-				}); 
-				
-				function contrIDTableDb01( obj, min, max, predef ) {
-					//NON utilizzare Alert
-					//var tempTotIDTabClass = document.getElementById('totIDTabClass').value;
-					var popupInputDb01 = document.getElementById("popupInputDb01");
-					if( obj.value == "" || ( obj.value % 1 != 0 ) ) {
-						popupInputDb01.innerHTML = "Inserisci un valore numerico intero <br>(Clicca qui per chiudere)";
-						//popupInputDb01.style.display = "display";  
-						popupInputDb01.style.visibility = "visible";
-						//obj.value = predef;
-
-					} else if( obj.value < min || obj.value > max ) {
-						popupInputDb01.innerHTML = "Inserisci un valore numerico compreso fra "+ min + " e " + max + " <br>(Clicca qui per chiudere)";
-						//popupInputDb01.style.display = "display";  
-						popupInputDb01.style.visibility = "visible";  
-						//obj.value = predef;
-
-					} else {
-						//tempTotIDTabClass = parseInt( tempTotIDTabClass );  
-						//Do nothing, value ok
-					}
-				}
-
-			</script>
-
-			<br>
-			<button id="btn_tablePopulating" >Valorizza Tabelle</button>
-
-			<div id="displayTabDbEs01">
-
-				<div id="displayTabClassDbEs01" >
-					<br>
-					<u> - Tabella "Classe" - </u> 
-					<br>
-					<textarea id="txt_displayTabClassDbEs01" ></textarea>
-
-				</div>
-
-				<div id="displayTabStudentDbEs01" >
-					<br>
-					<u> - Tabella "Studente" - </u> 
-					<br>
-					<textarea id="txt_displayTabStudentDbEs01" ></textarea>
-
-				</div>
-
-				<script>
-					document.getElementById("txt_displayTabClassDbEs01").innerHTML = "Attendi ... ";
-    				document.getElementById("txt_displayTabStudentDbEs01").innerHTML = "Attendi ... ";
-
-					document.getElementById("txt_displayTabClassDbEs01").readOnly = true;
-					document.getElementById("txt_displayTabStudentDbEs01").readOnly = true;
 				</script>
 
 			</div>
 
-			<br>
+			<div id="blocco02Js" class="span1 roundBorder" >
 
-			<div id="querySQLResultDbEs01" >
-				<div id="querySQLDbEs01" >
-					<br>
-					<br>
-					<u> - Query SQL - </u> 
-					<br>
-					<br>
-					Scegli una delle Query esistenti: 
-					<br>
-					<select id="select_listQuerySQLDb01">
-						<!-- <option value="query01">query01Text</option> -->
-					</select>
+				<h2>• Prime numbers</h2>
+				Inserici un valore massimo (>=1 && <=999) 
+				<br>
+				<input type="text" id="txt_upperLimitPrimeNumbers" class= "centerInputText" size="1" value="20" >
+				<!-- <br> -->
+				entro il quale calcolare i numeri primi (premi INVIO): 
+				<br>
+				<textarea id="txt_outputPrimeNumbers" class="textAreaNoBorder" ></textarea>
+				<script>
 
-					<textarea id="txt_displayQuerySQLDbEs01" ></textarea> <!-- </textarea> input ... -->
+					var upperLimitPrimeNumbers = 20;
 
-					<script>
+					document.getElementById('txt_upperLimitPrimeNumbers').addEventListener('keydown', function(e) {
+						if (e.key == 'Enter' ) { //Blur, onBlur
+							controlAndCalcPrimeNumbers(); 
+						}
+					});
 
-						var select_listQuerySQLDb01 = document.getElementById("select_listQuerySQLDb01"); 
-						array_listQuerySQLDb01 = [
-							"select * from Classe \n/* Descrizione delle Classi presenti */", 
-							"select * from Studente \n/* Descrizione degli Studenti presenti */",  
-							"select * from Classe where tipo = 'Aula' \n/* Descrizione del tipo 'Aula' */",
-							"select count(*) as num_stud from Studente \n/* Numero totale di Studenti */", 
-							"select sum(superficieMq) as totSuperficieMq from Classe \n/* Superficie totale coperta */", 
-							"select distinct( tipo ) as disTipo from Classe order by disTipo asc \n/* Elenco delle tipologie di spazi */", 
-							"select count(idStud) as numStud, round( avg( eta ) , 2 ) as etaMediaPerClasse, idClass from Studente group by idClass \n/* Numero di Studenti ed Età media degli stessi per ciascuna Classe */",
-							"WITH const AS (SELECT max(eta) as maxEta from Studente) \nselect * from Studente, const where eta = const.maxEta \n/* Elenco degli Studenti più anziani - Common Table Expression (CTE) */",
-							"select * from Classe where tipo like '%Aula%' order by tipo asc\n/* Elenco delle tipologie di 'Aula' */", 
-							"Update Studente set luogoNascita = 'Roma' where idStud = 6 \n/* Aggiornamento riga Database con condizioni relative */", 
-							"Update Studente set luogoNascita = 'Roma' \n/*Aggiornamento del Luogo di Nascita per ogni riga della Tabella 'Studente' */",
-							"select idStud, nome, cognome, eta, luogoNascita, C.idClass, superficieMq, piano, tipo from Studente as S inner join Classe as C on S.idClass = C.idClass \n/* Inner Join fra le due Tabelle dove NON risulta consentito il ripetersi di C.idClass, S.idClass */",
-							"select idStud, nome, cognome, eta, luogoNascita, C.idClass, superficieMq, piano, tipo from Studente as S inner join Classe as C \n" + 
-							"on S.idClass = C.idClass where piano = '1' \n/* Elenco degli Studenti presenti al Piano '1' */",
-						]; 
+					function controlAndCalcPrimeNumbers() {
+						var tempUpperLimit = document.getElementById('txt_upperLimitPrimeNumbers').value;
+						if( isNaN( tempUpperLimit ) || ( tempUpperLimit % 1 != 0 ) ) {
+							alert( "Inserisci un valore numerico intero." );
+						} else if( tempUpperLimit < 1 || tempUpperLimit > 999 ) {
+							alert( "Inserisci un valore numerico compreso fra 1 e 999." );
+						} else {
+							upperLimitPrimeNumbers = parseInt( tempUpperLimit ); 
+							calculatePrimeNumbers( ); 
+						}
+					}
 
-						var contListQuerySQLDb01 = 0; 
-						array_listQuerySQLDb01.forEach( function( query ) {
-							var tempOpt = document.createElement('option');
-							tempOpt.value = query;
-							var tempExpr = query.substring( 0 , query.indexOf("\n/*") ).toUpperCase();  
-							if( tempExpr.length <= 75 ) {
-    							tempOpt.innerHTML = tempExpr; 
-							} else {
-								tempOpt.innerHTML = tempExpr.substring( 0 , 75 + 1 ); 
+					function calculatePrimeNumbers( ) {
+						arrPrime = [ ];
+						strPrime = "";    
+						for( var i = 1; i <= upperLimitPrimeNumbers; i++ ) {
+							
+							//Control of prime numbers
+							var contRestDiv = 0; 
+							for( var j = 1; j <= i; j++ ) {
+								if( i % j == 0 ) {
+									contRestDiv++;
+								}
+
+								if( i == 1 ) { //special case for 1
+									contRestDiv++;
+								}
 							} 
 
-							if( contListQuerySQLDb01 == 11 ) {
-								tempOpt.selected = "true"; //Opzione selezionata
-							}
-							select_listQuerySQLDb01.appendChild( tempOpt ); 
+							if( contRestDiv == 2 ) { //for 1 and for itself
+								arrPrime.push( i );
+							} 
 
-							contListQuerySQLDb01++; 
-						}); 
+						}
 
-						select_listQuerySQLDb01.addEventListener( "change", function( e ) {
-							document.getElementById("txt_displayQuerySQLDbEs01").value = "" + select_listQuerySQLDb01.value; 
-						});
+						for( var i = 0; i < arrPrime.length; i++ ) {
+							strPrime = strPrime + "Posizione " + (i <= 9 ? "0" : "" ) + i + " - " + arrPrime[ i ].toLocaleString() + "\n";
+						}
 
-						/*document.getElementById("txt_displayQuerySQLDbEs01").value = "Attendi ... "; */ /*innerHTML*/  
-					</script>
+						document.getElementById( "txt_outputPrimeNumbers" ).innerHTML = strPrime;
+						document.getElementById( "txt_outputPrimeNumbers" ).readOnly = true;
 
-				</div>
+					}
 
-				<button id="btn_executeQuerySQL" >Esegui Query SQL</button>
-
-				<div id="resultDbEs01" >
-					<br>
-					<u> - Risultato dell'interrogazione - </u> 
-					<br>
-					<textarea id="txt_displayResultDbEs01" ></textarea>
-				</div>
-
-				<script>
-					//document.getElementById("txt_displayQuerySQLDbEs01").readOnly = true;
-					document.getElementById("txt_displayResultDbEs01").readOnly = true;
+					calculatePrimeNumbers();
 
 				</script>
 
 			</div>
-			
-			<py-script>
 
-				from db01 import *
+			<div id="blocco03Js" class="span1 roundBorder" >
 
-			</py-script>
-			
+				<h2>• Number Base</h2>
+				Conversioni sul valore (>=1 && <=10<sup>12</sup>) scelto  
+				<br>
+				<input type="text" id="txt_numberBaseValue" class= "centerInputText" size="12" value="1000000" > 
+				<!-- <br> -->
+				in base 10 (premi INVIO):
+				<br>
+				<textarea id="txt_outputNumberBase" class="textAreaNoBorder" ></textarea>
+				<script>
+
+					var numberBaseValue = 1000000;
+
+					document.getElementById('txt_numberBaseValue').addEventListener('keydown', function(e) {
+						if (e.key == 'Enter' ) { //Blur, onBlur
+							controlAndCalcNumberBase(); 
+						}
+					});
+
+					function controlAndCalcNumberBase() {
+						var tempNumberBaseValue = document.getElementById('txt_numberBaseValue').value;
+						if( isNaN( tempNumberBaseValue ) || ( tempNumberBaseValue % 1 != 0 ) ) {
+							alert( "Inserisci un valore numerico intero." );
+						} else if( tempNumberBaseValue < 1 || tempNumberBaseValue > 1000000000000 ) {
+							alert( "Inserisci un valore numerico compreso fra 1 e 1'000'000'000'000." );
+						} else {
+							numberBaseValue = parseInt( tempNumberBaseValue ); 
+							calculateNumberBase( ); 
+						}
+					}
+
+					function calculateNumberBase( ) {
+						//arrNumbBase = [ ];
+						strNumbBase = "";   
+						
+						for( var base = 2; base <= 16; base++ ) {
+							strNumbBase = strNumbBase + "Base " + (base <= 9 ? "0" : "" ) + base + " - " + numberBaseValue.toString( base ) + "\n";
+						}					
+
+						document.getElementById( "txt_outputNumberBase" ).innerHTML = strNumbBase;
+						document.getElementById( "txt_outputNumberBase" ).readOnly = true;
+
+					}
+
+					calculateNumberBase();
+
+				</script>
+
+			</div>
+
+			<div id = "blocco04Js" class = "span1 roundBorder" >
+				<h2>• PictureBox</h2>
+				Varia i quattro Slider e cambia colore ... 
+				<div id="div_pictureBox">
+				</div>
+
+				<div >
+					<table>
+						<tr>
+							<td>Rosso: </td> <td ><input type="range" id="sliderRed" class="slider"  min="0" max="255"  value="255" oninput="changeColor();"></td>
+						</tr>
+						<tr>
+							<td>Verde: </td> <td ><input type="range" id="sliderGreen" class="slider" min="0" max="255"  value="150" oninput="changeColor();"></td>
+						</tr>
+						<tr>
+							<td>Blu: </td> <td ><input type="range" id="sliderBlue" class="slider" min="0" max="255"  value="0" oninput="changeColor();"></td>
+						</tr>
+						<tr>
+							<td>Alpha: </td> <td ><input type="range" id="sliderAlpha" class="slider" min="0" max="100"  value="255" oninput="changeColor();"></td>
+						</tr>
+
+					</table>
+				</div>
+
+				<script>
+					function changeColor() {
+						valueRed = document.getElementById( "sliderRed" ).value;
+						valueGreen = document.getElementById( "sliderGreen" ).value;
+						valueBlue = document.getElementById( "sliderBlue" ).value;
+						valueAlpha = document.getElementById( "sliderAlpha" ).value;
+						valueAlphaFloat = ( valueAlpha / 100.00 ).toFixed(2);
+						document.getElementById("div_pictureBox").style.backgroundColor = 'rgba(' + valueRed + ',' + valueGreen + ',' + valueBlue + ',' + valueAlphaFloat + ')';
+						document.getElementById("txt_valueColor").value = '(' + valueRed + ',' + valueGreen + ',' + valueBlue + ',' + valueAlphaFloat + ')'
+					}
+
+				</script>
+				<br>
+				Valore del colore (rgba, con a / alpha trasparenza):
+				<br>
+				<input type="text" id="txt_valueColor" class= "centerInputText" size="12" >
+				<br>
+
+				<script>
+					changeColor();
+				</script>
+
+			</div> 
+
+			<div id = "blocco05Js" class = "span4 roundBorder" >
+
+				<h2>• Leaflet Map</h2>
+				Esempio di Applicazione della libreria Javascript <a href="https://leafletjs.com/">LeafletJS</a>, ovvero:
+				<br> 
+				<br> 
+
+				<div id="appLeafletMap">
+					<div id="leafletMap" >
+
+						<script>
+							var map = L.map('leafletMap').setView([51.505, -0.09], 13);
+
+							L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+								maxZoom: 22,
+								attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+							}).addTo(map);
+
+						</script>
+
+					</div>
+
+					<div id="controlliLeafletMap" > <!-- style="background-color:red;" -->
+						In costruzione ... 
+
+					</div>
+
+				</div>
+
+			</div>
 
 		</div>
 
 	</div>
 
-</div>
+	<div id="schedaJava" > 
 
-<div id="schedaGIS" > 
-	
-	<div>
-		Cartografia in ambito Web-GIS, alcuni esempi. 
-		<br>
-		<br>
-		<b>
-			*** ATTENZIONE ***: gli elementi richiamati nel seguito appartengono ai rispettivi proprietari. 
-		</b>
-		<br>
-		<br>
-		Alcune note:
-		<br> 
-		- Link GitHub di riferimento <a href="https://github.com/planetsig/ufo-reports">Ufo Reports Dataset</a>; 
-		<br>
-		- Link al file CSV <a href="https://raw.githubusercontent.com/planetsig/ufo-reports/master/csv-data/ufo-scrubbed-geocoded-time-standardized.csv">File CSV</a>; 
-		<br>
-		- Articolo di riferimento <a href="https://drlee.io/exploring-ufo-sightings-with-python-pandas-and-google-colab-3cf24d1843d3">Exploring UFO Sightings with Python, Pandas, and Google Colab</a>; 
-		<br>
-		- Impiego della Libreria Python <a href="https://python-visualization.github.io/folium/latest/">Folium</a>.
-		<br>
-		<br>
+		<div id="descrApplet" class="justify" >
+			Applet Java considerate generalmente defunte, in quest'ambito l'Estensione per Browser <a href="https://labs.leaningtech.com/docs/cheerpj-applet-runner">CheerpJ Applet Runner</a> permette di ottenere nuovi risultati; la visualizzazione delle Applet relative risulta possibile tramite la semplice installazione ed attivazione dell'Estensione di cui sopra. 
+			<br>
+			<br>
+			<b>
+				*** ATTENZIONE ***: i Servizi richiamati appartengono ai rispettivi proprietari. 
+			</b>
+			<br>
+			<br>
+
+		</div>
+
+		<div id="tabellaJava" class="grid">
+
+			<div id = "blocco01Java" class = "span1 roundBorder" >
+				<h2>• Applet Java</h2>
+
+			</div>
+
+		</div>
 		
 	</div>
 
-	<div id="tabellaGIS" class="grid">
+	<div id="schedaDatabase" > 
 
-		<div id = "blocco01GIS" class = "span4 roundBorder" >
+		<div>
+			Esempi di Applicazione del Database Sqlite / Spatialite. 
+			<br>
+			<br>
+			<b>
+				*** ATTENZIONE ***: i Servizi di Database richiamati nel seguito appartengono ai rispettivi proprietari. 
+			</b>
+			<br>
+			<br>
+			Alcune note:
+			<br> 
+			- Fase di Test eseguita in locale (vedi <u>python -m http.server 3000, localhost:3000</u>, in riferimento alle <a href="https://www.youtube.com/watch?v=H7ZTrqhonHc">CORS Policy</a>). 
+			<br>
+			<br>
+			
+		</div>
 
-			<div id="contMap" style="width: 60%; ">
-				<div id="foliumMap" style="width:100%; height: 100%"></div>
+		<div id="tabellaDb" class="grid">
+
+			<div id = "blocco01Db" class = "span4 roundBorder" >
+
+				<h2>• Link esterni per Database</h2>
+				
+				- Query di esempio in ambito MySQL: <a href="https://www.w3schools.com/MySQL/trymysql.asp?filename=trysql_select_all">W3School MySQL</a>
+				<br>
+				- Query di esempio in ambito PostgreSQL, SQL Server, MySQL: <a href="https://runsql.com/r">Run SQL</a>
+				<br>
+				<br>
+
 			</div>
 
-			<py-script output="foliumMap">
+			<div id = "blocco02Db" class = "span4 roundBorder" >
 
-				from gis01 import *
+				<h2>• Database Relazionale SQLITE (esempio 01)</h2>
 
-			</py-script>
+				Definizione di due Tabelle: Classe, Studente. 
+				<br>
+				Popolamento / Valorizzazione delle Tabelle in riferimento al numero di ID scelti:
+				<br>
+
+				<div class="popup" > <!-- posizione Popup -->
+					<table>
+						<tr><td>- nr. ID Tabella Classe (valore compreso fra 1 e 25, predefinito 15): </td> <td>
+							<input type="number" id="totIDTabClass" min="1" max="25" value="15" style="width: 10vh" ></td> <!-- No size -->
+						<tr>
+						<tr><td>- nr. ID Tabella Studente (valore compreso fra 1 e 150, predefinito 120): </td> <td>
+							<input type="number" id="totIDTabStudent" min="1" max="150" value="120" style="width: 10vh" ></td> <!-- No size -->
+						<tr>
+					</table>
+					<span class="popuptext" id="popupInputDb01" 
+						onclick="/*this.style.display = 'none';*/ this.style.visibility = 'hidden'; " >
+					</span>
+				</div>
+
+				<script>
+
+					var totIDTabClass = { obj: document.getElementById( "totIDTabClass" ), limInf: 1,  limSup: 25, predef: 15 };
+					var totIDTabStudent = { obj: document.getElementById( "totIDTabStudent" ), limInf: 1,  limSup: 150, predef: 120 }; 
+
+					totIDTabClass.obj.addEventListener( "keydown", function(e) {
+						if( e.key == "Enter" ) {
+							contrIDTableDb01( totIDTabClass.obj, totIDTabClass.limInf, totIDTabClass.limSup, totIDTabClass.predef ); 
+						}
+					}); 
+					totIDTabClass.obj.addEventListener( "blur", function(e) {
+						contrIDTableDb01( totIDTabClass.obj, totIDTabClass.limInf, totIDTabClass.limSup, totIDTabClass.predef ); 
+					}); 
+
+					totIDTabStudent.obj.addEventListener( "keydown", function(e) {
+						if( e.key == "Enter" ) {
+							contrIDTableDb01( totIDTabStudent.obj, totIDTabStudent.limInf, totIDTabStudent.limSup, totIDTabStudent.predef ); 
+						}
+					}); 
+					totIDTabStudent.obj.addEventListener( "blur", function(e) {
+						contrIDTableDb01( totIDTabStudent.obj, totIDTabStudent.limInf, totIDTabStudent.limSup, totIDTabStudent.predef ); 
+					}); 
+					
+					function contrIDTableDb01( obj, min, max, predef ) {
+						//NON utilizzare Alert
+						//var tempTotIDTabClass = document.getElementById('totIDTabClass').value;
+						var popupInputDb01 = document.getElementById("popupInputDb01");
+						if( obj.value == "" || ( obj.value % 1 != 0 ) ) {
+							popupInputDb01.innerHTML = "Inserisci un valore numerico intero <br>(Clicca qui per chiudere)";
+							//popupInputDb01.style.display = "display";  
+							popupInputDb01.style.visibility = "visible";
+							//obj.value = predef;
+
+						} else if( obj.value < min || obj.value > max ) {
+							popupInputDb01.innerHTML = "Inserisci un valore numerico compreso fra "+ min + " e " + max + " <br>(Clicca qui per chiudere)";
+							//popupInputDb01.style.display = "display";  
+							popupInputDb01.style.visibility = "visible";  
+							//obj.value = predef;
+
+						} else {
+							//tempTotIDTabClass = parseInt( tempTotIDTabClass );  
+							//Do nothing, value ok
+						}
+					}
+
+				</script>
+
+				<br>
+				<button id="btn_tablePopulating" >Valorizza Tabelle</button>
+
+				<div id="displayTabDbEs01">
+
+					<div id="displayTabClassDbEs01" >
+						<br>
+						<u> - Tabella "Classe" - </u> 
+						<br>
+						<textarea id="txt_displayTabClassDbEs01" ></textarea>
+
+					</div>
+
+					<div id="displayTabStudentDbEs01" >
+						<br>
+						<u> - Tabella "Studente" - </u> 
+						<br>
+						<textarea id="txt_displayTabStudentDbEs01" ></textarea>
+
+					</div>
+
+					<script>
+						document.getElementById("txt_displayTabClassDbEs01").innerHTML = "Attendi ... ";
+						document.getElementById("txt_displayTabStudentDbEs01").innerHTML = "Attendi ... ";
+
+						document.getElementById("txt_displayTabClassDbEs01").readOnly = true;
+						document.getElementById("txt_displayTabStudentDbEs01").readOnly = true;
+					</script>
+
+				</div>
+
+				<br>
+
+				<div id="querySQLResultDbEs01" >
+					<div id="querySQLDbEs01" >
+						<br>
+						<br>
+						<u> - Query SQL - </u> 
+						<br>
+						<br>
+						Scegli una delle Query esistenti: 
+						<br>
+						<select id="select_listQuerySQLDb01">
+							<!-- <option value="query01">query01Text</option> -->
+						</select>
+
+						<textarea id="txt_displayQuerySQLDbEs01" ></textarea> <!-- </textarea> input ... -->
+
+						<script>
+
+							var select_listQuerySQLDb01 = document.getElementById("select_listQuerySQLDb01"); 
+							array_listQuerySQLDb01 = [
+								"select * from Classe \n/* Descrizione delle Classi presenti */", 
+								"select * from Studente \n/* Descrizione degli Studenti presenti */",  
+								"select * from Classe where tipo = 'Aula' \n/* Descrizione del tipo 'Aula' */",
+								"select count(*) as num_stud from Studente \n/* Numero totale di Studenti */", 
+								"select sum(superficieMq) as totSuperficieMq from Classe \n/* Superficie totale coperta */", 
+								"select distinct( tipo ) as disTipo from Classe order by disTipo asc \n/* Elenco delle tipologie di spazi */", 
+								"select count(idStud) as numStud, round( avg( eta ) , 2 ) as etaMediaPerClasse, idClass from Studente group by idClass \n/* Numero di Studenti ed Età media degli stessi per ciascuna Classe */",
+								"WITH const AS (SELECT max(eta) as maxEta from Studente) \nselect * from Studente, const where eta = const.maxEta \n/* Elenco degli Studenti più anziani - Common Table Expression (CTE) */",
+								"select * from Classe where tipo like '%Aula%' order by tipo asc\n/* Elenco delle tipologie di 'Aula' */", 
+								"Update Studente set luogoNascita = 'Roma' where idStud = 6 \n/* Aggiornamento riga Database con condizioni relative */", 
+								"Update Studente set luogoNascita = 'Roma' \n/*Aggiornamento del Luogo di Nascita per ogni riga della Tabella 'Studente' */",
+								"select idStud, nome, cognome, eta, luogoNascita, C.idClass, superficieMq, piano, tipo from Studente as S inner join Classe as C on S.idClass = C.idClass \n/* Inner Join fra le due Tabelle dove NON risulta consentito il ripetersi di C.idClass, S.idClass */",
+								"select idStud, nome, cognome, eta, luogoNascita, C.idClass, superficieMq, piano, tipo from Studente as S inner join Classe as C \n" + 
+								"on S.idClass = C.idClass where piano = '1' \n/* Elenco degli Studenti presenti al Piano '1' */",
+							]; 
+
+							var contListQuerySQLDb01 = 0; 
+							array_listQuerySQLDb01.forEach( function( query ) {
+								var tempOpt = document.createElement('option');
+								tempOpt.value = query;
+								var tempExpr = query.substring( 0 , query.indexOf("\n/*") ).toUpperCase();  
+								if( tempExpr.length <= 75 ) {
+									tempOpt.innerHTML = tempExpr; 
+								} else {
+									tempOpt.innerHTML = tempExpr.substring( 0 , 75 + 1 ); 
+								} 
+
+								if( contListQuerySQLDb01 == 8 ) {
+									tempOpt.selected = "true"; //Opzione selezionata
+								}
+								select_listQuerySQLDb01.appendChild( tempOpt ); 
+
+								contListQuerySQLDb01++; 
+							}); 
+
+							select_listQuerySQLDb01.addEventListener( "change", function( e ) {
+								document.getElementById("txt_displayQuerySQLDbEs01").value = "" + select_listQuerySQLDb01.value; 
+							});
+
+							/*document.getElementById("txt_displayQuerySQLDbEs01").value = "Attendi ... "; */ /*innerHTML*/  
+						</script>
+
+					</div>
+
+					<button id="btn_executeQuerySQL" >Esegui Query SQL</button>
+
+					<div id="resultDbEs01" >
+						<br>
+						<u> - Risultato dell'interrogazione - </u> 
+						<br>
+						<textarea id="txt_displayResultDbEs01" ></textarea>
+					</div>
+
+					<script>
+						//document.getElementById("txt_displayQuerySQLDbEs01").readOnly = true;
+						document.getElementById("txt_displayResultDbEs01").readOnly = true;
+
+					</script>
+
+				</div>
+				
+				<py-script>
+
+					from db01 import *
+
+					js.barLoading.style.width = "70%"; 
+					js.barLoading.innerHTML = "Loading ... 70%"; 
+
+				</py-script>
+
+				<script>
+					//
+				</script>
+				
+			</div>
 
 		</div>
 
 	</div>
 
-</div>
+	<div id="schedaGIS" > 
+		
+		<div>
+			Cartografia in ambito Web-GIS, alcuni esempi. 
+			<br>
+			<br>
+			<b>
+				*** ATTENZIONE ***: gli elementi richiamati nel seguito appartengono ai rispettivi proprietari. 
+			</b>
+			<br>
+			<br>
+			Alcune note:
+			<br> 
+			- Link GitHub di riferimento <a href="https://github.com/planetsig/ufo-reports">Ufo Reports Dataset</a>; 
+			<br>
+			- Link al file CSV <a href="https://raw.githubusercontent.com/planetsig/ufo-reports/master/csv-data/ufo-scrubbed-geocoded-time-standardized.csv">File CSV</a>; 
+			<br>
+			- Articolo di riferimento <a href="https://drlee.io/exploring-ufo-sightings-with-python-pandas-and-google-colab-3cf24d1843d3">Exploring UFO Sightings with Python, Pandas, and Google Colab</a>; 
+			<br>
+			- Impiego della Libreria Python <a href="https://python-visualization.github.io/folium/latest/">Folium</a>.
+			<br>
+			<br>
+			
+		</div>
 
-<div id="schedaDisegni3D" > 
-	
-	Realizzazione di alcuni solidi tramite apposito Modellatore Software 3D (principalmente in versione libera / gratuita) vicino ad altri Software CAD come AutoCAD; fra i vari Software CAD esistenti si ricorda l'utilizzo del Software CAD <a href="https://resources.sw.siemens.com/it-IT/download-solid-edge-community-edition/">SolidEdge Community Edition</a>. 
-	<br>
-	<br>
-	<b>
-		*** ATTENZIONE ***: gli Strumenti / Software CAD richiamati appartengono ai rispettivi proprietari. 
-	</b>
-	<br>
-	<br>
-	Alcuni esempi:
-	<br>
+		<div id="tabellaGIS" class="grid">
 
-	<ul style="list-style-type:square;">
-		<!-- Copy permalink GitHub -->
-		<li> <a href="https://geoinf25.github.io/site/DisegniCAD3D/Drawing001.pdf">Drawing001.pdf</a> </li>
-	</ul>
+			<div id = "blocco01GIS" class = "span4 roundBorder" >
 
-</div>
+				<div id="contMap" style="width: 70%; ">
+					<div id="foliumMap" style="width:100%; height: 100%"></div>
+				</div>
 
-<div id="schedaAltriLinks" >
+				<py-script output="foliumMap"> 
 
-	<!-- <br>  <p></p> -->
-	Alcuni Link utili relativi al mondo dell'Informatica / Elettronica e del mondo CAT (Costruzioni-Ambiente-Territorio):  
-	<ul>
-		<li> <a href="http://150.146.207.184:8080/chargefinder/WebContent/file_view.html">ChargeFinder LabGeoInf</a> (Applicazione in ambito GIS, <u>riguardante la mia persona</u>) </li>
+					from gis01 import *
+
+					#js.barLoading.style.width = "100%"; 
+					#js.barLoading.innerHTML = "Loading ... 100%"; 
+
+					js.barTot.style.display = "none"; 
+					js.barTot.style.visibility = "hidden";
+					js.barLoading.style.display = "none"; 
+					js.barLoading.style.visibility = "hidden";
+
+				</py-script>
+
+				<script>
+					//
+				</script>
+
+			</div>
+
+		</div>
+
+	</div>
+
+	<div id="schedaDisegni3D" > 
+		
+		Realizzazione di alcuni solidi tramite apposito Modellatore Software 3D (principalmente in versione libera / gratuita) vicino ad altri Software CAD come AutoCAD; fra i vari Software CAD esistenti si ricorda l'utilizzo del Software CAD <a href="https://resources.sw.siemens.com/it-IT/download-solid-edge-community-edition/">SolidEdge Community Edition</a>. 
+		<br>
 		<br>
 		<b>
-			*** ATTENZIONE ***: i contenuti proposti nei Link esterni seguenti appartengono ai rispettivi proprietari. 
+			*** ATTENZIONE ***: gli Strumenti / Software CAD richiamati appartengono ai rispettivi proprietari. 
 		</b>
 		<br>
 		<br>
-		<li> <a href="https://www.w3schools.com/">W3Schools</a> (Linguaggi di programmazione) </li>
-		<li> <a href="https://www.edutecnica.it/">EduTecnica</a> (Appunti ambito meccanico / elettronico / informatico) </li>
-		<li> <a href="https://www.circuitlab.com/">CircuitLab</a> (Simulazione circuiti elettrici) </li>
-		<li> <a href="https://skilldrick.github.io/easy6502/">Skilldrick 6502</a> (Assembly Microprocessore 6502) </li>
-		<li> <a href="https://github.com/marcodotsh/programmazione-in-c-esercizi/tree/main">GitHub Marcodotsh - Esercizi in C</a> (Linguaggio C) </li>
-		<li> <a href="https://profzanghi.weebly.com/">Prof. Zanghi</a> (Appunti ambito Geometra) </li>
-		<li> <a href="https://www.oppo.it/home.html">OPPO</a> (Tabelle e Sezioni) </li>
-		<li> <a href="https://www.spyder-ide.org/">Spyder IDE</a> (IDE Python) </li>
-		<li> <a href="https://streamlit.io/">Streamlit Python</a> (Creazione Siti Web in Python) </li>
-		<li> <a href="https://remix-project.org/?lang=it">Remix IDE</a> (IDE Solidity / Blockchain) </li>
-		<li> <a href="https://stackoverflow.com/questions">stackoverflow</a> (StackOverflow Questions) </li>
-		<li> <a href="https://gis.stackexchange.com/">gis.stackexchange</a> (GIS StackExchange Questions) </li>
-		<li> <a href="https://qgis.org/">QGIS</a> (QGIS Project) </li>
-		<li> <a href="https://overpass-turbo.eu/">Overpass OpenStreetMap API</a> (Overpass Query) </li>
-		<li> <a href="https://www.nicoladeinnocentis.it/">Geopillole</a> (Pillole di GIS) </li>
-		<li> <a href="https://www.prismacad.it/disegni-meccanici/">PrismaCad</a> (Disegni meccanici) </li>
-		<li> <a href="https://www.tinkercad.com/">Tinkercad</a> (Disegni 3D e simulazioni (Arduino)) </li>
-		<li> <a href="https://cheerpj.com/">CheerpJ</a> (Java / JVM for the Browser) </li>
-		<li> <a href="https://browserify.org/">Browserify</a> (Bundler / Impacchettatore lato Client (per Browser), utile per riutilizzare pacchetti NPM pensati lato Server (Node.js)) </li>
-		<li> <a href="https://pygame-web.github.io/wiki/pygbag/">Pygbag / Pygame wasm</a> (Pygame eseguibile sul Web) </li>
-		<li> <a href="https://pypi.org/project/pikepdf/">PikePdf</a> (Gestione file Pdf) </li>
-		<li> <a href="https://github.com/copy/v86?tab=readme-ov-file#demos">copy/v86</a> (Emuazione Sistemi Operativi del passato) </li>
-		<li> <a href="https://duckdb.org/">DuckDB</a> (Database DuckDB) </li>
+		Alcuni esempi:
+		<br>
 
-	</ul>
+		<ul style="list-style-type:square;">
+			<!-- Copy permalink GitHub -->
+			<li> <a href="https://geoinf25.github.io/site/DisegniCAD3D/Drawing001.pdf">Drawing001.pdf</a> </li>
+		</ul>
 
-</div>
+	</div>
 
-<script>
+	<div id="schedaAltriLinks" >
 
-	schedaPython = document.getElementById( "schedaPython" );
-	schedaCSharp = document.getElementById( "schedaCSharp" );
-	schedaJavascript = document.getElementById( "schedaJavascript" );
-	schedaJava = document.getElementById( "schedaJava" );
-	schedaDatabase = document.getElementById( "schedaDatabase" );
-	schedaGIS = document.getElementById( "schedaGIS" );
-	schedaDisegni3D = document.getElementById( "schedaDisegni3D" );
-	schedaAltriLinks = document.getElementById( "schedaAltriLinks" );
+		<!-- <br>  <p></p> -->
+		Alcuni Link utili relativi al mondo dell'Informatica / Elettronica e del mondo CAT (Costruzioni-Ambiente-Territorio):  
+		<ul>
+			<li> <a href="http://150.146.207.184:8080/chargefinder/WebContent/file_view.html">ChargeFinder LabGeoInf</a> (Applicazione in ambito GIS, <u>riguardante la mia persona</u>) </li>
+			<br>
+			<b>
+				*** ATTENZIONE ***: i contenuti proposti nei Link esterni seguenti appartengono ai rispettivi proprietari. 
+			</b>
+			<br>
+			<br>
+			<li> <a href="https://www.w3schools.com/">W3Schools</a> (Linguaggi di programmazione) </li>
+			<li> <a href="https://www.edutecnica.it/">EduTecnica</a> (Appunti ambito meccanico / elettronico / informatico) </li>
+			<li> <a href="https://www.circuitlab.com/">CircuitLab</a> (Simulazione circuiti elettrici) </li>
+			<li> <a href="https://skilldrick.github.io/easy6502/">Skilldrick 6502</a> (Assembly Microprocessore 6502) </li>
+			<li> <a href="https://github.com/marcodotsh/programmazione-in-c-esercizi/tree/main">GitHub Marcodotsh - Esercizi in C</a> (Linguaggio C) </li>
+			<li> <a href="https://profzanghi.weebly.com/">Prof. Zanghi</a> (Appunti ambito Geometra) </li>
+			<li> <a href="https://www.oppo.it/home.html">OPPO</a> (Tabelle e Sezioni) </li>
+			<li> <a href="https://www.spyder-ide.org/">Spyder IDE</a> (IDE Python) </li>
+			<li> <a href="https://streamlit.io/">Streamlit Python</a> (Creazione Siti Web in Python) </li>
+			<li> <a href="https://remix-project.org/?lang=it">Remix IDE</a> (IDE Solidity / Blockchain) </li>
+			<li> <a href="https://stackoverflow.com/questions">stackoverflow</a> (StackOverflow Questions) </li>
+			<li> <a href="https://gis.stackexchange.com/">gis.stackexchange</a> (GIS StackExchange Questions) </li>
+			<li> <a href="https://qgis.org/">QGIS</a> (QGIS Project) </li>
+			<li> <a href="https://overpass-turbo.eu/">Overpass OpenStreetMap API</a> (Overpass Query) </li>
+			<li> <a href="https://www.nicoladeinnocentis.it/">Geopillole</a> (Pillole di GIS) </li>
+			<li> <a href="https://www.prismacad.it/disegni-meccanici/">PrismaCad</a> (Disegni meccanici) </li>
+			<li> <a href="https://www.tinkercad.com/">Tinkercad</a> (Disegni 3D e simulazioni (Arduino)) </li>
+			<li> <a href="https://cheerpj.com/">CheerpJ</a> (Java / JVM for the Browser) </li>
+			<li> <a href="https://browserify.org/">Browserify</a> (Bundler / Impacchettatore lato Client (per Browser), utile per riutilizzare pacchetti NPM pensati lato Server (Node.js)) </li>
+			<li> <a href="https://pygame-web.github.io/wiki/pygbag/">Pygbag / Pygame wasm</a> (Pygame eseguibile sul Web) </li>
+			<li> <a href="https://pypi.org/project/pikepdf/">PikePdf</a> (Gestione file Pdf) </li>
+			<li> <a href="https://github.com/copy/v86?tab=readme-ov-file#demos">copy/v86</a> (Emuazione Sistemi Operativi del passato) </li>
+			<li> <a href="https://duckdb.org/">DuckDB</a> (Database DuckDB) </li>
 
-	schedaDabaseCliccata = false; 
+		</ul>
 
-	schede = [ 
-		schedaPython,
-		schedaCSharp,
-		schedaJavascript,
-		schedaJava, 
-		schedaDatabase,
-		schedaGIS,
-		schedaDisegni3D,
-		schedaAltriLinks
-	]; 
+	</div>
 
-	gestioneSchede( "schedaPython" );
+	<script>
 
-</script>
+		schedaPython = document.getElementById( "schedaPython" );
+		schedaCSharp = document.getElementById( "schedaCSharp" );
+		schedaJavascript = document.getElementById( "schedaJavascript" );
+		schedaJava = document.getElementById( "schedaJava" );
+		schedaDatabase = document.getElementById( "schedaDatabase" );
+		schedaGIS = document.getElementById( "schedaGIS" );
+		schedaDisegni3D = document.getElementById( "schedaDisegni3D" );
+		schedaAltriLinks = document.getElementById( "schedaAltriLinks" );
+
+		schedaDabaseCliccata = false; 
+
+		schede = [ 
+			schedaPython,
+			schedaCSharp,
+			schedaJavascript,
+			schedaJava, 
+			schedaDatabase,
+			schedaGIS,
+			schedaDisegni3D,
+			schedaAltriLinks
+		]; 
+
+		gestioneSchede( "schedaPython" );
+
+	</script>
+
+	<script>
+		//
+
+	</script>
 
 </body>
-
 
 </html>
