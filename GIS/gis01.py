@@ -14,14 +14,17 @@ column_names = ["datetime", "city", "state", "country", "shape", "duration_secon
 
 #fetch pyscript
 try: 
-    ufo_data = pd.read_csv( "UfoDataset.csv" , names=column_names, engine='python' )
+    print( "Test")
+    #ufo_data = pd.read_csv( "UfoDataset.csv" , names=column_names, engine='python' )
 except Exception as e:
     print( f"Error detected: {str(e)}" )
 
+"""
 print("Number of dimensions:", ufo_data.ndim)
 print("Number of rows:", len(ufo_data))
 print("Total elements:", ufo_data.size)
-print("Shape of the DataFrame:", ufo_data.shape)
+print("Shape of the DataFrame:", ufo_data.shape)"
+"""
 
 
 display( m, target="foliumMap")
