@@ -440,6 +440,10 @@
 		#from = 'https://geoinf25.github.io/site/Python/'
     	#files = ['codePy.py']
 
+		#[[fetch]]
+		#from = './GIS/'
+    	#files = [ "UfoDataset.csv" ]
+
 		[[fetch]]
 		from = './Database/'
     	files = [ "db01.py" ]
@@ -450,7 +454,7 @@
 
 		[[fetch]]
 		from = './GIS/'
-    	files = [ "UfoDataset.csv" ]
+    	files = [ "UfoDb.db" ]
 
 		# [[fetch]]
      	# files = ["https://geoinf25.github.io/site/Database/dbSqliteEs01.db"]
@@ -502,7 +506,7 @@
 		<div id="barTot" style= "width: 100%; background-color: lightgreen; " >
 			<!-- <br> -->
   			<div id="barLoading" 
-				style= "width: 20%; height: 2vh; background-color: green; font-family: 'Trebuchet MS'; text-align: center; line-height: 2vh; color: white; " >Loading ... 20%
+				style= "width: 30%; height: 2vh; background-color: green; font-family: 'Trebuchet MS'; text-align: center; line-height: 2vh; color: white; " >Loading ... 30%
 			</div>
 		</div>
 		<br>
@@ -675,8 +679,8 @@
 					else:  
 						output.innerHTML = "Mancato aggiornamento automatico previsto a seguito del Refresh della Pagina Web (utilizzare l'apposito pulsante di cui sopra)."
 
-					js.barLoading.style.width = "35%"; 
-					js.barLoading.innerHTML = "Loading ... 35%"; 
+					js.barLoading.style.width = "55%"; 
+					js.barLoading.innerHTML = "Loading ... 55%"; 
 
 				</py-script>
 
@@ -1051,7 +1055,7 @@
 			<br>
 			Alcune note:
 			<br> 
-			- Fase di Test eseguita in locale (vedi <u>python -m http.server 3000, localhost:3000</u>, in riferimento alle <a href="https://www.youtube.com/watch?v=H7ZTrqhonHc">CORS Policy</a>). 
+			- Fase di Test eseguita in locale (vedi <u>python -m http.server 3000, localhost:3000/index.html</u>, in riferimento alle <a href="https://www.youtube.com/watch?v=H7ZTrqhonHc">CORS Policy</a>). 
 			<br>
 			<br>
 			
@@ -1258,8 +1262,8 @@
 
 					from db01 import *
 
-					js.barLoading.style.width = "70%"; 
-					js.barLoading.innerHTML = "Loading ... 70%"; 
+					js.barLoading.style.width = "75%"; 
+					js.barLoading.innerHTML = "Loading ... 75%"; 
 
 				</py-script>
 
@@ -1286,11 +1290,11 @@
 			<br>
 			Alcune note:
 			<br> 
-			- Link GitHub di riferimento <a href="https://github.com/planetsig/ufo-reports">Ufo Reports Dataset</a>; 
+			- Link GitHub di riferimento: <a href="https://github.com/planetsig/ufo-reports">Ufo Reports Dataset</a>; 
 			<br>
-			- Link al file CSV <a href="https://raw.githubusercontent.com/planetsig/ufo-reports/master/csv-data/ufo-scrubbed-geocoded-time-standardized.csv">File CSV</a>; 
+			- Link al file CSV: <a href="https://raw.githubusercontent.com/planetsig/ufo-reports/master/csv-data/ufo-scrubbed-geocoded-time-standardized.csv">File CSV</a>; 
 			<br>
-			- Articolo di riferimento <a href="https://drlee.io/exploring-ufo-sightings-with-python-pandas-and-google-colab-3cf24d1843d3">Exploring UFO Sightings with Python, Pandas, and Google Colab</a>; 
+			- Articolo di riferimento: <a href="https://drlee.io/exploring-ufo-sightings-with-python-pandas-and-google-colab-3cf24d1843d3">Exploring UFO Sightings with Python, Pandas, and Google Colab</a>; 
 			<br>
 			- Impiego della Libreria Python <a href="https://python-visualization.github.io/folium/latest/">Folium</a>.
 			<br>
@@ -1302,13 +1306,15 @@
 
 			<div id = "blocco01GIS" class = "span4 roundBorder" >
 
-				<div id="contMap" style="width: 70%; float: left; ">
+				<div id="contMap" style="width: 80%; float: left; ">
 					<div id="foliumMap" style="width:100%; height: 100%"></div> 
 				</div>
 
-				<div style="float: right; " >In costruzione ... </div>
+				<div style="float: right; " > - Avvistamenti UFO nell'anno <br>1949 (in costruzione ... ) </div>
 
-				<py-script output="foliumMap"> 
+				<py-script > 
+					
+					#output="foliumMap" in py-script tag
 
 					from gis01 import *
 
