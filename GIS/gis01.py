@@ -12,7 +12,7 @@ import js
 
 #ufo_data = pd.read_csv( "UfoDataset.csv" , names=column_names, engine='python' )
 
-m = folium.Map(location=[48, -102], zoom_start=2 )
+m = folium.Map( location=[48, -102], zoom_start=2 )
 
 #fetch pyscript
 try: 
@@ -40,6 +40,12 @@ print("Total elements:", ufo_data.size)
 print("Shape of the DataFrame:", ufo_data.shape)"
 """
 
-
 display( m, target="foliumMap")
+
+tt = pd.DataFrame(
+    data={"animal_1": ["elk", "pig"], "animal_2": ["dog", "quetzal"]}
+)
+
+#display( tt.to_markdown(tablefmt="grid") , target="resQueryUfoDb" )
+display( dfRes , target="resQueryUfoDb" )
 
