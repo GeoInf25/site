@@ -434,7 +434,7 @@
 <body>
 
 	<py-config>
-    	packages = ["sqlite3", "numpy",  "prettytable", "folium", "pandas" ]
+    	packages = ["sqlite3", "numpy",  "prettytable", "folium", "pandas", "tabulate" ]
 
 		#[[fetch]]
 		#from = 'https://geoinf25.github.io/site/Python/'
@@ -1306,31 +1306,42 @@
 
 			<div id = "blocco01GIS" class = "span4 roundBorder" >
 
-				<div id="contMap" style="width: 80%; float: left; ">
-					<div id="foliumMap" style="width:100%; height: 100%"></div> 
+				<div id="contFoliumMapControlFoliumMap" style ="width: 100%; ">  
+					<div id="contFoliumMap" style="float: left; width: 75%; height: 50vh; overflow: hidden; ">
+						<div id="foliumMap" ></div> 
+					</div>
+
+					<div id="controlFoliumMap" style="float: right; width: 24%; height: 50vh; background-color: lightgrey;" > Avvistamenti Ufo nell'anno 1949 (in costruzione ...) </div>
+
+					<script>
+						//
+					</script>
+
 				</div>
 
-				<div style="float: right; " > - Avvistamenti UFO nell'anno <br>1949 (in costruzione ... ) </div>
-
 				<py-script > 
-					
-					#output="foliumMap" in py-script tag
+						
+						#output="foliumMap" in py-script tag
 
-					from gis01 import *
+						from gis01 import *
 
-					#js.barLoading.style.width = "100%"; 
-					#js.barLoading.innerHTML = "Loading ... 100%"; 
+						#js.barLoading.style.width = "100%"; 
+						#js.barLoading.innerHTML = "Loading ... 100%"; 
 
-					js.barTot.style.display = "none"; 
-					js.barTot.style.visibility = "hidden";
-					js.barLoading.style.display = "none"; 
-					js.barLoading.style.visibility = "hidden";
+						js.barTot.style.display = "none"; 
+						js.barTot.style.visibility = "hidden";
+						js.barLoading.style.display = "none"; 
+						js.barLoading.style.visibility = "hidden";
 
 				</py-script>
 
-				<script>
-					//
-				</script>
+				<div style=" clear: both">
+					<br>
+				</div>
+
+				<div id="resQueryUfoDb" style="width: 100%; height: auto; border-style: solid; ">
+					
+				</div>
 
 			</div>
 
