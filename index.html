@@ -123,6 +123,8 @@
 		font-size: 2.0vh; /* 16px */
 		font-weight: bold;
 
+		min-width: 18vh; 
+
 		/*height: auto; */
   	}
 
@@ -187,10 +189,15 @@
 	/* Python */
 
 	#txt_code{
+
+		/* font-family: "Cascadia Code"; */
+		/* font-size: 2vh; */
+		/* font-weight: bold; */
+
 		width: 100%; 
 		height: 45vh; 
 		color: black;  
-		background-color: lightgray;
+		background-color: #efefef;
 		resize: none;
   	}
 
@@ -485,10 +492,12 @@
 
 		window.addEventListener( 'load' , function(event) {
 			resizeWindow();
+
 		});
 
 		window.addEventListener( 'resize' , function(event) {
 			resizeWindow();
+
 		});
 
 	</script>
@@ -501,7 +510,7 @@
 		<button id="tab_schedaDatabase" class="btn tabDatabase" onclick="gestioneSchede( 'schedaDatabase' )">- DATABASE -</button>
 		<button id="tab_schedaGIS" class="btn tabGIS" onclick="gestioneSchede( 'schedaGIS' )">- GIS -</button>
 		<button id="tab_schedaDisegni3D" class="btn tabDisegni3D" onclick="gestioneSchede( 'schedaDisegni3D' )">- DISEGNI 3D -</button>
-		<button id="tab_schedaAltriLinks" class="btn tabAltriLinks" onclick="gestioneSchede( 'schedaAltriLinks' )">- ALTRI LINKS -</button>
+		<button id="tab_schedaAltriLinks" class="btn tabAltriLinks" onclick="gestioneSchede( 'schedaAltriLinks' )">- LINKS -</button>
 		<br>
 		<div id="barTot" style= "width: 100%; background-color: lightgreen; " >
 			<!-- <br> -->
@@ -988,7 +997,7 @@
 				Esempio di Applicazione della libreria Javascript <a href="https://leafletjs.com/">LeafletJS</a>, ovvero:
 				<br> 
 				<br> 
-
+				<!-- 
 				<div id="appLeafletMap">
 					<div id="leafletMap" >
 
@@ -1004,13 +1013,13 @@
 
 					</div>
 
-					<div id="controlliLeafletMap" > <!-- style="background-color:red;" -->
+					<div id="controlliLeafletMap" > 
 						In costruzione ... 
 
 					</div>
 
 				</div>
-
+				-->
 			</div>
 
 		</div>
@@ -1307,17 +1316,18 @@
 			<div id = "blocco01GIS" class = "span4 roundBorder" >
 
 				<div id="contFoliumMapControlFoliumMap" style ="width: 100%; ">  
-					<div id="contFoliumMap" style="float: left; width: 75%; height: 50vh; overflow: hidden; ">
+					<div id="contFoliumMap" style="float: left; width: 75%; height: 50vh; overflow: hidden; "> <!-- overflow: hidden; -->
 						<div id="foliumMap" ></div> 
 					</div>
 
 					<div id="controlFoliumMap" style="float: right; width: 24%; height: 50vh; background-color: lightgrey;" > Avvistamenti Ufo nell'anno 1949 (in costruzione ...) </div>
 
-					<script>
-						//
-					</script>
-
 				</div>
+
+				<script>
+					//offsetHeight_contFoliumMap = document.getElementById( "contFoliumMap" ).offsetHeight;  
+					//offsetWidth_contFoliumMap = document.getElementById( "contFoliumMap" ).offsetWidth;  
+				</script>
 
 				<py-script > 
 						
@@ -1335,12 +1345,26 @@
 
 				</py-script>
 
+				<script>
+					//var mm = Object.values(window).find(obj => obj && obj._leaflet_id && obj.getContainer());
+					//var mm = Object.values(window).find(obj => obj && obj._leaflet_id && obj.getContainer() );
+
+					//console.log( Object.values(window) )
+					//console.log( mm )
+
+					//nameFoliumMap = ""; 
+
+					
+
+				</script>
+
+
 				<div style=" clear: both">
 					<br>
 				</div>
 
 				<div id="resQueryUfoDb" style="width: 100%; height: auto; border-style: solid; ">
-					
+					<textarea id= "test" style="width:50vh; height: 30vh; resize: none; " ></textarea>
 				</div>
 
 			</div>
