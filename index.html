@@ -7,6 +7,8 @@
 
 	<script type="text/javascript" src="./file_funzSupp.js"></script> 
 
+	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> -->
+
 	<link
     rel="stylesheet"
     href="https://pyscript.net/releases/2025.7.2/core.css"
@@ -997,7 +999,7 @@
 				Esempio di Applicazione della libreria Javascript <a href="https://leafletjs.com/">LeafletJS</a>, ovvero:
 				<br> 
 				<br> 
-				<!-- 
+				
 				<div id="appLeafletMap">
 					<div id="leafletMap" >
 
@@ -1019,7 +1021,7 @@
 					</div>
 
 				</div>
-				-->
+				
 			</div>
 
 		</div>
@@ -1194,7 +1196,7 @@
 						<u> - Query SQL - </u> 
 						<br>
 						<br>
-						Scegli una delle Query esistenti: 
+						Scegli una delle Query esistenti o scrivi direttamente un'Interrogazione / Query SQL: 
 						<br>
 						<select id="select_listQuerySQLDb01">
 							<!-- <option value="query01">query01Text</option> -->
@@ -1305,7 +1307,9 @@
 			<br>
 			- Articolo di riferimento: <a href="https://drlee.io/exploring-ufo-sightings-with-python-pandas-and-google-colab-3cf24d1843d3">Exploring UFO Sightings with Python, Pandas, and Google Colab</a>; 
 			<br>
-			- Impiego della Libreria Python <a href="https://python-visualization.github.io/folium/latest/">Folium</a>.
+			- Impiego della Libreria Python <a href="https://python-visualization.github.io/folium/latest/">Folium</a>;
+			<br>
+			- Impiego della Libreria Leaflet <a href="https://leafletjs.com/">Leaflet</a>.
 			<br>
 			<br>
 			
@@ -1316,17 +1320,52 @@
 			<div id = "blocco01GIS" class = "span4 roundBorder" >
 
 				<div id="contFoliumMapControlFoliumMap" style ="width: 100%; ">  
-					<div id="contFoliumMap" style="float: left; width: 75%; height: 50vh; overflow: hidden; "> <!-- overflow: hidden; -->
+					<p> <u>Mappa Folium</u>:  </p> 
+					<br>
+					<div id="contFoliumMap" style="float: left; width: 75%; height: 60vh; overflow: hidden; "> <!-- overflow: hidden; -->
 						<div id="foliumMap" ></div> 
 					</div>
 
-					<div id="controlFoliumMap" style="float: right; width: 24%; height: 50vh; background-color: lightgrey;" > Avvistamenti Ufo nell'anno 1949 (in costruzione ...) </div>
+					<div id="controlFoliumMap" style="float: right; width: 24%; height: 60vh; " > <!-- overflow-x: scroll; overflow-y: scroll; -->
+						<p class= "justify" >Informazioni sulla mappa lato Leaflet, al di fuori dell'Iframe reativo alla mappa Folium: </p> 
+						<br>
+						<table style="width: 100%;" >
+							<tr>
+								<td style="width: 20%; " ><input type="text" value="- Lat: " style="width: 100%; border: none; " readonly></input></td>
+								<td style="width: 80%; " ><input id="txt_latAddFoliumFunc" type="text" style="width: 100%; " value = "--" readonly></input></td>
+							</tr>
+							<tr>
+								<td style="width: 20%; " ><input type="text" value="- Lng: " style="width: 100%; border: none; " readonly></input></td>
+								<td style="width: 80%; " ><input id="txt_lngAddFoliumFunc" type="text" style="width: 100%; " value = "--" readonly></input></td>
+							</tr>
+							<tr>
+								<td style="width: 20%; " ><input type="text" value="- Zoom: " style="width: 100%; border: none; " readonly></input></td>
+								<td style="width: 80%; " ><input id="txt_zoomAddFoliumFunc" type="text" style="width: 100%; " value = "--" readonly></input></td>
+							</tr>
+						</table>
+
+						<hr/>
+
+						Avvistamenti UFO nell'anno <input id="num_annoAvvistamentoUFO" type="number" min="1906" max="2014" value="1906" style="width: 10vh" > (la perdita del focus sul campo avvia la visualizzazione degli eventuali Marker sulla mappa)
+						<br>
+						<hr/>
+
+						Console: 
+						<textarea id="consoleFoliumMap" style="width: 100%; height: 20%; resize: none; overflow: scroll; white-space: pre; "></textarea>
+
+						<br>
+
+					</div>
+
 
 				</div>
 
 				<script>
-					//offsetHeight_contFoliumMap = document.getElementById( "contFoliumMap" ).offsetHeight;  
-					//offsetWidth_contFoliumMap = document.getElementById( "contFoliumMap" ).offsetWidth;  
+					contFoliumMapOffsetHeight = document.getElementById( "contFoliumMap" ).offsetHeight;  
+					//offsetWidth_contFoliumMap = document.getElementById( "contFoliumMap" ).offsetWidth; 
+					
+					//var testArray = [ 1, 2, 3 ]
+					
 				</script>
 
 				<py-script > 
@@ -1354,7 +1393,6 @@
 
 					//nameFoliumMap = ""; 
 
-					
 
 				</script>
 
@@ -1363,8 +1401,25 @@
 					<br>
 				</div>
 
-				<div id="resQueryUfoDb" style="width: 100%; height: auto; border-style: solid; ">
-					<textarea id= "test" style="width:50vh; height: 30vh; resize: none; " ></textarea>
+				<div id="totQueryUfoDb" style="width: 100%; height: auto; "> <!-- border-style: solid;  -->
+					<u>- Query SQL (Table 'Ufo') -</u>
+					<br>
+					<br>
+					Scrivi una Query SQL: 
+					<br>
+					<div>
+						<textarea id= "txt_queryUfoDb" style="width: 90%; height: 10vh; resize: none; float: left; " ></textarea>
+						<button id="btn_executeQueryUfoDb" style="width: 9%; height: 10vh; float: right;  " >Esegui Query UfoDb</button>
+					</div>
+
+					<div style=" clear: both">
+						<br>
+					</div>
+
+					<u>- Risultato della Query SQL -</u>
+					<br>
+					<textarea id= "txt_resQueryUfoDb" style="width: 100%; height: 50vh; resize: none; overflow: scroll; white-space: pre;" readonly ></textarea>
+
 				</div>
 
 			</div>
