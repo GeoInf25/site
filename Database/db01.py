@@ -126,7 +126,7 @@ def executeQuerySQL( *args ):
   except Exception as e:
     document.getElementById("txt_displayResultDbEs01").innerHTML = f"Error detected: {str(e)}"
 
-"""
+
 add_event_listener( document.getElementById("btn_tablePopulating") , "click", tablePopulating)
 add_event_listener( document.getElementById("btn_executeQuerySQL") , "click", executeQuerySQL)	
 
@@ -139,7 +139,7 @@ add_event_listener( document.getElementById("tab_schedaDatabase") , "click", con
 add_event_listener( document.getElementById("tab_schedaGIS") , "click", controlConnection )	
 add_event_listener( document.getElementById("tab_schedaDisegni3D") , "click", controlConnection )
 add_event_listener( document.getElementById("tab_schedaAltriLinks") , "click", controlConnection )	
-"""
+
 
 #Test iniziale all'apertura della Pagina Web
 #if( window.sessionStorage.getItem( "superatoPrimoAvvio2" ) is None ):
