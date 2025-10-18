@@ -23,10 +23,12 @@ from pyodide.ffi.wrappers import add_event_listener
 from js import console, document, window
 import js
 
+from random import randint 
+
 #ufo_data = pd.read_csv( "UfoDataset.csv" , names=column_names, engine='python' )
 
-#fig = folium.Figure(width="100%", height="100%")
-m = folium.Map( location=[48, -102], zoom_start=2 ) #.add_to( fig )
+fig = folium.Figure(width="100%", height="100%")
+m = folium.Map( location=[48, -102], zoom_start=2 ).add_to( fig )
 
 formatter = "function(num) {return L.Util.formatNum(num, 4) + ' º ';};"
 
@@ -67,12 +69,16 @@ ff = folium.Marker(
 )
 """
 
-cont = 0
+#cont = 0
+
+colorIconFolium = [ 'black', 'beige', 'lightgray', 'lightblue', 'blue', 'cadetblue', 'lightgreen', 'lightred', 'orange', 'white', 'darkblue', 'gray', 'pink', 'green', 'darkpurple', 'red', 'purple', 'darkred', 'darkgreen' ]
 
 def executeQueryUfoDbFromField( *args ):
     try:
         #global fig
-        global  cont
+        #global  cont
+
+        global colorIconFolium
 
         global m
 
@@ -88,15 +94,17 @@ def executeQueryUfoDbFromField( *args ):
         #print( dfRes )
 
         if( not( dfRes is None ) ):
+
+            tempIndexColor = randint( 0, len( colorIconFolium ) - 1 )
             
             for row in range( 0 , len( dfRes ) , 1 ):
-                print( dfRes.at[ row, "latitude" ] )
+                #print( dfRes.at[ row, "latitude" ] )
                 folium.Marker(
                     location=[ dfRes.at[ row, "latitude" ] , dfRes.at[ row, "longitude" ] ],
                     #tooltip="Click me!",
-                    popup= folium.Popup( str( dfRes.at[ row, "shape" ] ).upper() + " | " + str( dfRes.at[ row, "description" ] ), max_width=200 ), 
+                    popup= folium.Popup( "DATE: " + str( dfRes.at[ row, "date" ] ) + " | SHAPE: " + str( dfRes.at[ row, "shape" ] ).upper() + " | DESCRIPTION: " + str( dfRes.at[ row, "description" ] ), max_width=200 ), 
                     #icon=folium.Icon(icon="cloud"),
-                    #icon=folium.Icon(color='blue', icon='info-sign')
+                    icon=folium.Icon(color= colorIconFolium[ tempIndexColor ], icon='info-sign')
                 ).add_to(m)
             
             """
@@ -109,12 +117,22 @@ def executeQueryUfoDbFromField( *args ):
 
             ff.add_to( m )
             """
+
+        """
         cont = cont + 1
 
         if( cont >= 2 ): 
             display( m, target="foliumMap")
+            pass
+        """
 
-        
+        document.getElementById("foliumMap").remove();
+        div = document.createElement("div");
+        div.id = "foliumMap" 
+        document.getElementById("contFoliumMap").appendChild(div);
+
+        display( fig, target="foliumMap")
+
         print( "Finish ... ")
 
     except Exception as e:
@@ -181,6 +199,7 @@ m.get_root().html.add_child(folium.Element("""
 )
 
 #display( fig, target="foliumMap")
+
 """
 ff = folium.Marker(
     location=[ 36.0 , -106.0 ],
@@ -188,7 +207,7 @@ ff = folium.Marker(
 
 ff.add_to( m )
 """
-#display( m, target="foliumMap")
+display( fig, target="foliumMap")
 
 
 add_event_listener( document.getElementById("btn_executeQueryUfoDb") , "click", executeQueryUfoDbFromUser)
@@ -203,4 +222,6 @@ tt = pd.DataFrame(
 #document.getElementById( "test" ).innerHTML = tt.to_markdown(tablefmt="grid")
 #display( tt.to_markdown(tablefmt="grid") , target="resQueryUfoDb" )
 #display( tt , target="resQueryUfoDb" )
+
+
 
