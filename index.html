@@ -447,7 +447,7 @@
 <body>
 
 	<py-config>
-    	packages = ["sqlite3", "numpy",  "prettytable", "folium", "pandas", "tabulate" ]
+    	packages = ["sqlite3", "numpy",  "prettytable", "folium", "pandas", "tabulate", "matplotlib", "ipympl", "ipywidgets" ]
 
 		#[[fetch]]
 		#from = 'https://geoinf25.github.io/site/Python/'
@@ -593,7 +593,61 @@
 
 			</div>
 
-			<div id="blocco03Py" class = "span4 roundBorder" > 
+			<div id="blocco03Py" class="span2 roundBorder" >
+
+				<h2>• MatplotLib Sine Function </h2>
+
+				<div id="plot01Blocco03Py" style="width: 100%; height: 30vh; "></div>
+				<div id="slider01Blocco03Py" style="width: 100%; height: 5vh; "></div>
+
+				<py-script>
+					import matplotlib
+					matplotlib.set_loglevel("critical")
+
+					import matplotlib.pyplot as plt
+					
+					import numpy as np
+					import ipywidgets as widgets
+
+					from js import console, document, window
+					import js
+
+					from pyscript import display
+
+					# Define the desired pixel dimensions
+					width_pixels = document.getElementById( "plot01Blocco03Py" ).offsetWidth	#1000
+					height_pixels = document.getElementById( "plot01Blocco03Py" ).offsetHeight		#800
+					dpi = 100  # Matplotlib's default DPI
+
+					#print( width_pixels )
+					#print( height_pixels )
+
+					# Calculate the figure size in inches
+					width_inches = width_pixels / dpi
+					height_inches = height_pixels / dpi
+
+					def sinplot(A ):
+						try:
+							x = np.linspace(0, 2*np.pi, 1000)
+							y = np.sin( A *x)
+							# plot the sin curve
+							fig, ax = plt.subplots( figsize=(width_inches, height_inches), dpi=dpi )
+							ax.grid( True )
+							ax.plot(x, y)
+							display( fig, target="plot01Blocco03Py") 
+
+						except Exception as e:
+        					print( f"Error detected: {str(e)}" )
+
+					#slider = widgets.interact( sinplot, A=(0, 10, 1));
+
+					sinplot( 1 )
+
+				</py-script>
+
+			</div>
+
+			<div id="blocco04Py" class = "span4 roundBorder" > 
 
 				<h2>• PyScript Terminal</h2>
 
