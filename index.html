@@ -31,6 +31,17 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.0/MarkerCluster.Default.min.css" />
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/leaflet.markercluster.js"></script>
 
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+	<!-- 
+	<script src="
+		https://cdn.jsdelivr.net/npm/rangeslider.js@2.3.3/dist/rangeslider.min.js
+	"></script>
+	<link href="
+		https://cdn.jsdelivr.net/npm/rangeslider.js@2.3.3/dist/rangeslider.min.css
+	" rel="stylesheet">
+	-->
+
 <style>
 
 	body {
@@ -596,10 +607,7 @@
 			<div id="blocco03Py" class="span2 roundBorder" >
 
 				<h2>• MatplotLib Sine Function </h2>
-
 				<div id="plot01Blocco03Py" style="width: 100%; height: 30vh; "></div>
-				<div id="slider01Blocco03Py" style="width: 100%; height: 5vh; "></div>
-
 				<py-script>
 					import matplotlib
 					matplotlib.set_loglevel("critical")
@@ -609,10 +617,12 @@
 					import numpy as np
 					import ipywidgets as widgets
 
+					from pyodide.ffi import create_proxy
+
 					from js import console, document, window
 					import js
 
-					from pyscript import display
+					from pyscript import display, window
 
 					# Define the desired pixel dimensions
 					width_pixels = document.getElementById( "plot01Blocco03Py" ).offsetWidth	#1000
@@ -626,6 +636,9 @@
 					width_inches = width_pixels / dpi
 					height_inches = height_pixels / dpi
 
+					#def testFoo():
+						#return 4
+
 					def sinplot(A ):
 						try:
 							x = np.linspace(0, 2*np.pi, 1000)
@@ -633,17 +646,51 @@
 							# plot the sin curve
 							fig, ax = plt.subplots( figsize=(width_inches, height_inches), dpi=dpi )
 							ax.grid( True )
-							ax.plot(x, y)
-							display( fig, target="plot01Blocco03Py") 
+							plt.axhline(0, color='black', linewidth=1.5 )
+							plt.axvline(0, color='black', linewidth=1.5 )
+							ax.plot(x, y, color = "green" )
+							if( document.getElementById( "plot01Blocco03Py" ).childNodes.length == 0 ):
+								display( fig, target="plot01Blocco03Py") 
+							else:  
+								display( fig, target="plot01Blocco03Py") 
+								document.getElementById( "plot01Blocco03Py" ).removeChild( document.getElementById( "plot01Blocco03Py" ).firstChild )
 
 						except Exception as e:
         					print( f"Error detected: {str(e)}" )
 
+					window.sinplotJS = sinplot		#pyscript
+
 					#slider = widgets.interact( sinplot, A=(0, 10, 1));
 
-					sinplot( 1 )
+					#Primo avvio
+					sinplot( 1 ) 
+					document.getElementById('slider01Blocco03Pulsazione').value = 1
 
 				</py-script>
+
+				
+				<div id="slider01Blocco03Py" style="width: 100%; height: 5vh; ">
+
+					<table>
+						<tr>
+							<td>Pulsazione ω = <input type="text" id="slider01Blocco03Pulsazione" style="border-style: none; width: 2.5vh; "  readonly></td> <!-- size="1" -->
+							<td>
+								<input
+									type="range"
+									min="0"
+									max="10"
+									step="1"
+									value="1"
+									data-orientation="horizontal" 
+									onchange= "sinplotJS( parseInt( this.value ) ); document.getElementById('slider01Blocco03Pulsazione').value= this.value; "
+									style = "accent-color: green; "
+								>
+							</td>
+						</tr>
+					</table>
+
+
+				</div>
 
 			</div>
 
