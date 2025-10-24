@@ -331,6 +331,9 @@
 		resize: none;
 		overflow: scroll; 
 		white-space: pre; 
+
+		background-color: black;
+		color: white;
 	}
 
 	#txt_displayTabClassDbEs01 {
@@ -339,6 +342,9 @@
 		resize: none; 
 		overflow: scroll; 
 		white-space: pre; 
+
+		background-color: black;
+		color: white;
 	}
 
 	#querySQLResultDbEs01 {
@@ -378,6 +384,9 @@
 		resize: none; 
 		overflow: scroll; 
 		white-space: pre; 
+
+		background-color: black;
+		color: white;
 	}
 
 	/* Disegni3D */
@@ -663,8 +672,9 @@
 					#slider = widgets.interact( sinplot, A=(0, 10, 1));
 
 					#Primo avvio
-					sinplot( 1 ) 
-					document.getElementById('slider01Blocco03Pulsazione').value = 1
+					sinplot( 4 ) 
+					document.getElementById( 'txt_slider01Blocco03Pulsazione' ).value = 4
+					document.getElementById( 'slider01Blocco03Pulsazione' ).value = 4
 
 				</py-script>
 
@@ -673,16 +683,17 @@
 
 					<table>
 						<tr>
-							<td>Pulsazione ω = <input type="text" id="slider01Blocco03Pulsazione" style="border-style: none; width: 2.5vh; "  readonly></td> <!-- size="1" -->
+							<td>Pulsazione ω = <input type="text" id="txt_slider01Blocco03Pulsazione" style="border-style: none; width: 2.5vh; "  readonly></td> <!-- size="1" -->
 							<td>
 								<input
+									id = "slider01Blocco03Pulsazione" 
 									type="range"
 									min="0"
 									max="10"
 									step="1"
-									value="1"
+									value="4"
 									data-orientation="horizontal" 
-									onchange= "sinplotJS( parseInt( this.value ) ); document.getElementById('slider01Blocco03Pulsazione').value= this.value; "
+									onchange= "sinplotJS( parseInt( this.value ) ); document.getElementById('txt_slider01Blocco03Pulsazione').value= this.value; "
 									style = "accent-color: green; "
 								>
 							</td>
