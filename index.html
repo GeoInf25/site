@@ -514,6 +514,10 @@
 			document.getElementById( "schedaGIS" ).style.height = hDiff; 
 			document.getElementById( "schedaDisegni3D" ).style.height = hDiff; 
 			document.getElementById( "schedaAltriLinks" ).style.height = hDiff; 
+
+			if( document.getElementById( "plot01Blocco03Py" ).firstChild != null ) {
+				document.getElementById( "plot01Blocco03Py" ).offsetHeight = document.getElementById( "plot01Blocco03Py" ).firstChild.offsetHeight;
+			}
 		}
 
 		window.addEventListener( 'load' , function(event) {
