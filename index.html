@@ -574,13 +574,11 @@
 
 		<div id="tabellaPy" class="grid">
 
-			<div id="blocco01Py" class="span1 roundBorder" >
+			<div id="blocco01Py" class="span4 roundBorder" > <!-- span1 -->
 
 				<h2>• Hello World</h2> 
 				<div>
-					<p class="justify">Clicca sul pulsante e stampa a video una stringa (vedi inoltre la Console in Strumenti per Sviluppatori): </p> 
-					<br>
-					<button id="btn_helloWorld" onclick="alert( 'Hello World in Console ...' ); " style="width: 100%; " >Hello World in Console</button>
+					<p class="justify" >Clicca sul pulsante e stampa a video una stringa (vedi inoltre la Console in Strumenti per Sviluppatori): <button id="btn_helloWorld" onclick="alert( 'Hello World in Console ...' ); " >Hello World in Console</button></p> <!-- style="width: 10%; " -->
 				</div>
 
 				<py-script>
@@ -600,11 +598,23 @@
 
 			</div>
 
-			<div id="blocco02Py" class = "span1 roundBorder" > 
+			<div id="blocco02Py" class = "span4 roundBorder" > 
 				<h2>• Preview Jupyter Notebook</h2>
 				<div>
-					<p class="justify">Anteprima Jupyter Notebook tramite il servizio <a href="https://nbviewer.org/">nbviewer</a> e Visual Studio Code: 
+					<p class="justify">Anteprima Jupyter Notebook "statica" ottenuta tramite il servizio <a href="https://nbviewer.org/">nbviewer</a> e Visual Studio Code: 
 						<a href="https://nbviewer.org/github/GeoInf25/site/blob/5c1cb4f8dce99cedd1d9d28cfcf6ad2b75cb3450/Python/Model.ipynb">Model.ipynb</a> <!-- https://nbviewer.org/urls/geoinf25.github.io/site/Python/Model.ipynb -->
+						<br>
+						Istruzione per l'ottenimento di un file HTML "statico": jupyter nbconvert --execute --to html Model.ipynb 
+						<br>
+						Anteprima Jupyter Notebook "dinamica" ottenuta tramite il servizio <a href="https://mybinder.org/">binder</a>: <a href="https://mybinder.org/v2/gh/GeoInf25/site/main?urlpath=%2Fdoc%2Ftree%2F%2FPython%2FModel.ipynb">
+						<br>
+						Alcune note: 
+						<br>
+						<ul>
+						<li>GitHub repository name: </li>
+						<li>Git ref: main </li>
+						<li>File to open:  </li>
+						</ul>
 					</p>
 					<!-- <ul style="list-style-type:square;"> -->
 						<!-- Copy permalink GitHub -->
@@ -613,10 +623,10 @@
 
 			</div>
 
-			<div id="blocco03Py" class="span2 roundBorder" >
+			<div id="blocco03Py" class="span4 roundBorder" >
 
 				<h2>• MatplotLib Sine Function </h2>
-				<div id="plot01Blocco03Py" style="width: 100%; height: 30vh; "></div>
+				<div id="plot01Blocco03Py" style="width: 100%; border: solid 1px; "></div> <!-- height: 30vh; --> 
 				<py-script>
 					import matplotlib
 					matplotlib.set_loglevel("critical")
@@ -664,6 +674,9 @@
 								display( fig, target="plot01Blocco03Py") 
 								document.getElementById( "plot01Blocco03Py" ).removeChild( document.getElementById( "plot01Blocco03Py" ).firstChild )
 
+							document.getElementById( "plot01Blocco03Py" ).firstChild.style.margin = "0px"
+							document.getElementById( "plot01Blocco03Py" ).firstChild.style.padding = "0px"
+
 						except Exception as e:
         					print( f"Error detected: {str(e)}" )
 
@@ -677,13 +690,11 @@
 					document.getElementById( 'slider01Blocco03Pulsazione' ).value = 4
 
 				</py-script>
+				<div id="slider01Blocco03Py" style="width: 100%; "> <!-- height: 5vh -->
 
-				
-				<div id="slider01Blocco03Py" style="width: 100%; height: 5vh; ">
-
-					<table>
+					<table >
 						<tr>
-							<td>Pulsazione ω = <input type="text" id="txt_slider01Blocco03Pulsazione" style="border-style: none; width: 2.5vh; "  readonly></td> <!-- size="1" -->
+							<td>Pulsazione ω = <input type="text" id="txt_slider01Blocco03Pulsazione" style="border-style: none; width: 2.5vh; "  readonly></td><!-- size="1" -->
 							<td>
 								<input
 									id = "slider01Blocco03Pulsazione" 
@@ -694,7 +705,7 @@
 									value="4"
 									data-orientation="horizontal" 
 									onchange= "sinplotJS( parseInt( this.value ) ); document.getElementById('txt_slider01Blocco03Pulsazione').value= this.value; "
-									style = "accent-color: green; "
+									style = "accent-color: green; width:100% "
 								>
 							</td>
 						</tr>
@@ -1204,7 +1215,7 @@
 
 			<div id = "blocco02Db" class = "span4 roundBorder" >
 
-				<h2>• Database Relazionale SQLITE (esempio 01)</h2>
+				<h2>• Database Relazionale SQLITE</h2>
 
 				Definizione di due Tabelle: Classe, Studente. 
 				<br>
