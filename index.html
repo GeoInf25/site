@@ -1564,17 +1564,42 @@
 					
 				</script>
 
-				<script type="text/sql" id='sql'>
-					CREATE table tab( datetime string, city string, state string, country string, shape string, duration_seconds string, duration_text string, description string, report_date string, latitude string, longitude string );
-
-					select column
-					INTO tab 
-					from CSV("https://geoinf25.github.io/site/GIS/UfoDataset.csv");
-					-- comment
-				</script>
-
 				<script type="text/javascript">
-    				alasql.promise([' SOURCE "#sql" '])
+
+					ele = null;
+
+					//SET AUTOCOMMIT ON
+
+					alasql.fn.myfn = function ( arg ) {
+						return( arg.split( " " )[0] ); 
+					};
+
+    				alasql.promise([
+						'CREATE TABLE Tab (datetime string, city string, state string, country string, shape string, duration_seconds string, duration_text string, description string, report_date string, latitude string, longitude string) ',
+						'SELECT [0] as datetime, [1] as city, [2] as state, [3] as country, [4] as shape, [5] as duration_seconds, [6] as duration_text, [7] as description, [8] as report_date, [9] as latitude, [10] as longitude INTO Tab FROM CSV("https://geoinf25.github.io/site/GIS/UfoDataset.csv",{headers:false})',
+						'ALTER TABLE Tab ADD COLUMN date STRING',
+						'UPDATE Tab SET date = myfn( datetime ) ',
+						'SELECT * FROM Tab'
+						
+					]).then(function (res) {
+						ele = res[4]; //Json
+						/*
+						date = [];  
+						for( var i = 0 ; i < json.length; i++ ) {
+							date.push( json[ i ]["datetime"].split( " " )[0] ); 
+						}
+						*/
+						console.log( ele ); 
+						//document.getElementById( "txt_resQueryUfoDb" ).innerHTML = JSON.stringify( json , null , 11 ); 
+
+						alasql.promise('SELECT * FROM ? WHERE YEAR(date) = 1987 ' , [ ele ]).then( function( fin ) {
+							console.log( fin[0] ); 
+
+							document.getElementById( "txt_resQueryUfoDb" ).innerHTML = "" + fin[0]["datetime"]; 
+						}); 
+						
+					});
+
 				</script>
 
 				<!--
