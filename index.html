@@ -33,6 +33,8 @@
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
+	<script src=https://cdnjs.cloudflare.com/ajax/libs/alasql/4.6.6/alasql.min.js></script> 
+
 	<!-- 
 	<script src="
 		https://cdn.jsdelivr.net/npm/rangeslider.js@2.3.3/dist/rangeslider.min.js
@@ -576,7 +578,6 @@
 			gestioneSchede( "schedaPython" );
 
 			resizeWindow();
-
 
 		});
 
@@ -1499,8 +1500,8 @@
 			<br>
 			- Articolo di riferimento: <a href="https://drlee.io/exploring-ufo-sightings-with-python-pandas-and-google-colab-3cf24d1843d3">Exploring UFO Sightings with Python, Pandas, and Google Colab</a>; 
 			<br>
-			- Impiego della Libreria Python <a href="https://python-visualization.github.io/folium/latest/">Folium</a>;
-			<br>
+			<!-- - Impiego della Libreria Python <a href="https://python-visualization.github.io/folium/latest/">Folium</a>;
+			<br> -->
 			- Impiego della Libreria Leaflet <a href="https://leafletjs.com/">Leaflet</a>.
 			<br>
 			<br>
@@ -1511,53 +1512,69 @@
 
 			<div id = "blocco01GIS" class = "span4 roundBorder" >
 
-				<div id="contFoliumMapControlFoliumMap" style ="width: 100%; ">  
-					<p> <u>Mappa Folium</u>:  </p> 
+				<div id="totMap02" style ="width: 100%; ">  
+					<p> <u>Mappa Leaflet</u>:  </p> 
 					<br>
-					<div id="contFoliumMap" style="float: left; width: 75%; height: 60vh; overflow: hidden; "> <!-- overflow: hidden; -->
-						<div id="foliumMap" ></div> 
+					<div id="contMap02" style="float: left; width: 75%; height: 60vh; overflow: hidden; "> <!-- overflow: hidden; -->
+						<div id="leafletMap02" ></div> 
 					</div>
 
-					<div id="controlFoliumMap" style="float: right; width: 24%; height: 60vh; " > <!-- overflow-x: scroll; overflow-y: scroll; -->
-						<p class= "justify" >Informazioni sulla mappa lato Leaflet, al di fuori dell'Iframe reativo alla mappa Folium: </p> 
-						<br>
-						<table style="width: 100%;" >
-							<tr>
-								<td style="width: 20%; " ><input type="text" value="- Lat: " style="width: 100%; border: none; " readonly></input></td>
-								<td style="width: 80%; " ><input id="txt_latAddFoliumFunc" type="text" style="width: 100%; " value = "--" readonly></input></td>
-							</tr>
-							<tr>
-								<td style="width: 20%; " ><input type="text" value="- Lng: " style="width: 100%; border: none; " readonly></input></td>
-								<td style="width: 80%; " ><input id="txt_lngAddFoliumFunc" type="text" style="width: 100%; " value = "--" readonly></input></td>
-							</tr>
-							<tr>
-								<td style="width: 20%; " ><input type="text" value="- Zoom: " style="width: 100%; border: none; " readonly></input></td>
-								<td style="width: 80%; " ><input id="txt_zoomAddFoliumFunc" type="text" style="width: 100%; " value = "--" readonly></input></td>
-							</tr>
-						</table>
+					<div id="contControlMap02" style="float: right; width: 24%; height: 60vh; " > <!-- overflow-x: scroll; overflow-y: scroll; -->
+						<div id="contControlMap02ParteSup" >
+							<p class= "justify" >Informazioni sulla mappa lato Leaflet: </p> 
+							<br>
+							<table style="width: 100%;" >
+								<tr>
+									<td style="width: 20%; " ><input type="text" value="- Lat: " style="width: 100%; border: none; " readonly></input></td>
+									<td style="width: 80%; " ><input id="txt_latAddMap02Func" type="text" style="width: 100%; " value = "--" readonly></input></td>
+								</tr>
+								<tr>
+									<td style="width: 20%; " ><input type="text" value="- Lng: " style="width: 100%; border: none; " readonly></input></td>
+									<td style="width: 80%; " ><input id="txt_lngAddMap02Func" type="text" style="width: 100%; " value = "--" readonly></input></td>
+								</tr>
+								<tr>
+									<td style="width: 20%; " ><input type="text" value="- Zoom: " style="width: 100%; border: none; " readonly></input></td>
+									<td style="width: 80%; " ><input id="txt_zoomAddMap02Func" type="text" style="width: 100%; " value = "--" readonly></input></td>
+								</tr>
+							</table>
 
-						<hr/>
+							<hr/>
 
-						Avvistamenti UFO nell'anno <input id="num_annoAvvistamentoUFO" type="number" min="1906" max="2014" value="1906" style="width: 10vh" > (la perdita del focus sul campo avvia la visualizzazione degli eventuali Marker sulla mappa)
-						<br>
-						<hr/>
+							Avvistamenti UFO nell'anno <input id="num_annoAvvistamentoUFO" type="number" min="1906" max="2014" value="1906" style="width: 10vh" > (la perdita del focus sul campo avvia la visualizzazione degli eventuali Marker sulla mappa)
+							<br>
+							<hr/>
 
-						Console: 
-						<textarea id="consoleFoliumMap" style="width: 100%; height: 20%; resize: none; overflow: scroll; white-space: pre; "></textarea>
-
-						<br>
-
+							Console: 
+						</div>
+						<div id="contControlMap02ParteInf" >
+							<textarea id="consoleMap02" style="width: 100%; resize: none; overflow: scroll; white-space: pre; " >
+							</textarea>
+						</div>
 					</div>
-
 
 				</div>
 
 				<script>
-					contFoliumMapOffsetHeight = document.getElementById( "contFoliumMap" ).offsetHeight;  
+					//contFoliumMapOffsetHeight = document.getElementById( "contFoliumMap" ).offsetHeight;  
 					//offsetWidth_contFoliumMap = document.getElementById( "contFoliumMap" ).offsetWidth; 
 					
 					//var testArray = [ 1, 2, 3 ]
+
+					document.getElementById( "consoleMap02" ).style.height = document.getElementById( "contMap02" ).offsetHeight - document.getElementById("contControlMap02ParteSup" ).offsetHeight; 
 					
+				</script>
+
+				<script type="text/sql" id='sql'>
+					CREATE table tab( datetime string, city string, state string, country string, shape string, duration_seconds string, duration_text string, description string, report_date string, latitude string, longitude string );
+
+					select column
+					INTO tab 
+					from CSV("https://geoinf25.github.io/site/GIS/UfoDataset.csv");
+					-- comment
+				</script>
+
+				<script type="text/javascript">
+    				alasql.promise([' SOURCE "#sql" '])
 				</script>
 
 				<!--
@@ -1570,11 +1587,6 @@
 						#js.barLoading.style.width = "100%"; 
 						#js.barLoading.innerHTML = "Loading ... 100%"; 
 
-						js.barTot.style.display = "none"; 
-						js.barTot.style.visibility = "hidden";
-						js.barLoading.style.display = "none"; 
-						js.barLoading.style.visibility = "hidden";
-
 				</py-script>
 				-->
 
@@ -1586,6 +1598,7 @@
 					//console.log( mm )
 
 					//nameFoliumMap = ""; 
+
 
 				</script>
 
@@ -1729,6 +1742,15 @@
 		//
 
 	</script>
+
+	<py-script>
+
+		js.barTot.style.display = "none"; 
+		js.barTot.style.visibility = "hidden";
+		js.barLoading.style.display = "none"; 
+		js.barLoading.style.visibility = "hidden";
+
+	</py-script>
 
 </body>
 
