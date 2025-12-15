@@ -29,7 +29,18 @@
 
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/MarkerCluster.css" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.0/MarkerCluster.Default.min.css" />
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/leaflet.markercluster.js"></script>
+	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/leaflet.markercluster.js"></script> -->
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-minimap/3.6.1/Control.MiniMap.js" integrity="sha512-ceQPs2CHke3gSINLt/JV37W1rfJOM64yuH999hnRhTP7tNtcSBp5hlTKhn8CEIhsFweSBrZMPVotAKjoyxGWNg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-minimap/3.6.1/Control.MiniMap.css" integrity="sha512-efbAfGnrnjA+hLwOLu91W034fBGPsMwZMVCTwLUI2PDX/m7rOiuhYZ+D2mZ8rKcpC/I/7pdgoL8T4eYvMHNoQg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js" integrity="sha512-ozq8xQKq6urvuU6jNgkfqAmT7jKN2XumbrX1JiB3TnF7tI48DPI4Gy1GXKD/V3EExgAs1V+pRO7vwtS1LHg0Gw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css" integrity="sha512-gc3xjCmIy673V6MyOAZhIW93xhM9ei1I+gLbmFjUHIjocENRsLX/QUE1htk5q1XV2D/iie/VQ8DXI6Vu8bexvQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+	<script src="https://cdn.jsdelivr.net/npm/leaflet-measure@3.1.0/dist/leaflet-measure.min.js"></script>
+	<link href="https://cdn.jsdelivr.net/npm/leaflet-measure@3.1.0/dist/leaflet-measure.min.css" rel="stylesheet">
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
@@ -65,6 +76,9 @@
 
 	textarea {
 		font-size: 1.75vh;
+
+		/*font-family: "Trebuchet MS";
+		font-size: 1.75vh;*/
 	}
 
 	select {
@@ -76,6 +90,9 @@
 	}
 
 	input {
+		font-size: 1.75vh;
+
+		font-family: "Trebuchet MS";
 		font-size: 1.75vh;
 	}
 
@@ -584,6 +601,9 @@
 		window.addEventListener( 'resize' , function(event) {
 			resizeWindow();
 
+			//consoleMap02
+			document.getElementById( "consoleMap02" ).style.height = document.getElementById( "contMap02" ).offsetHeight - document.getElementById("contControlMap02ParteSup" ).offsetHeight; 
+
 		});
 
 	</script>
@@ -691,6 +711,7 @@
 
 				<h2>• MatplotLib Sine Function </h2>
 				<div id="plot01Blocco03Py" style="width: 80%; height: 40vh; border: inset 2px; "></div> <!-- height: 30vh; --> 
+				<!-- 
 				<py-script>
 					import matplotlib
 					matplotlib.set_loglevel("critical")
@@ -754,6 +775,7 @@
 					document.getElementById( 'slider01Blocco03Pulsazione' ).value = 4
 
 				</py-script>
+				-->
 				<br>
 				<div id="slider01Blocco03Py" style="width: 100%; "> <!-- height: 5vh -->
 
@@ -1513,42 +1535,43 @@
 			<div id = "blocco01GIS" class = "span4 roundBorder" >
 
 				<div id="totMap02" style ="width: 100%; ">  
-					<p> <u>Mappa Leaflet</u>:  </p> 
-					<br>
-					<div id="contMap02" style="float: left; width: 75%; height: 60vh; overflow: hidden; "> <!-- overflow: hidden; -->
-						<div id="leafletMap02" ></div> 
+					<div id="titleMap02" >
+						<p> <u>Mappa Leaflet</u>:  </p> 
+						<br>
 					</div>
 
-					<div id="contControlMap02" style="float: right; width: 24%; height: 60vh; " > <!-- overflow-x: scroll; overflow-y: scroll; -->
+					<div id="contMap02" style="float: left; width: 85%; "> <!-- overflow: hidden; height: 60vh -->
+						<div id="leafletMap02" style="height: 60vh; border: 2px solid " ></div> 
+					</div>
+
+					<div id="contControlMap02" style="float: right; width: 14%; height: 60vh; " > <!-- overflow-x: scroll; overflow-y: scroll; -->
 						<div id="contControlMap02ParteSup" >
 							<p class= "justify" >Informazioni sulla mappa lato Leaflet: </p> 
-							<br>
 							<table style="width: 100%;" >
 								<tr>
-									<td style="width: 20%; " ><input type="text" value="- Lat: " style="width: 100%; border: none; " readonly></input></td>
-									<td style="width: 80%; " ><input id="txt_latAddMap02Func" type="text" style="width: 100%; " value = "--" readonly></input></td>
+									<td style="width: 35%; " ><input type="text" value="- Lat: " style="width: 100%; border: none; " readonly></input></td>
+									<td style="width: 65%; " ><input id="txt_latMap02" type="text" style="width: 100%; " value = "--" readonly></input></td>
 								</tr>
 								<tr>
-									<td style="width: 20%; " ><input type="text" value="- Lng: " style="width: 100%; border: none; " readonly></input></td>
-									<td style="width: 80%; " ><input id="txt_lngAddMap02Func" type="text" style="width: 100%; " value = "--" readonly></input></td>
+									<td style="width: 35%; " ><input type="text" value="- Lng: " style="width: 100%; border: none; " readonly></input></td>
+									<td style="width: 65%; " ><input id="txt_lngMap02" type="text" style="width: 100%; " value = "--" readonly></input></td>
 								</tr>
 								<tr>
-									<td style="width: 20%; " ><input type="text" value="- Zoom: " style="width: 100%; border: none; " readonly></input></td>
-									<td style="width: 80%; " ><input id="txt_zoomAddMap02Func" type="text" style="width: 100%; " value = "--" readonly></input></td>
+									<td style="width: 35%; " ><input type="text" value="- Zoom: " style="width: 100%; border: none; " readonly></input></td>
+									<td style="width: 65%; " ><input id="txt_zoomMap02" type="text" style="width: 100%; " value = "--" readonly></input></td>
 								</tr>
 							</table>
 
 							<hr/>
 
-							Avvistamenti UFO nell'anno <input id="num_annoAvvistamentoUFO" type="number" min="1906" max="2014" value="1906" style="width: 10vh" > (la perdita del focus sul campo avvia la visualizzazione degli eventuali Marker sulla mappa)
+							Avvistamenti UFO nell'anno <input id="num_annoAvvistamentoUFO" type="text" min="1906" max="2014" value="1906" style="width: 6vh; font-weight:bold; " maxlength="4" > (la perdita del focus sul campo avvia la visualizzazione degli eventuali Marker sulla mappa) <!-- type='number' -->
 							<br>
 							<hr/>
 
 							Console: 
 						</div>
 						<div id="contControlMap02ParteInf" >
-							<textarea id="consoleMap02" style="width: 100%; resize: none; overflow: scroll; white-space: pre; " >
-							</textarea>
+							<textarea id="consoleMap02" style="width: 100%; resize: none; overflow: scroll; " readonly ></textarea>
 						</div>
 					</div>
 
@@ -1560,20 +1583,155 @@
 					
 					//var testArray = [ 1, 2, 3 ]
 
+					//consoleMap02
 					document.getElementById( "consoleMap02" ).style.height = document.getElementById( "contMap02" ).offsetHeight - document.getElementById("contControlMap02ParteSup" ).offsetHeight; 
+
+					var map02 = L.map('leafletMap02' , { 
+						zoomSnap: 1 , //1
+						zoomDelta : 1, 
+						wheelPxPerZoomLevel: 90, //60 
+
+					} ).setView([ 0.0, 0.0], 2);
+
+					var baseOSM = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    					maxZoom: 19,
+					}).addTo(map02);
+
+					var baseOpenTopoMap = L.tileLayer('https://tile.opentopomap.org/{z}/{x}/{y}.png', {
+    					maxZoom: 16,
+					}).addTo(map02);
+
+					var baseGoogleHybrid = L.tileLayer('https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}', {
+    					maxZoom: 19,
+					}).addTo(map02);
+
+					var baseGoogleSatellite = L.tileLayer('https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+    					maxZoom: 19,
+					}).addTo(map02);
+
+					var baseGoogleRoad = L.tileLayer('https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
+    					maxZoom: 19,
+					}).addTo(map02);
+
+					map02.addEventListener('mousemove', function( e ) {
+						//innerHTML textArea
+   						document.getElementById( "txt_latMap02" ).value  = ( e.latlng.lat ).toFixed( 6 ); 
+						document.getElementById( "txt_lngMap02" ).value  = ( e.latlng.lng ).toFixed( 6 );
+					});
+
+					map02.addEventListener('zoomend', function( e ) {
+						//innerHTML textArea
+						document.getElementById( "txt_zoomMap02" ).value  = ( map02.getZoom() ).toFixed( 2 );
+					});
+
+					baseMaps = {
+						"OpenStreetMap": baseOSM,
+						"OpenTopoMap": baseOpenTopoMap,
+						"Google Hybrid": baseGoogleHybrid,
+						"Google Satellite": baseGoogleSatellite,
+						"Google Road": baseGoogleRoad,
+					}
+
+					var overlayMaps = {
+						//GeoJSON data initialization 
+					};
+
+					var layerControl = L.control.layers(baseMaps, overlayMaps).addTo( map02 );
+
+					var layerMiniMap = L.tileLayer( 'https://tile.openstreetmap.org/{z}/{x}/{y}.png' ); 
+					var miniMap = new L.Control.MiniMap( layerMiniMap , { 
+						toggleDisplay : true , 
+						width: Math.round( window.screen.width /15 ), 
+						height: Math.round( window.screen.height /15 ) , 
+					} ).addTo(map02);
+
+					var layerDrawItems = new L.FeatureGroup();
+					
+					//map02.addLayer( layerDrawItems );
+					overlayMaps[ "layerDrawItems" ] = layerDrawItems; 
+
+					layerControl.remove( map02 );
+					layerControl = L.control.layers(baseMaps, overlayMaps).addTo( map02 );
+
+     				var drawControl = new L.Control.Draw({
+         				edit: {
+             				featureGroup: layerDrawItems,
+         				},
+						draw: {
+							polyline: {	metric: 'metric' },
+							polygon : { metric: 'metric' },
+							rectangle: { metric: 'metric' },  
+							circle: { metric: 'metric' },
+							marker: { metric: 'metric' }, 
+							circlemarker: { metric: 'metric' }, 
+        				},
+     				});
+    				
+					map02.addControl(drawControl);
+
+					map02.on( "draw:created" , function( e ) {
+						var type = e.layerType; 
+						var layer = e.layer; 
+
+						var popup = L.popup().setContent( "" + JSON.stringify( layer.toGeoJSON() ) );
+
+						layer.bindPopup( popup ); 
+						console.log( layer.toGeoJSON() );
+						document.getElementById( "consoleMap02" ).innerHTML += 
+							"Type of Feature: " + type + "\n";
+						
+						layerDrawItems.addLayer( layer ); 
+					}); 
+
+					map02.on( "draw:edited" , function( e ) {
+						var type = e.layerType; 
+						var layer = e.layer; 
+						document.getElementById( "consoleMap02" ).innerHTML += "draw : edited" + "\n";
+
+					}); 
+
+					var click_elements = document.getElementsByClassName("leaflet-control-layers-selector");
+					//for( var i = 0; i < click_elements.length; i++ ) {
+						//console.log( click_elements[ i ] ); 
+					//}
+					click_elements[ click_elements.length - 1 ].click(); 
+
+					var measureControl = new L.Control.Measure( { primaryLengthUnit: "kilometers" , primaryAreaUnit: "sqmeters" } );
+
+					// Disable auto-pan by overriding the plugin’s internal method(s):
+					L.Control.Measure.include({
+						// Prevent auto-panning when the capture marker is placed
+						_setCaptureMarkerIcon: function () {
+							// Turn off autoPan
+							this._captureMarker.options.autoPanOnFocus = false;
+							// Call the original icon setup
+							this._captureMarker.setIcon(
+							L.divIcon({
+								iconSize: this._map.getSize().multiplyBy(2),
+							})
+							);
+						},
+
+						// Optionally, override _startMeasure or other private methods if needed
+						// _startMeasure: function () {
+							//   // Your custom override
+						// },
+						});
+
+					measureControl.addTo( map02 );
 					
 				</script>
 
 				<script type="text/javascript">
 
-					ele = null;
+					ufoDb = null;
 
 					//SET AUTOCOMMIT ON
 
 					alasql.fn.myfn = function ( arg ) {
 						return( arg.split( " " )[0] ); 
 					};
-
+					/*
     				alasql.promise([
 						'CREATE TABLE Tab (datetime string, city string, state string, country string, shape string, duration_seconds string, duration_text string, description string, report_date string, latitude string, longitude string) ',
 						'SELECT [0] as datetime, [1] as city, [2] as state, [3] as country, [4] as shape, [5] as duration_seconds, [6] as duration_text, [7] as description, [8] as report_date, [9] as latitude, [10] as longitude INTO Tab FROM CSV("https://geoinf25.github.io/site/GIS/UfoDataset.csv",{headers:false})',
@@ -1582,23 +1740,19 @@
 						'SELECT * FROM Tab'
 						
 					]).then(function (res) {
-						ele = res[4]; //Json
-						/*
-						date = [];  
-						for( var i = 0 ; i < json.length; i++ ) {
-							date.push( json[ i ]["datetime"].split( " " )[0] ); 
-						}
-						*/
-						console.log( ele ); 
+						ufoDb = res[4]; //Json
+						
+						console.log( ufoDb ); 
 						//document.getElementById( "txt_resQueryUfoDb" ).innerHTML = JSON.stringify( json , null , 11 ); 
 
-						alasql.promise('SELECT * FROM ? WHERE YEAR(date) = 1987 ' , [ ele ]).then( function( fin ) {
-							console.log( fin[0] ); 
+						alasql.promise('SELECT * FROM ? WHERE YEAR(date) = 1987 ' , [ ufoDb ]).then( function( fin ) {
+							//console.log( fin[0] ); 
 
 							document.getElementById( "txt_resQueryUfoDb" ).innerHTML = "" + fin[0]["datetime"]; 
 						}); 
 						
 					});
+					*/
 
 				</script>
 
@@ -1639,8 +1793,8 @@
 					Scrivi una Query SQL: 
 					<br>
 					<div>
-						<textarea id= "txt_queryUfoDb" style="width: 90%; height: 10vh; resize: none; float: left; " ></textarea>
-						<button id="btn_executeQueryUfoDb" style="width: 9%; height: 10vh; float: right;  " >Esegui Query UfoDb</button>
+						<textarea id= "txt_queryUfoDb" style="width: 85%; height: 10vh; resize: none; float: left; " ></textarea>
+						<button id="btn_executeQueryUfoDb" style="width: 14%; height: 10vh; float: right;  " >Esegui Query UfoDb</button>
 					</div>
 
 					<div style=" clear: both">
