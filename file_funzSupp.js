@@ -1,5 +1,6 @@
 
 var schedaPython = null;
+var JupyterNotebook = null; 
 var schedaCSharp = null;
 var schedaJavascript = null;
 var schedaJava = null;
