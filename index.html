@@ -114,6 +114,12 @@
 		overflow-x: hidden;
   		overflow-y: scroll;
 	}
+	#schedaJupyterNotebook {
+  		width: 100%;
+  		/* height: 94%; */
+		overflow-x: hidden;
+  		overflow-y: scroll;
+	}
 	#schedaCSharp {
 		width: 100%;
   		/* height: 94%; */
@@ -156,7 +162,7 @@
 		background-color: lightseagreen ;
 		color: white;
 		padding: 1vh 1vh;
-		font-size: 2.0vh; /* 16px */
+		font-size: 1.8vh; /* 16px */
 		font-weight: bold;
 
 		min-width: 18vh; 
@@ -183,6 +189,11 @@
 	*/
 
   	.tabPython {
+		border-color: lightseagreen;
+  		color: white;
+  	}
+
+	.tabJupyterNotebook {
 		border-color: lightseagreen;
   		color: white;
   	}
@@ -486,7 +497,9 @@
 <body>
 
 	<py-config>
-    	packages = ["sqlite3", "numpy",  "prettytable", "folium", "pandas", "tabulate", "matplotlib", "ipympl", "ipywidgets" ]
+    	packages = ["sqlite3", "numpy",  "prettytable", "pandas", "tabulate" ]
+
+		#folium , matplotlib , ipympl , ipywidgets
 
 		#[[fetch]]
 		#from = 'https://geoinf25.github.io/site/Python/'
@@ -522,7 +535,7 @@
 
 		function gestioneSchede( scheda ) {
 
-			//console.log( "AAA: " + schede )
+			//console.log( "Test: " + schede )
 
 			for( var i = 0; i < schede.length; i++ ) {
 				try{
@@ -552,9 +565,10 @@
 		function resizeWindow() {
 			var hBody = window.innerHeight; 
 			var hTabScheda = document.getElementById( "tab_scheda" ).offsetHeight; 
-			var hDiff = hBody - hTabScheda - 15; 
+			var hDiff = hBody - hTabScheda - 12; 
 			//alert( hDiff );
 			document.getElementById( "schedaPython" ).style.height = hDiff; 
+			document.getElementById( "schedaJupyterNotebook" ).style.height = hDiff; 
 			document.getElementById( "schedaCSharp" ).style.height = hDiff; 
 			document.getElementById( "schedaJavascript" ).style.height = hDiff; 
 			document.getElementById( "schedaJava" ).style.height = hDiff; 
@@ -563,14 +577,17 @@
 			document.getElementById( "schedaDisegni3D" ).style.height = hDiff; 
 			document.getElementById( "schedaAltriLinks" ).style.height = hDiff; 
 
+			/*
 			if( document.getElementById( "plot01Blocco03Py" ).firstChild != null ) {
 				document.getElementById( "plot01Blocco03Py" ).offsetHeight = document.getElementById( "plot01Blocco03Py" ).firstChild.offsetHeight;
 			}
+			*/
 		}
 
 		window.addEventListener( 'load' , function(event) { 
 
 			schedaPython = document.getElementById( "schedaPython" );
+			schedaJupyterNotebook = document.getElementById( "schedaJupyterNotebook" );
 			schedaCSharp = document.getElementById( "schedaCSharp" );
 			schedaJavascript = document.getElementById( "schedaJavascript" );
 			schedaJava = document.getElementById( "schedaJava" );
@@ -583,6 +600,7 @@
 
 			schede = [ 
 				schedaPython,
+				schedaJupyterNotebook,
 				schedaCSharp,
 				schedaJavascript,
 				schedaJava, 
@@ -610,6 +628,7 @@
 
 	<div id="tab_scheda">
 		<button id="tab_schedaPython" class="btn tabPython" onclick="gestioneSchede( 'schedaPython' )">- PYTHON -</button>
+		<button id="tab_schedaJupyterNotebook" class="btn tabJupyterNotebook" onclick="gestioneSchede( 'schedaJupyterNotebook' )">- JUPYTER NOTEBOOK -</button>
 		<button id="tab_schedaCSharp" class="btn tabCSharp" onclick="gestioneSchede( 'schedaCSharp' )">- C# -</button>
 		<button id="tab_schedaJavascript" class="btn tabJavascript" onclick="gestioneSchede( 'schedaJavascript' )">- JAVASCRIPT -</button>
 		<button id="tab_schedaJava" class="btn tabJava" onclick="gestioneSchede( 'schedaJava' )">- JAVA -</button>
@@ -651,6 +670,14 @@
 		</b>
 		<br>
 		<br>
+		Alcune note: 
+		<p class="justify">
+			- Anteprima Jupyter Notebook tramite i servizi <a href="https://nbviewer.org/">Nbviewer</a>, <a href="https://mybinder.org/">Binder</a>;
+			<!-- <ul style="list-style-type:square;"> -->
+				<!-- Copy permalink GitHub -->
+			<!-- <br> -->
+		</p>
+		<br>
 
 		<div id="tabellaPy" class="grid">
 
@@ -680,29 +707,21 @@
 
 			<div id="blocco02Py" class = "span4 roundBorder" > 
 				<h2>• Preview Jupyter Notebook</h2>
-				<div>
-					<p class="justify">
-						- Anteprima Jupyter Notebook "statica" ottenuta tramite il servizio <a href="https://nbviewer.org/">Nbviewer</a>: 
-						<a href="https://nbviewer.org/github.com/GeoInf25/site/blob/8af232d89398816e2fe26e6ce927ce9b4012a87d/Python/Model.ipynb">URL Nbviewer</a> <!-- https://nbviewer.org/urls/geoinf25.github.io/site/Python/Model.ipynb -->
-						<br>
-						- Istruzione per l'ottenimento di un file HTML "statico": <u>jupyter nbconvert --execute --to html Model.ipynb</u> 
-						<br>
-						- Anteprima Jupyter Notebook "dinamica" ottenuta tramite il servizio <a href="https://mybinder.org/">Binder</a> ed apposito Jupyter Notebook: <a href="https://mybinder.org/v2/gh/GeoInf25/site/main?urlpath=%2Fdoc%2Ftree%2F%2FPython%2FModel.ipynb">URL BINDER</a>
-						<br>
-						- Preview "statica" completa di ipywidgets ed immagini ottenuta tramite "Save State Widgets Automatically", salvataggio ed esportazione relativa in formato HTML: <a href="https://geoinf25.github.io/site/Python/Model.html">HTML Preview</a>
-						<br>
-						- Alcune note: 
-						<li style= "padding-left: 25px; " >Anteprime ipywidgets NON funzionanti in locale tramite VS Code</li>
-						<li style= "padding-left: 25px; " >GitHub repository name: https://github.com/GeoInf25/site</li>
-						<li style= "padding-left: 25px; " >Git ref: main (not HEAD)</li>
-						<li style= "padding-left: 25px; " >File to open: /Python/Model.ipynb </li>
-						<li style= "padding-left: 25px; " >Definizione del file requirements.txt (elenco librerie relative) nella root del Repository GitHub</li>
-						<li style= "padding-left: 25px; " >Testare il servizio Voilà ... </li>
-					</p>
-					<br>
-					<!-- <ul style="list-style-type:square;"> -->
-						<!-- Copy permalink GitHub -->
-					<!-- <br> -->
+				<div style="width: 98%; height: 50vh; " >
+					 <iframe
+						src="https://jupyterlite.github.io/demo/repl/index.html?kernel=python&theme=JupyterLab Light&code=
+						import matplotlib.pyplot as plt %0A
+						import numpy as np %0A
+						x = np.linspace(-10, 10, 1000) %0A
+						y = x**2 - 2*x %0A
+						fig, ax = plt.subplots() %0A
+						ax.grid( True ) %0A
+						plt.axhline(0, color='black', linewidth=1.5 ) %0A
+						plt.axvline(0, color='black', linewidth=1.5 ) %0A
+						ax.plot(x, y)"
+						width="100%"
+						height="100%"
+					></iframe>
 				</div>
 
 			</div>
@@ -710,8 +729,18 @@
 			<div id="blocco03Py" class="span4 roundBorder" >
 
 				<h2>• MatplotLib Sine Function </h2>
-				<div id="plot01Blocco03Py" style="width: 80%; height: 40vh; border: inset 2px; "></div> <!-- height: 30vh; --> 
-				<!-- 
+				<div id="plot01Blocco03Py" style="width: 98%; height: 50vh; " >
+					<iframe
+						src=""  
+						width="100%"
+						height="100%"
+						></iframe>
+				</div>
+
+				<!-- height: 30vh; --> 
+				 <!-- 
+				<h2>• MatplotLib Sine Function </h2>
+				<div id="plot01Blocco03Py" style="width: 80%; height: 40vh; border: inset 2px; "></div> 
 				<py-script>
 					import matplotlib
 					matplotlib.set_loglevel("critical")
@@ -915,6 +944,25 @@
 
 			</div>
 
+		</div>
+
+	</div>
+
+	<div id="schedaJupyterNotebook" >
+		IFrame JupyterNotebook per i linguaggi Python, C / C++, R
+		<br>
+		<br>
+		<b>
+			*** ATTENZIONE ***: il Notebook Jupyter ed eventuali altri elementi ad essi associati appartengono ai rispettivi proprietari. 
+		</b>
+		<br>
+		<br>
+
+		<div id="tabellaJupyterNotebook" class="grid">
+			<div id="blocco01JupyterNotebook" class="span4 roundBorder" style="width: 98%; height: 79vh;" >
+				<iframe src="https://jupyter.org/try-jupyter/lab/" width="100%" height="100%"  >
+				</iframe>
+			</div>
 		</div>
 
 	</div>
@@ -1591,7 +1639,7 @@
 						zoomDelta : 1, 
 						wheelPxPerZoomLevel: 90, //60 
 
-					} ).setView([ 0.0, 0.0], 2);
+					} ).setView([ 0.0, 0.0], 3);
 
 					var baseOSM = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     					maxZoom: 19,
