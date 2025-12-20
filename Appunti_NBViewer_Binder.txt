@@ -1,0 +1,19 @@
+- Anteprima Jupyter Notebook "statica" ottenuta tramite il servizio Nbviewer: URL Nbviewer
+- Istruzione per l'ottenimento di un file HTML "statico": jupyter nbconvert --execute --to html Model.ipynb
+- Anteprima Jupyter Notebook "dinamica" ottenuta tramite il servizio Binder ed apposito Jupyter Notebook: URL BINDER
+- Preview "statica" completa di ipywidgets ed immagini ottenuta tramite "Save State Widgets Automatically", salvataggio ed esportazione relativa in formato HTML: HTML Preview
+- Alcune note:
+
+Anteprime ipywidgets NON funzionanti in locale tramite VS Code
+GitHub repository name: https://github.com/GeoInf25/site
+Git ref: main (not HEAD)
+File to open: /Python/Model.ipynb
+Definizione del file requirements.txt (elenco librerie relative) nella root del Repository GitHub
+Testare il servizio Voilà …
+
+Statica
+https://nbviewer.org/github.com/GeoInf25/site/blob/8af232d89398816e2fe26e6ce927ce9b4012a87d/Python/Model.ipynb
+Dinamica
+https://mybinder.org/v2/gh/GeoInf25/site/main?urlpath=%2Fdoc%2Ftree%2F%2FPython%2FModel.ipynb
+HTML Preview
+https://geoinf25.github.io/site/Python/Model.html
