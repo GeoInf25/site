@@ -171,7 +171,7 @@
 		font-size: 1.8vh; /* 16px */
 		font-weight: bold;
 
-		min-width: 15vh; 
+		min-width: 16vh; 
 		height: 3.5vh; 
 
 		/*height: auto; */
@@ -644,7 +644,7 @@
 	<div id="tab_scheda">
 		<button id="tab_schedaReact" class="btn tabReact" onclick="gestioneSchede( 'schedaReact' )">- REACT -</button>
 		<button id="tab_schedaRShiny" class="btn tabRShiny" onclick="gestioneSchede( 'schedaRShiny' )">- R / SHINY -</button>
-		<button id="tab_schedaJupyter" class="btn tabJupyter" onclick="gestioneSchede( 'schedaJupyter' )">- JUPYTER -</button>
+		<button id="tab_schedaJupyter" class="btn tabJupyter" onclick="gestioneSchede( 'schedaJupyter' )">- JUPYTER / PY -</button>
 		<button id="tab_schedaCSharp" class="btn tabCSharp" onclick="gestioneSchede( 'schedaCSharp' )">- C# -</button>
 		<button id="tab_schedaJavascript" class="btn tabJavascript" onclick="gestioneSchede( 'schedaJavascript' )">- JAVASCRIPT -</button>
 		<button id="tab_schedaJava" class="btn tabJava" onclick="gestioneSchede( 'schedaJava' )">- JAVA -</button>
@@ -680,30 +680,6 @@
 
 		
 		<div id="tabellaPy" class="grid">
-
-			<div id="blocco01Py" class="span4 roundBorder" > <!-- span1 -->
-
-				<h2>• Hello World</h2> 
-				<div>
-					<p class="justify" >Classico Hello Word iniziale con alert e messaggio in Console relativo: <button id="btn_helloWorld" onclick="alert( 'Hello World in Console ...' ); " >Hello World</button></p> <!-- style="width: 10%; " -->
-				</div>
-
-				<py-script>
-					from js import document 
-					from pyodide.ffi import create_proxy
-
-					import js
-					#js.window.alert("Fase di loading completata ... ")
-
-					def printHW( event ):
-						print("Hello World!")
-
-					function_proxy01 = create_proxy(printHW)
-					document.getElementById("btn_helloWorld").addEventListener("click", function_proxy01)
-
-				</py-script>
-
-			</div>
 
 			<div id="blocco02Py" class = "span4 roundBorder" > 
 				<h2>• Preview Jupyter Notebook</h2>
@@ -834,7 +810,114 @@
 
 			</div>
 
-			<div id="blocco04Py" class = "span4 roundBorder" > 
+			
+
+		</div>
+
+	</div>
+
+	<div id="schedaRShiny" >
+
+		<iframe
+			src="https://geoinf25.github.io/site/Shiny/docs/index.html"  
+			width="99%"
+			height="99%"
+		></iframe>
+
+	</div>
+
+	<div id="schedaJupyter" >
+		Iframe Jupyter Notebook per i linguaggi Python, C / C++, R, Javascript (Libreria p5.js)
+		<br>
+		Anteprima Jupyter Notebook disponibile tramite i servizi <a href="https://nbviewer.org/">Nbviewer</a>, <a href="https://mybinder.org/">Binder</a> <!-- permalink GitHub -->
+		<br>
+		Kernel PYODIDE Jupyter Notebook - Librerie disponibili: numpy, pandas, sqlite3 -- Librerie da installare (%pip install): folium 
+		<br>
+		<br>
+		<b>
+			*** ATTENZIONE ***: il Notebook Jupyter ed eventuali altri elementi ad essi associati appartengono ai rispettivi proprietari. 
+		</b>
+		<br>
+		<br>
+
+		<script>
+			function openIframe( tabNumber ) {
+				for( var i = 0; i < 5; i++ ) {
+					var tempValue = ( ""+ i).padStart(2,"0"); 
+					if( tabNumber == tempValue ) {
+						document.getElementById( "tabIframe" + tempValue ).style.display = "block";
+						document.getElementById( "tabIframe" + tempValue ).style.visibility = "visible";  
+					} else {
+						document.getElementById( "tabIframe" + tempValue ).style.display = "none";
+						document.getElementById( "tabIframe" + tempValue ).style.visibility = "hidden"; 
+					}
+				}
+			}
+
+		</script>
+
+		<div id="headerIframe">
+			<button onclick= "openIframe( '00' )" style="background-color: transparent; font-family: 'Trebuchet MS';" >Notebook_01</button>
+			<button onclick= "openIframe( '01' )" style="background-color: transparent; font-family: 'Trebuchet MS';" >Notebook_02</button>
+			<button onclick= "openIframe( '02' )" style="background-color: transparent; font-family: 'Trebuchet MS';" >Preview_03</button>
+			<button onclick= "openIframe( '03' )" style="background-color: transparent; font-family: 'Trebuchet MS';" >Preview_04</button>
+			<button onclick= "openIframe( '04' )" style="background-color: transparent; font-family: 'Trebuchet MS';" >PyScript_05</button>
+		</div>
+
+		<div id="tabIframe00" class="grid">
+			<div id="bloccoIframe00_00" class="span4 roundBorder" style="width: 98%; height: 74vh;" >
+				<iframe src="https://jupyter.org/try-jupyter/lab/" width="100%" height="100%"  >
+				</iframe>
+			</div>
+		</div>
+
+		<div id="tabIframe01" class="grid">
+			<div id="bloccoIframe00_01" class="span4 roundBorder" style="width: 98%; height: 74vh;" >
+				<iframe src="https://jupyterlite.github.io/demo" width="100%" height="100%"  >
+				</iframe>
+			</div>
+		</div>
+
+		<div id="tabIframe02" class="grid">
+			<div id="bloccoIframe00_02" class="span4 roundBorder" style="width: 98%; height: 74vh;" >
+				<iframe id="targetIframe03" src="" width="100%" height="100%"  >
+				</iframe>
+			</div>
+		</div>
+
+		<div id="tabIframe03" class="grid">
+			<div id="bloccoIframe00_03" class="span4 roundBorder" style="width: 98%; height: 74vh;" >
+				<iframe id="targetIframe03" src="" width="100%" height="100%"  >
+				</iframe>
+			</div>
+		</div>
+
+		<div id="tabIframe04" class="grid">
+			<div id="bloccoPyScript00_04" class="span4 roundBorder" > <!-- style="width: 98%; height: 74vh;" --> <!-- span1 -->
+
+				<h2>• Hello World</h2> 
+				<div>
+					<p class="justify" >Classico Hello Word iniziale con alert e messaggio in Console relativo: <button id="btn_helloWorld" onclick="alert( 'Hello World in Console ...' ); " >Hello World</button></p> <!-- style="width: 10%; " -->
+				</div>
+
+				<py-script>
+					from js import document 
+					from pyodide.ffi import create_proxy
+
+					import js
+					#js.window.alert("Fase di loading completata ... ")
+
+					def printHW( event ):
+						print("Hello World!")
+
+					function_proxy01 = create_proxy(printHW)
+					document.getElementById("btn_helloWorld").addEventListener("click", function_proxy01)
+
+				</py-script>
+
+			</div>
+
+			<div id="bloccoPyScript01_04" class = "span4 roundBorder" > 
 
 				<h2>• PyScript Terminal</h2>
 
@@ -891,12 +974,13 @@
 				</script> 
 
 				<py-script>
+
+					import js
+
 					from js import console, document, window
 					from pyodide.ffi.wrappers import add_event_listener
 
 					import sys
-
-					#import js
 
 					elencoVar = {} #dictionary
 
@@ -948,74 +1032,11 @@
 
 		</div>
 
-	</div>
-
-	<div id="schedaRShiny" >
-
-	</div>
-
-	<div id="schedaJupyter" >
-		Iframe Jupyter Notebook per i linguaggi Python, C / C++, R, Javascript (Libreria p5.js)
-		<br>
-		Anteprima Jupyter Notebook disponibile tramite i servizi <a href="https://nbviewer.org/">Nbviewer</a>, <a href="https://mybinder.org/">Binder</a> <!-- permalink GitHub -->
-		<br>
-		Kernel PYODIDE - Librerie disponibili: numpy, pandas, sqlite3 -- Librerie da installare (%pip install): folium 
-		<br>
-		<br>
-		<b>
-			*** ATTENZIONE ***: il Notebook Jupyter ed eventuali altri elementi ad essi associati appartengono ai rispettivi proprietari. 
-		</b>
-		<br>
-		<br>
-
-		<script>
-			function openIframe( tabNumber ) {
-				for( var i = 0; i < 3; i++ ) {
-					var tempValue = ( ""+ i).padStart(2,"0"); 
-					if( tabNumber == tempValue ) {
-						document.getElementById( "tabIframe" + tempValue ).style.display = "block";
-						document.getElementById( "tabIframe" + tempValue ).style.visibility = "visible";  
-					} else {
-						document.getElementById( "tabIframe" + tempValue ).style.display = "none";
-						document.getElementById( "tabIframe" + tempValue ).style.visibility = "hidden"; 
-					}
-				}
-			}
-
-		</script>
-
-		<div id="headerIframe">
-			<button onclick= "openIframe( '00' )" style="background-color: transparent; font-family: 'Trebuchet MS';" >Notebook_01</button>
-			<button onclick= "openIframe( '01' )" style="background-color: transparent; font-family: 'Trebuchet MS';" >Notebook_02</button>
-			<button onclick= "openIframe( '02' )" style="background-color: transparent; font-family: 'Trebuchet MS';" >Preview_03</button>
-		</div>
-
-		<div id="tabIframe00" class="grid">
-			<div id="bloccoIframe00_00" class="span4 roundBorder" style="width: 98%; height: 74vh;" >
-				<iframe src="https://jupyter.org/try-jupyter/lab/" width="100%" height="100%"  >
-				</iframe>
-			</div>
-		</div>
-
-		<div id="tabIframe01" class="grid">
-			<div id="bloccoIframe00_01" class="span4 roundBorder" style="width: 98%; height: 74vh;" >
-				<iframe src="https://jupyterlite.github.io/demo" width="100%" height="100%"  >
-				</iframe>
-			</div>
-		</div>
-
-		<div id="tabIframe02" class="grid">
-			<div id="bloccoIframe00_02" class="span4 roundBorder" style="width: 98%; height: 74vh;" >
-				<iframe id="targetIframe03" src="" width="100%" height="100%"  >
-				</iframe>
-			</div>
-		</div>
-
 		<script>
 			//Primo avvio 
 			openIframe( "00" );  
 
-			//Iframe03
+			//
 
 		</script>
 
@@ -1023,7 +1044,7 @@
 
 	<div id="schedaCSharp" >
 
-		Alcune Applicazioni sviluppate in C# tramite GitHub Desktop e Visual Studio Code.
+		Alcune Applicazioni sviluppate in C# tramite Visual Studio e GitHub Desktop.
 		<br>
 		<br>
 		<b>
@@ -1966,19 +1987,15 @@
 
 		Alcune Applicazioni sviluppate tramite GIT, GitHub Desktop e Visual Studio Code.
 		<br>
-		<b>
-			*** ATTENZIONE ***: le Librerie, i Framework ed eventuali altri elementi ad essi associati appartengono ai rispettivi proprietari. 
-		</b>
+		<br>
+		<b>*** ATTENZIONE ***: le Librerie, i Framework ed eventuali altri elementi ad essi associati appartengono ai rispettivi proprietari.</b>
 		<br>
 		<br>
-		In relazione alla mia persona: 
 		<li> <a href="http://150.146.207.184:8080/chargefinder/WebContent/file_view.html">ChargeFinder LabGeoInf</a> (Applicazione in ambito GIS, <u>riguardante la mia persona</u>) </li>
 		<br>
 
 		Ulteriori Link utili relativi al mondo dell'Informatica / Elettronica e del mondo CAT (Costruzioni-Ambiente-Territorio):  
 		<ul>
-			
-			<li> <a href="https://geoinf25.github.io/site/Shiny/docs/index.html">Shiny App</a> -- </li>
 			<li> <a href="https://geoinf25.github.io/my-project/">React App</a> -- </li>
 			
 			<br>
