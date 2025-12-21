@@ -881,15 +881,28 @@
 		<div id="tabIframe02" class="grid">
 			<div id="bloccoIframe00_02" class="span4 roundBorder" style="width: 98%; height: 74vh;" >
 
-				<iframe id="targetIframe02" src="" width="100%" height="100%"  >
+				<iframe id="targetIframe02" src="https://jupyterlite.github.io/demo/repl/index.html?kernel=python&theme=JupyterLab Light&code=
+						import matplotlib.pyplot as plt %0A
+						import numpy as np %0A
+						x = np.linspace(-10, 10, 1000) %0A
+						y = x**2 %2B 2*x %0A
+						fig, ax = plt.subplots() %0A
+						ax.grid( True ) %0A
+						plt.axhline(0, color='black', linewidth=1.5 ) %0A
+						plt.axvline(0, color='black', linewidth=1.5 ) %0A
+						ax.plot(x, y)" 
+					
+					width="100%" height="100%"  >
 				</iframe>
 				
 				<script>
-				const params = { kernel: "python" }; // , param2: value2 };
-				const options = { method: 'POST', body: JSON.stringify( params ) };
+				//const params = { kernel: "python" }; // , param2: value2 };
+				//const options = { method: 'POST', body: JSON.stringify( params ) };
+				//fetch( 'https://jupyterlite.github.io/demo/repl/index.html', options )
+				
+				//fetch( 'https://jupyterlite.github.io/demo/repl/index.html?kernel=python' )
 
-				fetch( 'https://jupyterlite.github.io/demo/repl/index.html', options )
-
+				/*
 				.then(response => {
     				console.log(response);
     				if (response.ok){
@@ -899,6 +912,9 @@
   				.then(text => {
     				document.getElementById('targetIframe02').srcdoc = text;  
   				});
+				*/
+
+				//%2B uguale a +
 				
 				</script>
 			</div>
