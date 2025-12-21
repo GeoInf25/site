@@ -1,13 +1,14 @@
 
-var schedaPython = null;
-var JupyterNotebook = null; 
+var schedaReact = null;
+var schedaRShiny = null;
+var schedaJupyter = null; 
 var schedaCSharp = null;
 var schedaJavascript = null;
 var schedaJava = null;
 var schedaDatabase = null;
 var schedaGIS = null;
 var schedaDisegni3D = null;
-var schedaAltriLinks = null;
+var schedaAbout = null;
 
 var schede = null; 
 
