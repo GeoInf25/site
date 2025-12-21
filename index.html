@@ -108,13 +108,19 @@
 		padding: 0.0vh 4.0vh; 
 	}
 
-	#schedaPython {
+	#schedaReact {
   		width: 100%;
   		/* height: 94%; */
 		overflow-x: hidden;
   		overflow-y: scroll;
 	}
-	#schedaJupyterNotebook {
+	#schedaRShiny {
+  		width: 100%;
+  		/* height: 94%; */
+		overflow-x: hidden;
+  		overflow-y: scroll;
+	}
+	#schedaJupyter {
   		width: 100%;
   		/* height: 94%; */
 		overflow-x: hidden;
@@ -150,7 +156,7 @@
 		overflow-x: hidden;
   		overflow-y: scroll;
 	}
-	#schedaAltriLinks {
+	#schedaAbout {
 		width: 100%;
   		/* height: 94%; */
 		overflow-x: hidden;
@@ -161,11 +167,12 @@
 		/* border: 2px solid yellow; */
 		background-color: lightseagreen ;
 		color: white;
-		padding: 1vh 1vh;
+		padding: 0vh 0vh;
 		font-size: 1.8vh; /* 16px */
 		font-weight: bold;
 
-		min-width: 18vh; 
+		min-width: 15vh; 
+		height: 3.5vh; 
 
 		/*height: auto; */
   	}
@@ -188,12 +195,17 @@
 	}
 	*/
 
-  	.tabPython {
+  	.tabReact {
 		border-color: lightseagreen;
   		color: white;
   	}
 
-	.tabJupyterNotebook {
+	.tabRShiny {
+		border-color: lightseagreen;
+  		color: white;
+  	}
+
+	.tabJupyter {
 		border-color: lightseagreen;
   		color: white;
   	}
@@ -228,7 +240,7 @@
 		color: white;
   	}
 
-  	.tabAltriLinks {
+  	.tabAbout {
 		border-color: lightseagreen;
 		color: white;
   	}
@@ -565,17 +577,18 @@
 		function resizeWindow() {
 			var hBody = window.innerHeight; 
 			var hTabScheda = document.getElementById( "tab_scheda" ).offsetHeight; 
-			var hDiff = hBody - hTabScheda - 12; 
+			var hDiff = hBody - hTabScheda - 5; // - 12
 			//alert( hDiff );
-			document.getElementById( "schedaPython" ).style.height = hDiff; 
-			document.getElementById( "schedaJupyterNotebook" ).style.height = hDiff; 
+			document.getElementById( "schedaReact" ).style.height = hDiff; 
+			document.getElementById( "schedaRShiny" ).style.height = hDiff; 
+			document.getElementById( "schedaJupyter" ).style.height = hDiff; 
 			document.getElementById( "schedaCSharp" ).style.height = hDiff; 
 			document.getElementById( "schedaJavascript" ).style.height = hDiff; 
 			document.getElementById( "schedaJava" ).style.height = hDiff; 
 			document.getElementById( "schedaDatabase" ).style.height = hDiff; 
 			document.getElementById( "schedaGIS" ).style.height = hDiff; 
 			document.getElementById( "schedaDisegni3D" ).style.height = hDiff; 
-			document.getElementById( "schedaAltriLinks" ).style.height = hDiff; 
+			document.getElementById( "schedaAbout" ).style.height = hDiff; 
 
 			/*
 			if( document.getElementById( "plot01Blocco03Py" ).firstChild != null ) {
@@ -586,31 +599,33 @@
 
 		window.addEventListener( 'load' , function(event) { 
 
-			schedaPython = document.getElementById( "schedaPython" );
-			schedaJupyterNotebook = document.getElementById( "schedaJupyterNotebook" );
+			schedaReact = document.getElementById( "schedaReact" );
+			schedaRShiny = document.getElementById( "schedaRShiny" );
+			schedaJupyter = document.getElementById( "schedaJupyter" );
 			schedaCSharp = document.getElementById( "schedaCSharp" );
 			schedaJavascript = document.getElementById( "schedaJavascript" );
 			schedaJava = document.getElementById( "schedaJava" );
 			schedaDatabase = document.getElementById( "schedaDatabase" );
 			schedaGIS = document.getElementById( "schedaGIS" );
 			schedaDisegni3D = document.getElementById( "schedaDisegni3D" );
-			schedaAltriLinks = document.getElementById( "schedaAltriLinks" );
+			schedaAbout = document.getElementById( "schedaAbout" );
 
 			schedaDabaseCliccata = false; 
 
 			schede = [ 
-				schedaPython,
-				schedaJupyterNotebook,
+				schedaReact,
+				schedaRShiny,
+				schedaJupyter,
 				schedaCSharp,
 				schedaJavascript,
 				schedaJava, 
 				schedaDatabase,
 				schedaGIS,
 				schedaDisegni3D,
-				schedaAltriLinks
+				schedaAbout
 			]; 
 
-			gestioneSchede( "schedaPython" );
+			gestioneSchede( "schedaReact" );
 
 			resizeWindow();
 
@@ -627,15 +642,16 @@
 	</script>
 
 	<div id="tab_scheda">
-		<button id="tab_schedaPython" class="btn tabPython" onclick="gestioneSchede( 'schedaPython' )">- PYTHON -</button>
-		<button id="tab_schedaJupyterNotebook" class="btn tabJupyterNotebook" onclick="gestioneSchede( 'schedaJupyterNotebook' )">- JUPYTER NOTEBOOK -</button>
+		<button id="tab_schedaReact" class="btn tabReact" onclick="gestioneSchede( 'schedaReact' )">- REACT -</button>
+		<button id="tab_schedaRShiny" class="btn tabRShiny" onclick="gestioneSchede( 'schedaRShiny' )">- R / SHINY -</button>
+		<button id="tab_schedaJupyter" class="btn tabJupyter" onclick="gestioneSchede( 'schedaJupyter' )">- JUPYTER -</button>
 		<button id="tab_schedaCSharp" class="btn tabCSharp" onclick="gestioneSchede( 'schedaCSharp' )">- C# -</button>
 		<button id="tab_schedaJavascript" class="btn tabJavascript" onclick="gestioneSchede( 'schedaJavascript' )">- JAVASCRIPT -</button>
 		<button id="tab_schedaJava" class="btn tabJava" onclick="gestioneSchede( 'schedaJava' )">- JAVA -</button>
 		<button id="tab_schedaDatabase" class="btn tabDatabase" onclick="gestioneSchede( 'schedaDatabase' )">- DATABASE -</button>
 		<button id="tab_schedaGIS" class="btn tabGIS" onclick="gestioneSchede( 'schedaGIS' )">- GIS -</button>
 		<button id="tab_schedaDisegni3D" class="btn tabDisegni3D" onclick="gestioneSchede( 'schedaDisegni3D' )">- DISEGNI 3D -</button>
-		<button id="tab_schedaAltriLinks" class="btn tabAltriLinks" onclick="gestioneSchede( 'schedaAltriLinks' )">- LINKS -</button>
+		<button id="tab_schedaAbout" class="btn tabAbout" onclick="gestioneSchede( 'schedaAbout' )">- ABOUT -</button>
 		<br>
 		<div id="barTot" style= "width: 100%; background-color: lightgreen; " >
 			<!-- <br> -->
@@ -660,25 +676,9 @@
 
 	</div>
 
-	<div id="schedaPython" >
+	<div id="schedaReact" >
 
-		Alcune Applicazioni sviluppate in Python tramite GIT, GitHub Desktop e Visual Studio Code.
-		<br>
-		<br>
-		<b>
-			*** ATTENZIONE ***: le Librerie, i Framework ed eventuali altri elementi ad essi associati appartengono ai rispettivi proprietari. 
-		</b>
-		<br>
-		<br>
-		Alcune note: 
-		<p class="justify">
-			- Anteprima Jupyter Notebook tramite i servizi <a href="https://nbviewer.org/">Nbviewer</a>, <a href="https://mybinder.org/">Binder</a>;
-			<!-- <ul style="list-style-type:square;"> -->
-				<!-- Copy permalink GitHub -->
-			<!-- <br> -->
-		</p>
-		<br>
-
+		
 		<div id="tabellaPy" class="grid">
 
 			<div id="blocco01Py" class="span4 roundBorder" > <!-- span1 -->
@@ -950,8 +950,16 @@
 
 	</div>
 
-	<div id="schedaJupyterNotebook" >
-		IFrame JupyterNotebook per i linguaggi Python, C / C++, R
+	<div id="schedaRShiny" >
+
+	</div>
+
+	<div id="schedaJupyter" >
+		Iframe Jupyter Notebook per i linguaggi Python, C / C++, R, Javascript (Libreria p5.js)
+		<br>
+		Anteprima Jupyter Notebook disponibile tramite i servizi <a href="https://nbviewer.org/">Nbviewer</a>, <a href="https://mybinder.org/">Binder</a> <!-- permalink GitHub -->
+		<br>
+		Kernel PYODIDE - Librerie disponibili: numpy, pandas, sqlite3 -- Librerie da installare (%pip install): folium 
 		<br>
 		<br>
 		<b>
@@ -960,12 +968,56 @@
 		<br>
 		<br>
 
-		<div id="tabellaJupyterNotebook" class="grid">
-			<div id="blocco01JupyterNotebook" class="span4 roundBorder" style="width: 98%; height: 79vh;" >
+		<script>
+			function openIframe( tabNumber ) {
+				for( var i = 0; i < 3; i++ ) {
+					var tempValue = ( ""+ i).padStart(2,"0"); 
+					if( tabNumber == tempValue ) {
+						document.getElementById( "tabIframe" + tempValue ).style.display = "block";
+						document.getElementById( "tabIframe" + tempValue ).style.visibility = "visible";  
+					} else {
+						document.getElementById( "tabIframe" + tempValue ).style.display = "none";
+						document.getElementById( "tabIframe" + tempValue ).style.visibility = "hidden"; 
+					}
+				}
+			}
+
+		</script>
+
+		<div id="headerIframe">
+			<button onclick= "openIframe( '00' )" style="background-color: transparent; font-family: 'Trebuchet MS';" >Notebook_01</button>
+			<button onclick= "openIframe( '01' )" style="background-color: transparent; font-family: 'Trebuchet MS';" >Notebook_02</button>
+			<button onclick= "openIframe( '02' )" style="background-color: transparent; font-family: 'Trebuchet MS';" >Preview_03</button>
+		</div>
+
+		<div id="tabIframe00" class="grid">
+			<div id="bloccoIframe00_00" class="span4 roundBorder" style="width: 98%; height: 74vh;" >
 				<iframe src="https://jupyter.org/try-jupyter/lab/" width="100%" height="100%"  >
 				</iframe>
 			</div>
 		</div>
+
+		<div id="tabIframe01" class="grid">
+			<div id="bloccoIframe00_01" class="span4 roundBorder" style="width: 98%; height: 74vh;" >
+				<iframe src="https://jupyterlite.github.io/demo" width="100%" height="100%"  >
+				</iframe>
+			</div>
+		</div>
+
+		<div id="tabIframe02" class="grid">
+			<div id="bloccoIframe00_02" class="span4 roundBorder" style="width: 98%; height: 74vh;" >
+				<iframe id="targetIframe03" src="" width="100%" height="100%"  >
+				</iframe>
+			</div>
+		</div>
+
+		<script>
+			//Primo avvio 
+			openIframe( "00" );  
+
+			//Iframe03
+
+		</script>
 
 	</div>
 
@@ -1910,12 +1962,22 @@
 
 	</div>
 
-	<div id="schedaAltriLinks" >
+	<div id="schedaAbout" >
 
-		<!-- <br>  <p></p> -->
-		Alcuni Link utili relativi al mondo dell'Informatica / Elettronica e del mondo CAT (Costruzioni-Ambiente-Territorio):  
+		Alcune Applicazioni sviluppate tramite GIT, GitHub Desktop e Visual Studio Code.
+		<br>
+		<b>
+			*** ATTENZIONE ***: le Librerie, i Framework ed eventuali altri elementi ad essi associati appartengono ai rispettivi proprietari. 
+		</b>
+		<br>
+		<br>
+		In relazione alla mia persona: 
+		<li> <a href="http://150.146.207.184:8080/chargefinder/WebContent/file_view.html">ChargeFinder LabGeoInf</a> (Applicazione in ambito GIS, <u>riguardante la mia persona</u>) </li>
+		<br>
+
+		Ulteriori Link utili relativi al mondo dell'Informatica / Elettronica e del mondo CAT (Costruzioni-Ambiente-Territorio):  
 		<ul>
-			<li> <a href="http://150.146.207.184:8080/chargefinder/WebContent/file_view.html">ChargeFinder LabGeoInf</a> (Applicazione in ambito GIS, <u>riguardante la mia persona</u>) </li>
+			
 			<li> <a href="https://geoinf25.github.io/site/Shiny/docs/index.html">Shiny App</a> -- </li>
 			<li> <a href="https://geoinf25.github.io/my-project/">React App</a> -- </li>
 			
@@ -1971,6 +2033,7 @@
 	</script>
 
 	<script>
+
 		//
 
 	</script>
