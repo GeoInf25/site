@@ -826,9 +826,10 @@
 					//per '+' usa %2B
 					//per indentazione usa n.4 spazi '    '
 
-					document.getElementById( "targetIframe03" ).onscroll = function() {
-      						console.log('scrollin');
-    				}
+					setInterval(function(){
+	 					var obj = document.getElementById("targetIframe03").contentDocument.body;
+	 					obj.scrollTop = obj.scrollHeight;
+					} ,10 );
 
 				</script>
 
