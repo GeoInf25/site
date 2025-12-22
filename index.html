@@ -806,18 +806,14 @@
 						import ipywidgets as widgets
 						&code=
 						def sinplot( A ): %0A
-							try: %0A
-								x = np.linspace(0, 2*np.pi, 1000) %0A
-								y = np.sin( A *x) %0A
-								fig, ax = plt.subplots( ) %0A
-								ax.grid( True ) %0A
-								plt.axhline(0, color='black', linewidth=1.5 ) %0A
-								plt.axvline(0, color='black', linewidth=1.5 ) %0A
-								ax.plot(x, y, color = 'green' ) %0A
-								%0A
-							except Exception as e: %0A
-								print( f'Error detected: {str(e)}' ) %0A
-							%0A
+							x = np.linspace(0, 2*np.pi, 1000) %0A
+							y = np.sin( A *x) %0A
+							fig, ax = plt.subplots( ) %0A
+							ax.grid( True ) %0A
+							plt.axhline(0, color='black', linewidth=1.5 ) %0A
+							plt.axvline(0, color='black', linewidth=1.5 ) %0A
+							ax.plot(x, y, color = 'green' ) %0A
+						%0A
 						slider = widgets.interact( sinplot, A=(0, 10, 1))
 						"
 					
