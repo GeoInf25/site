@@ -826,7 +826,7 @@
 					//per '+' usa %2B
 					//per indentazione usa n.4 spazi '    '
 
-					document.getElementById( "targetIframe03" ).contentWindow.addEventListener('scroll', (event) => {
+					document.getElementById( "targetIframe03" ).contentDocument.addEventListener('scroll', function (event) {
         				console.log('Iframe scrolled!', iframeWindow.scrollY);
     				});
 
