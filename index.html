@@ -678,142 +678,6 @@
 
 	<div id="schedaReact" >
 
-		
-		<div id="tabellaPy" class="grid">
-
-			<div id="blocco02Py" class = "span4 roundBorder" > 
-				<h2>• Preview Jupyter Notebook</h2>
-				<div style="width: 98%; height: 50vh; " >
-					<!--
-					 <iframe
-						src="https://jupyterlite.github.io/demo/repl/index.html?kernel=python&theme=JupyterLab Light&code=
-						import matplotlib.pyplot as plt %0A
-						import numpy as np %0A
-						x = np.linspace(-10, 10, 1000) %0A
-						y = x**2 - 2*x %0A
-						fig, ax = plt.subplots() %0A
-						ax.grid( True ) %0A
-						plt.axhline(0, color='black', linewidth=1.5 ) %0A
-						plt.axvline(0, color='black', linewidth=1.5 ) %0A
-						ax.plot(x, y)"
-						width="100%"
-						height="100%"
-					></iframe>
-				-->
-				</div>
-
-			</div>
-
-			<div id="blocco03Py" class="span4 roundBorder" >
-
-				<h2>• MatplotLib Sine Function </h2>
-				<div id="plot01Blocco03Py" style="width: 98%; height: 50vh; " >
-					<iframe
-						src=""  
-						width="100%"
-						height="100%"
-						></iframe>
-				</div>
-
-				<!-- height: 30vh; --> 
-				 <!-- 
-				<h2>• MatplotLib Sine Function </h2>
-				<div id="plot01Blocco03Py" style="width: 80%; height: 40vh; border: inset 2px; "></div> 
-				<py-script>
-					import matplotlib
-					matplotlib.set_loglevel("critical")
-
-					import matplotlib.pyplot as plt
-					
-					import numpy as np
-					import ipywidgets as widgets
-
-					from pyodide.ffi import create_proxy
-
-					from js import console, document, window
-					import js
-
-					from pyscript import display, window
-
-					# Define the desired pixel dimensions
-					width_pixels = document.getElementById( "plot01Blocco03Py" ).offsetWidth	#1000
-					height_pixels = ( document.getElementById( "plot01Blocco03Py" ).offsetHeight - 30 )		#800
-					dpi = 100  # Matplotlib's default DPI
-
-					#print( width_pixels )
-					#print( height_pixels )
-
-					# Calculate the figure size in inches
-					width_inches = width_pixels / dpi
-					height_inches = height_pixels / dpi
-
-					#def testFoo():
-						#return 4
-
-					def sinplot(A ):
-						try:
-							x = np.linspace(0, 2*np.pi, 1000)
-							y = np.sin( A *x)
-							# plot the sin curve
-							fig, ax = plt.subplots( figsize=(width_inches, height_inches), dpi=dpi )
-							ax.grid( True )
-							plt.axhline(0, color='black', linewidth=1.5 )
-							plt.axvline(0, color='black', linewidth=1.5 )
-							ax.plot(x, y, color = "green" )
-							if( document.getElementById( "plot01Blocco03Py" ).childNodes.length == 0 ):
-								display( fig, target="plot01Blocco03Py") 
-							else:  
-								display( fig, target="plot01Blocco03Py") 
-								document.getElementById( "plot01Blocco03Py" ).removeChild( document.getElementById( "plot01Blocco03Py" ).firstChild )
-
-							document.getElementById( "plot01Blocco03Py" ).firstChild.style.margin = "0px"
-							document.getElementById( "plot01Blocco03Py" ).firstChild.style.padding = "0px"
-
-						except Exception as e:
-        					print( f"Error detected: {str(e)}" )
-
-					window.sinplotJS = sinplot		#pyscript
-
-					#slider = widgets.interact( sinplot, A=(0, 10, 1));
-
-					#Primo avvio
-					sinplot( 4 ) 
-					document.getElementById( 'txt_slider01Blocco03Pulsazione' ).value = 4
-					document.getElementById( 'slider01Blocco03Pulsazione' ).value = 4
-
-				</py-script>
-				-->
-				<br>
-				<div id="slider01Blocco03Py" style="width: 100%; "> <!-- height: 5vh -->
-
-					<table >
-						<tr>
-							<td>Pulsazione ω = <input type="text" id="txt_slider01Blocco03Pulsazione" style="border-style: none; width: 2.5vh; "  readonly></td><!-- size="1" -->
-							<td>
-								<input
-									id = "slider01Blocco03Pulsazione" 
-									type="range"
-									min="0"
-									max="10"
-									step="1"
-									value="4"
-									data-orientation="horizontal" 
-									onchange= "sinplotJS( parseInt( this.value ) ); document.getElementById('txt_slider01Blocco03Pulsazione').value= this.value; "
-									style = "accent-color: green; width:100% "
-								>
-							</td>
-						</tr>
-					</table>
-
-
-				</div>
-
-			</div>
-
-			
-
-		</div>
-
 	</div>
 
 	<div id="schedaRShiny" >
@@ -842,7 +706,7 @@
 
 		<script>
 			function openIframe( tabNumber ) {
-				for( var i = 0; i < 5; i++ ) {
+				for( var i = 0; i < 6; i++ ) {
 					var tempValue = ( ""+ i).padStart(2,  "0"); 
 					if( tabNumber == tempValue ) {
 						document.getElementById( "tabIframe" + tempValue ).style.display = "block";
@@ -862,6 +726,7 @@
 			<button onclick= "openIframe( '02' )" style="background-color: transparent; font-family: 'Trebuchet MS';" >Preview 03</button>
 			<button onclick= "openIframe( '03' )" style="background-color: transparent; font-family: 'Trebuchet MS';" >Preview 04</button>
 			<button onclick= "openIframe( '04' )" style="background-color: transparent; font-family: 'Trebuchet MS';" >PyScript 05</button>
+			<button onclick= "openIframe( '05' )" style="background-color: transparent; font-family: 'Trebuchet MS';" >Code 06</button>
 		</div>
 
 		<div id="tabIframe00" class="grid">
@@ -925,7 +790,34 @@
 
 		<div id="tabIframe03" class="grid">
 			<div id="bloccoIframe00_03" class="span4 roundBorder" style="width: 98%; height: 74vh;" >
-				<iframe id="targetIframe03" src="" width="100%" height="100%"  >
+				<iframe id="targetIframe03" src="https://jupyterlite.github.io/demo/repl/index.html?kernel=python&theme=JupyterLab Light
+						&code=
+						%pip install ipywidgets
+						&code=
+						import matplotlib %0A
+						#matplotlib.set_loglevel( 'critical' ) %0A
+						import matplotlib.pyplot as plt %0A	 	
+						import numpy as np %0A
+						import ipywidgets as widgets
+						&code=
+						def sinplot( A ): %0A
+							try: %0A
+								x = np.linspace(0, 2*np.pi, 1000) %0A
+								y = np.sin( A *x) %0A
+								# plot the sin curve %0A
+								fig, ax = plt.subplots( ) %0A
+								ax.grid( True ) %0A
+								plt.axhline(0, color='black', linewidth=1.5 ) %0A
+								plt.axvline(0, color='black', linewidth=1.5 ) %0A
+								ax.plot(x, y, color = 'green' ) %0A
+								%0A
+							except Exception as e: %0A
+        						print( f'Error detected: {str(e)}' ) %0A
+						%0A
+						slider = widgets.interact( sinplot, A=(0, 10, 1))
+						"
+					
+					width="100%" height="100%"  >
 				</iframe>
 			</div>
 		</div>
@@ -1068,6 +960,13 @@
 
 			</div>
 
+		</div>
+
+		<div id="tabIframe05" class="grid">
+			<div id="bloccoIframe00_05" class="span4 roundBorder" style="width: 98%; height: 74vh;" >
+				Esempi di codice:
+				<br>
+			</div>
 		</div>
 
 		<script>
