@@ -46,6 +46,9 @@
 
 	<script src=https://cdnjs.cloudflare.com/ajax/libs/alasql/4.6.6/alasql.min.js></script> 
 
+	<link href="https://unpkg.com/tabulator-tables@6.3.1/dist/css/tabulator.min.css" rel="stylesheet">
+ 	<script type="text/javascript" src="https://unpkg.com/tabulator-tables@6.3.1/dist/js/tabulator.min.js"></script>
+
 	<!-- 
 	<script src="
 		https://cdn.jsdelivr.net/npm/rangeslider.js@2.3.3/dist/rangeslider.min.js
@@ -1122,19 +1125,32 @@
 
 		<div id="tabellaJs" class="grid">
 
-			<div id="blocco01Js" class="span1 roundBorder" >
+			<div id="blocco01Js" class="span4 roundBorder" >
 
 				<h2>• Fibonacci sequence</h2>
-				Inserici un valore numerico (>=2 && <=99) 
+				Inserici un valore numerico (>=2 && <=99) per calcolare i valori della serie (premi INVIO):
 				<br>
-				<input type="text" id="txt_upperLimitFibonacci" class= "centerInputText" size="1" value="20" >
-				<!-- <br> -->
-				per calcolare i valori della serie (premi INVIO): 
+				<input type="text" id="txt_upperLimitFibonacci" class= "centerInputText" size="1" value="99" > 
 				<br>
-				<textarea id="txt_outputFibonacci" class="textAreaNoBorder" ></textarea>
+				<!-- <textarea id="txt_outputFibonacci" class="textAreaNoBorder" ></textarea> -->
+
+				<div id="fibonacci-table"></div>
+
 				<script>
 
-					var upperLimitFibonacci = 20;
+					var upperLimitFibonacci = 99;
+
+					var fibonacciTable = new Tabulator("#fibonacci-table", {
+						spreadsheet:true,
+						spreadsheetData: [ ], //DEVE essere inizializzato
+						spreadsheetRows:10,
+						spreadsheetColumns:10,
+						spreadsheetColumnDefinition:{editor:"input" , width: "180" },
+						rowHeader:{field:"_id", hozAlign:"center", headerSort:false},
+						spreadsheetOutputFull: true, //export all data including empty columns
+						editorEmptyValue:undefined
+						
+					});
 
 					document.getElementById('txt_upperLimitFibonacci').addEventListener('keydown', function(e) {
 						if (e.key == 'Enter' ) { //Blur, onBlur
@@ -1154,6 +1170,7 @@
 						}
 					}
 
+					/*
 					const PrettyTable = require("prettytable");
 
 					function calculateFibonacci( ) {
@@ -1185,14 +1202,44 @@
 						document.getElementById( "txt_outputFibonacci" ).readOnly = true;
 
 					}
+					*/
 
-					calculateFibonacci();
+					function calculateFibonacci( ) {
+						var rowsFib = [ ]; 
+						
+						for( var i = 0; i <= upperLimitFibonacci; i++ ) {
+							if( i==0 ) {
+								rowsFib.push( 0 );
+							} else if( i==1 ) {
+								rowsFib.push( 1 );
+							} else {
+								rowsFib.push( rowsFib[ i - 2 ] + rowsFib[ i - 1 ] );
+							}
+						}
+
+						var fibonacciData = [ ]; 
+
+						const chunkSize = 10;
+					
+						for (var i = 0; i < rowsFib.length; i += chunkSize) {
+    						fibonacciData.push( rowsFib.slice(i, i + chunkSize) );
+						}
+
+						//console.log( fibonacciData );
+
+						fibonacciTable.setSheetData( fibonacciData );  // NON setData
+
+					}
+
+					fibonacciTable.on( "tableBuilt", function() { //EVITARE Warning 
+						calculateFibonacci();
+					}); 
 
 				</script>
 
 			</div>
 
-			<div id="blocco02Js" class="span1 roundBorder" >
+			<div id="blocco02Js" class="span4 roundBorder" >
 
 				<h2>• Prime numbers</h2>
 				Inserici un valore massimo (>=1 && <=999) 
@@ -1262,7 +1309,7 @@
 
 			</div>
 
-			<div id="blocco03Js" class="span1 roundBorder" >
+			<div id="blocco03Js" class="span4 roundBorder" >
 
 				<h2>• Number Base</h2>
 				Conversioni sul valore (>=1 && <=10<sup>12</sup>) scelto  
@@ -1313,7 +1360,7 @@
 
 			</div>
 
-			<div id = "blocco04Js" class = "span1 roundBorder" >
+			<div id = "blocco04Js" class = "span4 roundBorder" >
 				<h2>• PictureBox</h2>
 				Varia i quattro Slider e cambia colore ... 
 				<div id="div_pictureBox">
@@ -2063,6 +2110,7 @@
 			<li> <a href="https://www.pgadmin.org/">pgAdmin</a> (pgAdmin for PostgreSQL) </li>
 			<li> <a href="https://sqlitebrowser.org/">DB Browser</a> (DB Browser for SQLite) </li>
 			<li> <a href="https://danfo.jsdata.org/">Danfo js</a> (Libreria Javascript Danfo alternativa alla Libreria Python Pandas) </li>
+			<li> <a href="https://www.linqpad.net/">LINQPad</a> (Scratchpad per C#) </li>
 			
 
 		</ul>
