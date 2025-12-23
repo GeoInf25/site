@@ -14,5 +14,3 @@ var schede = null;
 
 var schedaDabaseCliccata = null; 
 
-
-
