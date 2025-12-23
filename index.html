@@ -547,8 +547,6 @@
 
 	<script>
 
-		//Origine 
-
 		var iframeAttivi = {
 			iframeReact : true , 
 			iframeRShiny : true , 
@@ -556,6 +554,13 @@
 			iframe00_01 : true , 
 			iframe00_02 : true , 
 			iframe00_03 : true 
+		}
+
+		//iframeAttivi true / false
+		for (var prop in iframeAttivi) {
+    		if (Object.prototype.hasOwnProperty.call( iframeAttivi, prop)) {
+        		iframeAttivi[ prop ] = true; //Scelta valore
+    		}	
 		}
 
 		function gestioneSchede( scheda ) {
@@ -876,11 +881,11 @@
 						import numpy as np %0A
 						import ipywidgets as widgets
 						&code=
-						def sinplot( A=1 ): %0A
-						    x = np.linspace(0, 2*np.pi, 1000) ; y = np.sin( A *x) ; fig, ax = plt.subplots( ) ; ax.grid( True ) %0A
+						def sinplot( W = 1 ): %0A
+						    x = np.linspace(0, 2*np.pi, 1000) ; y = 0.6 * np.sin( W * x) ; fig, ax = plt.subplots( ) ; ax.grid( True ) %0A
 						    plt.axhline(0, color='black', linewidth=1.5 ) ; plt.axvline(0, color='black', linewidth=1.5 ) ; ax.plot(x, y, color = 'green' ) %0A
 						    %0A
-						slider = widgets.interact( sinplot, A=(0, 10, 1))
+						slider = widgets.interact( sinplot, W=(0, 10, 1))
 						`;
 					} else {
 						document.getElementById( "iframe00_03" ).src=""; 
@@ -921,7 +926,7 @@
 				<h2>• PyScript Terminal</h2>
 
 				<p>Scrivi Codice Python ed eseguilo tramite <a href="https://pyscript.net/">PyScript</a>, ovvero</p>
-				<textarea id="txt_code" ></textarea>
+				<textarea id="txt_code" style="height: 63vh; width:100%" ></textarea>
 
 				<button id="btn_executePy" >Esegui il Codice Python</button>
 				<button id="btn_clearPy" >Elimina le variabili create</button>
@@ -931,26 +936,38 @@
 				<textarea id="txt_output" ></textarea>
 
 				<script>
-					tempStr = "" +
-						"#(Python Code) " + "\n" + 
-						"import math as m " + "\n" + 
-						"import numpy as np " + "\n" + 
-						"def foo():" + "\n" + 
-						"	global m" + "\n" +
-						"	z = m.sqrt( 4 )" + "\n" +
-						"	return z" + "\n" +  
-						"" + "\n" + 
-						"z = foo()" + "\n" +
-						"a = m.cos( 1 ) " + "\n" +
-						"b = 22 " + "\n" +
-						"c = b ** 2 " + "\n" +
-						"arr = np.array([1, 2, 3]) ** 2" + "\n" +
-						"print( 'Console: ' + str( arr ) ) " + "\n" +
-						"for n in range( 0 , 3 ): " + "\n" +
-						"	print( 'Hello in Console n.' + str( n ) )" + "\n" +
-						""  
+					tempStr = `
+					#(Python Code)
+					import math as m 
+					import numpy as np
+					def foo():
+						global m
+						z = m.sqrt( 4 )
+						return z 
+						
+					z = foo()
+					a = m.cos( 1 )
+					b = 22
+					c = b ** 2
+					arr = np.array([1, 2, 3]) ** 2
+					print( 'Console: ' + str( arr ) )
+					for n in range( 0 , 3 ):
+						print( 'Hello in Console n.' + str( n ) )
+					
+					class Quadrato:
+						def __init__(self, lato):
+							self.lato = lato
+							
+						def area( self ):
+							return( self.lato * self.lato )
 
-					document.getElementById("txt_code").innerHTML = tempStr;
+					q1 = Quadrato( 5 )
+					lato = q1.lato
+					area = q1.area()
+					print( "Quadrato di lato " + str(lato) + " ed area " + str(area) )
+					`
+
+					document.getElementById("txt_code").innerHTML = tempStr.replace( /\t{5}/g , "" );
 					document.getElementById("txt_output").innerHTML = "Attendi ... ";
 					document.getElementById("txt_output").readOnly = true;
 
@@ -2026,6 +2043,8 @@
 			<li> <a href="https://stackoverflow.com/questions">stackoverflow</a> (StackOverflow Questions) </li>
 			<li> <a href="https://gis.stackexchange.com/">gis.stackexchange</a> (GIS StackExchange Questions) </li>
 			<li> <a href="https://qgis.org/">QGIS</a> (QGIS Project) </li>
+			<li> <a href="https://live.osgeo.org/en/index.html">OSGeoLive</a> (OSGeoLive Project) </li>
+			<li> <a href="https://www.osgeo.org/">OSGeo</a> (Open Source Geospatial Foundation) </li>
 			<li> <a href="https://overpass-turbo.eu/">Overpass OpenStreetMap API</a> (Overpass Query) </li>
 			<li> <a href="https://www.nicoladeinnocentis.it/">Geopillole</a> (Pillole di GIS) </li>
 			<li> <a href="https://www.prismacad.it/disegni-meccanici/">PrismaCad</a> (Disegni meccanici) </li>
