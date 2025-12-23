@@ -827,7 +827,9 @@
 					//per '+' usa %2B
 					//per indentazione usa n.4 spazi '    '
 
-					console.log( "BBB " + document.getElementById("targetIframe03").contentWindow.body ); //Problem CORS Origin 
+					setInterval(function () {
+						console.log( "BBB " + document.getElementById("targetIframe03").contentWindow.body ) //Problem CORS Origin 
+						}, 500 );  
 
 				</script>
 
