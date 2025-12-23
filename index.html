@@ -273,13 +273,15 @@
   	}
 
 	img {
+		/*
 		display: block;
 		max-width: 100%;
 		max-height: auto;
 		width: auto;
 		height: auto;
-		margin-left: auto; /* center image */
-  		margin-right: auto; /* center image */
+		*/
+		/*margin-left: auto; //center image */
+  		/*margin-right: auto; //center image */
 	}
 
 	/* JS */
@@ -545,6 +547,17 @@
 
 	<script>
 
+		//Origine 
+
+		var iframeAttivi = {
+			iframeReact : true , 
+			iframeRShiny : true , 
+			iframe00_00 : true , 
+			iframe00_01 : true , 
+			iframe00_02 : true , 
+			iframe00_03 : true 
+		}
+
 		function gestioneSchede( scheda ) {
 
 			//console.log( "Test: " + schede )
@@ -679,20 +692,42 @@
 	<div id="schedaReact" >
 
 		<iframe
-			src="https://geoinf25.github.io/my-project/"  
+			id="iframeReact"
+			src=""  
 			width="99%"
 			height="99%"
+			frameBorder="0"
+
 		></iframe>
+
+		<script>
+			if( iframeAttivi.iframeReact == true ) {
+				document.getElementById( "iframeReact" ).src="https://geoinf25.github.io/my-project/"; 
+			} else {
+				document.getElementById( "iframeReact" ).src=""; 
+			}
+		</script>
 
 	</div>
 
 	<div id="schedaRShiny" >
 
 		<iframe
-			src="https://geoinf25.github.io/site/Shiny/docs/index.html"  
+			id="iframeRShiny" 
+			src=""  
 			width="99%"
 			height="99%"
+			frameBorder="0"
+
 		></iframe>
+
+		<script>
+			if( iframeAttivi.iframeRShiny == true ) {
+				document.getElementById( "iframeRShiny" ).src="https://geoinf25.github.io/site/Shiny/docs/index.html"; 
+			} else {
+				document.getElementById( "iframeRShiny" ).src=""; 
+			}
+		</script>
 
 	</div>
 
@@ -729,44 +764,46 @@
 		<div id="headerIframe">
 			<button onclick= "openIframe( '00' )" style="background-color: transparent; font-family: 'Trebuchet MS';" >Notebook 01</button>
 			<button onclick= "openIframe( '01' )" style="background-color: transparent; font-family: 'Trebuchet MS';" >Notebook 02</button>
-			<button onclick= "openIframe( '02' )" style="background-color: transparent; font-family: 'Trebuchet MS';" >Preview 03</button>
-			<button onclick= "openIframe( '03' )" style="background-color: transparent; font-family: 'Trebuchet MS';" >Preview 04</button>
+			<button onclick= "openIframe( '02' )" style="background-color: transparent; font-family: 'Trebuchet MS';" >REPL 03</button>
+			<button onclick= "openIframe( '03' )" style="background-color: transparent; font-family: 'Trebuchet MS';" >REPL 04</button>
 			<button onclick= "openIframe( '04' )" style="background-color: transparent; font-family: 'Trebuchet MS';" >PyScript 05</button>
 			<button onclick= "openIframe( '05' )" style="background-color: transparent; font-family: 'Trebuchet MS';" >Code 06</button>
 		</div>
 
 		<div id="tabIframe00" class="grid">
 			<div id="bloccoIframe00_00" class="span4 roundBorder" style="width: 98%; height: 74vh;" >
-				<iframe src="https://jupyter.org/try-jupyter/lab/" width="100%" height="100%"  >
+				<iframe id="iframe00_00" src="" width="100%" height="100%" frameBorder="0" >
 				</iframe>
+				<script>
+					if( iframeAttivi.iframe00_00 == true ) {
+						document.getElementById( "iframe00_00" ).src="https://jupyter.org/try-jupyter/lab/"; 
+					} else {
+						document.getElementById( "iframe00_00" ).src=""; 
+					}
+				</script>
 			</div>
 		</div>
 
 		<div id="tabIframe01" class="grid">
 			<div id="bloccoIframe00_01" class="span4 roundBorder" style="width: 98%; height: 74vh;" >
-				<iframe src="https://jupyterlite.github.io/demo" width="100%" height="100%"  >
+				<iframe id="iframe00_01" src="" width="100%" height="100%" frameBorder="0" >
 				</iframe>
+				<script>
+					if( iframeAttivi.iframe00_01 == true ) {
+						document.getElementById( "iframe00_01" ).src="https://jupyterlite.github.io/demo"; 
+					} else {
+						document.getElementById( "iframe00_01" ).src=""; 
+					}
+				</script>
 			</div>
 		</div>
 
 		<div id="tabIframe02" class="grid">
 			<div id="bloccoIframe00_02" class="span4 roundBorder" style="width: 98%; height: 74vh;" >
 
-				<iframe id="targetIframe02" src="https://jupyterlite.github.io/demo/repl/index.html?kernel=python&theme=JupyterLab Light
-						&code=
-						import matplotlib.pyplot as plt %0A
-						import numpy as np
-						&code=
-						x = np.linspace(-10, 10, 1000) %0A
-						y = x**2 %2B 2*x
-						&code=
-						fig, ax = plt.subplots() %0A
-						ax.grid( True ) %0A
-						plt.axhline(0, color='black', linewidth=1.5 ) %0A
-						plt.axvline(0, color='black', linewidth=1.5 ) %0A
-						ax.plot(x, y)" 
+				<iframe id="iframe00_02" src=""
 					
-					width="100%" height="100%"  >
+					width="100%" height="100%" frameBorder="0" >
 				</iframe>
 				
 				<script>
@@ -789,6 +826,24 @@
 				*/
 
 				//%2B uguale a +
+
+				if( iframeAttivi.iframe00_02 == true ) {
+					document.getElementById( "iframe00_02" ).src=`https://jupyterlite.github.io/demo/repl/index.html?kernel=python&theme=JupyterLab Light
+						&code=
+						import matplotlib.pyplot as plt %0A
+						import numpy as np
+						&code=
+						x = np.linspace(-10, 10, 1000) %0A
+						y = x**2 %2B 2*x
+						&code=
+						fig, ax = plt.subplots() %0A
+						ax.grid( True ) %0A
+						plt.axhline(0, color='black', linewidth=1.5 ) %0A
+						plt.axvline(0, color='black', linewidth=1.5 ) %0A
+						ax.plot(x, y)`;
+				} else {
+					document.getElementById( "iframe00_02" ).src=""; 
+				}
 				
 				</script>
 			</div>
@@ -796,7 +851,23 @@
 
 		<div id="tabIframe03" class="grid">
 			<div id="bloccoIframe00_03" class="span4 roundBorder" style="width: 98%; height: 74vh;" >
-				<iframe id="targetIframe03" src="https://jupyterlite.github.io/demo/repl/index.html?clearCellsOnExecute=1&kernel=python&theme=JupyterLab Light
+				<iframe id="iframe00_03" src=""
+					
+					width="100%" height="100%" frameBorder="0"
+					>
+				</iframe>
+
+				<script>
+					//matplotlib.set_loglevel( 'critical' )
+
+					//iframe referrerpolicy = ... scrolling="no" 
+					//per '+' usa %2B
+					//per indentazione usa n.4 spazi '    '
+
+					//document.getElementById("targetIframe03").contentWindow.body //Problem CORS Origin 
+
+					if( iframeAttivi.iframe00_03 == true ) {
+						document.getElementById( "iframe00_03" ).src=`https://jupyterlite.github.io/demo/repl/index.html?clearCellsOnExecute=1&kernel=python&theme=JupyterLab Light
 						&code=
 						%pip install ipywidgets
 						&code=
@@ -810,19 +881,10 @@
 						    plt.axhline(0, color='black', linewidth=1.5 ) ; plt.axvline(0, color='black', linewidth=1.5 ) ; ax.plot(x, y, color = 'green' ) %0A
 						    %0A
 						slider = widgets.interact( sinplot, A=(0, 10, 1))
-						"
-					
-					width="100%" height="100%" scrolling="no"
-					>
-				</iframe>
-
-				<script>
-					//matplotlib.set_loglevel( 'critical' )
-
-					//per '+' usa %2B
-					//per indentazione usa n.4 spazi '    '
-
-					//document.getElementById("targetIframe03").contentWindow.body //Problem CORS Origin 
+						`;
+					} else {
+						document.getElementById( "iframe00_03" ).src=""; 
+					}
 
 				</script>
 
@@ -954,7 +1016,7 @@
 						document.getElementById("btn_executePy").click()
 						window.sessionStorage.setItem( "superatoPrimoAvvio" , 1 )  
 					else:  
-						output.innerHTML = "Mancato aggiornamento automatico previsto a seguito del Refresh della Pagina Web (utilizzare l'apposito pulsante di cui sopra)."
+						output.innerHTML = "-- (utilizza 'Esegui il Codice Python')"
 
 					js.barLoading.style.width = "55%"; 
 					js.barLoading.innerHTML = "Loading ... 55%"; 
@@ -988,7 +1050,7 @@
 
 	<div id="schedaCSharp" >
 
-		Alcune Applicazioni sviluppate in C# tramite Visual Studio e GitHub Desktop.
+		Applicazioni C# sviluppate tramite Visual Studio e GitHub Desktop.
 		<br>
 		<br>
 		<b>
@@ -1001,13 +1063,21 @@
 
 			<div id="blocco01CSharp" class="span4 roundBorder" >
 
-				<h2><b>• App001:</b></h2>
+				<h2><b>• Form 01:</b></h2>
 				<p id="descrApp001CSharp" class="justify" >
 				Dopo aver creato un WinForm .NET project (in C#) ed aver preparato la relativa WebView2 oltre al componente ReoGrid - .NET Spreadsheet (anche mediante l'utilizzo del relativo pacchetto NuGet), l'Applicazione in questione utilizza una pagina HTML mediante la quale richiamare le funzioni ed i Marker della Libreria Leaflet (Javascript). Le coordinate di inserimento dei Marker saranno poi elencate nel foglio disposto a lato dell'Applicazione. In questo contesto la comunicazione tra C# e Javascript viene assicurata tramite l'istruzione webView21.ExecuteScriptAsync e dalle istruzioni chrome.webview.postMessage. La gestione degli handlers / eventi è definita partendo dall'evento WinForm Load, attraverso espressioni come webView21.NavigationCompleted += (,_ args) => {...}. Link alle immagini di esempio:
 				</p>
+				<!-- "display: block; margin-left: auto; margin-right: auto; max-width: 100%; max-height: auto; width: 50%; height: auto;" -->
 				<br>
-				<img src="./CSharp/App001/Image/Image01.png" alt="Image01" >
-				<img src="./CSharp/App001/Image/Image02.png" alt="Image02" >
+				<div>
+					<table style="width:80%; margin-left: auto; margin-right: auto;">
+						<tr>
+							<td ><img src="./CSharp/App001/Image/Image01.png" alt="Image01" width="99%" height="auto"></td>
+							<td ><img src="./CSharp/App001/Image/Image02.png" alt="Image02" width="100%" height="auto"></td>
+						</tr>
+					</table>
+
+				</div>
 
 			</div>
 
@@ -1020,16 +1090,16 @@
 		Alcune Applicazioni sviluppate in Javascript tramite GitHub Desktop e Visual Studio Code.
 		<br>
 		<br>
-		<b>
-			*** ATTENZIONE ***: le Librerie, i Framework ed eventuali altri elementi ad essi associati appartengono ai rispettivi proprietari. 
-		</b>
-		<br>
-		<br>
 		Impiego di:
 		<br>
 		- pacchetto NPM disponibile tramite <a href="https://github.com/jyotiska/prettytable">GitHub Jyotiska/Prettytable</a> o <a href="https://www.jsdelivr.com/package/npm/prettytable">JsDelivr Jyotiska/Prettytable</a>;
 		<br>
 		- Bundler / Impacchettatore lato Client (per Browser) <a href="https://github.com/browserify/browserify?tab=readme-ov-file#external-requires">Browserify</a> (vedi <u>browserify -r prettytable > bundle.js</u>).
+		<br>
+		<br>
+		<b>
+			*** ATTENZIONE ***: le Librerie, i Framework ed eventuali altri elementi ad essi associati appartengono ai rispettivi proprietari. 
+		</b>
 		<br>
 		<br>
 
@@ -1343,11 +1413,6 @@
 			<b>
 				*** ATTENZIONE ***: i Servizi di Database richiamati nel seguito appartengono ai rispettivi proprietari. 
 			</b>
-			<br>
-			<br>
-			Alcune note:
-			<br> 
-			- Fase di Test eseguita in locale (vedi <u>python -m http.server 3000, localhost:3000/index.html</u>, in riferimento alle <a href="https://www.youtube.com/watch?v=H7ZTrqhonHc">CORS Policy</a>). 
 			<br>
 			<br>
 			
@@ -1930,6 +1995,9 @@
 	<div id="schedaAbout" >
 
 		Alcune Applicazioni sviluppate tramite GIT, GitHub Desktop e Visual Studio Code.
+		<br>
+		<br> 
+		Fase di Test eseguita in locale (vedi <u>python -m http.server 3000, localhost:3000/index.html</u>, in riferimento alle <a href="https://www.youtube.com/watch?v=H7ZTrqhonHc">CORS Policy</a>). 
 		<br>
 		<br>
 		<b>*** ATTENZIONE ***: le Librerie, i Framework, i Programmi / Software ed eventuali altri elementi ad essi associati appartengono ai rispettivi proprietari; il presente Sito vuole fornire semplicemente alcuni esempi di Applicazioni senza alcuna finalità particolare.</b>
