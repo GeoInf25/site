@@ -1,0 +1,430 @@
+<html>
+
+<head>
+
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+	<!-- Make sure you put this AFTER Leaflet's CSS -->
+ 	<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+	<link href="https://unpkg.com/tabulator-tables@6.3.1/dist/css/tabulator.min.css" rel="stylesheet">
+ 	<script type="text/javascript" src="https://unpkg.com/tabulator-tables@6.3.1/dist/js/tabulator.min.js"></script>
+
+	<script type="text/javascript" src="./bundle.js"></script> 
+
+	<!-- 
+	<script src="https://cdn.jsdelivr.net/npm/rangeslider.js@2.3.3/dist/rangeslider.min.js"></script> 
+	<link href="https://cdn.jsdelivr.net/npm/rangeslider.js@2.3.3/dist/rangeslider.min.css" rel="stylesheet">
+	-->
+
+	<link rel="stylesheet" href="styleGeoInf.css">
+
+	<style>
+
+		.centerInputText {
+			width: 100%;
+			margin: auto;
+			display: block;
+		}
+		
+		#div_pictureBox { 
+			width : 100%;
+			height: 20vh;
+			background-color: white;
+			border:1px solid black;
+		}
+
+		#txt_outputFibonacci {
+			width: 100%; 
+			height: 40vh; 
+			resize: none;
+		}
+
+		#txt_outputPrimeNumbers {
+			width: 100%; 
+			height: 40vh; 
+			resize: none;
+		}
+
+		#txt_outputNumberBase {
+			width: 100%; 
+			height: 40vh; 
+			resize: none;
+		}
+
+		.textAreaNoBorder {
+			border: none;
+			overflow-x: scroll;
+			overflow-y: scroll;
+			resize: none;
+			/* white-space: nowrap; */
+			white-space: pre;
+		}
+
+		.slider {
+			width: 80%;
+		}
+
+		#appLeafletMap {
+			width: 100%;
+			height: auto;
+		}
+
+		#leafletMap {
+			border: 2px solid black;
+			width: 48%; /* % of container */ 
+			height: 75vh; /* % of screen */
+			float: left; 
+		}
+
+		#controlliLeafletMap {
+			width: 50%; 
+			height: 75vh; 
+			float: right;
+		}
+
+	</style>
+
+</head>
+
+<body style = "overflow-y: scroll" >
+
+	Alcune Applicazioni sviluppate in Javascript tramite GitHub Desktop e Visual Studio Code.
+	<br>
+	<br>
+	Impiego di:
+	<br>
+	- pacchetto NPM disponibile tramite <a href="https://github.com/jyotiska/prettytable">GitHub Jyotiska/Prettytable</a> o <a href="https://www.jsdelivr.com/package/npm/prettytable">JsDelivr Jyotiska/Prettytable</a>;
+	<br>
+	- Bundler / Impacchettatore lato Client (per Browser) <a href="https://github.com/browserify/browserify?tab=readme-ov-file#external-requires">Browserify</a> (vedi <u>browserify -r prettytable > bundle.js</u>).
+	<br>
+	<br>
+	<b>
+		*** ATTENZIONE ***: le Librerie, i Framework ed eventuali altri elementi ad essi associati appartengono ai rispettivi proprietari. 
+	</b>
+	<br>
+	<br>
+
+	<div id="tabellaJs" class="grid">
+
+		<div id="blocco01Js" class="span4 roundBorder" >
+
+			<h2>• Fibonacci sequence</h2>
+			Inserici un valore numerico (>=2 && <=99) per calcolare i valori della serie (premi INVIO):
+			<br>
+			<input type="text" id="txt_upperLimitFibonacci" class= "centerInputText" size="1" value="99" > 
+			<br>
+			<!-- <textarea id="txt_outputFibonacci" class="textAreaNoBorder" ></textarea> -->
+
+			<div id="fibonacci-table"></div>
+
+			<script>
+
+				var upperLimitFibonacci = 99;
+
+				var fibonacciTable = new Tabulator("#fibonacci-table", {
+					spreadsheet:true,
+					spreadsheetData: [ ], //DEVE essere inizializzato
+					spreadsheetRows:10,
+					spreadsheetColumns:10,
+					spreadsheetColumnDefinition:{editor:"input" , width: "180" },
+					rowHeader:{field:"_id", hozAlign:"center", headerSort:false},
+					spreadsheetOutputFull: true, //export all data including empty columns
+					editorEmptyValue:undefined
+					
+				});
+
+				document.getElementById('txt_upperLimitFibonacci').addEventListener('keydown', function(e) {
+					if (e.key == 'Enter' ) { //Blur, onBlur
+						controlAndCalcFibonacci(); 
+					}
+				});
+
+				function controlAndCalcFibonacci() {
+					var tempUpperLimit = document.getElementById('txt_upperLimitFibonacci').value;
+					if( isNaN( tempUpperLimit ) || ( tempUpperLimit % 1 != 0 ) ) {
+						alert( "Inserisci un valore numerico intero." );
+					} else if( tempUpperLimit < 2 || tempUpperLimit > 99 ) {
+						alert( "Inserisci un valore numerico compreso fra 2 e 99." );
+					} else {
+						upperLimitFibonacci = parseInt( tempUpperLimit ); 
+						calculateFibonacci( ); 
+					}
+				}
+
+				/*
+				const PrettyTable = require("prettytable");
+
+				function calculateFibonacci( ) {
+
+					var tableFib = new PrettyTable();
+					var headersFib = [ "Indice", "Valore" ];
+					var rowsFib = [ ];  
+					
+					for( var i = 0; i <= upperLimitFibonacci; i++ ) {
+
+						var strPos = "" + (i <= 9 ? "0" : "" ) + i; 
+
+						if( i == 0 ) {
+							rowsFib.push( [ strPos , 0 ] ); 
+						} else if( i == 1 ) {
+							rowsFib.push( [ strPos , 1 ] ); 
+						} else {
+							//var tempNumb = "" + ( rowsFib[ i - 2 ][ 1 ] + rowsFib[ i - 1 ][ 1 ] ).toLocaleString(); //separatore migliaia
+							rowsFib.push( [ strPos , rowsFib[ i - 2 ][ 1 ] + rowsFib[ i - 1 ][ 1 ] ] ); 
+						}
+
+					}
+
+					tableFib.create( headersFib , rowsFib );
+					var tableFibString = tableFib.toString();
+					//console.log( tableFibString );
+
+					document.getElementById( "txt_outputFibonacci" ).innerHTML = tableFibString;
+					document.getElementById( "txt_outputFibonacci" ).readOnly = true;
+
+				}
+				*/
+
+				function calculateFibonacci( ) {
+					var rowsFib = [ ]; 
+					
+					for( var i = 0; i <= upperLimitFibonacci; i++ ) {
+						if( i==0 ) {
+							rowsFib.push( 0 );
+						} else if( i==1 ) {
+							rowsFib.push( 1 );
+						} else {
+							rowsFib.push( rowsFib[ i - 2 ] + rowsFib[ i - 1 ] );
+						}
+					}
+
+					var fibonacciData = [ ]; 
+
+					const chunkSize = 10;
+				
+					for (var i = 0; i < rowsFib.length; i += chunkSize) {
+						fibonacciData.push( rowsFib.slice(i, i + chunkSize) );
+					}
+
+					//console.log( fibonacciData );
+
+					fibonacciTable.setSheetData( fibonacciData );  // NON setData
+
+				}
+
+				fibonacciTable.on( "tableBuilt", function() { //EVITARE Warning 
+					calculateFibonacci();
+				}); 
+
+			</script>
+
+		</div>
+
+		<div id="blocco02Js" class="span4 roundBorder" >
+
+			<h2>• Prime numbers</h2>
+			Inserici un valore massimo (>=1 && <=999) 
+			<br>
+			<input type="text" id="txt_upperLimitPrimeNumbers" class= "centerInputText" size="1" value="20" >
+			<!-- <br> -->
+			entro il quale calcolare i numeri primi (premi INVIO): 
+			<br>
+			<textarea id="txt_outputPrimeNumbers" class="textAreaNoBorder" ></textarea>
+			<script>
+
+				var upperLimitPrimeNumbers = 20;
+
+				document.getElementById('txt_upperLimitPrimeNumbers').addEventListener('keydown', function(e) {
+					if (e.key == 'Enter' ) { //Blur, onBlur
+						controlAndCalcPrimeNumbers(); 
+					}
+				});
+
+				function controlAndCalcPrimeNumbers() {
+					var tempUpperLimit = document.getElementById('txt_upperLimitPrimeNumbers').value;
+					if( isNaN( tempUpperLimit ) || ( tempUpperLimit % 1 != 0 ) ) {
+						alert( "Inserisci un valore numerico intero." );
+					} else if( tempUpperLimit < 1 || tempUpperLimit > 999 ) {
+						alert( "Inserisci un valore numerico compreso fra 1 e 999." );
+					} else {
+						upperLimitPrimeNumbers = parseInt( tempUpperLimit ); 
+						calculatePrimeNumbers( ); 
+					}
+				}
+
+				function calculatePrimeNumbers( ) {
+					arrPrime = [ ];
+					strPrime = "";    
+					for( var i = 1; i <= upperLimitPrimeNumbers; i++ ) {
+						
+						//Control of prime numbers
+						var contRestDiv = 0; 
+						for( var j = 1; j <= i; j++ ) {
+							if( i % j == 0 ) {
+								contRestDiv++;
+							}
+
+							if( i == 1 ) { //special case for 1
+								contRestDiv++;
+							}
+						} 
+
+						if( contRestDiv == 2 ) { //for 1 and for itself
+							arrPrime.push( i );
+						} 
+
+					}
+
+					for( var i = 0; i < arrPrime.length; i++ ) {
+						strPrime = strPrime + "Posizione " + (i <= 9 ? "0" : "" ) + i + " - " + arrPrime[ i ].toLocaleString() + "\n";
+					}
+
+					document.getElementById( "txt_outputPrimeNumbers" ).innerHTML = strPrime;
+					document.getElementById( "txt_outputPrimeNumbers" ).readOnly = true;
+
+				}
+
+				calculatePrimeNumbers();
+
+			</script>
+
+		</div>
+
+		<div id="blocco03Js" class="span4 roundBorder" >
+
+			<h2>• Number Base</h2>
+			Conversioni sul valore (>=1 && <=10<sup>12</sup>) scelto  
+			<br>
+			<input type="text" id="txt_numberBaseValue" class= "centerInputText" size="12" value="1000000" > 
+			<!-- <br> -->
+			in base 10 (premi INVIO):
+			<br>
+			<textarea id="txt_outputNumberBase" class="textAreaNoBorder" ></textarea>
+			<script>
+
+				var numberBaseValue = 1000000;
+
+				document.getElementById('txt_numberBaseValue').addEventListener('keydown', function(e) {
+					if (e.key == 'Enter' ) { //Blur, onBlur
+						controlAndCalcNumberBase(); 
+					}
+				});
+
+				function controlAndCalcNumberBase() {
+					var tempNumberBaseValue = document.getElementById('txt_numberBaseValue').value;
+					if( isNaN( tempNumberBaseValue ) || ( tempNumberBaseValue % 1 != 0 ) ) {
+						alert( "Inserisci un valore numerico intero." );
+					} else if( tempNumberBaseValue < 1 || tempNumberBaseValue > 1000000000000 ) {
+						alert( "Inserisci un valore numerico compreso fra 1 e 1'000'000'000'000." );
+					} else {
+						numberBaseValue = parseInt( tempNumberBaseValue ); 
+						calculateNumberBase( ); 
+					}
+				}
+
+				function calculateNumberBase( ) {
+					//arrNumbBase = [ ];
+					strNumbBase = "";   
+					
+					for( var base = 2; base <= 16; base++ ) {
+						strNumbBase = strNumbBase + "Base " + (base <= 9 ? "0" : "" ) + base + " - " + numberBaseValue.toString( base ) + "\n";
+					}					
+
+					document.getElementById( "txt_outputNumberBase" ).innerHTML = strNumbBase;
+					document.getElementById( "txt_outputNumberBase" ).readOnly = true;
+
+				}
+
+				calculateNumberBase();
+
+			</script>
+
+		</div>
+
+		<div id = "blocco04Js" class = "span4 roundBorder" >
+			<h2>• PictureBox</h2>
+			Varia i quattro Slider e cambia colore ... 
+			<div id="div_pictureBox">
+			</div>
+
+			<div >
+				<table>
+					<tr>
+						<td>Rosso: </td> <td ><input type="range" id="sliderRed" class="slider"  min="0" max="255"  value="255" oninput="changeColor();"></td>
+					</tr>
+					<tr>
+						<td>Verde: </td> <td ><input type="range" id="sliderGreen" class="slider" min="0" max="255"  value="150" oninput="changeColor();"></td>
+					</tr>
+					<tr>
+						<td>Blu: </td> <td ><input type="range" id="sliderBlue" class="slider" min="0" max="255"  value="0" oninput="changeColor();"></td>
+					</tr>
+					<tr>
+						<td>Alpha: </td> <td ><input type="range" id="sliderAlpha" class="slider" min="0" max="100"  value="255" oninput="changeColor();"></td>
+					</tr>
+
+				</table>
+			</div>
+
+			<script>
+				function changeColor() {
+					valueRed = document.getElementById( "sliderRed" ).value;
+					valueGreen = document.getElementById( "sliderGreen" ).value;
+					valueBlue = document.getElementById( "sliderBlue" ).value;
+					valueAlpha = document.getElementById( "sliderAlpha" ).value;
+					valueAlphaFloat = ( valueAlpha / 100.00 ).toFixed(2);
+					document.getElementById("div_pictureBox").style.backgroundColor = 'rgba(' + valueRed + ',' + valueGreen + ',' + valueBlue + ',' + valueAlphaFloat + ')';
+					document.getElementById("txt_valueColor").value = '(' + valueRed + ',' + valueGreen + ',' + valueBlue + ',' + valueAlphaFloat + ')'
+				}
+
+			</script>
+			<br>
+			Valore del colore (rgba, con a / alpha trasparenza):
+			<br>
+			<input type="text" id="txt_valueColor" class= "centerInputText" size="12" >
+			<br>
+
+			<script>
+				changeColor();
+			</script>
+
+		</div> 
+
+		<div id = "blocco05Js" class = "span4 roundBorder" >
+
+			<h2>• Leaflet Map</h2>
+			Esempio di Applicazione della libreria Javascript <a href="https://leafletjs.com/">LeafletJS</a>, ovvero:
+			<br> 
+			<br> 
+			
+			<div id="appLeafletMap">
+				<div id="leafletMap" >
+
+					<script>
+						var map = L.map('leafletMap').setView([51.505, -0.09], 13);
+
+						L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+							maxZoom: 22,
+							attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+						}).addTo(map);
+
+					</script>
+
+				</div>
+
+				<div id="controlliLeafletMap" > 
+					In costruzione ... 
+
+				</div>
+
+			</div>
+			
+		</div>
+
+	</div>
+
+
+</body>
+
+
+</html>
+
