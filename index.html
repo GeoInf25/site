@@ -1,169 +1,75 @@
-
 <html>
 
 <head>
 
-	<script type="text/javascript" src="./bundle.js"></script> 
+	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> -->
 
 	<script type="text/javascript" src="./file_funzSupp.js"></script> 
 
-	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> -->
-
-	<link
-    rel="stylesheet"
-    href="https://pyscript.net/releases/2025.7.2/core.css"
-	/>
-	<script
-		type="module"
-		src="https://pyscript.net/releases/2025.7.2/core.js"
-	></script>
-
-	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    	integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-    	crossorigin=""/>
-
-	<!-- Make sure you put this AFTER Leaflet's CSS -->
- 	<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-    	integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-    	crossorigin=""></script>
-
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/MarkerCluster.css" />
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.0/MarkerCluster.Default.min.css" />
-	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/leaflet.markercluster.js"></script> -->
-
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-minimap/3.6.1/Control.MiniMap.js" integrity="sha512-ceQPs2CHke3gSINLt/JV37W1rfJOM64yuH999hnRhTP7tNtcSBp5hlTKhn8CEIhsFweSBrZMPVotAKjoyxGWNg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-minimap/3.6.1/Control.MiniMap.css" integrity="sha512-efbAfGnrnjA+hLwOLu91W034fBGPsMwZMVCTwLUI2PDX/m7rOiuhYZ+D2mZ8rKcpC/I/7pdgoL8T4eYvMHNoQg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js" integrity="sha512-ozq8xQKq6urvuU6jNgkfqAmT7jKN2XumbrX1JiB3TnF7tI48DPI4Gy1GXKD/V3EExgAs1V+pRO7vwtS1LHg0Gw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css" integrity="sha512-gc3xjCmIy673V6MyOAZhIW93xhM9ei1I+gLbmFjUHIjocENRsLX/QUE1htk5q1XV2D/iie/VQ8DXI6Vu8bexvQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-	<script src="https://cdn.jsdelivr.net/npm/leaflet-measure@3.1.0/dist/leaflet-measure.min.js"></script>
-	<link href="https://cdn.jsdelivr.net/npm/leaflet-measure@3.1.0/dist/leaflet-measure.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://pyscript.net/releases/2025.7.2/core.css" />
+	<script type="module" src="https://pyscript.net/releases/2025.7.2/core.js" ></script>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
-	<script src=https://cdnjs.cloudflare.com/ajax/libs/alasql/4.6.6/alasql.min.js></script> 
-
-	<link href="https://unpkg.com/tabulator-tables@6.3.1/dist/css/tabulator.min.css" rel="stylesheet">
- 	<script type="text/javascript" src="https://unpkg.com/tabulator-tables@6.3.1/dist/js/tabulator.min.js"></script>
-
-	<!-- 
-	<script src="
-		https://cdn.jsdelivr.net/npm/rangeslider.js@2.3.3/dist/rangeslider.min.js
-	"></script>
-	<link href="
-		https://cdn.jsdelivr.net/npm/rangeslider.js@2.3.3/dist/rangeslider.min.css
-	" rel="stylesheet">
-	-->
-
 <style>
-
-	body {
-		font-family: "Trebuchet MS";
-		font-size: 1.75vh;
-		/* font-size: 1 em rem ... 14 px ; */
-		overflow: hidden;
-	}
-
-	p {
-		margin: 0;
-		padding: 0;
-	}
-
-	button {
-		font-family: "Arial";
-		font-size: 1.75vh;
-	}
-
-	textarea {
-		font-size: 1.75vh;
-
-		/*font-family: "Trebuchet MS";
-		font-size: 1.75vh;*/
-	}
-
-	select {
-		font-size: 1.75vh;
-	}
-
-	option {
-		font-size: 1.75vh;
-	}
-
-	input {
-		font-size: 1.75vh;
-
-		font-family: "Trebuchet MS";
-		font-size: 1.75vh;
-	}
-
-	table {
-		font-size: 1.75vh;
-	}
-
-	h2 {
-		font-size: 2.25vh;
-	}
-
-	ul {
-		padding: 0.0vh 4.0vh; 
-	}
 
 	#schedaReact {
   		width: 100%;
   		/* height: 94%; */
 		overflow-x: hidden;
-  		overflow-y: scroll;
+  		overflow-y: hidden; //scroll
 	}
 	#schedaRShiny {
   		width: 100%;
   		/* height: 94%; */
 		overflow-x: hidden;
-  		overflow-y: scroll;
+  		overflow-y: hidden; //scroll
 	}
 	#schedaJupyter {
   		width: 100%;
   		/* height: 94%; */
 		overflow-x: hidden;
-  		overflow-y: scroll;
+  		overflow-y: hidden; //scroll
 	}
 	#schedaCSharp {
 		width: 100%;
   		/* height: 94%; */
 		overflow-x: hidden;
-  		overflow-y: scroll;
+  		overflow-y: hidden; //scroll
 	}
 	#schedaJavascript {
 		width: 100%;
   		/* height: 94%; */
 		overflow-x: hidden;
-  		overflow-y: scroll;
+  		overflow-y: hidden; //scroll
 	}
 	#schedaDatabase {
 		width: 100%;
   		/* height: 94%; */
 		overflow-x: hidden;
-  		overflow-y: scroll;
+  		overflow-y: hidden; //scroll
 	}
 	#schedaGIS {
 		width: 100%;
   		/* height: 94%; */
 		overflow-x: hidden;
-  		overflow-y: scroll;
+  		overflow-y: hidden; //scroll
 	}
 	#schedaDisegni3D {
 		width: 100%;
   		/* height: 94%; */
 		overflow-x: hidden;
-  		overflow-y: scroll;
+  		overflow-y: hidden; //scroll
 	}
 	#schedaAbout {
 		width: 100%;
   		/* height: 94%; */
 		overflow-x: hidden;
-  		overflow-y: scroll;
+  		overflow-y: hidden; //scroll
+	}
+
+	#tab_scheda {
+		/* */
 	}
 
 	.btn {
@@ -179,10 +85,6 @@
 
 		/*height: auto; */
   	}
-
-	#tab_scheda {
-
-	}
 
 	/*
 	@media screen and (max-width: 594px) {
@@ -248,262 +150,6 @@
 		color: white;
   	}
 
-	/* Python */
-
-	#txt_code{
-
-		/* font-family: "Cascadia Code"; */
-		/* font-size: 2vh; */
-		/* font-weight: bold; */
-
-		width: 100%; 
-		height: 45vh; 
-		color: black;  
-		background-color: #efefef;
-		resize: none;
-  	}
-
-  	#txt_output {
-		width: 100%; 
-		height: 35vh; 
-		resize: none;
-  	}
-
-	/* C# */
-
-  	#descrApp001CSharp {
-  		
-  	}
-
-	img {
-		/*
-		display: block;
-		max-width: 100%;
-		max-height: auto;
-		width: auto;
-		height: auto;
-		*/
-		/*margin-left: auto; //center image */
-  		/*margin-right: auto; //center image */
-	}
-
-	/* JS */
-
-	#div_pictureBox { 
-		width : 100%;
-		height: 20vh;
-		background-color: white;
-		border:1px solid black;
-  	}
-
-  	#txt_outputFibonacci {
-		width: 100%; 
-		height: 40vh; 
-		resize: none;
-  	}
-
-	#txt_outputPrimeNumbers {
-		width: 100%; 
-		height: 40vh; 
-		resize: none;
-  	}
-
-	#txt_outputNumberBase {
-		width: 100%; 
-		height: 40vh; 
-		resize: none;
-  	}
-
-	.textAreaNoBorder {
-		border: none;
-		overflow-x: scroll;
-  		overflow-y: scroll;
-		resize: none;
-		/* white-space: nowrap; */
-		white-space: pre;
-	}
-
-	.slider {
-		width: 80%;
-	}
-
-	.centerInputText {
-		width: 100%;
-		margin: auto;
-  		display: block;
-	}
-
-	#appLeafletMap {
-		width: 100%;
-		height: auto;
-	}
-
-	#leafletMap {
-		border: 2px solid black;
-		width: 48%; /* % of container */ 
-		height: 75vh; /* % of screen */
-		float: left; 
-	}
-
-	#controlliLeafletMap {
-		width: 50%; 
-		height: 75vh; 
-		float: right;
-	}
-
-	/* Java */
-
-	/* Database */
-
-	#displayTabDbEs01 {
-		width: 100%;
-		height: 50vh;
-	}
-
-	#displayTabStudentDbEs01 {
-		width: 49%; 
-		height: auto;
-		float: right; 
-	}
-
-	#displayTabClassDbEs01 {
-		width: 50%; 
-		height: auto; 
-		float: left;
-	}
-
-	#txt_displayTabStudentDbEs01 {
-		width: 100%; 
-		height: 100%; 
-		resize: none;
-		overflow: scroll; 
-		white-space: pre; 
-
-		background-color: darkblue;
-		color: white;
-	}
-
-	#txt_displayTabClassDbEs01 {
-		width: 100%; 
-		height: 100%; 
-		resize: none; 
-		overflow: scroll; 
-		white-space: pre; 
-
-		background-color: darkblue;
-		color: white;
-	}
-
-	#querySQLResultDbEs01 {
-		width: 100%;
-		height: auto;
-	}
-
-	#querySQLDbEs01 {
-		width: 100%; 
-		height: auto;
-	}
-
-	#resultSQLDbEs01 {
-		width: 100%; 
-		height: auto;
-	}
-
-	#select_listQuerySQLDb01{
-		font-family: "Trebuchet MS";
-		font-weight: bold;
-		/*font-style: italic;*/
-		width: 100%; 
-		height: 4vh; 
-	}
-
-	#txt_displayQuerySQLDbEs01 {
-		width: 100%; 
-		height: 15vh; 
-		resize: none; 
-		overflow-y: scroll; 
-		/*white-space: pre; */
-	}
-
-	#txt_displayResultDbEs01 {
-		width: 100%; 
-		height: 50vh; 
-		resize: none; 
-		overflow: scroll; 
-		white-space: pre; 
-
-		background-color: darkblue;
-		color: white;
-	}
-
-	/* Disegni3D */
-
-	/* Altri Links */
-
-	/* Layout */
-
-	.grid {
-  		display: grid;
-  		grid-template-columns: repeat(4, 1fr);
-	}
-
-	.span1 {
-  		grid-column: span 1;
-	}
-
-	.span2 {
-  		grid-column: span 2;
-	}
-
-	.span3 {
-		grid-column: span 3;
-	}
-
-	.span4 {
-		grid-column: span 4;
-	}
-
-	.roundBorder {
-  		/*border: 1px solid red;*/
-		border-style: outset;
-  		border-radius: 1vh;
-  		padding: 1vh;
-	}
-
-	.justify {
-		text-align: justify;
-		text-align-last: left;
-  		/*text-justify: inter-word;*/
-
-	}
-
-	/* Popup */
-
-	.popup {
-		position: relative;
-	}
-
-	.popup .popuptext {
-		visibility: hidden;
-		font-size: 1.75vh;
-		/*width: 40vh;
-		height: 5vh;*/
-		color: #fff;
-		text-align: center;
-		border-radius: 1vh;
-		position: absolute;
-		background-color: #555;
-		padding: 1vh;
-		/*bottom: 100%;
-		left: 50%;
-		margin: ... */
-
-	}
-/*
-	.popup .show {
-		visibility: visible;
-	}
-	*/
 </style>
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="utf-8" >
@@ -514,7 +160,7 @@
 <body>
 
 	<py-config>
-    	packages = ["sqlite3", "numpy",  "prettytable", "pandas", "tabulate" ]
+    	#packages = ["sqlite3", "numpy",  "prettytable", "pandas", "tabulate" ]
 
 		#folium , matplotlib , ipympl , ipywidgets
 
@@ -526,17 +172,17 @@
 		#from = './GIS/'
     	#files = [ "UfoDataset.csv" ]
 
-		[[fetch]]
-		from = './Database/'
-    	files = [ "db01.py" ]
+		#[[fetch]]
+		#from = './Database/'
+    	#files = [ "db01.py" ]
 
-		[[fetch]]
-		from = './GIS/'
-    	files = [ "gis01.py" ]
+		#[[fetch]]
+		#from = './GIS/'
+    	#files = [ "gis01.py" ]
 
-		[[fetch]]
-		from = './GIS/'
-    	files = [ "UfoDb.db" ]
+		#[[fetch]]
+		#from = './GIS/'
+    	#files = [ "UfoDb.db" ]
 
 		# [[fetch]]
      	# files = ["https://geoinf25.github.io/site/Database/dbSqliteEs01.db"]
@@ -553,18 +199,28 @@
 		var iframeAttivi = {
 			iframeReact : true , 
 			iframeRShiny : true , 
+			iframeJupyter : true , 
 			iframe00_00 : true , 
 			iframe00_01 : true , 
 			iframe00_02 : true , 
-			iframe00_03 : true 
+			iframe00_03 : true ,
+			iframeCSharp : true , 
+			iframeJavascript : true ,
+			iframeJava : true ,
+			iframeDatabase : true ,
+			iframeGIS : true ,
+			iframeDisegni3D : true ,
+			iframeAbout : true ,
 		}
 
+		/*
 		//iframeAttivi true / false
 		for (var prop in iframeAttivi) {
     		if (Object.prototype.hasOwnProperty.call( iframeAttivi, prop)) {
         		iframeAttivi[ prop ] = true; //Scelta valore
     		}	
 		}
+		*/
 
 		function gestioneSchede( scheda ) {
 
@@ -586,10 +242,10 @@
 			}
 			
 			if( scheda == "schedaDatabase" ) {
-				schedaDabaseCliccata = true; 
-				//console.log( "lato JS " + schedaDabaseCliccata )
+				schedaDatabaseCliccata = true; 
+				//console.log( "lato JS " + schedaDatabaseCliccata )
 			} else {
-				schedaDabaseCliccata = false; 
+				schedaDatabaseCliccata = false; 
 			}
 	
 		}
@@ -598,7 +254,7 @@
 		function resizeWindow() {
 			var hBody = window.innerHeight; 
 			var hTabScheda = document.getElementById( "tab_scheda" ).offsetHeight; 
-			var hDiff = hBody - hTabScheda - 12; // - 12
+			var hDiff = hBody - hTabScheda - 6; // - 12
 			//alert( hDiff );
 			document.getElementById( "schedaReact" ).style.height = hDiff; 
 			document.getElementById( "schedaRShiny" ).style.height = hDiff; 
@@ -631,7 +287,7 @@
 			schedaDisegni3D = document.getElementById( "schedaDisegni3D" );
 			schedaAbout = document.getElementById( "schedaAbout" );
 
-			schedaDabaseCliccata = false; 
+			schedaDatabaseCliccata = false; 
 
 			schede = [ 
 				schedaReact,
@@ -656,7 +312,9 @@
 			resizeWindow();
 
 			//consoleMap02
-			document.getElementById( "consoleMap02" ).style.height = document.getElementById( "contMap02" ).offsetHeight - document.getElementById("contControlMap02ParteSup" ).offsetHeight; 
+			document.getElementById( "iframeGIS" ).contentWindow.document.getElementById( "consoleMap02" ).style.height = 
+				document.getElementById( "iframeGIS" ).contentWindow.document.getElementById( "contMap02" ).offsetHeight - 
+				document.getElementById( "iframeGIS" ).contentWindow.document.getElementById("contControlMap02ParteSup" ).offsetHeight; 
 
 		});
 
@@ -698,12 +356,11 @@
 	</div>
 
 	<div id="schedaReact" >
-
 		<iframe
 			id="iframeReact"
 			src=""  
-			width="99%"
-			height="99%"
+			width="100%"
+			height="100%"
 			frameBorder="0"
 
 		></iframe>
@@ -715,7 +372,6 @@
 				document.getElementById( "iframeReact" ).src=""; 
 			}
 		</script>
-
 	</div>
 
 	<div id="schedaRShiny" >
@@ -723,8 +379,8 @@
 		<iframe
 			id="iframeRShiny" 
 			src=""  
-			width="99%"
-			height="99%"
+			width="100%"
+			height="100%"
 			frameBorder="0"
 
 		></iframe>
@@ -740,329 +396,24 @@
 	</div>
 
 	<div id="schedaJupyter" >
-		Iframe Jupyter Notebook per i linguaggi Python, C / C++, R, Javascript (Libreria p5.js)
-		<br>
-		Anteprima Jupyter Notebook disponibile tramite i servizi <a href="https://nbviewer.org/">Nbviewer</a>, <a href="https://mybinder.org/">Binder</a> <!-- permalink GitHub -->
-		<br>
-		Kernel PYODIDE Jupyter Notebook - Librerie disponibili: numpy, pandas, sqlite3 -- Librerie da installare (%pip install): folium, ipywidgets 
-		<br>
-		<br>
-		<b>
-			*** ATTENZIONE ***: il Notebook Jupyter ed eventuali altri elementi ad essi associati appartengono ai rispettivi proprietari. 
-		</b>
-		<br>
-		<br>
+		
+		<iframe
+			id="iframeJupyter" 
+			src=""  
+			width="99%"
+			height="99%"
+			frameBorder="0"
+
+		></iframe>
+		<!-- style = "overflow: scroll" scrolling = yes -->
 
 		<script>
-			function openIframe( tabNumber ) {
-				for( var i = 0; i < 6; i++ ) {
-					var tempValue = ( ""+ i).padStart(2,  "0"); 
-					if( tabNumber == tempValue ) {
-						document.getElementById( "tabIframe" + tempValue ).style.display = "block";
-						document.getElementById( "tabIframe" + tempValue ).style.visibility = "visible";  
-					} else {
-						document.getElementById( "tabIframe" + tempValue ).style.display = "none";
-						document.getElementById( "tabIframe" + tempValue ).style.visibility = "hidden"; 
-					}
-				}
+			if( iframeAttivi.iframeJupyter == true ) {
+				//https://geoinf25.github.io/site/schedaJupyter.html
+				document.getElementById( "iframeJupyter" ).src="./schedaJupyter.html"; 
+			} else {
+				document.getElementById( "iframeJupyter" ).src=""; 
 			}
-
-		</script>
-
-		<div id="headerIframe">
-			<button onclick= "openIframe( '00' )" style="background-color: transparent; font-family: 'Trebuchet MS';" >Notebook 01</button>
-			<button onclick= "openIframe( '01' )" style="background-color: transparent; font-family: 'Trebuchet MS';" >Notebook 02</button>
-			<button onclick= "openIframe( '02' )" style="background-color: transparent; font-family: 'Trebuchet MS';" >REPL 03</button>
-			<button onclick= "openIframe( '03' )" style="background-color: transparent; font-family: 'Trebuchet MS';" >REPL 04</button>
-			<button onclick= "openIframe( '04' )" style="background-color: transparent; font-family: 'Trebuchet MS';" >PyScript 05</button>
-			<button onclick= "openIframe( '05' )" style="background-color: transparent; font-family: 'Trebuchet MS';" >Code 06</button>
-		</div>
-
-		<div id="tabIframe00" class="grid">
-			<div id="bloccoIframe00_00" class="span4 roundBorder" style="width: 98%; height: 74vh;" >
-				<iframe id="iframe00_00" src="" width="100%" height="100%" frameBorder="0" >
-				</iframe>
-				<script>
-					if( iframeAttivi.iframe00_00 == true ) {
-						document.getElementById( "iframe00_00" ).src="https://jupyter.org/try-jupyter/lab/"; 
-					} else {
-						document.getElementById( "iframe00_00" ).src=""; 
-					}
-				</script>
-			</div>
-		</div>
-
-		<div id="tabIframe01" class="grid">
-			<div id="bloccoIframe00_01" class="span4 roundBorder" style="width: 98%; height: 74vh;" >
-				<iframe id="iframe00_01" src="" width="100%" height="100%" frameBorder="0" >
-				</iframe>
-				<script>
-					if( iframeAttivi.iframe00_01 == true ) {
-						document.getElementById( "iframe00_01" ).src="https://jupyterlite.github.io/demo"; 
-					} else {
-						document.getElementById( "iframe00_01" ).src=""; 
-					}
-				</script>
-			</div>
-		</div>
-
-		<div id="tabIframe02" class="grid">
-			<div id="bloccoIframe00_02" class="span4 roundBorder" style="width: 98%; height: 74vh;" >
-
-				<iframe id="iframe00_02" src=""
-					
-					width="100%" height="100%" frameBorder="0" >
-				</iframe>
-				
-				<script>
-				//const params = { kernel: "python" }; // , param2: value2 };
-				//const options = { method: 'POST', body: JSON.stringify( params ) };
-				//fetch( 'https://jupyterlite.github.io/demo/repl/index.html', options )
-				
-				//fetch( 'https://jupyterlite.github.io/demo/repl/index.html?kernel=python' )
-
-				/*
-				.then(response => {
-    				console.log(response);
-    				if (response.ok){
-      					return response.text();
-    				}
-  				})
-  				.then(text => {
-    				document.getElementById('targetIframe02').srcdoc = text;  
-  				});
-				*/
-
-				//%2B uguale a +
-
-				if( iframeAttivi.iframe00_02 == true ) {
-					document.getElementById( "iframe00_02" ).src=`https://jupyterlite.github.io/demo/repl/index.html?kernel=python&theme=JupyterLab Light
-						&code=
-						import matplotlib.pyplot as plt %0A
-						import numpy as np
-						&code=
-						x = np.linspace(-10, 10, 1000) %0A
-						y = x**2 %2B 2*x
-						&code=
-						fig, ax = plt.subplots() %0A
-						ax.grid( True ) %0A
-						plt.axhline(0, color='black', linewidth=1.5 ) %0A
-						plt.axvline(0, color='black', linewidth=1.5 ) %0A
-						ax.plot(x, y)`;
-				} else {
-					document.getElementById( "iframe00_02" ).src=""; 
-				}
-				
-				</script>
-			</div>
-		</div>
-
-		<div id="tabIframe03" class="grid">
-			<div id="bloccoIframe00_03" class="span4 roundBorder" style="width: 98%; height: 74vh;" >
-				<iframe id="iframe00_03" src=""
-					
-					width="100%" height="100%" frameBorder="0"
-					>
-				</iframe>
-
-				<script>
-					//matplotlib.set_loglevel( 'critical' )
-
-					//iframe referrerpolicy = ... scrolling="no" 
-					//per '+' usa %2B
-					//per indentazione usa n.4 spazi '    '
-
-					//document.getElementById("targetIframe03").contentWindow.body //Problem CORS Origin 
-
-					if( iframeAttivi.iframe00_03 == true ) {
-						document.getElementById( "iframe00_03" ).src=`https://jupyterlite.github.io/demo/repl/index.html?clearCellsOnExecute=1&kernel=python&theme=JupyterLab Light
-						&code=
-						%pip install ipywidgets
-						&code=
-						import matplotlib %0A
-						import matplotlib.pyplot as plt %0A
-						import numpy as np %0A
-						import ipywidgets as widgets
-						&code=
-						def sinplot( W = 1 ): %0A
-						    x = np.linspace(0, 2*np.pi, 1000) ; y = 0.6 * np.sin( W * x) ; fig, ax = plt.subplots( ) ; ax.grid( True ) %0A
-						    plt.axhline(0, color='black', linewidth=1.5 ) ; plt.axvline(0, color='black', linewidth=1.5 ) ; ax.plot(x, y, color = 'green' ) %0A
-						    %0A
-						slider = widgets.interact( sinplot, W=(0, 10, 1))
-						`;
-					} else {
-						document.getElementById( "iframe00_03" ).src=""; 
-					}
-
-				</script>
-
-			</div>
-		</div>
-
-		<div id="tabIframe04" class="grid">
-			<div id="bloccoPyScript00_04" class="span4 roundBorder" > <!-- style="width: 98%; height: 74vh;" --> <!-- span1 -->
-
-				<h2>• Hello World</h2> 
-				<div>
-					<p class="justify" >Classico Hello Word iniziale con alert e messaggio in Console relativo: <button id="btn_helloWorld" onclick="alert( 'Hello World in Console ...' ); " >Hello World</button></p> <!-- style="width: 10%; " -->
-				</div>
-
-				<py-script>
-					from js import document 
-					from pyodide.ffi import create_proxy
-
-					import js
-					#js.window.alert("Fase di loading completata ... ")
-
-					def printHW( event ):
-						print("Hello World!")
-
-					function_proxy01 = create_proxy(printHW)
-					document.getElementById("btn_helloWorld").addEventListener("click", function_proxy01)
-
-				</py-script>
-
-			</div>
-
-			<div id="bloccoPyScript01_04" class = "span4 roundBorder" > 
-
-				<h2>• PyScript Terminal</h2>
-
-				<p>Scrivi Codice Python ed eseguilo tramite <a href="https://pyscript.net/">PyScript</a>, ovvero</p>
-				<textarea id="txt_code" style="height: 63vh; width:100%" ></textarea>
-
-				<button id="btn_executePy" >Esegui il Codice Python</button>
-				<button id="btn_clearPy" >Elimina le variabili create</button>
-				<br>
-				<br>
-				<p>Mostra le variabili dichiarate o stampa a video i relativi valori all'interno della Console ... </p>
-				<textarea id="txt_output" ></textarea>
-
-				<script>
-					tempStr = `
-					#(Python Code)
-					import math as m 
-					import numpy as np
-					def foo():
-						global m
-						z = m.sqrt( 4 )
-						return z 
-						
-					z = foo()
-					a = m.cos( 1 )
-					b = 22
-					c = b ** 2
-					arr = np.array([1, 2, 3]) ** 2
-					print( 'Console: ' + str( arr ) )
-					for n in range( 0 , 3 ):
-						print( 'Hello in Console n.' + str( n ) )
-					
-					class Quadrato:
-						def __init__(self, lato):
-							self.lato = lato
-							
-						def area( self ):
-							return( self.lato * self.lato )
-
-					q1 = Quadrato( 5 )
-					lato = q1.lato
-					area = q1.area()
-					print( "Quadrato di lato " + str(lato) + " ed area " + str(area) )
-					`
-
-					document.getElementById("txt_code").innerHTML = tempStr.replace( /\t{5}/g , "" );
-					document.getElementById("txt_output").innerHTML = "Attendi ... ";
-					document.getElementById("txt_output").readOnly = true;
-
-					document.getElementById('txt_code').addEventListener('keydown', function(e) {
-						if (e.key == 'Tab') {
-							e.preventDefault();
-							var start = this.selectionStart;
-							var end = this.selectionEnd;
-
-							// set textarea value to: text before caret + tab + text after caret
-							this.value = this.value.substring(0, start) +
-							"\t" + this.value.substring(end);
-
-							// put caret at right position again
-							this.selectionStart =
-							this.selectionEnd = start + 1;
-						}
-					});
-
-				</script> 
-
-				<py-script>
-
-					import js
-
-					from js import console, document, window
-					from pyodide.ffi.wrappers import add_event_listener
-
-					import sys
-
-					elencoVar = {} #dictionary
-
-					output = document.getElementById("txt_output")
-
-					def runPython( *args ):
-						try: 
-							code = document.getElementById("txt_code").value
-							output.innerHTML = "Show global variables / objects: \n"
-							exec( code , globals(), elencoVar)
-							for item in elencoVar.items():
-								output.innerHTML = output.innerHTML + str( item ) + "\n" #elencoVar.items()
-
-						except Exception as e:
-							output.innerHTML = f"Error detected: {str(e)}"
-
-					def clearPython( *args ):
-						try:
-							#print( sys.modules[__name__].__dict__ )
-							sys.modules[__name__].__dict__[ "elencoVar" ].clear()
-							output.innerHTML = "Show global variables / objects: \n"
-
-						except Exception as e:
-							output.innerHTML = f"Error detected: {str(e)}"
-
-					add_event_listener( document.getElementById("btn_executePy") , "click", runPython)
-
-					add_event_listener( document.getElementById("btn_clearPy") , "click", clearPython)
-
-					#print( window.sessionStorage.getItem( "superatoPrimoAvvio" ) )
-
-					#Test iniziale all'apertura della Pagina Web
-					if( window.sessionStorage.getItem( "superatoPrimoAvvio" ) is None ):
-						document.getElementById("btn_executePy").click()
-						window.sessionStorage.setItem( "superatoPrimoAvvio" , 1 )  
-					else:  
-						output.innerHTML = "-- (utilizza 'Esegui il Codice Python')"
-
-					js.barLoading.style.width = "55%"; 
-					js.barLoading.innerHTML = "Loading ... 55%"; 
-
-				</py-script>
-
-				<script>
-					//
-				</script>
-
-			</div>
-
-		</div>
-
-		<div id="tabIframe05" class="grid">
-			<div id="bloccoIframe00_05" class="span4 roundBorder" style="width: 98%; height: 74vh;" >
-				Esempi di codice:
-				<br>
-			</div>
-		</div>
-
-		<script>
-			//Primo avvio 
-			openIframe( "00" );  
-
-			//
 
 		</script>
 
@@ -1070,1066 +421,169 @@
 
 	<div id="schedaCSharp" >
 
-		Applicazioni C# sviluppate tramite Visual Studio e GitHub Desktop.
-		<br>
-		<br>
-		<b>
-			*** ATTENZIONE ***: le Librerie, i Framework ed eventuali altri elementi ad essi associati appartengono ai rispettivi proprietari. 
-		</b>
-		<br>
-		<br>
+		<iframe
+			id="iframeCSharp" 
+			src=""  
+			width="100%"
+			height="100%"
+			frameBorder="0"
 
-		<div id="tabellaCSharp" class="grid">
+		></iframe>
 
-			<div id="blocco01CSharp" class="span4 roundBorder" >
+		<script>
+			if( iframeAttivi.iframeCSharp == true ) {
+				//https://geoinf25.github.io/site/schedaCSharp.html
+				document.getElementById( "iframeCSharp" ).src="./schedaCSharp.html"; 
+			} else {
+				document.getElementById( "iframeCSharp" ).src=""; 
+			}
 
-				<h2><b>• Form 01:</b></h2>
-				<p id="descrApp001CSharp" class="justify" >
-				Dopo aver creato un WinForm .NET project (in C#) ed aver preparato la relativa WebView2 oltre al componente ReoGrid - .NET Spreadsheet (anche mediante l'utilizzo del relativo pacchetto NuGet), l'Applicazione in questione utilizza una pagina HTML mediante la quale richiamare le funzioni ed i Marker della Libreria Leaflet (Javascript). Le coordinate di inserimento dei Marker saranno poi elencate nel foglio disposto a lato dell'Applicazione. In questo contesto la comunicazione tra C# e Javascript viene assicurata tramite l'istruzione webView21.ExecuteScriptAsync e dalle istruzioni chrome.webview.postMessage. La gestione degli handlers / eventi è definita partendo dall'evento WinForm Load, attraverso espressioni come webView21.NavigationCompleted += (,_ args) => {...}. Link alle immagini di esempio:
-				</p>
-				<!-- "display: block; margin-left: auto; margin-right: auto; max-width: 100%; max-height: auto; width: 50%; height: auto;" -->
-				<br>
-				<div>
-					<table style="width:80%; margin-left: auto; margin-right: auto;">
-						<tr>
-							<td ><img src="./CSharp/App001/Image/Image01.png" alt="Image01" width="99%" height="auto"></td>
-							<td ><img src="./CSharp/App001/Image/Image02.png" alt="Image02" width="100%" height="auto"></td>
-						</tr>
-					</table>
-
-				</div>
-
-			</div>
-
-		</div>
+		</script>
 
 	</div>
 
 	<div id="schedaJavascript" > 
 
-		Alcune Applicazioni sviluppate in Javascript tramite GitHub Desktop e Visual Studio Code.
-		<br>
-		<br>
-		Impiego di:
-		<br>
-		- pacchetto NPM disponibile tramite <a href="https://github.com/jyotiska/prettytable">GitHub Jyotiska/Prettytable</a> o <a href="https://www.jsdelivr.com/package/npm/prettytable">JsDelivr Jyotiska/Prettytable</a>;
-		<br>
-		- Bundler / Impacchettatore lato Client (per Browser) <a href="https://github.com/browserify/browserify?tab=readme-ov-file#external-requires">Browserify</a> (vedi <u>browserify -r prettytable > bundle.js</u>).
-		<br>
-		<br>
-		<b>
-			*** ATTENZIONE ***: le Librerie, i Framework ed eventuali altri elementi ad essi associati appartengono ai rispettivi proprietari. 
-		</b>
-		<br>
-		<br>
-
-		<div id="tabellaJs" class="grid">
-
-			<div id="blocco01Js" class="span4 roundBorder" >
-
-				<h2>• Fibonacci sequence</h2>
-				Inserici un valore numerico (>=2 && <=99) per calcolare i valori della serie (premi INVIO):
-				<br>
-				<input type="text" id="txt_upperLimitFibonacci" class= "centerInputText" size="1" value="99" > 
-				<br>
-				<!-- <textarea id="txt_outputFibonacci" class="textAreaNoBorder" ></textarea> -->
-
-				<div id="fibonacci-table"></div>
-
-				<script>
-
-					var upperLimitFibonacci = 99;
-
-					var fibonacciTable = new Tabulator("#fibonacci-table", {
-						spreadsheet:true,
-						spreadsheetData: [ ], //DEVE essere inizializzato
-						spreadsheetRows:10,
-						spreadsheetColumns:10,
-						spreadsheetColumnDefinition:{editor:"input" , width: "180" },
-						rowHeader:{field:"_id", hozAlign:"center", headerSort:false},
-						spreadsheetOutputFull: true, //export all data including empty columns
-						editorEmptyValue:undefined
-						
-					});
-
-					document.getElementById('txt_upperLimitFibonacci').addEventListener('keydown', function(e) {
-						if (e.key == 'Enter' ) { //Blur, onBlur
-							controlAndCalcFibonacci(); 
-						}
-					});
-
-					function controlAndCalcFibonacci() {
-						var tempUpperLimit = document.getElementById('txt_upperLimitFibonacci').value;
-						if( isNaN( tempUpperLimit ) || ( tempUpperLimit % 1 != 0 ) ) {
-							alert( "Inserisci un valore numerico intero." );
-						} else if( tempUpperLimit < 2 || tempUpperLimit > 99 ) {
-							alert( "Inserisci un valore numerico compreso fra 2 e 99." );
-						} else {
-							upperLimitFibonacci = parseInt( tempUpperLimit ); 
-							calculateFibonacci( ); 
-						}
-					}
-
-					/*
-					const PrettyTable = require("prettytable");
-
-					function calculateFibonacci( ) {
-
-						var tableFib = new PrettyTable();
-						var headersFib = [ "Indice", "Valore" ];
-						var rowsFib = [ ];  
-						
-						for( var i = 0; i <= upperLimitFibonacci; i++ ) {
-
-							var strPos = "" + (i <= 9 ? "0" : "" ) + i; 
-
-							if( i == 0 ) {
-								rowsFib.push( [ strPos , 0 ] ); 
-							} else if( i == 1 ) {
-								rowsFib.push( [ strPos , 1 ] ); 
-							} else {
-								//var tempNumb = "" + ( rowsFib[ i - 2 ][ 1 ] + rowsFib[ i - 1 ][ 1 ] ).toLocaleString(); //separatore migliaia
-								rowsFib.push( [ strPos , rowsFib[ i - 2 ][ 1 ] + rowsFib[ i - 1 ][ 1 ] ] ); 
-							}
-
-						}
-
-						tableFib.create( headersFib , rowsFib );
-						var tableFibString = tableFib.toString();
-						//console.log( tableFibString );
-
-						document.getElementById( "txt_outputFibonacci" ).innerHTML = tableFibString;
-						document.getElementById( "txt_outputFibonacci" ).readOnly = true;
-
-					}
-					*/
-
-					function calculateFibonacci( ) {
-						var rowsFib = [ ]; 
-						
-						for( var i = 0; i <= upperLimitFibonacci; i++ ) {
-							if( i==0 ) {
-								rowsFib.push( 0 );
-							} else if( i==1 ) {
-								rowsFib.push( 1 );
-							} else {
-								rowsFib.push( rowsFib[ i - 2 ] + rowsFib[ i - 1 ] );
-							}
-						}
-
-						var fibonacciData = [ ]; 
-
-						const chunkSize = 10;
-					
-						for (var i = 0; i < rowsFib.length; i += chunkSize) {
-    						fibonacciData.push( rowsFib.slice(i, i + chunkSize) );
-						}
-
-						//console.log( fibonacciData );
-
-						fibonacciTable.setSheetData( fibonacciData );  // NON setData
-
-					}
-
-					fibonacciTable.on( "tableBuilt", function() { //EVITARE Warning 
-						calculateFibonacci();
-					}); 
-
-				</script>
-
-			</div>
-
-			<div id="blocco02Js" class="span4 roundBorder" >
-
-				<h2>• Prime numbers</h2>
-				Inserici un valore massimo (>=1 && <=999) 
-				<br>
-				<input type="text" id="txt_upperLimitPrimeNumbers" class= "centerInputText" size="1" value="20" >
-				<!-- <br> -->
-				entro il quale calcolare i numeri primi (premi INVIO): 
-				<br>
-				<textarea id="txt_outputPrimeNumbers" class="textAreaNoBorder" ></textarea>
-				<script>
-
-					var upperLimitPrimeNumbers = 20;
-
-					document.getElementById('txt_upperLimitPrimeNumbers').addEventListener('keydown', function(e) {
-						if (e.key == 'Enter' ) { //Blur, onBlur
-							controlAndCalcPrimeNumbers(); 
-						}
-					});
-
-					function controlAndCalcPrimeNumbers() {
-						var tempUpperLimit = document.getElementById('txt_upperLimitPrimeNumbers').value;
-						if( isNaN( tempUpperLimit ) || ( tempUpperLimit % 1 != 0 ) ) {
-							alert( "Inserisci un valore numerico intero." );
-						} else if( tempUpperLimit < 1 || tempUpperLimit > 999 ) {
-							alert( "Inserisci un valore numerico compreso fra 1 e 999." );
-						} else {
-							upperLimitPrimeNumbers = parseInt( tempUpperLimit ); 
-							calculatePrimeNumbers( ); 
-						}
-					}
-
-					function calculatePrimeNumbers( ) {
-						arrPrime = [ ];
-						strPrime = "";    
-						for( var i = 1; i <= upperLimitPrimeNumbers; i++ ) {
-							
-							//Control of prime numbers
-							var contRestDiv = 0; 
-							for( var j = 1; j <= i; j++ ) {
-								if( i % j == 0 ) {
-									contRestDiv++;
-								}
-
-								if( i == 1 ) { //special case for 1
-									contRestDiv++;
-								}
-							} 
-
-							if( contRestDiv == 2 ) { //for 1 and for itself
-								arrPrime.push( i );
-							} 
-
-						}
-
-						for( var i = 0; i < arrPrime.length; i++ ) {
-							strPrime = strPrime + "Posizione " + (i <= 9 ? "0" : "" ) + i + " - " + arrPrime[ i ].toLocaleString() + "\n";
-						}
-
-						document.getElementById( "txt_outputPrimeNumbers" ).innerHTML = strPrime;
-						document.getElementById( "txt_outputPrimeNumbers" ).readOnly = true;
-
-					}
-
-					calculatePrimeNumbers();
-
-				</script>
-
-			</div>
-
-			<div id="blocco03Js" class="span4 roundBorder" >
-
-				<h2>• Number Base</h2>
-				Conversioni sul valore (>=1 && <=10<sup>12</sup>) scelto  
-				<br>
-				<input type="text" id="txt_numberBaseValue" class= "centerInputText" size="12" value="1000000" > 
-				<!-- <br> -->
-				in base 10 (premi INVIO):
-				<br>
-				<textarea id="txt_outputNumberBase" class="textAreaNoBorder" ></textarea>
-				<script>
-
-					var numberBaseValue = 1000000;
-
-					document.getElementById('txt_numberBaseValue').addEventListener('keydown', function(e) {
-						if (e.key == 'Enter' ) { //Blur, onBlur
-							controlAndCalcNumberBase(); 
-						}
-					});
-
-					function controlAndCalcNumberBase() {
-						var tempNumberBaseValue = document.getElementById('txt_numberBaseValue').value;
-						if( isNaN( tempNumberBaseValue ) || ( tempNumberBaseValue % 1 != 0 ) ) {
-							alert( "Inserisci un valore numerico intero." );
-						} else if( tempNumberBaseValue < 1 || tempNumberBaseValue > 1000000000000 ) {
-							alert( "Inserisci un valore numerico compreso fra 1 e 1'000'000'000'000." );
-						} else {
-							numberBaseValue = parseInt( tempNumberBaseValue ); 
-							calculateNumberBase( ); 
-						}
-					}
-
-					function calculateNumberBase( ) {
-						//arrNumbBase = [ ];
-						strNumbBase = "";   
-						
-						for( var base = 2; base <= 16; base++ ) {
-							strNumbBase = strNumbBase + "Base " + (base <= 9 ? "0" : "" ) + base + " - " + numberBaseValue.toString( base ) + "\n";
-						}					
-
-						document.getElementById( "txt_outputNumberBase" ).innerHTML = strNumbBase;
-						document.getElementById( "txt_outputNumberBase" ).readOnly = true;
-
-					}
-
-					calculateNumberBase();
-
-				</script>
-
-			</div>
-
-			<div id = "blocco04Js" class = "span4 roundBorder" >
-				<h2>• PictureBox</h2>
-				Varia i quattro Slider e cambia colore ... 
-				<div id="div_pictureBox">
-				</div>
-
-				<div >
-					<table>
-						<tr>
-							<td>Rosso: </td> <td ><input type="range" id="sliderRed" class="slider"  min="0" max="255"  value="255" oninput="changeColor();"></td>
-						</tr>
-						<tr>
-							<td>Verde: </td> <td ><input type="range" id="sliderGreen" class="slider" min="0" max="255"  value="150" oninput="changeColor();"></td>
-						</tr>
-						<tr>
-							<td>Blu: </td> <td ><input type="range" id="sliderBlue" class="slider" min="0" max="255"  value="0" oninput="changeColor();"></td>
-						</tr>
-						<tr>
-							<td>Alpha: </td> <td ><input type="range" id="sliderAlpha" class="slider" min="0" max="100"  value="255" oninput="changeColor();"></td>
-						</tr>
-
-					</table>
-				</div>
-
-				<script>
-					function changeColor() {
-						valueRed = document.getElementById( "sliderRed" ).value;
-						valueGreen = document.getElementById( "sliderGreen" ).value;
-						valueBlue = document.getElementById( "sliderBlue" ).value;
-						valueAlpha = document.getElementById( "sliderAlpha" ).value;
-						valueAlphaFloat = ( valueAlpha / 100.00 ).toFixed(2);
-						document.getElementById("div_pictureBox").style.backgroundColor = 'rgba(' + valueRed + ',' + valueGreen + ',' + valueBlue + ',' + valueAlphaFloat + ')';
-						document.getElementById("txt_valueColor").value = '(' + valueRed + ',' + valueGreen + ',' + valueBlue + ',' + valueAlphaFloat + ')'
-					}
-
-				</script>
-				<br>
-				Valore del colore (rgba, con a / alpha trasparenza):
-				<br>
-				<input type="text" id="txt_valueColor" class= "centerInputText" size="12" >
-				<br>
-
-				<script>
-					changeColor();
-				</script>
-
-			</div> 
-
-			<div id = "blocco05Js" class = "span4 roundBorder" >
-
-				<h2>• Leaflet Map</h2>
-				Esempio di Applicazione della libreria Javascript <a href="https://leafletjs.com/">LeafletJS</a>, ovvero:
-				<br> 
-				<br> 
-				
-				<div id="appLeafletMap">
-					<div id="leafletMap" >
-
-						<script>
-							var map = L.map('leafletMap').setView([51.505, -0.09], 13);
-
-							L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-								maxZoom: 22,
-								attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-							}).addTo(map);
-
-						</script>
-
-					</div>
-
-					<div id="controlliLeafletMap" > 
-						In costruzione ... 
-
-					</div>
-
-				</div>
-				
-			</div>
-
-		</div>
+		<iframe
+			id="iframeJavascript" 
+			src=""  
+			width="100%"
+			height="100%"
+			frameBorder="0"
+
+		></iframe>
+
+		<script>
+			if( iframeAttivi.iframeJavascript == true ) {
+				//https://geoinf25.github.io/site/schedaJavascript.html
+				document.getElementById( "iframeJavascript" ).src="./schedaJavascript.html"; 
+			} else {
+				document.getElementById( "iframeJavascript" ).src=""; 
+			}
+
+		</script>
 
 	</div>
 
 	<div id="schedaJava" > 
 
-		<div id="descrApplet" class="justify" >
-			Applet Java considerate generalmente defunte, in quest'ambito l'Estensione per Browser <a href="https://labs.leaningtech.com/docs/cheerpj-applet-runner">CheerpJ Applet Runner</a> permette di ottenere nuovi risultati; la visualizzazione delle Applet relative risulta possibile tramite la semplice installazione ed attivazione dell'Estensione di cui sopra. 
-			<br>
-			<br>
-			<b>
-				*** ATTENZIONE ***: i Servizi richiamati appartengono ai rispettivi proprietari. 
-			</b>
-			<br>
-			<br>
+		<iframe
+			id="iframeJava" 
+			src=""  
+			width="100%"
+			height="100%"
+			frameBorder="0"
 
-		</div>
+		></iframe>
 
-		<div id="tabellaJava" class="grid">
+		<script>
+			if( iframeAttivi.iframeJava == true ) {
+				//https://geoinf25.github.io/site/schedaJava.html
+				document.getElementById( "iframeJava" ).src="./schedaJava.html"; 
+			} else {
+				document.getElementById( "iframeJava" ).src=""; 
+			}
 
-			<div id = "blocco01Java" class = "span1 roundBorder" >
-				<h2>• Applet Java</h2>
-				In costruzione ... 
-			</div>
-
-		</div>
+		</script>
 		
 	</div>
 
 	<div id="schedaDatabase" > 
 
-		<div>
-			Esempi di Applicazione del Database Sqlite / Spatialite. 
-			<br>
-			<br>
-			<b>
-				*** ATTENZIONE ***: i Servizi di Database richiamati nel seguito appartengono ai rispettivi proprietari. 
-			</b>
-			<br>
-			<br>
-			
-		</div>
+		<iframe
+			id="iframeDatabase" 
+			src=""  
+			width="100%"
+			height="100%"
+			frameBorder="0"
 
-		<div id="tabellaDb" class="grid">
+		></iframe>
 
-			<div id = "blocco01Db" class = "span4 roundBorder" >
+		<script>
+			if( iframeAttivi.iframeDatabase == true ) {
+				//https://geoinf25.github.io/site/schedaDatabase.html
+				document.getElementById( "iframeDatabase" ).src="./schedaDatabase.html"; 
+			} else {
+				document.getElementById( "iframeDatabase" ).src=""; 
+			}
 
-				<h2>• Link esterni per Database (di tipo Relazionale / NON Relazionale)</h2>
-				
-				- Query di esempio in ambito MySQL: <a href="https://www.w3schools.com/MySQL/trymysql.asp?filename=trysql_select_all">W3School MySQL</a>
-				<br>
-				- Query di esempio in ambito PostgreSQL, SQL Server, MySQL: <a href="https://runsql.com/r">Run SQL</a>
-				<br>
-				- Query di esempio in ambito MongoDB: <a href=https://www.humongous.io/tools/playground/mongodb/new>MongoDB Query</a>
-				<br>
-
-			</div>
-
-			<div id = "blocco02Db" class = "span4 roundBorder" >
-
-				<h2>• Database Relazionale SQLITE</h2>
-
-				Definizione di due Tabelle: Classe, Studente. 
-				<br>
-				Popolamento / Valorizzazione delle Tabelle in riferimento al numero di ID scelti:
-				<br>
-
-				<div class="popup" > <!-- posizione Popup -->
-					<table>
-						<tr><td>- nr. ID Tabella Classe (valore compreso fra 1 e 25, predefinito 15): </td> <td>
-							<input type="number" id="totIDTabClass" min="1" max="25" value="15" style="width: 10vh" ></td> <!-- No size -->
-						<tr>
-						<tr><td>- nr. ID Tabella Studente (valore compreso fra 1 e 150, predefinito 120): </td> <td>
-							<input type="number" id="totIDTabStudent" min="1" max="150" value="120" style="width: 10vh" ></td> <!-- No size -->
-						<tr>
-					</table>
-					<span class="popuptext" id="popupInputDb01" 
-						onclick="/*this.style.display = 'none';*/ this.style.visibility = 'hidden'; " >
-					</span>
-				</div>
-
-				<script>
-
-					var totIDTabClass = { obj: document.getElementById( "totIDTabClass" ), limInf: 1,  limSup: 25, predef: 15 };
-					var totIDTabStudent = { obj: document.getElementById( "totIDTabStudent" ), limInf: 1,  limSup: 150, predef: 120 }; 
-
-					totIDTabClass.obj.addEventListener( "keydown", function(e) {
-						if( e.key == "Enter" ) {
-							contrIDTableDb01( totIDTabClass.obj, totIDTabClass.limInf, totIDTabClass.limSup, totIDTabClass.predef ); 
-						}
-					}); 
-					totIDTabClass.obj.addEventListener( "blur", function(e) {
-						contrIDTableDb01( totIDTabClass.obj, totIDTabClass.limInf, totIDTabClass.limSup, totIDTabClass.predef ); 
-					}); 
-
-					totIDTabStudent.obj.addEventListener( "keydown", function(e) {
-						if( e.key == "Enter" ) {
-							contrIDTableDb01( totIDTabStudent.obj, totIDTabStudent.limInf, totIDTabStudent.limSup, totIDTabStudent.predef ); 
-						}
-					}); 
-					totIDTabStudent.obj.addEventListener( "blur", function(e) {
-						contrIDTableDb01( totIDTabStudent.obj, totIDTabStudent.limInf, totIDTabStudent.limSup, totIDTabStudent.predef ); 
-					}); 
-					
-					function contrIDTableDb01( obj, min, max, predef ) {
-						//NON utilizzare Alert
-						//var tempTotIDTabClass = document.getElementById('totIDTabClass').value;
-						var popupInputDb01 = document.getElementById("popupInputDb01");
-						if( obj.value == "" || ( obj.value % 1 != 0 ) ) {
-							popupInputDb01.innerHTML = "Inserisci un valore numerico intero <br>(Clicca qui per chiudere)";
-							//popupInputDb01.style.display = "display";  
-							popupInputDb01.style.visibility = "visible";
-							//obj.value = predef;
-
-						} else if( obj.value < min || obj.value > max ) {
-							popupInputDb01.innerHTML = "Inserisci un valore numerico compreso fra "+ min + " e " + max + " <br>(Clicca qui per chiudere)";
-							//popupInputDb01.style.display = "display";  
-							popupInputDb01.style.visibility = "visible";  
-							//obj.value = predef;
-
-						} else {
-							//tempTotIDTabClass = parseInt( tempTotIDTabClass );  
-							//Do nothing, value ok
-						}
-					}
-
-				</script>
-
-				<br>
-				<button id="btn_tablePopulating" >Valorizza Tabelle</button>
-
-				<div id="displayTabDbEs01">
-
-					<div id="displayTabClassDbEs01" >
-						<br>
-						<u> - Tabella "Classe" - </u> 
-						<br>
-						<textarea id="txt_displayTabClassDbEs01" ></textarea>
-
-					</div>
-
-					<div id="displayTabStudentDbEs01" >
-						<br>
-						<u> - Tabella "Studente" - </u> 
-						<br>
-						<textarea id="txt_displayTabStudentDbEs01" ></textarea>
-
-					</div>
-
-					<script>
-						document.getElementById("txt_displayTabClassDbEs01").innerHTML = "Attendi ... ";
-						document.getElementById("txt_displayTabStudentDbEs01").innerHTML = "Attendi ... ";
-
-						document.getElementById("txt_displayTabClassDbEs01").readOnly = true;
-						document.getElementById("txt_displayTabStudentDbEs01").readOnly = true;
-					</script>
-
-				</div>
-
-				<br>
-
-				<div id="querySQLResultDbEs01" >
-					<div id="querySQLDbEs01" >
-						<br>
-						<br>
-						<u> - Query SQL - </u> 
-						<br>
-						<br>
-						Scegli una delle Query esistenti o scrivi direttamente un'Interrogazione / Query SQL: 
-						<br>
-						<select id="select_listQuerySQLDb01">
-							<!-- <option value="query01">query01Text</option> -->
-						</select>
-
-						<textarea id="txt_displayQuerySQLDbEs01" ></textarea> <!-- </textarea> input ... -->
-
-						<script>
-
-							var select_listQuerySQLDb01 = document.getElementById("select_listQuerySQLDb01"); 
-							array_listQuerySQLDb01 = [
-								"select * from Classe \n/* Descrizione delle Classi presenti */", 
-								"select * from Studente \n/* Descrizione degli Studenti presenti */",  
-								"select * from Classe where tipo = 'Aula' \n/* Descrizione del tipo 'Aula' */",
-								"select count(*) as num_stud from Studente \n/* Numero totale di Studenti */", 
-								"select sum(superficieMq) as totSuperficieMq from Classe \n/* Superficie totale coperta */", 
-								"select distinct( tipo ) as disTipo from Classe order by disTipo asc \n/* Elenco delle tipologie di spazi */", 
-								"select count(idStud) as numStud, round( avg( eta ) , 2 ) as etaMediaPerClasse, idClass from Studente group by idClass \n/* Numero di Studenti ed Età media degli stessi per ciascuna Classe */",
-								"WITH const AS (SELECT max(eta) as maxEta from Studente) \nselect * from Studente, const where eta = const.maxEta \n/* Elenco degli Studenti più anziani - Common Table Expression (CTE) */",
-								"select * from Classe where tipo like '%Aula%' order by tipo asc\n/* Elenco delle tipologie di 'Aula' */", 
-								"Update Studente set luogoNascita = 'Roma' where idStud = 6 \n/* Aggiornamento riga Database con condizioni relative */", 
-								"Update Studente set luogoNascita = 'Roma' \n/*Aggiornamento del Luogo di Nascita per ogni riga della Tabella 'Studente' */",
-								"select idStud, nome, cognome, eta, luogoNascita, C.idClass, superficieMq, piano, tipo from Studente as S inner join Classe as C on S.idClass = C.idClass \n/* Inner Join fra le due Tabelle dove NON risulta consentito il ripetersi di C.idClass, S.idClass */",
-								"select idStud, nome, cognome, eta, luogoNascita, C.idClass, superficieMq, piano, tipo from Studente as S inner join Classe as C \n" + 
-								"on S.idClass = C.idClass where piano = '1' \n/* Elenco degli Studenti presenti al Piano '1' */",
-							]; 
-
-							var contListQuerySQLDb01 = 0; 
-							array_listQuerySQLDb01.forEach( function( query ) {
-								var tempOpt = document.createElement('option');
-								tempOpt.value = query;
-								var tempExpr = query.substring( 0 , query.indexOf("\n/*") ).toUpperCase();  
-								if( tempExpr.length <= 75 ) {
-									tempOpt.innerHTML = tempExpr; 
-								} else {
-									tempOpt.innerHTML = tempExpr.substring( 0 , 75 + 1 ) + "..."; 
-								} 
-
-								if( contListQuerySQLDb01 == 8 ) {
-									tempOpt.selected = "true"; //Opzione selezionata
-								}
-								select_listQuerySQLDb01.appendChild( tempOpt ); 
-
-								contListQuerySQLDb01++; 
-							}); 
-
-							select_listQuerySQLDb01.addEventListener( "change", function( e ) {
-								document.getElementById("txt_displayQuerySQLDbEs01").value = "" + select_listQuerySQLDb01.value; 
-							});
-
-							/*document.getElementById("txt_displayQuerySQLDbEs01").value = "Attendi ... "; */ /*innerHTML*/  
-						</script>
-
-					</div>
-
-					<button id="btn_executeQuerySQL" >Esegui Query SQL</button>
-
-					<div id="resultDbEs01" >
-						<br>
-						<u> - Risultato dell'interrogazione - </u> 
-						<br>
-						<textarea id="txt_displayResultDbEs01" ></textarea>
-					</div>
-
-					<script>
-						//document.getElementById("txt_displayQuerySQLDbEs01").readOnly = true;
-						document.getElementById("txt_displayResultDbEs01").readOnly = true;
-
-					</script>
-
-				</div>
-				
-				<py-script>
-
-					from db01 import *
-
-					js.barLoading.style.width = "75%"; 
-					js.barLoading.innerHTML = "Loading ... 75%"; 
-
-				</py-script>
-
-				<script>
-					//
-				</script>
-				
-			</div>
-
-		</div>
+		</script>
 
 	</div>
 
 	<div id="schedaGIS" > 
 		
-		<div>
-			Cartografia in ambito Web-GIS, alcuni esempi. 
-			<br>
-			<br>
-			<b>
-				*** ATTENZIONE ***: gli elementi richiamati nel seguito appartengono ai rispettivi proprietari. 
-			</b>
-			<br>
-			<br>
-			Alcune note:
-			<br> 
-			- Link GitHub di riferimento: <a href="https://github.com/planetsig/ufo-reports">Ufo Reports Dataset</a>; 
-			<br>
-			- Link al file CSV: <a href="https://raw.githubusercontent.com/planetsig/ufo-reports/master/csv-data/ufo-scrubbed-geocoded-time-standardized.csv">File CSV</a>; 
-			<br>
-			- Articolo di riferimento: <a href="https://drlee.io/exploring-ufo-sightings-with-python-pandas-and-google-colab-3cf24d1843d3">Exploring UFO Sightings with Python, Pandas, and Google Colab</a>; 
-			<br>
-			<!-- - Impiego della Libreria Python <a href="https://python-visualization.github.io/folium/latest/">Folium</a>;
-			<br> -->
-			- Impiego della Libreria Leaflet <a href="https://leafletjs.com/">Leaflet</a>.
-			<br>
-			<br>
-			
-		</div>
+		<iframe
+			id="iframeGIS" 
+			src=""  
+			width="100%"
+			height="100%"
+			frameBorder="0"
 
-		<div id="tabellaGIS" class="grid">
+		></iframe>
 
-			<div id = "blocco01GIS" class = "span4 roundBorder" >
+		<script>
+			if( iframeAttivi.iframeGIS == true ) {
+				//https://geoinf25.github.io/site/schedaGIS.html
+				document.getElementById( "iframeGIS" ).src="./schedaGIS.html"; 
+			} else {
+				document.getElementById( "iframeGIS" ).src=""; 
+			}
 
-				<div id="totMap02" style ="width: 100%; ">  
-					<div id="titleMap02" >
-						<p> <u>Mappa Leaflet</u>:  </p> 
-						<br>
-					</div>
-
-					<div id="contMap02" style="float: left; width: 85%; "> <!-- overflow: hidden; height: 60vh -->
-						<div id="leafletMap02" style="height: 60vh; border: 2px solid " ></div> 
-					</div>
-
-					<div id="contControlMap02" style="float: right; width: 14%; height: 60vh; " > <!-- overflow-x: scroll; overflow-y: scroll; -->
-						<div id="contControlMap02ParteSup" >
-							<p class= "justify" >Informazioni sulla mappa lato Leaflet: </p> 
-							<table style="width: 100%;" >
-								<tr>
-									<td style="width: 35%; " ><input type="text" value="- Lat: " style="width: 100%; border: none; " readonly></input></td>
-									<td style="width: 65%; " ><input id="txt_latMap02" type="text" style="width: 100%; " value = "--" readonly></input></td>
-								</tr>
-								<tr>
-									<td style="width: 35%; " ><input type="text" value="- Lng: " style="width: 100%; border: none; " readonly></input></td>
-									<td style="width: 65%; " ><input id="txt_lngMap02" type="text" style="width: 100%; " value = "--" readonly></input></td>
-								</tr>
-								<tr>
-									<td style="width: 35%; " ><input type="text" value="- Zoom: " style="width: 100%; border: none; " readonly></input></td>
-									<td style="width: 65%; " ><input id="txt_zoomMap02" type="text" style="width: 100%; " value = "--" readonly></input></td>
-								</tr>
-							</table>
-
-							<hr/>
-
-							Avvistamenti UFO nell'anno <input id="num_annoAvvistamentoUFO" type="text" min="1906" max="2014" value="1906" style="width: 6vh; font-weight:bold; " maxlength="4" > (la perdita del focus sul campo avvia la visualizzazione degli eventuali Marker sulla mappa) <!-- type='number' -->
-							<br>
-							<hr/>
-
-							Console: 
-						</div>
-						<div id="contControlMap02ParteInf" >
-							<textarea id="consoleMap02" style="width: 100%; resize: none; overflow: scroll; " readonly ></textarea>
-						</div>
-					</div>
-
-				</div>
-
-				<script>
-					//contFoliumMapOffsetHeight = document.getElementById( "contFoliumMap" ).offsetHeight;  
-					//offsetWidth_contFoliumMap = document.getElementById( "contFoliumMap" ).offsetWidth; 
-					
-					//var testArray = [ 1, 2, 3 ]
-
-					//consoleMap02
-					document.getElementById( "consoleMap02" ).style.height = document.getElementById( "contMap02" ).offsetHeight - document.getElementById("contControlMap02ParteSup" ).offsetHeight; 
-
-					var map02 = L.map('leafletMap02' , { 
-						zoomSnap: 1 , //1
-						zoomDelta : 1, 
-						wheelPxPerZoomLevel: 90, //60 
-
-					} ).setView([ 0.0, 0.0], 3);
-
-					var baseOSM = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    					maxZoom: 19,
-					}).addTo(map02);
-
-					var baseOpenTopoMap = L.tileLayer('https://tile.opentopomap.org/{z}/{x}/{y}.png', {
-    					maxZoom: 16,
-					}).addTo(map02);
-
-					var baseGoogleHybrid = L.tileLayer('https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}', {
-    					maxZoom: 19,
-					}).addTo(map02);
-
-					var baseGoogleSatellite = L.tileLayer('https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
-    					maxZoom: 19,
-					}).addTo(map02);
-
-					var baseGoogleRoad = L.tileLayer('https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
-    					maxZoom: 19,
-					}).addTo(map02);
-
-					map02.addEventListener('mousemove', function( e ) {
-						//innerHTML textArea
-   						document.getElementById( "txt_latMap02" ).value  = ( e.latlng.lat ).toFixed( 6 ); 
-						document.getElementById( "txt_lngMap02" ).value  = ( e.latlng.lng ).toFixed( 6 );
-					});
-
-					map02.addEventListener('zoomend', function( e ) {
-						//innerHTML textArea
-						document.getElementById( "txt_zoomMap02" ).value  = ( map02.getZoom() ).toFixed( 2 );
-					});
-
-					baseMaps = {
-						"OpenStreetMap": baseOSM,
-						"OpenTopoMap": baseOpenTopoMap,
-						"Google Hybrid": baseGoogleHybrid,
-						"Google Satellite": baseGoogleSatellite,
-						"Google Road": baseGoogleRoad,
-					}
-
-					var overlayMaps = {
-						//GeoJSON data initialization 
-					};
-
-					var layerControl = L.control.layers(baseMaps, overlayMaps).addTo( map02 );
-
-					var layerMiniMap = L.tileLayer( 'https://tile.openstreetmap.org/{z}/{x}/{y}.png' ); 
-					var miniMap = new L.Control.MiniMap( layerMiniMap , { 
-						toggleDisplay : true , 
-						width: Math.round( window.screen.width /15 ), 
-						height: Math.round( window.screen.height /15 ) , 
-					} ).addTo(map02);
-
-					var layerDrawItems = new L.FeatureGroup();
-					
-					//map02.addLayer( layerDrawItems );
-					overlayMaps[ "layerDrawItems" ] = layerDrawItems; 
-
-					layerControl.remove( map02 );
-					layerControl = L.control.layers(baseMaps, overlayMaps).addTo( map02 );
-
-     				var drawControl = new L.Control.Draw({
-         				edit: {
-             				featureGroup: layerDrawItems,
-         				},
-						draw: {
-							polyline: {	metric: 'metric' },
-							polygon : { metric: 'metric' },
-							rectangle: { metric: 'metric' },  
-							circle: { metric: 'metric' },
-							marker: { metric: 'metric' }, 
-							circlemarker: { metric: 'metric' }, 
-        				},
-     				});
-    				
-					map02.addControl(drawControl);
-
-					map02.on( "draw:created" , function( e ) {
-						var type = e.layerType; 
-						var layer = e.layer; 
-
-						var popup = L.popup().setContent( "" + JSON.stringify( layer.toGeoJSON() ) );
-
-						layer.bindPopup( popup ); 
-						console.log( layer.toGeoJSON() );
-						document.getElementById( "consoleMap02" ).innerHTML += 
-							"Type of Feature: " + type + "\n";
-						
-						layerDrawItems.addLayer( layer ); 
-					}); 
-
-					map02.on( "draw:edited" , function( e ) {
-						var type = e.layerType; 
-						var layer = e.layer; 
-						document.getElementById( "consoleMap02" ).innerHTML += "draw : edited" + "\n";
-
-					}); 
-
-					var click_elements = document.getElementsByClassName("leaflet-control-layers-selector");
-					//for( var i = 0; i < click_elements.length; i++ ) {
-						//console.log( click_elements[ i ] ); 
-					//}
-					click_elements[ click_elements.length - 1 ].click(); 
-
-					var measureControl = new L.Control.Measure( { primaryLengthUnit: "kilometers" , primaryAreaUnit: "sqmeters" } );
-
-					// Disable auto-pan by overriding the plugin’s internal method(s):
-					L.Control.Measure.include({
-						// Prevent auto-panning when the capture marker is placed
-						_setCaptureMarkerIcon: function () {
-							// Turn off autoPan
-							this._captureMarker.options.autoPanOnFocus = false;
-							// Call the original icon setup
-							this._captureMarker.setIcon(
-							L.divIcon({
-								iconSize: this._map.getSize().multiplyBy(2),
-							})
-							);
-						},
-
-						// Optionally, override _startMeasure or other private methods if needed
-						// _startMeasure: function () {
-							//   // Your custom override
-						// },
-						});
-
-					measureControl.addTo( map02 );
-					
-				</script>
-
-				<script type="text/javascript">
-
-					ufoDb = null;
-
-					//SET AUTOCOMMIT ON
-
-					alasql.fn.myfn = function ( arg ) {
-						return( arg.split( " " )[0] ); 
-					};
-					/*
-    				alasql.promise([
-						'CREATE TABLE Tab (datetime string, city string, state string, country string, shape string, duration_seconds string, duration_text string, description string, report_date string, latitude string, longitude string) ',
-						'SELECT [0] as datetime, [1] as city, [2] as state, [3] as country, [4] as shape, [5] as duration_seconds, [6] as duration_text, [7] as description, [8] as report_date, [9] as latitude, [10] as longitude INTO Tab FROM CSV("https://geoinf25.github.io/site/GIS/UfoDataset.csv",{headers:false})',
-						'ALTER TABLE Tab ADD COLUMN date STRING',
-						'UPDATE Tab SET date = myfn( datetime ) ',
-						'SELECT * FROM Tab'
-						
-					]).then(function (res) {
-						ufoDb = res[4]; //Json
-						
-						console.log( ufoDb ); 
-						//document.getElementById( "txt_resQueryUfoDb" ).innerHTML = JSON.stringify( json , null , 11 ); 
-
-						alasql.promise('SELECT * FROM ? WHERE YEAR(date) = 1987 ' , [ ufoDb ]).then( function( fin ) {
-							//console.log( fin[0] ); 
-
-							document.getElementById( "txt_resQueryUfoDb" ).innerHTML = "" + fin[0]["datetime"]; 
-						}); 
-						
-					});
-					*/
-
-				</script>
-
-				<!--
-				<py-script > 
-						
-						#output="foliumMap" in py-script tag
-
-						from gis01 import *
-
-						#js.barLoading.style.width = "100%"; 
-						#js.barLoading.innerHTML = "Loading ... 100%"; 
-
-				</py-script>
-				-->
-
-				<script>
-					//var mm = Object.values(window).find(obj => obj && obj._leaflet_id && obj.getContainer());
-					//var mm = Object.values(window).find(obj => obj && obj._leaflet_id && obj.getContainer() );
-
-					//console.log( Object.values(window) )
-					//console.log( mm )
-
-					//nameFoliumMap = ""; 
-
-
-				</script>
-
-
-				<div style=" clear: both">
-					<br>
-				</div>
-
-				<div id="totQueryUfoDb" style="width: 100%; height: auto; "> <!-- border-style: solid;  -->
-					<u>- Query SQL (Table 'Ufo') -</u>
-					<br>
-					<br>
-					Scrivi una Query SQL: 
-					<br>
-					<div>
-						<textarea id= "txt_queryUfoDb" style="width: 85%; height: 10vh; resize: none; float: left; " ></textarea>
-						<button id="btn_executeQueryUfoDb" style="width: 14%; height: 10vh; float: right;  " >Esegui Query UfoDb</button>
-					</div>
-
-					<div style=" clear: both">
-						<br>
-					</div>
-
-					<u>- Risultato della Query SQL -</u>
-					<br>
-					<textarea id= "txt_resQueryUfoDb" style="width: 100%; height: 50vh; resize: none; overflow: scroll; white-space: pre;" readonly ></textarea>
-
-				</div>
-
-			</div>
-
-		</div>
+		</script>
 
 	</div>
 
 	<div id="schedaDisegni3D" > 
 		
-		Realizzazione di alcuni solidi tramite apposito Modellatore Software 3D (principalmente tramite versioni di prova o in versione libera / gratuita), quest'ultimo da considerarsi vicino a Software CAD come <a href="https://www.autodesk.com/it/products/autocad/overview">AUTOCAD</a> o <a href="https://www.autodesk.com/it/products/inventor/overview">INVENTOR</a>.
-		<br>
-		Fra i vari Software CAD esistenti si ricorda l'utilizzo del Software CAD <a href="https://www.freecad.org/">FreeCAD</a>, <a href="https://www.cadsketcher.com/">CAD Sketcher</a>, <a href="https://resources.sw.siemens.com/it-IT/download-solid-edge-community-edition/">SolidEdge Community Edition</a>. 
-		<br>
-		<br>
-		<b>
-			*** ATTENZIONE ***: gli Strumenti / Software CAD richiamati appartengono ai rispettivi proprietari. 
-		</b>
-		<br>
-		<br>
-		Alcuni esempi:
-		<br>
+		<iframe
+			id="iframeDisegni3D" 
+			src=""  
+			width="100%"
+			height="100%"
+			frameBorder="0"
 
-		<ul style="list-style-type:square;">
-			<!-- Copy permalink GitHub -->
-			<li> <a href="https://geoinf25.github.io/site/DisegniCAD3D/Drawing004.pdf">Drawing004.pdf</a> </li>
-			<li> <a href="https://geoinf25.github.io/site/DisegniCAD3D/Drawing003.pdf">Drawing003.pdf</a> </li>
-			<li> <a href="https://geoinf25.github.io/site/DisegniCAD3D/Drawing002.pdf">Drawing002.pdf</a> </li>
-			<li> <a href="https://geoinf25.github.io/site/DisegniCAD3D/Drawing001.pdf">Drawing001.pdf</a> </li>
-			
-		</ul>
+		></iframe>
 
-		Anteprime:
-		<br>
-		<br>
+		<script>
+			if( iframeAttivi.iframeDisegni3D == true ) {
+				//https://geoinf25.github.io/site/schedaDisegni3D.html
+				document.getElementById( "iframeDisegni3D" ).src="./schedaDisegni3D.html"; 
+			} else {
+				document.getElementById( "iframeDisegni3D" ).src=""; 
+			}
 
-		<div id="tabellaDrawing" class="grid">
-
-			<div id="blocco04Drawing" class="span4 roundBorder" style="width: 98%; height: 100vh; " > <!-- span1 -->
-				<iframe src="https://geoinf25.github.io/site/DisegniCAD3D/Drawing004.pdf#view=fit" type="application/pdf" allow="fullscreen" width="100%" height="100%" ></iframe>
-			</div>
-			<div id="blocco03Drawing" class="span4 roundBorder" style="width: 98%; height: 100vh; " > <!-- span1 -->
-				<iframe src="https://geoinf25.github.io/site/DisegniCAD3D/Drawing003.pdf#view=fit" type="application/pdf" allow="fullscreen" width="100%" height="100%" ></iframe>
-			</div>
-			<div id="blocco02Drawing" class="span4 roundBorder" style="width: 98%; height: 70vh; " > <!-- span1 -->
-				<iframe src="https://geoinf25.github.io/site/DisegniCAD3D/Drawing002.pdf#view=fit" type="application/pdf" allow="fullscreen" width="100%" height="100%" ></iframe>
-			</div>
-			<div id="blocco01Drawing" class="span4 roundBorder" style="width: 98%; height: 70vh; " > <!-- span1 -->
-				<iframe src="https://geoinf25.github.io/site/DisegniCAD3D/Drawing001.pdf#view=fit" type="application/pdf" allow="fullscreen" width="100%" height="100%" ></iframe>
-			</div>
-
-		</div>
+		</script>
 
 	</div>
 
 	<div id="schedaAbout" >
 
-		Alcune Applicazioni sviluppate tramite GIT, GitHub Desktop e Visual Studio Code.
-		<br>
-		<br> 
-		Fase di Test eseguita in locale (vedi <u>python -m http.server 3000, localhost:3000/index.html</u>, in riferimento alle <a href="https://www.youtube.com/watch?v=H7ZTrqhonHc">CORS Policy</a>). 
-		<br>
-		<br>
-		<b>*** ATTENZIONE ***: le Librerie, i Framework, i Programmi / Software ed eventuali altri elementi ad essi associati appartengono ai rispettivi proprietari; il presente Sito vuole fornire semplicemente alcuni esempi di Applicazioni senza alcuna finalità particolare.</b>
-		<br>
-		<br>
-		<li> <a href="http://150.146.207.184:8080/chargefinder/WebContent/file_view.html">ChargeFinder LabGeoInf</a> (Applicazione in ambito GIS, <u>riguardante la mia persona</u>) </li>
-		<br>
-		Ulteriori Link utili relativi al mondo dell'Informatica / Elettronica e del mondo CAT (Costruzioni-Ambiente-Territorio):  
-		<br>
-		<ul>
-			<b>*** ATTENZIONE ***: i contenuti proposti nei Link esterni seguenti appartengono ai rispettivi proprietari. </b>
-			<br>
-			<br>
-			<li> <a href="https://www.w3schools.com/">W3Schools</a> (Linguaggi di programmazione) </li>
-			<li> <a href="https://www.edutecnica.it/">EduTecnica</a> (Appunti ambito meccanico / elettronico / informatico) </li>
-			<li> <a href="https://www.vitobarone.it/elettrotecnica.htm">Prof. Barone</a> (Appunti Elettrotecnica) </li>
-			<li> <a href="https://www.alfredocentinaro.it/">Prof. Centinaro</a> (Appunti Informatica) </li>
-			<li> <a href="https://www.circuitlab.com/">CircuitLab</a> (Simulazione circuiti elettrici) </li>
-			<li> <a href="https://skilldrick.github.io/easy6502/">Skilldrick 6502</a> (Assembly Microprocessore 6502) </li>
-			<li> <a href="https://github.com/marcodotsh/programmazione-in-c-esercizi/tree/main">GitHub Marcodotsh - Esercizi in C</a> (Linguaggio C) </li>
-			<li> <a href="https://profzanghi.weebly.com/">Prof. Zanghi</a> (Appunti ambito Geometra) </li>
-			<li> <a href="https://www.oppo.it/home.html">OPPO</a> (Tabelle e Sezioni) </li>
-			<li> <a href="https://www.spyder-ide.org/">Spyder IDE</a> (IDE Python) </li>
-			<li> <a href="https://streamlit.io/">Streamlit Python</a> (Creazione Siti Web in Python) </li>
-			<li> <a href="https://remix-project.org/?lang=it">Remix IDE</a> (IDE Solidity / Blockchain) </li>
-			<li> <a href="https://stackoverflow.com/questions">stackoverflow</a> (StackOverflow Questions) </li>
-			<li> <a href="https://gis.stackexchange.com/">gis.stackexchange</a> (GIS StackExchange Questions) </li>
-			<li> <a href="https://qgis.org/">QGIS</a> (QGIS Project) </li>
-			<li> <a href="https://live.osgeo.org/en/index.html">OSGeoLive</a> (OSGeoLive Project) </li>
-			<li> <a href="https://www.osgeo.org/">OSGeo</a> (Open Source Geospatial Foundation) </li>
-			<li> <a href="https://overpass-turbo.eu/">Overpass OpenStreetMap API</a> (Overpass Query) </li>
-			<li> <a href="https://www.nicoladeinnocentis.it/">Geopillole</a> (Pillole di GIS) </li>
-			<li> <a href="https://www.prismacad.it/disegni-meccanici/">PrismaCad</a> (Disegni meccanici) </li>
-			<li> <a href="https://www.ilcalibro.it/">Il Calibro</a> (Sito Web dedicato alle Lavorazioni meccaniche) </li>
-			<li> <a href="https://www.tinkercad.com/">Tinkercad</a> (Disegni 3D e simulazioni (Arduino)) </li>
-			<li> <a href="https://www.arduino.cc/">Arduino</a> (Piattaforma Arduino) </li>
-			<li> <a href="https://cheerpj.com/">CheerpJ</a> (Java / JVM for the Browser) </li>
-			<li> <a href="https://browserify.org/">Browserify</a> (Bundler / Impacchettatore lato Client (per Browser), utile per riutilizzare pacchetti NPM pensati lato Server (Node.js)) </li>
-			<li> <a href="https://pygame-web.github.io/wiki/pygbag/">Pygbag / Pygame wasm</a> (Pygame eseguibile sul Web) </li>
-			<li> <a href="https://pypi.org/project/pikepdf/">PikePdf</a> (Gestione file Pdf) </li>
-			<li> <a href="https://github.com/copy/v86?tab=readme-ov-file#demos">Github copy/v86</a> (Emulazione Sistemi Operativi del passato) </li>
-			<li> <a href="https://copy.sh/v86/">Damn Small Linux - copy/v86</a> (Emulazione Sistemi Operativi, in particolare Damn Small Linux) </li>
-			<li> <a href="https://duckdb.org/">DuckDB</a> (Database DuckDB) </li>
-			<li> <a href="https://dynamobim.org/download/">Dynamo Sandbox</a> (Dynamo Open Source per la programmazione visuale / a blocchi) </li>
-			<li> <a href="https://postgis.net/">PostGIS</a> (PostgreSQL esteso a dati di natura geospaziale) </li>
-			<li> <a href="https://www.pgadmin.org/">pgAdmin</a> (pgAdmin for PostgreSQL) </li>
-			<li> <a href="https://sqlitebrowser.org/">DB Browser</a> (DB Browser for SQLite) </li>
-			<li> <a href="https://danfo.jsdata.org/">Danfo js</a> (Libreria Javascript Danfo alternativa alla Libreria Python Pandas) </li>
-			<li> <a href="https://www.linqpad.net/">LINQPad</a> (Scratchpad per C#) </li>
-			
+		<iframe
+			id="iframeAbout" 
+			src=""  
+			width="100%"
+			height="100%"
+			frameBorder="0"
 
-		</ul>
+		></iframe>
+
+		<script>
+			if( iframeAttivi.iframeAbout == true ) {
+				//https://geoinf25.github.io/site/schedaAbout.html
+				document.getElementById( "iframeAbout" ).src="./schedaAbout.html"; 
+			} else {
+				document.getElementById( "iframeAbout" ).src=""; 
+			}
+
+		</script>
 
 	</div>
 
-	<script>
-
-		//
-
-	</script>
-
-	<script>
-
-		//
-
-	</script>
-
 	<py-script>
+
+		import js
+		from js import console, document, window
 
 		js.barTot.style.display = "none"; 
 		js.barTot.style.visibility = "hidden";
