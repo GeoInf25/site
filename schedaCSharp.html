@@ -1,0 +1,62 @@
+<html>
+
+<head>
+
+	<link rel="stylesheet" href="styleGeoInf.css">
+
+	<style>
+		img {
+			/*
+			display: block;
+			max-width: 100%;
+			max-height: auto;
+			width: auto;
+			height: auto;
+			*/
+			/*margin-left: auto; //center image */
+			/*margin-right: auto; //center image */
+		}
+
+	</style>
+
+</head>
+
+<body style = "overflow-y: scroll" >
+
+	Applicazioni C# sviluppate tramite Visual Studio e GitHub Desktop.
+	<br>
+	<br>
+	<b>
+		*** ATTENZIONE ***: le Librerie, i Framework ed eventuali altri elementi ad essi associati appartengono ai rispettivi proprietari. 
+	</b>
+	<br>
+	<br>
+
+	<div id="tabellaCSharp" class="grid">
+
+		<div id="blocco01CSharp" class="span4 roundBorder" >
+
+			<h2><b>• Form 01:</b></h2>
+			<p id="descrApp001CSharp" class="justify" >
+			Dopo aver creato un WinForm .NET project (in C#) ed aver preparato la relativa WebView2 oltre al componente ReoGrid - .NET Spreadsheet (anche mediante l'utilizzo del relativo pacchetto NuGet), l'Applicazione in questione utilizza una pagina HTML mediante la quale richiamare le funzioni ed i Marker della Libreria Leaflet (Javascript). Le coordinate di inserimento dei Marker saranno poi elencate nel foglio disposto a lato dell'Applicazione. In questo contesto la comunicazione tra C# e Javascript viene assicurata tramite l'istruzione webView21.ExecuteScriptAsync e dalle istruzioni chrome.webview.postMessage. La gestione degli handlers / eventi è definita partendo dall'evento WinForm Load, attraverso espressioni come webView21.NavigationCompleted += (,_ args) => {...}. Link alle immagini di esempio:
+			</p>
+			<!-- "display: block; margin-left: auto; margin-right: auto; max-width: 100%; max-height: auto; width: 50%; height: auto;" -->
+			<br>
+			<div>
+				<table style="width:80%; margin-left: auto; margin-right: auto;">
+					<tr>
+						<td ><img src="./CSharp/App001/Image/Image01.png" alt="Image01" width="99%" height="auto"></td>
+						<td ><img src="./CSharp/App001/Image/Image02.png" alt="Image02" width="100%" height="auto"></td>
+					</tr>
+				</table>
+
+			</div>
+
+		</div>
+
+	</div>
+
+</body>
+
+</html>
+
