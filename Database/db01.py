@@ -15,8 +15,8 @@ connection = None
 
 def controlConnection( *args ):
   global connection
-  print( "Controllo Scheda Database: " + str( js.schedaDabaseCliccata ) )
-  if( js.schedaDabaseCliccata == True ):
+  print( "Controllo Scheda Database: " + str( window.parent.schedaDatabaseCliccata ) )
+  if( window.parent.schedaDatabaseCliccata == True ):
     #document.getElementById("txt_displayTabClassDbEs01").innerHTML = ""
     #document.getElementById("txt_displayTabStudentDbEs01").innerHTML = ""
     document.getElementById("txt_displayQuerySQLDbEs01").value = "" + document.getElementById("select_listQuerySQLDb01").value; #innerHTML
@@ -131,16 +131,16 @@ add_event_listener( document.getElementById("btn_tablePopulating") , "click", ta
 add_event_listener( document.getElementById("btn_executeQuerySQL") , "click", executeQuerySQL)	
 
 #Schede
-add_event_listener( document.getElementById("tab_schedaReact") , "click", controlConnection ) #Privo di argomenti 
-add_event_listener( document.getElementById("tab_schedaRShiny") , "click", controlConnection ) #Privo di argomenti 
-add_event_listener( document.getElementById("tab_schedaJupyter") , "click", controlConnection ) #Privo di argomenti 
-add_event_listener( document.getElementById("tab_schedaCSharp") , "click", controlConnection )	
-add_event_listener( document.getElementById("tab_schedaJavascript") , "click", controlConnection )	
-add_event_listener( document.getElementById("tab_schedaJava") , "click", controlConnection )	
-add_event_listener( document.getElementById("tab_schedaDatabase") , "click", controlConnection )	
-add_event_listener( document.getElementById("tab_schedaGIS") , "click", controlConnection )	
-add_event_listener( document.getElementById("tab_schedaDisegni3D") , "click", controlConnection )
-add_event_listener( document.getElementById("tab_schedaAbout") , "click", controlConnection )	
+add_event_listener( window.parent.document.getElementById("tab_schedaReact") , "click", controlConnection ) #Privo di argomenti 
+add_event_listener( window.parent.document.getElementById("tab_schedaRShiny") , "click", controlConnection ) #Privo di argomenti 
+add_event_listener( window.parent.document.getElementById("tab_schedaJupyter") , "click", controlConnection ) #Privo di argomenti 
+add_event_listener( window.parent.document.getElementById("tab_schedaCSharp") , "click", controlConnection )	
+add_event_listener( window.parent.document.getElementById("tab_schedaJavascript") , "click", controlConnection )	
+add_event_listener( window.parent.document.getElementById("tab_schedaJava") , "click", controlConnection )	
+add_event_listener( window.parent.document.getElementById("tab_schedaDatabase") , "click", controlConnection )	
+add_event_listener( window.parent.document.getElementById("tab_schedaGIS") , "click", controlConnection )	
+add_event_listener( window.parent.document.getElementById("tab_schedaDisegni3D") , "click", controlConnection )
+add_event_listener( window.parent.document.getElementById("tab_schedaAbout") , "click", controlConnection )	
 
 
 #Test iniziale all'apertura della Pagina Web
