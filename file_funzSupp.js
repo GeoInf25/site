@@ -12,5 +12,5 @@ var schedaAbout = null;
 
 var schede = null; 
 
-var schedaDabaseCliccata = null; 
+var schedaDatabaseCliccata = null; 
 
