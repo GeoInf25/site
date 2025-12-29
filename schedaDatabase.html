@@ -1,0 +1,370 @@
+<html>
+
+<head>
+
+	<link rel="stylesheet" href="https://pyscript.net/releases/2025.7.2/core.css" />
+	<script type="module" src="https://pyscript.net/releases/2025.7.2/core.js" ></script>
+
+	<link rel="stylesheet" href="styleGeoInf.css">
+
+	<style>
+
+		#displayTabDbEs01 {
+			width: 100%;
+			height: 50vh;
+		}
+
+		#displayTabStudentDbEs01 {
+			width: 49%; 
+			height: auto;
+			float: right; 
+		}
+
+		#displayTabClassDbEs01 {
+			width: 50%; 
+			height: auto; 
+			float: left;
+		}
+
+		#txt_displayTabStudentDbEs01 {
+			width: 100%; 
+			height: 100%; 
+			resize: none;
+			overflow: scroll; 
+			white-space: pre; 
+
+			background-color: darkblue;
+			color: white;
+		}
+
+		#txt_displayTabClassDbEs01 {
+			width: 100%; 
+			height: 100%; 
+			resize: none; 
+			overflow: scroll; 
+			white-space: pre; 
+
+			background-color: darkblue;
+			color: white;
+		}
+
+		#querySQLResultDbEs01 {
+			width: 100%;
+			height: auto;
+		}
+
+		#querySQLDbEs01 {
+			width: 100%; 
+			height: auto;
+		}
+
+		#resultSQLDbEs01 {
+			width: 100%; 
+			height: auto;
+		}
+
+		#select_listQuerySQLDb01{
+			font-family: "Trebuchet MS";
+			font-weight: bold;
+			/*font-style: italic;*/
+			width: 100%; 
+			height: 4vh; 
+		}
+
+		#txt_displayQuerySQLDbEs01 {
+			width: 100%; 
+			height: 15vh; 
+			resize: none; 
+			overflow-y: scroll; 
+			/*white-space: pre; */
+		}
+
+		#txt_displayResultDbEs01 {
+			width: 100%; 
+			height: 50vh; 
+			resize: none; 
+			overflow: scroll; 
+			white-space: pre; 
+
+			background-color: darkblue;
+			color: white;
+		}
+
+		.popup {
+			position: relative;
+		}
+
+		.popup .popuptext {
+			visibility: hidden;
+			font-size: 1.75vh;
+			/*width: 40vh;
+			height: 5vh;*/
+			color: #fff;
+			text-align: center;
+			border-radius: 1vh;
+			position: absolute;
+			background-color: #555;
+			padding: 1vh;
+			/*bottom: 100%;
+			left: 50%;
+			margin: ... */
+
+		}
+		
+		/*
+		.popup .show {
+			visibility: visible;
+		}
+		*/
+
+	</style>
+
+</head>
+
+<body style = "overflow-y: scroll" >
+
+	<py-config>
+    	packages = ["sqlite3", "numpy",  "prettytable", "pandas", "tabulate" ]
+
+		[[fetch]]
+		from = './Database/'
+    	files = [ "db01.py" ]
+
+	</py-config>
+	
+	<div>
+		Esempi di Applicazione del Database Sqlite / Spatialite. 
+		<br>
+		<br>
+		<b>
+			*** ATTENZIONE ***: i Servizi di Database richiamati nel seguito appartengono ai rispettivi proprietari. 
+		</b>
+		<br>
+		<br>
+	
+	</div>
+
+	<div id="tabellaDb" class="grid">
+
+		<div id = "blocco01Db" class = "span4 roundBorder" >
+
+			<h2>• Link esterni per Database (di tipo Relazionale / NON Relazionale)</h2>
+			
+			- Query di esempio in ambito MySQL: <a href="https://www.w3schools.com/MySQL/trymysql.asp?filename=trysql_select_all">W3School MySQL</a>
+			<br>
+			- Query di esempio in ambito PostgreSQL, SQL Server, MySQL: <a href="https://runsql.com/r">Run SQL</a>
+			<br>
+			- Query di esempio in ambito MongoDB: <a href=https://www.humongous.io/tools/playground/mongodb/new>MongoDB Query</a>
+			<br>
+
+		</div>
+
+		<div id = "blocco02Db" class = "span4 roundBorder" >
+
+			<h2>• Database Relazionale SQLITE</h2>
+
+			Definizione di due Tabelle: Classe, Studente. 
+			<br>
+			Popolamento / Valorizzazione delle Tabelle in riferimento al numero di ID scelti:
+			<br>
+
+			<div class="popup" > <!-- posizione Popup -->
+				<table>
+					<tr><td>- nr. ID Tabella Classe (valore compreso fra 1 e 25, predefinito 15): </td> <td>
+						<input type="number" id="totIDTabClass" min="1" max="25" value="15" style="width: 10vh" ></td> <!-- No size -->
+					<tr>
+					<tr><td>- nr. ID Tabella Studente (valore compreso fra 1 e 150, predefinito 120): </td> <td>
+						<input type="number" id="totIDTabStudent" min="1" max="150" value="120" style="width: 10vh" ></td> <!-- No size -->
+					<tr>
+				</table>
+				<span class="popuptext" id="popupInputDb01" 
+					onclick="/*this.style.display = 'none';*/ this.style.visibility = 'hidden'; " >
+				</span>
+			</div>
+
+			<script>
+
+				var totIDTabClass = { obj: document.getElementById( "totIDTabClass" ), limInf: 1,  limSup: 25, predef: 15 };
+				var totIDTabStudent = { obj: document.getElementById( "totIDTabStudent" ), limInf: 1,  limSup: 150, predef: 120 }; 
+
+				totIDTabClass.obj.addEventListener( "keydown", function(e) {
+					if( e.key == "Enter" ) {
+						contrIDTableDb01( totIDTabClass.obj, totIDTabClass.limInf, totIDTabClass.limSup, totIDTabClass.predef ); 
+					}
+				}); 
+				totIDTabClass.obj.addEventListener( "blur", function(e) {
+					contrIDTableDb01( totIDTabClass.obj, totIDTabClass.limInf, totIDTabClass.limSup, totIDTabClass.predef ); 
+				}); 
+
+				totIDTabStudent.obj.addEventListener( "keydown", function(e) {
+					if( e.key == "Enter" ) {
+						contrIDTableDb01( totIDTabStudent.obj, totIDTabStudent.limInf, totIDTabStudent.limSup, totIDTabStudent.predef ); 
+					}
+				}); 
+				totIDTabStudent.obj.addEventListener( "blur", function(e) {
+					contrIDTableDb01( totIDTabStudent.obj, totIDTabStudent.limInf, totIDTabStudent.limSup, totIDTabStudent.predef ); 
+				}); 
+				
+				function contrIDTableDb01( obj, min, max, predef ) {
+					//NON utilizzare Alert
+					//var tempTotIDTabClass = document.getElementById('totIDTabClass').value;
+					var popupInputDb01 = document.getElementById("popupInputDb01");
+					if( obj.value == "" || ( obj.value % 1 != 0 ) ) {
+						popupInputDb01.innerHTML = "Inserisci un valore numerico intero <br>(Clicca qui per chiudere)";
+						//popupInputDb01.style.display = "display";  
+						popupInputDb01.style.visibility = "visible";
+						//obj.value = predef;
+
+					} else if( obj.value < min || obj.value > max ) {
+						popupInputDb01.innerHTML = "Inserisci un valore numerico compreso fra "+ min + " e " + max + " <br>(Clicca qui per chiudere)";
+						//popupInputDb01.style.display = "display";  
+						popupInputDb01.style.visibility = "visible";  
+						//obj.value = predef;
+
+					} else {
+						//tempTotIDTabClass = parseInt( tempTotIDTabClass );  
+						//Do nothing, value ok
+					}
+				}
+
+			</script>
+
+			<br>
+
+			<button id="btn_tablePopulating" >Valorizza Tabelle</button>
+
+			<div id="displayTabDbEs01">
+
+				<div id="displayTabClassDbEs01" >
+					<br>
+					<u> - Tabella "Classe" - </u> 
+					<br>
+					<textarea id="txt_displayTabClassDbEs01" ></textarea>
+
+				</div>
+
+				<div id="displayTabStudentDbEs01" >
+					<br>
+					<u> - Tabella "Studente" - </u> 
+					<br>
+					<textarea id="txt_displayTabStudentDbEs01" ></textarea>
+
+				</div>
+
+				<script>
+					document.getElementById("txt_displayTabClassDbEs01").innerHTML = "Attendi ... ";
+					document.getElementById("txt_displayTabStudentDbEs01").innerHTML = "Attendi ... ";
+
+					document.getElementById("txt_displayTabClassDbEs01").readOnly = true;
+					document.getElementById("txt_displayTabStudentDbEs01").readOnly = true;
+				</script>
+
+			</div>
+
+			<br>
+
+			<div id="querySQLResultDbEs01" >
+				<div id="querySQLDbEs01" >
+					<br>
+					<br>
+					<u> - Query SQL - </u> 
+					<br>
+					<br>
+					Scegli una delle Query esistenti o scrivi direttamente un'Interrogazione / Query SQL: 
+					<br>
+					<select id="select_listQuerySQLDb01">
+						<!-- <option value="query01">query01Text</option> -->
+					</select>
+
+					<textarea id="txt_displayQuerySQLDbEs01" ></textarea> <!-- </textarea> input ... -->
+
+					<script>
+
+						var select_listQuerySQLDb01 = document.getElementById("select_listQuerySQLDb01"); 
+						array_listQuerySQLDb01 = [
+							"select * from Classe \n/* Descrizione delle Classi presenti */", 
+							"select * from Studente \n/* Descrizione degli Studenti presenti */",  
+							"select * from Classe where tipo = 'Aula' \n/* Descrizione del tipo 'Aula' */",
+							"select count(*) as num_stud from Studente \n/* Numero totale di Studenti */", 
+							"select sum(superficieMq) as totSuperficieMq from Classe \n/* Superficie totale coperta */", 
+							"select distinct( tipo ) as disTipo from Classe order by disTipo asc \n/* Elenco delle tipologie di spazi */", 
+							"select count(idStud) as numStud, round( avg( eta ) , 2 ) as etaMediaPerClasse, idClass from Studente group by idClass \n/* Numero di Studenti ed Età media degli stessi per ciascuna Classe */",
+							"WITH const AS (SELECT max(eta) as maxEta from Studente) \nselect * from Studente, const where eta = const.maxEta \n/* Elenco degli Studenti più anziani - Common Table Expression (CTE) */",
+							"select * from Classe where tipo like '%Aula%' order by tipo asc\n/* Elenco delle tipologie di 'Aula' */", 
+							"Update Studente set luogoNascita = 'Roma' where idStud = 6 \n/* Aggiornamento riga Database con condizioni relative */", 
+							"Update Studente set luogoNascita = 'Roma' \n/*Aggiornamento del Luogo di Nascita per ogni riga della Tabella 'Studente' */",
+							"select idStud, nome, cognome, eta, luogoNascita, C.idClass, superficieMq, piano, tipo from Studente as S inner join Classe as C on S.idClass = C.idClass \n/* Inner Join fra le due Tabelle dove NON risulta consentito il ripetersi di C.idClass, S.idClass */",
+							"select idStud, nome, cognome, eta, luogoNascita, C.idClass, superficieMq, piano, tipo from Studente as S inner join Classe as C \n" + 
+							"on S.idClass = C.idClass where piano = '1' \n/* Elenco degli Studenti presenti al Piano '1' */",
+						]; 
+
+						var contListQuerySQLDb01 = 0; 
+						array_listQuerySQLDb01.forEach( function( query ) {
+							var tempOpt = document.createElement('option');
+							tempOpt.value = query;
+							var tempExpr = query.substring( 0 , query.indexOf("\n/*") ).toUpperCase();  
+							if( tempExpr.length <= 75 ) {
+								tempOpt.innerHTML = tempExpr; 
+							} else {
+								tempOpt.innerHTML = tempExpr.substring( 0 , 75 + 1 ) + "..."; 
+							} 
+
+							if( contListQuerySQLDb01 == 8 ) {
+								tempOpt.selected = "true"; //Opzione selezionata
+							}
+							select_listQuerySQLDb01.appendChild( tempOpt ); 
+
+							contListQuerySQLDb01++; 
+						}); 
+
+						select_listQuerySQLDb01.addEventListener( "change", function( e ) {
+							document.getElementById("txt_displayQuerySQLDbEs01").value = "" + select_listQuerySQLDb01.value; 
+						});
+
+						/*document.getElementById("txt_displayQuerySQLDbEs01").value = "Attendi ... "; */ /*innerHTML*/  
+					</script>
+
+				</div>
+
+				<button id="btn_executeQuerySQL" >Esegui Query SQL</button>
+
+				<div id="resultDbEs01" >
+					<br>
+					<u> - Risultato dell'interrogazione - </u> 
+					<br>
+					<textarea id="txt_displayResultDbEs01" ></textarea>
+				</div>
+
+				<script>
+					//document.getElementById("txt_displayQuerySQLDbEs01").readOnly = true;
+					document.getElementById("txt_displayResultDbEs01").readOnly = true;
+
+				</script>
+
+			</div>
+		
+			<py-script>
+
+				import js
+				from js import console, document, window
+
+				from db01 import *
+
+				window.parent.document.getElementById("barLoading").style.width = "75%"; 
+				window.parent.document.getElementById("barLoading").innerHTML = "Loading ... 75%"; 
+
+			</py-script>
+
+			<script>
+				//
+			</script>
+		
+		</div>
+
+	</div>
+
+</body>
+
+
+</html>
+
