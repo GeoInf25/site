@@ -1,0 +1,79 @@
+
+body {
+		font-family: "Trebuchet MS";
+		font-size: 1.75vh;
+		/* font-size: 1 em rem ... 14 px ; */
+		/*overflow: hidden;*/
+	}
+
+.grid {
+  	display: grid;
+  	grid-template-columns: repeat(4, 1fr);
+}
+
+.span1 {
+	grid-column: span 1;
+}
+
+.span2 {
+	grid-column: span 2;
+}
+
+.span3 {
+	grid-column: span 3;
+}
+
+.span4 {
+	grid-column: span 4;
+}
+
+.roundBorder {
+	/*border: 1px solid red;*/
+	border-style: outset;
+	border-radius: 1vh;
+	padding: 1vh;
+}
+
+p {
+	margin: 0;
+	padding: 0;
+}
+
+button {
+	font-family: "Arial";
+	font-size: 1.75vh;
+}
+
+textarea {
+	font-size: 1.75vh;
+
+	/*font-family: "Trebuchet MS";
+	font-size: 1.75vh;*/
+}
+
+select {
+	font-size: 1.75vh;
+}
+
+option {
+	font-size: 1.75vh;
+}
+
+input {
+	font-size: 1.75vh;
+
+	font-family: "Trebuchet MS";
+	font-size: 1.75vh;
+}
+
+table {
+	font-size: 1.75vh;
+}
+
+h2 {
+	font-size: 2.25vh;
+}
+
+ul {
+	padding: 0.0vh 4.0vh; 
+}
