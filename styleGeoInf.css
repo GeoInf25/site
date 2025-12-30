@@ -1,9 +1,11 @@
 
-body {
+/*Riferito a tutti i "body", compresi i vari Iframe, per i quali però viene sovrascritta l'impostazione che segue: style = "overflow-y: scroll" */
+
+body { 
 	font-family: "Trebuchet MS";
 	font-size: 1.75vh;
 	/* font-size: 1 em rem ... 14 px ; */
-	/*overflow: hidden;*/
+	/* overflow: hidden; */
 }
 
 .justify {
