@@ -82,6 +82,11 @@
 			float: right;
 		}
 
+		#fibonacci-table {
+			font-family: "Trebuchet MS";
+			font-size: 1.75vh;
+		}
+
 	</style>
 
 </head>
@@ -109,9 +114,12 @@
 		<div id="blocco01Js" class="span4 roundBorder" >
 
 			<h2>• Fibonacci sequence</h2>
-			Inserici un valore numerico (>=2 && <=99) per calcolare i valori della serie (premi INVIO):
-			<br>
-			<input type="text" id="txt_upperLimitFibonacci" class= "centerInputText" size="1" value="99" > 
+			<table>
+				<tr>
+					<td>Inserici un valore numerico (>=2 && <=99) per calcolare i valori della serie (premi <b>INVIO</b>):</td>
+					<td><input type="text" id="txt_upperLimitFibonacci" class= "centerInputText" size="1" value="99" ></td>
+				</tr>
+			</table>
 			<br>
 			<!-- <textarea id="txt_outputFibonacci" class="textAreaNoBorder" ></textarea> -->
 
