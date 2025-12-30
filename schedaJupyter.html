@@ -83,40 +83,12 @@
 
 			//%2B uguale a +
 
-			var urlRepl01 = `https://jupyterlite.github.io/demo/repl/index.html?kernel=python&theme=JupyterLab Light
-						&code=
-						import matplotlib.pyplot as plt %0A
-						import numpy as np
-						&code=
-						x = np.linspace(-10, 10, 1000) %0A
-						y = x**2 %2B 2*x
-						&code=
-						fig, ax = plt.subplots() %0A
-						ax.grid( True ) %0A
-						plt.axhline(0, color='black', linewidth=1.5 ) %0A
-						plt.axvline(0, color='black', linewidth=1.5 ) %0A
-						ax.plot(x, y)`;
+			// --------------------------------------------------------------------------------------------------- //
 
 			//matplotlib.set_loglevel( 'critical' )
 			//iframe referrerpolicy = ... scrolling="no" 
 			//per '+' usa %2B
 			//per indentazione usa n.4 spazi '    '
-
-			var urlRepl02 = `https://jupyterlite.github.io/demo/repl/index.html?clearCellsOnExecute=1&kernel=python&theme=JupyterLab Light
-					&code=
-					%pip install ipywidgets
-					&code=
-					import matplotlib %0A
-					import matplotlib.pyplot as plt %0A
-					import numpy as np %0A
-					import ipywidgets as widgets
-					&code=
-					def sinplot( W = 1 ): %0A
-					    x = np.linspace(0, 2*np.pi, 1000) ; y = 0.6 * np.sin( W * x) ; fig, ax = plt.subplots( ) ; ax.grid( True ) %0A
-					    plt.axhline(0, color='black', linewidth=1.5 ) ; plt.axvline(0, color='black', linewidth=1.5 ) ; ax.plot(x, y, color = 'green' ) %0A
-					    %0A
-					slider = widgets.interact( sinplot, W=(0, 10, 1))
-					`;
 
 		</script>
 
@@ -124,8 +96,8 @@
 			<ul style="list-style-type:square;">
 				<li> <a href="https://jupyter.org/try-jupyter/lab/">Notebook (01)</a> </li>
 				<li> <a href="https://jupyterlite.github.io/demo">Notebook (02)</a> </li>
-				<li> <a href= urlRepl01 >REPL / Read–Eval–Print Loop (01)</a> </li>
-				<li> <a href= urlRepl02 >REPL / Read–Eval–Print Loop (02)</a> </li>
+				<li> <a href= "./Jupyter_Py/REPL/iframeJupyterREPL01.html" >REPL / Read–Eval–Print Loop (01)</a> </li>
+				<li> <a href= "./Jupyter_Py/REPL/iframeJupyterREPL02.html" >REPL / Read–Eval–Print Loop (02)</a> </li>
 			</ul>
 
 		</div>
@@ -170,33 +142,33 @@
 
 			<script>
 				tempStr = `#(Python Code)
-	import math as m 
-	import numpy as np
-	def foo():
-		global m
-		z = m.sqrt( 4 )
-		return z 
+import math as m 
+import numpy as np
+def foo():
+	global m
+	z = m.sqrt( 4 )
+	return z 
 
-	z = foo()
-	a = m.cos( 1 )
-	b = 22
-	c = b ** 2
-	arr = np.array([1, 2, 3]) ** 2
-	print( 'Console: ' + str( arr ) )
-	for n in range( 0 , 3 ):
-		print( 'Hello in Console n.' + str( n ) )
+z = foo()
+a = m.cos( 1 )
+b = 22
+c = b ** 2
+arr = np.array([1, 2, 3]) ** 2
+print( 'Console: ' + str( arr ) )
+for n in range( 0 , 3 ):
+	print( 'Hello in Console n.' + str( n ) )
 
-	class Quadrato:
-		def __init__(self, lato):
-			self.lato = lato
-		
-		def area( self ):
-			return( self.lato * self.lato )
+class Quadrato:
+	def __init__(self, lato):
+		self.lato = lato
+	
+	def area( self ):
+		return( self.lato * self.lato )
 
-	q1 = Quadrato( 5 )
-	lato = q1.lato
-	area = q1.area()
-	print( "Quadrato di lato " + str(lato) + " ed area " + str(area) )`
+q1 = Quadrato( 5 )
+lato = q1.lato
+area = q1.area()
+print( "Quadrato di lato " + str(lato) + " ed area " + str(area) )`
 
 				document.getElementById("txt_code").innerHTML = tempStr.replace( /\t{5}/g , "" );
 				document.getElementById("txt_output").innerHTML = "Attendi ... ";
