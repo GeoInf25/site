@@ -59,90 +59,31 @@
 	<br>
 	<br>
 
-	<script>
-		function openIframe( tabNumber ) {
-			for( var i = 0; i < 6; i++ ) {
-				var tempValue = ( ""+ i).padStart(2,  "0"); 
-				if( tabNumber == tempValue ) {
-					document.getElementById( "tabIframe" + tempValue ).style.display = "block";
-					document.getElementById( "tabIframe" + tempValue ).style.visibility = "visible";  
-				} else {
-					document.getElementById( "tabIframe" + tempValue ).style.display = "none";
-					document.getElementById( "tabIframe" + tempValue ).style.visibility = "hidden"; 
-				}
-			}
-		}
+	<div id="tabellaJupyter" class="grid">
 
-	</script>
+		<script>
 
-	<div id="headerIframe">
-		<button onclick= "openIframe( '00' )" style="background-color: transparent; font-family: 'Trebuchet MS';" >Notebook 01</button>
-		<button onclick= "openIframe( '01' )" style="background-color: transparent; font-family: 'Trebuchet MS';" >Notebook 02</button>
-		<button onclick= "openIframe( '02' )" style="background-color: transparent; font-family: 'Trebuchet MS';" >REPL 03</button>
-		<button onclick= "openIframe( '03' )" style="background-color: transparent; font-family: 'Trebuchet MS';" >REPL 04</button>
-		<button onclick= "openIframe( '04' )" style="background-color: transparent; font-family: 'Trebuchet MS';" >PyScript 05</button>
-		<button onclick= "openIframe( '05' )" style="background-color: transparent; font-family: 'Trebuchet MS';" >Code 06</button>
-	</div>
-
-	<div id="tabIframe00" class="grid">
-		<div id="bloccoIframe00_00" class="span4 roundBorder" style="width: 98%; height: 82vh;" >
-			<iframe id="iframe00_00" src="" width="100%" height="100%" frameBorder="0" >
-			</iframe>
-			<script>
-				if( window.parent.iframeAttivi.iframe00_00 == true ) {
-					document.getElementById( "iframe00_00" ).src="https://jupyter.org/try-jupyter/lab/"; 
-				} else {
-					document.getElementById( "iframe00_00" ).src=""; 
-				}
-			</script>
-		</div>
-	</div>
-
-	<div id="tabIframe01" class="grid">
-		<div id="bloccoIframe00_01" class="span4 roundBorder" style="width: 98%; height: 82vh;" >
-			<iframe id="iframe00_01" src="" width="100%" height="100%" frameBorder="0" >
-			</iframe>
-			<script>
-				if( window.parent.iframeAttivi.iframe00_01 == true ) {
-					document.getElementById( "iframe00_01" ).src="https://jupyterlite.github.io/demo"; 
-				} else {
-					document.getElementById( "iframe00_01" ).src=""; 
-				}
-			</script>
-		</div>
-	</div>
-
-	<div id="tabIframe02" class="grid">
-		<div id="bloccoIframe00_02" class="span4 roundBorder" style="width: 98%; height: 82vh;" >
-
-			<iframe id="iframe00_02" src=""
-				
-				width="100%" height="100%" frameBorder="0" >
-			</iframe>
+			//const params = { kernel: "python" }; // , param2: value2 };
+			//const options = { method: 'POST', body: JSON.stringify( params ) };
+			//fetch( 'https://jupyterlite.github.io/demo/repl/index.html', options )
 			
-			<script>
-				//const params = { kernel: "python" }; // , param2: value2 };
-				//const options = { method: 'POST', body: JSON.stringify( params ) };
-				//fetch( 'https://jupyterlite.github.io/demo/repl/index.html', options )
-				
-				//fetch( 'https://jupyterlite.github.io/demo/repl/index.html?kernel=python' )
+			//fetch( 'https://jupyterlite.github.io/demo/repl/index.html?kernel=python' )
 
-				/*
-				.then(response => {
-					console.log(response);
-					if (response.ok){
-						return response.text();
-					}
-				})
-				.then(text => {
-					document.getElementById('targetIframe02').srcdoc = text;  
-				});
-				*/
+			/*
+			.then(response => {
+				console.log(response);
+				if (response.ok){
+					return response.text();
+				}
+			})
+			.then(text => {
+				document.getElementById('targetIframe02').srcdoc = text;  
+			});
+			*/
 
-				//%2B uguale a +
+			//%2B uguale a +
 
-				if( window.parent.iframeAttivi.iframe00_02 == true ) {
-					document.getElementById( "iframe00_02" ).src=`https://jupyterlite.github.io/demo/repl/index.html?kernel=python&theme=JupyterLab Light
+			var urlRepl01 = `https://jupyterlite.github.io/demo/repl/index.html?kernel=python&theme=JupyterLab Light
 						&code=
 						import matplotlib.pyplot as plt %0A
 						import numpy as np
@@ -155,33 +96,13 @@
 						plt.axhline(0, color='black', linewidth=1.5 ) %0A
 						plt.axvline(0, color='black', linewidth=1.5 ) %0A
 						ax.plot(x, y)`;
-				} else {
-					document.getElementById( "iframe00_02" ).src=""; 
-				}
-			
-			</script>
-		</div>
-	</div>
 
-	<div id="tabIframe03" class="grid">
-		<div id="bloccoIframe00_03" class="span4 roundBorder" style="width: 98%; height: 82vh;" >
-			<iframe id="iframe00_03" src=""
-				
-				width="100%" height="100%" frameBorder="0"
-				>
-			</iframe>
+			//matplotlib.set_loglevel( 'critical' )
+			//iframe referrerpolicy = ... scrolling="no" 
+			//per '+' usa %2B
+			//per indentazione usa n.4 spazi '    '
 
-			<script>
-				//matplotlib.set_loglevel( 'critical' )
-
-				//iframe referrerpolicy = ... scrolling="no" 
-				//per '+' usa %2B
-				//per indentazione usa n.4 spazi '    '
-
-				//document.getElementById("targetIframe03").contentWindow.body //Problem CORS Origin 
-
-				if( window.parent.iframeAttivi.iframe00_03 == true ) {
-					document.getElementById( "iframe00_03" ).src=`https://jupyterlite.github.io/demo/repl/index.html?clearCellsOnExecute=1&kernel=python&theme=JupyterLab Light
+			var urlRepl02 = `https://jupyterlite.github.io/demo/repl/index.html?clearCellsOnExecute=1&kernel=python&theme=JupyterLab Light
 					&code=
 					%pip install ipywidgets
 					&code=
@@ -196,17 +117,20 @@
 					    %0A
 					slider = widgets.interact( sinplot, W=(0, 10, 1))
 					`;
-				} else {
-					document.getElementById( "iframe00_03" ).src=""; 
-				}
 
-			</script>
+		</script>
+
+		<div id="bloccoJupyter00" class="span4 roundBorder" > <!-- style="width: 98%; height: 82vh;" -->
+			<ul style="list-style-type:square;">
+				<li> <a href="https://jupyter.org/try-jupyter/lab/">Notebook (01)</a> </li>
+				<li> <a href="https://jupyterlite.github.io/demo">Notebook (02)</a> </li>
+				<li> <a href= urlRepl01 >REPL / Read–Eval–Print Loop (01)</a> </li>
+				<li> <a href= urlRepl02 >REPL / Read–Eval–Print Loop (02)</a> </li>
+			</ul>
 
 		</div>
-	</div>
 
-	<div id="tabIframe04" class="grid">
-		<div id="bloccoPyScript00_04" class="span4 roundBorder" > <!-- style="width: 98%; height: 82vh;" --> <!-- span1 -->
+		<div id="bloccoJupyter01" class="span4 roundBorder" >
 
 			<h2>• Hello World</h2> 
 			<div>
@@ -230,7 +154,7 @@
 
 		</div>
 
-		<div id="bloccoPyScript01_04" class = "span4 roundBorder" > 
+		<div id="bloccoJupyter02" class="span4 roundBorder" >
 
 			<h2>• PyScript Terminal</h2>
 
@@ -246,33 +170,33 @@
 
 			<script>
 				tempStr = `#(Python Code)
-import math as m 
-import numpy as np
-def foo():
-    global m
-    z = m.sqrt( 4 )
-    return z 
+	import math as m 
+	import numpy as np
+	def foo():
+		global m
+		z = m.sqrt( 4 )
+		return z 
 
-z = foo()
-a = m.cos( 1 )
-b = 22
-c = b ** 2
-arr = np.array([1, 2, 3]) ** 2
-print( 'Console: ' + str( arr ) )
-for n in range( 0 , 3 ):
-    print( 'Hello in Console n.' + str( n ) )
+	z = foo()
+	a = m.cos( 1 )
+	b = 22
+	c = b ** 2
+	arr = np.array([1, 2, 3]) ** 2
+	print( 'Console: ' + str( arr ) )
+	for n in range( 0 , 3 ):
+		print( 'Hello in Console n.' + str( n ) )
 
-class Quadrato:
-    def __init__(self, lato):
-        self.lato = lato
-	
-    def area( self ):
-        return( self.lato * self.lato )
+	class Quadrato:
+		def __init__(self, lato):
+			self.lato = lato
+		
+		def area( self ):
+			return( self.lato * self.lato )
 
-q1 = Quadrato( 5 )
-lato = q1.lato
-area = q1.area()
-print( "Quadrato di lato " + str(lato) + " ed area " + str(area) )`
+	q1 = Quadrato( 5 )
+	lato = q1.lato
+	area = q1.area()
+	print( "Quadrato di lato " + str(lato) + " ed area " + str(area) )`
 
 				document.getElementById("txt_code").innerHTML = tempStr.replace( /\t{5}/g , "" );
 				document.getElementById("txt_output").innerHTML = "Attendi ... ";
@@ -353,22 +277,13 @@ print( "Quadrato di lato " + str(lato) + " ed area " + str(area) )`
 
 		</div>
 
-	</div>
-
-	<div id="tabIframe05" class="grid">
-		<div id="bloccoIframe00_05" class="span4 roundBorder" style="width: 98%; height: 82vh;" >
+		<div id="bloccoJupyter03" class="span4 roundBorder" >
 			Esempi di codice:
 			<br>
+
 		</div>
+	
 	</div>
-
-	<script>
-		//Primo avvio 
-		openIframe( "00" );  
-
-		//
-
-	</script>
 
 </body>
 
