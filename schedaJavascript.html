@@ -124,8 +124,8 @@
 				var fibonacciTable = new Tabulator("#fibonacci-table", {
 					spreadsheet:true,
 					spreadsheetData: [ ], //DEVE essere inizializzato
-					spreadsheetRows:10,
-					spreadsheetColumns:10,
+					spreadsheetRows: 10,
+					spreadsheetColumns: 6,
 					spreadsheetColumnDefinition:{editor:"input" , width: "180" },
 					rowHeader:{field:"_id", hozAlign:"center", headerSort:false},
 					spreadsheetOutputFull: true, //export all data including empty columns
@@ -200,7 +200,7 @@
 
 					var fibonacciData = [ ]; 
 
-					const chunkSize = 10;
+					const chunkSize = 6; //Numero colonne
 				
 					for (var i = 0; i < rowsFib.length; i += chunkSize) {
 						fibonacciData.push( rowsFib.slice(i, i + chunkSize) );
@@ -388,37 +388,6 @@
 			</script>
 
 		</div> 
-
-		<div id = "blocco05Js" class = "span4 roundBorder" >
-
-			<h2>• Leaflet Map</h2>
-			Esempio di Applicazione della libreria Javascript <a href="https://leafletjs.com/">LeafletJS</a>, ovvero:
-			<br> 
-			<br> 
-			
-			<div id="appLeafletMap">
-				<div id="leafletMap" >
-
-					<script>
-						var map = L.map('leafletMap').setView([51.505, -0.09], 13);
-
-						L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-							maxZoom: 22,
-							attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-						}).addTo(map);
-
-					</script>
-
-				</div>
-
-				<div id="controlliLeafletMap" > 
-					In costruzione ... 
-
-				</div>
-
-			</div>
-			
-		</div>
 
 	</div>
 
