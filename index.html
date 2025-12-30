@@ -209,6 +209,39 @@
 			iframeAbout : true ,
 		}
 
+		function getOSIframe() {
+			var os =  window.navigator.platform; 
+			var osWin = true; 
+			if( ["Win32", "Win64", "Windows", "WinCE"].indexOf( os ) >= 0 ) {
+				osWin = true; 
+			} else {
+				osWin = false; 
+			}
+
+			console.log( "OS: " + os );
+
+			if( osWin == true ) {
+				//
+			} else {
+				iframeAttivi.iframeReact = false ; 
+				iframeAttivi.iframeRShiny = false ; 
+				iframeAttivi.iframeJupyter = true ; 
+				iframeAttivi.iframeCSharp = true ;
+				iframeAttivi.iframeJavascript = true ;
+				iframeAttivi.iframeJava = false ;
+				iframeAttivi.iframeDatabase = true ;
+				iframeAttivi.iframeGIS = true ;
+				iframeAttivi.iframeDisegni3D = true ;
+				iframeAttivi.iframeAbout = true ;
+
+				alert( "OS diverso da Windows, alcuni schede risultano essere DISABILITATE." ); 
+
+			}
+
+		}
+
+		getOSIframe();  
+
 		/*
 		//iframeAttivi true / false
 		for (var prop in iframeAttivi) {
