@@ -25,14 +25,11 @@
 
 		// ... html?clearCellsOnExecute=1& ... 
 
-		var urlREPL02 = `https://jupyterlite.github.io/demo/repl/index.html?kernel=python&theme=JupyterLab Light
+		var urlREPL02 = `https://jupyterlite.github.io/demo/repl/index.html?kernel=python&toolbar=1&theme=JupyterLab Light
 					&code=
 					%pip install ipywidgets
 					&code=
-					import matplotlib %0A
-					import matplotlib.pyplot as plt %0A
-					import numpy as np %0A
-					import ipywidgets as widgets
+					import matplotlib ; import matplotlib.pyplot as plt ; import numpy as np; import ipywidgets as widgets
 					&code=
 					def sinplot( W = 1 ): %0A
 					    x = np.linspace(0, 2*np.pi, 1000) ; y = 0.6 * np.sin( W * x) ; fig, ax = plt.subplots( ) ; ax.grid( True ) %0A
