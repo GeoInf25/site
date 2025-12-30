@@ -1,10 +1,15 @@
 
 body {
-		font-family: "Trebuchet MS";
-		font-size: 1.75vh;
-		/* font-size: 1 em rem ... 14 px ; */
-		/*overflow: hidden;*/
-	}
+	font-family: "Trebuchet MS";
+	font-size: 1.75vh;
+	/* font-size: 1 em rem ... 14 px ; */
+	/*overflow: hidden;*/
+}
+
+.justify {
+	text-align:justify;
+
+}
 
 .grid {
   	display: grid;
@@ -78,7 +83,3 @@ ul {
 	padding: 0.0vh 4.0vh; 
 }
 
-#bartot {
-	font-size: 1.75vh;
-	
-}
