@@ -1,0 +1,20 @@
+
+2. Create the Applet Project
+New Project: File > New > Java Project. Name it (e.g., MyLegacyApplet).
+New Class: Right-click the src folder > New > Class.
+Name: MyApplet.
+Superclass: java.applet.Applet (or javax.swing.JApplet).
+
+Write Code: Implement the init(), start(), and paint() methods.
+
+java
+import java.applet.Applet;
+import java.awt.Graphics;
+
+public class MyApplet extends Applet {
+    public void paint(Graphics g) {
+        g.drawString("Hello, 2026!", 20, 20);
+    }
+}
+
+(Usa il codice con cautela)
