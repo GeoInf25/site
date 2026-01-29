@@ -21,6 +21,12 @@
 	<script src="https://cdn.jsdelivr.net/npm/leaflet-measure@3.1.0/dist/leaflet-measure.min.js"></script>
 	<link href="https://cdn.jsdelivr.net/npm/leaflet-measure@3.1.0/dist/leaflet-measure.min.css" rel="stylesheet">
 
+	<script src="https://cdn.jsdelivr.net/npm/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.min.js"></script>
+	<link href="https://cdn.jsdelivr.net/npm/leaflet.markercluster@1.5.3/dist/MarkerCluster.min.css" rel="stylesheet">
+
+	<script src="https://cdn.jsdelivr.net/npm/leaflet.awesome-markers@2.0.5/dist/leaflet.awesome-markers.min.js"></script>
+	<link href="https://cdn.jsdelivr.net/npm/leaflet.awesome-markers@2.0.5/dist/leaflet.awesome-markers.min.css" rel="stylesheet">
+
 	<script src=https://cdnjs.cloudflare.com/ajax/libs/alasql/4.6.6/alasql.min.js></script> 
 
 	<link href="https://unpkg.com/tabulator-tables@6.3.1/dist/css/tabulator.min.css" rel="stylesheet">
@@ -55,12 +61,10 @@
 		<br> 
 		<!-- - Impiego della Libreria Python <a href="https://python-visualization.github.io/folium/latest/">Folium</a>;
 		<br> -->
-		- Impiego della Libreria Leaflet <a href="https://leafletjs.com/">Leaflet</a>.
+		- Impiego della Libreria <a href="https://leafletjs.com/">Leaflet</a>.
 		<br>
 		- JavaScript SQL database, per tabelle relazionali tradizionali e dati JSON annidati (NoSQL): <a href="https://alasql.org/">AlaSQL</a>
 		<br>
-		<br>
-		<b><h2>IN COSTRUZIONE ...</h2></b>
 		<br>
 		
 	</div>
@@ -84,29 +88,31 @@
 						<p class= "justify" >Informazioni sulla mappa lato Leaflet: </p> 
 						<table style="width: 100%;" >
 							<tr>
-								<td style="width: 35%; " ><input type="text" value="- Lat: " style="width: 100%; border: none; " readonly></input></td>
-								<td style="width: 65%; " ><input id="txt_latMap02" type="text" style="width: 100%; " value = "--" readonly></input></td>
+								<td style="width: 35%; " ><input type="text" value="- Lat: " style="width: 100%; border: none; font-family: 'Trebuchet MS';" readonly></input></td>
+								<td style="width: 65%; " ><input id="txt_latMap02" type="text" style="width: 100%; font-family: 'Trebuchet MS';" value = "--" readonly></input></td>
 							</tr>
 							<tr>
-								<td style="width: 35%; " ><input type="text" value="- Lng: " style="width: 100%; border: none; " readonly></input></td>
-								<td style="width: 65%; " ><input id="txt_lngMap02" type="text" style="width: 100%; " value = "--" readonly></input></td>
+								<td style="width: 35%; " ><input type="text" value="- Lng: " style="width: 100%; border: none; font-family: 'Trebuchet MS';" readonly></input></td>
+								<td style="width: 65%; " ><input id="txt_lngMap02" type="text" style="width: 100%; font-family: 'Trebuchet MS';" value = "--" readonly></input></td>
 							</tr>
 							<tr>
-								<td style="width: 35%; " ><input type="text" value="- Zoom: " style="width: 100%; border: none; " readonly></input></td>
-								<td style="width: 65%; " ><input id="txt_zoomMap02" type="text" style="width: 100%; " value = "--" readonly></input></td>
+								<td style="width: 35%; " ><input type="text" value="- Zoom: " style="width: 100%; border: none; font-family: 'Trebuchet MS';" readonly></input></td>
+								<td style="width: 65%; " ><input id="txt_zoomMap02" type="text" style="width: 100%; font-family: 'Trebuchet MS';" value = "3.00" readonly></input></td>
 							</tr>
 						</table>
 
 						<hr/>
 
-						Avvistamenti UFO nell'anno <input id="num_annoAvvistamentoUFO" type="text" min="1906" max="2014" value="1906" style="width: 6vh; font-weight:bold; " maxlength="4" > (la perdita del focus sul campo avvia la visualizzazione degli eventuali Marker sulla mappa) <!-- type='number' -->
+						Avvistamenti UFO nell'anno <input id="txt_annoAvvistamentoUFO" type="text" min="1906" max="2014" value="1987" style="width: 6vh; font-family: 'Trebuchet MS'; font-weight:bold; " maxlength="4" onblur="eseguiQueryUfoDb( '' )" > 
+						<br>
+						<u>(la perdita del focus sul campo avvia la visualizzazione degli eventuali Marker sulla mappa)</u> <!-- type='number' -->
 						<br>
 						<hr/>
 
 						Console: 
 					</div>
 					<div id="contControlMap02ParteInf" >
-						<textarea id="consoleMap02" style="width: 100%; resize: none; overflow: scroll; " readonly ></textarea>
+						<textarea id="consoleMap02" style="width: 100%; resize: none; overflow: scroll; font-family: 'Trebuchet MS';" readonly ></textarea>
 					</div>
 				</div>
 
@@ -126,11 +132,17 @@
 					zoomDelta : 1, 
 					wheelPxPerZoomLevel: 90, //60 
 
-				} ).setView([ 0.0, 0.0], 3);
+				} ).setView([ 46.035235, 10.980633], 3);
 
 				var baseOSM = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 					maxZoom: 19,
 				}).addTo(map02);
+
+				/*
+				var baseCartoDarkMap = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+					maxZoom: 19,
+				}).addTo(map02);
+				*/
 
 				var baseOpenTopoMap = L.tileLayer('https://tile.opentopomap.org/{z}/{x}/{y}.png', {
 					maxZoom: 16,
@@ -161,14 +173,24 @@
 
 				baseMaps = {
 					"OpenStreetMap": baseOSM,
+					//"CartoDarkMap": baseCartoDarkMap, 
 					"OpenTopoMap": baseOpenTopoMap,
 					"Google Hybrid": baseGoogleHybrid,
 					"Google Satellite": baseGoogleSatellite,
 					"Google Road": baseGoogleRoad,
 				}
 
+				//map02.addLayer( layerDrawItems );
+				/* OVERLAYDrawing */ 
+				var layerDrawItems = new L.FeatureGroup();
+				var layerMarkers = new L.FeatureGroup();
+				//overlayMaps[ "layerDrawItems" ] = layerDrawItems; 
+				//overlayMaps[ "layerMarkers" ] = layerMarkers;
+
 				var overlayMaps = {
 					//GeoJSON data initialization 
+					"layerDrawItems" : layerDrawItems, 
+					"layerMarkers" : layerMarkers,
 				};
 
 				var layerControl = L.control.layers(baseMaps, overlayMaps).addTo( map02 );
@@ -179,14 +201,11 @@
 					width: Math.round( window.screen.width /15 ), 
 					height: Math.round( window.screen.height /15 ) , 
 				} ).addTo(map02);
-
-				var layerDrawItems = new L.FeatureGroup();
 				
-				//map02.addLayer( layerDrawItems );
-				overlayMaps[ "layerDrawItems" ] = layerDrawItems; 
+				//**//
 
-				layerControl.remove( map02 );
-				layerControl = L.control.layers(baseMaps, overlayMaps).addTo( map02 );
+				//layerControl.remove( map02 );
+				//layerControl = L.control.layers(baseMaps, overlayMaps).addTo( map02 );
 
 				var drawControl = new L.Control.Draw({
 					edit: {
@@ -225,11 +244,17 @@
 
 				}); 
 
+				//Mappe, Layer visibili
 				var click_elements = document.getElementsByClassName("leaflet-control-layers-selector");
 				//for( var i = 0; i < click_elements.length; i++ ) {
 					//console.log( click_elements[ i ] ); 
 				//}
-				click_elements[ click_elements.length - 1 ].click(); 
+				//click_elements.length
+
+				click_elements[ 4 ].click(); //baseMaps
+
+				click_elements[ click_elements.length - 2 ].click(); //layerDrawItems
+				click_elements[ click_elements.length - 1 ].click(); //layerMarkers //Vedi funzione seguente
 
 				var measureControl = new L.Control.Measure( { primaryLengthUnit: "kilometers" , primaryAreaUnit: "sqmeters" } );
 
@@ -255,40 +280,6 @@
 
 				measureControl.addTo( map02 );
 				
-			</script>
-
-			<script type="text/javascript">
-
-				ufoDb = null;
-
-				//SET AUTOCOMMIT ON
-
-				alasql.fn.myfn = function ( arg ) {
-					return( arg.split( " " )[0] ); 
-				};
-				/*
-				alasql.promise([
-					'CREATE TABLE Tab (datetime string, city string, state string, country string, shape string, duration_seconds string, duration_text string, description string, report_date string, latitude string, longitude string) ',
-					'SELECT [0] as datetime, [1] as city, [2] as state, [3] as country, [4] as shape, [5] as duration_seconds, [6] as duration_text, [7] as description, [8] as report_date, [9] as latitude, [10] as longitude INTO Tab FROM CSV("https://geoinf25.github.io/site/GIS/UfoDataset.csv",{headers:false})',
-					'ALTER TABLE Tab ADD COLUMN date STRING',
-					'UPDATE Tab SET date = myfn( datetime ) ',
-					'SELECT * FROM Tab'
-					
-				]).then(function (res) {
-					ufoDb = res[4]; //Json
-					
-					console.log( ufoDb ); 
-					//document.getElementById( "txt_resQueryUfoDb" ).innerHTML = JSON.stringify( json , null , 11 ); 
-
-					alasql.promise('SELECT * FROM ? WHERE YEAR(date) = 1987 ' , [ ufoDb ]).then( function( fin ) {
-						//console.log( fin[0] ); 
-
-						document.getElementById( "txt_resQueryUfoDb" ).innerHTML = "" + fin[0]["datetime"]; 
-					}); 
-					
-				});
-				*/
-
 			</script>
 
 			<!--
@@ -325,11 +316,12 @@
 				<u>- Query SQL (Table 'Ufo') -</u>
 				<br>
 				<br>
-				Scrivi una Query SQL: 
+				Scrivi una Query SQL (Table name 'UfoDb'): 
 				<br>
 				<div>
-					<textarea id= "txt_queryUfoDb" style="width: 85%; height: 10vh; resize: none; float: left; " ></textarea>
-					<button id="btn_executeQueryUfoDb" style="width: 14%; height: 10vh; float: right;  " >Esegui Query UfoDb</button>
+					<textarea id= "txt_queryUfoDb" style="width: 85%; height: 10vh; resize: none; float: left; font-family: 'Trebuchet MS'; font-weight:bold; font-size: 2.00vh; " ></textarea>
+					<button id="btn_executeQueryUfoDb" style="width: 14%; height: 10vh; float: right; font-family: 'Trebuchet MS';" 
+						onclick="eseguiQueryUfoDb( '' + document.getElementById('txt_queryUfoDb').value )" >Esegui Query UfoDb</button> <!-- Accetta value NON innerHTML -->
 				</div>
 
 				<div style=" clear: both">
@@ -338,11 +330,131 @@
 
 				<u>- Risultato della Query SQL -</u>
 				<br>
-				<textarea id= "txt_resQueryUfoDb" style="width: 100%; height: 50vh; resize: none; overflow: scroll; white-space: pre;" readonly ></textarea>
+				<br>
+				<!-- <textarea id= "txt_resQueryUfoDb" style="width: 100%; height: 50vh; resize: none; overflow: scroll; white-space: pre; font-family: 'Trebuchet MS';" readonly ></textarea> -->
+				<div id="div_resQueryUfoDb" style="height: 50vh;" ></div>
+				<br>
 
 			</div>
 
 		</div>
+
+		<script type="text/javascript">
+
+			ufoDb = null;
+			ufoDbResultQuery = null;
+
+			div_resQueryUfoDb = null; //Tabulator JS
+
+			/*
+			var redMarker = L.AwesomeMarkers.icon({
+				//icon: 'coffee',
+				markerColor: 'red'
+  			});
+			*/
+
+			var cluMarkers = L.markerClusterGroup();
+
+			(async () => {
+				await primoAvvio(); 
+				//in relazione al primo avvio 
+				await eseguiQueryUfoDb( "" ); //anno 1987 //arg vuoto
+			})()
+
+			async function primoAvvio() {
+
+				//SET AUTOCOMMIT ON
+
+				alasql.fn.myfn = function ( arg ) {
+					return( arg.split( " " )[0] ); 
+				};
+			
+				await alasql.promise([
+					'CREATE TABLE Tab (datetime string, city string, state string, country string, shape string, duration_seconds string, duration_text string, description string, report_date string, latitude string, longitude string) ',
+					'SELECT [0] as datetime, [1] as city, [2] as state, [3] as country, [4] as shape, [5] as duration_seconds, [6] as duration_text, [7] as description, [8] as report_date, [9] as latitude, [10] as longitude INTO Tab FROM CSV("https://geoinf25.github.io/site/GIS/UfoDataset.csv",{headers:false})',
+					'ALTER TABLE Tab ADD COLUMN date STRING',
+					'UPDATE Tab SET date = myfn( datetime ) ',
+					'SELECT * FROM Tab'
+					
+				]).then(function (res) {
+					ufoDb = res[4]; //JSON result
+				
+					console.log( ufoDb ); 
+					//document.getElementById( "txt_resQueryUfoDb" ).innerHTML = JSON.stringify( json , null , 11 ); 
+				}); 
+			
+			}
+			
+			async function eseguiQueryUfoDb( arg ) {
+				var query = "";  
+				if( arg === "" ) {
+					query = 'SELECT * FROM ? WHERE YEAR(date) = '+document.getElementById("txt_annoAvvistamentoUFO").value;
+				} else {
+					query = arg.replaceAll( "UfoDb" , "?" ); 
+				}
+
+				try {
+					//await alasql.promise( "SELECT * FROM ? WHERE YEAR(date) = "+document.getElementById("txt_annoAvvistamentoUFO").value , [ ufoDb ])
+					await alasql.promise( query , [ ufoDb ])
+						.then( function( result ) {
+							//console.log( fin[0] ); 
+							//document.getElementById( "txt_resQueryUfoDb" ).innerHTML = "" + fin[0]["datetime"]; 
+							ufoDbResultQuery = result;
+							console.log( ufoDbResultQuery );
+
+							div_resQueryUfoDb = new Tabulator( "#div_resQueryUfoDb", {
+								data: ufoDbResultQuery, // Carica i dati JSON
+								autoColumns: true, // Crea automaticamente le colonne in base alle chiavi del JSON
+							});
+
+							//Aggiunta Marker sulla Mappa
+
+							if( ufoDbResultQuery.length == 0 || ufoDbResultQuery[ 0 ][ "latitude" ] == undefined || ufoDbResultQuery[ 0 ][ "longitude" ] == undefined ) {
+								document.getElementById( "consoleMap02" ).innerHTML = "No Lat / Lng found ... ";
+
+							} else {
+
+								document.getElementById( "consoleMap02" ).innerHTML = "There are " + ufoDbResultQuery.length + " Markers ... ";
+
+								if( layerMarkers.hasLayer( cluMarkers ) ) {
+									layerMarkers.removeLayer( cluMarkers ); 
+								}
+								//cluMarkers = L.markerClusterGroup();
+								cluMarkers.clearLayers();
+
+								for( var i = 0;  i < ufoDbResultQuery.length; i++ ) {
+									//tempMarker = L.marker([ ufoDbResultQuery[ i ][ "latitude" ] , ufoDbResultQuery[ i ][ "longitude" ] ] , {icon: redMarker} ).bindPopup("MARKER!");
+									var tempTextPopup = `
+										<div>
+											<li><b>Datetime:</b> ${ufoDbResultQuery[ i ][ "datetime" ]}</li>
+											<li><b>City:</b> ${ufoDbResultQuery[ i ][ "city" ]}</li>
+											<li><b>Shape:</b> ${ufoDbResultQuery[ i ][ "shape" ]}</li>
+											<li><b>Duration:</b> ${ufoDbResultQuery[ i ][ "duration_text" ]}</li>
+											<b>DESCRIPTION:</b> ${ufoDbResultQuery[ i ][ "description" ]}
+										</div>
+									`; 
+
+									var tempMarker = L.marker([ ufoDbResultQuery[ i ][ "latitude" ] , ufoDbResultQuery[ i ][ "longitude" ] ] ).bindPopup( tempTextPopup );
+									cluMarkers.addLayer( tempMarker );
+								}
+
+								layerMarkers.addLayer( cluMarkers ); 
+
+							}
+
+							//click_elements[ click_elements.length - 1 ].click(); //layerMarkers
+							//if( click_elements[ click_elements.length - 1 ].value == "on" ) {
+							//}
+
+						}); 
+
+				} catch( e ) {
+					document.getElementById( "txt_queryUfoDb" ).value += " " + ( "" + e ); //NON innerHTML
+				}
+
+			}
+
+		</script>
 
 	</div>
 
