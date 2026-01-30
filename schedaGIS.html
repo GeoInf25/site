@@ -103,7 +103,7 @@
 
 						<hr/>
 
-						Avvistamenti UFO nell'anno <input id="txt_annoAvvistamentoUFO" type="text" min="1906" max="2014" value="1987" style="width: 6vh; font-family: 'Trebuchet MS'; font-weight:bold; " maxlength="4" onblur="eseguiQueryUfoDb( '' )" > 
+						Avvistamenti UFO nell'anno <input id="txt_annoAvvistamentoUFO" type="text" min="1906" max="2014" value="1987" style="width: 6vh; font-family: 'Trebuchet MS'; font-weight:bold; " maxlength="4" onblur="if( isNaN( this.value ) ) { this.value = '1987' } else { eseguiQueryUfoDb( '' ); } " > 
 						<br>
 						<u>(la perdita del focus sul campo avvia la visualizzazione degli eventuali Marker sulla mappa)</u> <!-- type='number' -->
 						<br>
@@ -231,8 +231,8 @@
 
 					layer.bindPopup( popup ); 
 					console.log( layer.toGeoJSON() );
-					document.getElementById( "consoleMap02" ).innerHTML += 
-						"Type of Feature: " + type + "\n";
+					document.getElementById( "consoleMap02" ).value += 
+						"- Type of Feature: " + type + "\n";
 					
 					layerDrawItems.addLayer( layer ); 
 				}); 
@@ -240,7 +240,7 @@
 				map02.on( "draw:edited" , function( e ) {
 					var type = e.layerType; 
 					var layer = e.layer; 
-					document.getElementById( "consoleMap02" ).innerHTML += "draw : edited" + "\n";
+					document.getElementById( "consoleMap02" ).value += "- draw : edited" + "\n";
 
 				}); 
 
@@ -410,11 +410,11 @@
 							//Aggiunta Marker sulla Mappa
 
 							if( ufoDbResultQuery.length == 0 || ufoDbResultQuery[ 0 ][ "latitude" ] == undefined || ufoDbResultQuery[ 0 ][ "longitude" ] == undefined ) {
-								document.getElementById( "consoleMap02" ).innerHTML = "No Lat / Lng found ... see possible previous results on map ... ";
+								document.getElementById( "consoleMap02" ).value += "- No Lat / Lng found ... see possible previous results on map ... \n";
 
 							} else {
 
-								document.getElementById( "consoleMap02" ).innerHTML = "There are " + ufoDbResultQuery.length + " Markers ... ";
+								document.getElementById( "consoleMap02" ).value += "- There are " + ufoDbResultQuery.length + " Markers on map for year " + document.getElementById("txt_annoAvvistamentoUFO").value + "... \n";
 
 								if( layerMarkers.hasLayer( cluMarkers ) ) {
 									layerMarkers.removeLayer( cluMarkers ); 
@@ -458,7 +458,16 @@
 
 	</div>
 
+	<br>
+	<br>
+
 	<div id = "blocco02GIS" class = "span4 roundBorder" >
+		Mappe QGIS
+		<br>
+		<br>
+		Link di riferimento: <a href="https://www.qgistutorials.com/en/docs/3/making_a_map.html">Spatial Thoughts - QGIS Tutorials</a>
+		<br>
+		<br>
 		<div id="blocco01Map" class="span4 roundBorder" style="width: 98%; height: 70vh; " > <!-- span1 -->
 			<iframe src="https://geoinf25.github.io/site/GIS/MapQGIS01.pdf#view=fit" type="application/pdf" allow="fullscreen" width="100%" height="100%" ></iframe>
 		</div>
