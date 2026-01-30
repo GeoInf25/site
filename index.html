@@ -216,20 +216,20 @@
 		}
 
 		//Selezione Iframe
-		/*
+		
 		iframeAttivi = {
-			iframeReact : false , 
+			iframeReact : true , 
 			iframeRShiny : false , 
 			iframeJupyter : false , 
 			iframeCSharp : false , 
 			iframeJavascript : false ,
 			iframeJava : false ,
 			iframeDatabase : false ,
-			iframeGIS : true ,
+			iframeGIS : false ,
 			iframeDisegni3D : false ,
 			iframeAbout : false ,
 		}
-		*/
+		
 
 		function getOSIframe() {
 			var os =  window.navigator.platform; 
@@ -364,9 +364,11 @@
 			resizeWindow();
 
 			//consoleMap02
-			document.getElementById( "iframeGIS" ).contentWindow.document.getElementById( "consoleMap02" ).style.height = 
-				document.getElementById( "iframeGIS" ).contentWindow.document.getElementById( "contMap02" ).offsetHeight - 
-				document.getElementById( "iframeGIS" ).contentWindow.document.getElementById("contControlMap02ParteSup" ).offsetHeight; 
+			if( iframeAttivi.iframeGIS == true ) {
+				document.getElementById( "iframeGIS" ).contentWindow.document.getElementById( "consoleMap02" ).style.height = 
+					document.getElementById( "iframeGIS" ).contentWindow.document.getElementById( "contMap02" ).offsetHeight - 
+					document.getElementById( "iframeGIS" ).contentWindow.document.getElementById("contControlMap02ParteSup" ).offsetHeight; 
+			}
 
 		});
 
