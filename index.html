@@ -380,7 +380,7 @@
 					document.getElementById( "iframeGIS" ).contentWindow.document.getElementById( "contMap02" ).offsetHeight - 
 					document.getElementById( "iframeGIS" ).contentWindow.document.getElementById("contControlMap02ParteSup" ).offsetHeight; 
 
-				document.getElementById( "iframeGIS" ).contentWindow.document.getElementById( "consoleMap02" ).offsetHeight; // force reflow
+				window.dispatchEvent(new Event('resize')); // force reflow
 			}
 
 		});
