@@ -65,6 +65,12 @@
 		overflow-x: hidden;
   		overflow-y: hidden; /*scroll*/
 	}
+	#schedaDartFlutter {
+		width: 100%;
+  		/* height: 94%; */
+		overflow-x: hidden;
+  		overflow-y: hidden; /*scroll*/
+	}
 	#schedaAbout {
 		width: 100%;
   		/* height: 94%; */
@@ -151,6 +157,11 @@
 		/*color: white;*/
   	}
 
+	.tabDartFlutter {
+		border-color: lightseagreen;
+		/*color: white;*/
+  	}
+
   	.tabAbout {
 		border-color: lightseagreen;
 		/*color: white;*/
@@ -212,6 +223,7 @@
 			iframeDatabase : true ,
 			iframeGIS : true ,
 			iframeDisegni3D : true ,
+			iframeDartFlutter : true ,
 			iframeAbout : true ,
 		}
 
@@ -227,6 +239,7 @@
 			iframeDatabase : false ,
 			iframeGIS : false ,
 			iframeDisegni3D : false ,
+			iframeDartFlutter : false ,
 			iframeAbout : false ,
 		}
 		*/
@@ -254,6 +267,7 @@
 				iframeAttivi.iframeDatabase = true ;
 				iframeAttivi.iframeGIS = true ;
 				iframeAttivi.iframeDisegni3D = true ;
+				iframeAttivi.iframeDartFlutter = true ;
 				iframeAttivi.iframeAbout = true ;
 
 				alert( "OS diverso da Windows, alcune schede risultano DISABILITATE." ); 
@@ -316,6 +330,7 @@
 			document.getElementById( "schedaDatabase" ).style.height = hDiff; 
 			document.getElementById( "schedaGIS" ).style.height = hDiff; 
 			document.getElementById( "schedaDisegni3D" ).style.height = hDiff; 
+			document.getElementById( "schedaDartFlutter" ).style.height = hDiff; 
 			document.getElementById( "schedaAbout" ).style.height = hDiff; 
 
 			/*
@@ -336,6 +351,7 @@
 			schedaDatabase = document.getElementById( "schedaDatabase" );
 			schedaGIS = document.getElementById( "schedaGIS" );
 			schedaDisegni3D = document.getElementById( "schedaDisegni3D" );
+			schedaDartFlutter = document.getElementById( "schedaDartFlutter" );
 			schedaAbout = document.getElementById( "schedaAbout" );
 
 			schedaDatabaseCliccata = false; 
@@ -350,6 +366,7 @@
 				schedaDatabase,
 				schedaGIS,
 				schedaDisegni3D,
+				schedaDartFlutter,
 				schedaAbout
 			]; 
 
@@ -384,6 +401,7 @@
 		<button id="tab_schedaDatabase" class="btn tabDatabase" onclick="gestioneSchede( 'schedaDatabase' )">- DATABASE -</button>
 		<button id="tab_schedaGIS" class="btn tabGIS" onclick="gestioneSchede( 'schedaGIS' )">- GIS -</button>
 		<button id="tab_schedaDisegni3D" class="btn tabDisegni3D" onclick="gestioneSchede( 'schedaDisegni3D' )">- DISEGNI 3D -</button>
+		<button id="tab_schedaDartFlutter" class="btn tabDartFlutter" onclick="gestioneSchede( 'schedaDartFlutter' )">- DART/FLUTTER -</button>
 		<button id="tab_schedaAbout" class="btn tabAbout" onclick="gestioneSchede( 'schedaAbout' )">- ABOUT -</button>
 		<br>
 		<div id="barTot" style= "width: 100%; background-color: lightgreen; " >
@@ -606,6 +624,27 @@
 				document.getElementById( "iframeDisegni3D" ).src=""; 
 			}
 
+		</script>
+
+	</div>
+
+	<div id="schedaDartFlutter" >
+
+		<iframe
+			id="iframeDartFlutter" 
+			src=""  
+			width="100%"
+			height="100%"
+			frameBorder="0"
+
+		></iframe>
+
+		<script>
+			if( iframeAttivi.iframeDartFlutter == true ) {
+				document.getElementById( "iframeDartFlutter" ).src="https://geoinf25.github.io/site/Shiny/docs/index.html"; 
+			} else {
+				document.getElementById( "iframeDartFlutter" ).src="https://geoinf25.github.io/site/Flutter/flutter_app01/build/web/index.html"; 
+			}
 		</script>
 
 	</div>
