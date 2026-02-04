@@ -312,6 +312,12 @@
 			} else {
 				schedaDatabaseCliccata = false; 
 			}
+
+			if( scheda == "schedaDartFlutter" ) {
+				window.dispatchEvent(new Event('resize')); // force reflow
+			} else {
+				//
+			}
 	
 		}
 
@@ -380,7 +386,7 @@
 					document.getElementById( "iframeGIS" ).contentWindow.document.getElementById( "contMap02" ).offsetHeight - 
 					document.getElementById( "iframeGIS" ).contentWindow.document.getElementById("contControlMap02ParteSup" ).offsetHeight; 
 
-				window.dispatchEvent(new Event('resize')); // force reflow
+				//
 			}
 
 		});
