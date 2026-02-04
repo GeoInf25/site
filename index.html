@@ -374,18 +374,18 @@
 
 			resizeWindow();
 
-		});
-
-		window.addEventListener( 'resize' , function(event) {
-			//console.log( "RESIZE ... " ); 
-			resizeWindow();
-
 			//consoleMap02
 			if( iframeAttivi.iframeGIS == true ) {
 				document.getElementById( "iframeGIS" ).contentWindow.document.getElementById( "consoleMap02" ).style.height = 
 					document.getElementById( "iframeGIS" ).contentWindow.document.getElementById( "contMap02" ).offsetHeight - 
 					document.getElementById( "iframeGIS" ).contentWindow.document.getElementById("contControlMap02ParteSup" ).offsetHeight; 
 			}
+
+		});
+
+		window.addEventListener( 'resize' , function(event) {
+			//console.log( "RESIZE ... " ); 
+			resizeWindow();
 
 		});
 
