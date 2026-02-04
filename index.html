@@ -380,6 +380,12 @@
 
 			resizeWindow();
 
+		});
+
+		window.addEventListener( 'resize' , function(event) {
+			//console.log( "RESIZE ... " ); 
+			resizeWindow();
+
 			//consoleMap02
 			if( iframeAttivi.iframeGIS == true ) {
 				document.getElementById( "iframeGIS" ).contentWindow.document.getElementById( "consoleMap02" ).style.height = 
@@ -388,12 +394,6 @@
 
 				//
 			}
-
-		});
-
-		window.addEventListener( 'resize' , function(event) {
-			//console.log( "RESIZE ... " ); 
-			resizeWindow();
 
 		});
 
