@@ -63787,7 +63787,7 @@ A.cX(3,"retries")
 s=t.N
 p=new A.ZB(p,!0,A.r(s,s))
 s=$.anL()
-p=new A.xd("https://tiles.stadiamaps.com/tiles/stamen_toner/{z}/{x}/{y}{r}.png",p,s,r)
+p=new A.xd("https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png",p,s,r)
 p.dx=B.GJ
 p.y=1/0
 p.Q=19
