@@ -65,6 +65,8 @@
 		<br>
 		- JavaScript SQL database, per tabelle relazionali tradizionali e dati JSON annidati (NoSQL): <a href="https://alasql.org/">AlaSQL</a>
 		<br>
+		*** Nota FLUTTER: flutter_map wants to help keep map data available for everyone; we use the OpenStreetMap public tile servers in our code examples & demo app, but they are NOT free to use by everyone;please review whether OSM's tile servers are appropriate and the best choice for your app; see: <a href="https://operations.osmfoundation.org/policies/tiles">OSM Tile Usage Policy</a>, <a href="https://docs.fleaflet.dev/osm-warn">OSM-WARN</a> for more information about this warning.
+		<br>
 		<br>
 		
 	</div>
@@ -160,6 +162,10 @@
 					maxZoom: 19,
 				}).addTo(map02);
 
+				var baseStadiaMap = L.tileLayer('https://tiles.stadiamaps.com/tiles/stamen_toner/{z}/{x}/{y}{r}.png', {
+					maxZoom: 19,
+				}).addTo(map02);
+
 				map02.addEventListener('mousemove', function( e ) {
 					//innerHTML textArea
 					document.getElementById( "txt_latMap02" ).value  = ( e.latlng.lat ).toFixed( 6 ); 
@@ -178,6 +184,7 @@
 					"Google Hybrid": baseGoogleHybrid,
 					"Google Satellite": baseGoogleSatellite,
 					"Google Road": baseGoogleRoad,
+					"Stadia Map": baseStadiaMap,
 				}
 
 				//map02.addLayer( layerDrawItems );
@@ -251,7 +258,7 @@
 				//}
 				//click_elements.length
 
-				click_elements[ 4 ].click(); //baseMaps
+				click_elements[ 5 ].click(); //baseMaps
 
 				click_elements[ click_elements.length - 2 ].click(); //layerDrawItems
 				click_elements[ click_elements.length - 1 ].click(); //layerMarkers //Vedi funzione seguente
@@ -319,7 +326,7 @@
 				Scrivi una Query SQL (Table name 'UfoDb'): 
 				<br>
 				<div>
-					<textarea id= "txt_queryUfoDb" style="width: 85%; height: 10vh; resize: none; float: left; font-family: 'Trebuchet MS'; font-weight:bold; font-size: 2.00vh; " ></textarea>
+					<textarea id= "txt_queryUfoDb" style="width: 85%; height: 10vh; resize: none; float: left; font-family: 'Trebuchet MS'; font-weight:bold; font-size: 2.00vh; " >select * from UfoDb where year(date) = 1988 -- example</textarea>
 					<button id="btn_executeQueryUfoDb" style="width: 14%; height: 10vh; float: right; font-family: 'Trebuchet MS';" 
 						onclick="eseguiQueryUfoDb( '' + document.getElementById('txt_queryUfoDb').value )" >Esegui Query UfoDb</button> <!-- Accetta value NON innerHTML -->
 				</div>
@@ -392,7 +399,7 @@
 				} else {
 					query = arg.replaceAll( "UfoDb" , "?" ); 
 				}
-
+				
 				try {
 					//await alasql.promise( "SELECT * FROM ? WHERE YEAR(date) = "+document.getElementById("txt_annoAvvistamentoUFO").value , [ ufoDb ])
 					await alasql.promise( query , [ ufoDb ])
