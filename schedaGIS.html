@@ -479,7 +479,18 @@
 		<div id="blocco02GIS" class="span4 roundBorder" style="width: 98%; height: 70vh; " > <!-- span1 -->
 			<div id="leafletMap03" style="height: 60vh; border: 2px solid " ></div> 
 			<script>
+				var map03 = L.map('leafletMap03' , { 
+					zoomSnap: 1 , //1
+					zoomDelta : 1, 
+					wheelPxPerZoomLevel: 90, //60 
 
+				} ).setView([ 46.035235, 10.980633], 3);
+
+				var baseOSM = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+					maxZoom: 19,
+				}).addTo(map02);
+
+				
 
 			</script>
 		</div>
