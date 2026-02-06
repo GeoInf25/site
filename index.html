@@ -17,6 +17,12 @@
 
 <style>
 
+	#schedaBlazor {
+  		width: 100%;
+  		/* height: 94%; */
+		overflow-x: hidden;
+  		overflow-y: hidden; /*scroll*/
+	}
 	#schedaReact {
   		width: 100%;
   		/* height: 94%; */
@@ -111,6 +117,11 @@
 		}
 	}
 	*/
+
+	.tabBlazor {
+		border-color: lightseagreen;
+  		/*color: white;*/
+  	}
 
   	.tabReact {
 		border-color: lightseagreen;
@@ -214,6 +225,7 @@
 	<script>
 
 		var iframeAttivi = {
+			iframeBlazor : true , 
 			iframeReact : true , 
 			iframeRShiny : true , 
 			iframeJupyter : true , 
@@ -230,6 +242,7 @@
 		//Selezione Iframe
 		/*
 		iframeAttivi = {
+			iframeBlazor : true , 
 			iframeReact : true , 
 			iframeRShiny : false , 
 			iframeJupyter : false , 
@@ -258,6 +271,7 @@
 			if( osWin == true ) {
 				//
 			} else {
+				iframeAttivi.iframeBlazor = true ; 
 				iframeAttivi.iframeReact = false ; 
 				iframeAttivi.iframeRShiny = false ; 
 				iframeAttivi.iframeJupyter = true ; 
@@ -327,6 +341,7 @@
 			var hTabScheda = document.getElementById( "tab_scheda" ).offsetHeight; 
 			var hDiff = hBody - hTabScheda - 12; // - 9
 			//alert( hDiff );
+			document.getElementById( "schedaBlazor" ).style.height = hDiff; 
 			document.getElementById( "schedaReact" ).style.height = hDiff; 
 			document.getElementById( "schedaRShiny" ).style.height = hDiff; 
 			document.getElementById( "schedaJupyter" ).style.height = hDiff; 
@@ -348,6 +363,7 @@
 
 		window.addEventListener( 'load' , function(event) { 
 
+			schedaBlazor = document.getElementById( "schedaBlazor" );
 			schedaReact = document.getElementById( "schedaReact" );
 			schedaRShiny = document.getElementById( "schedaRShiny" );
 			schedaJupyter = document.getElementById( "schedaJupyter" );
@@ -363,6 +379,7 @@
 			schedaDatabaseCliccata = false; 
 
 			schede = [ 
+				schedaBlazor,
 				schedaReact,
 				schedaRShiny,
 				schedaJupyter,
@@ -400,6 +417,7 @@
 	</script>
 
 	<div id="tab_scheda">
+		<button id="tab_schedaBlazor" class="btn tabBlazor" onclick="gestioneSchede( 'schedaBlazor' )">- BLAZOR -</button>
 		<button id="tab_schedaReact" class="btn tabReact" onclick="gestioneSchede( 'schedaReact' )">- REACT -</button>
 		<button id="tab_schedaRShiny" class="btn tabRShiny" onclick="gestioneSchede( 'schedaRShiny' )">- R / SHINY -</button>
 		<button id="tab_schedaJupyter" class="btn tabJupyter" onclick="gestioneSchede( 'schedaJupyter' )">- JUPYTER / PY -</button>
@@ -432,6 +450,25 @@
 
 		</script>
 
+	</div>
+
+	<div id="schedaBlazor" >
+		<iframe
+			id="iframeBlazor"
+			src=""  
+			width="100%"
+			height="100%"
+			frameBorder="0"
+
+		></iframe>
+
+		<script>
+			if( iframeAttivi.iframeBlazor == true ) {
+				document.getElementById( "iframeReact" ).src="https://geoinf25.github.io/repoBlazor/"; 
+			} else {
+				document.getElementById( "iframeReact" ).src=""; 
+			}
+		</script>
 	</div>
 
 	<div id="schedaReact" >
