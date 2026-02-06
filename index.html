@@ -15,7 +15,7 @@
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
-	<link rel="icon" href="favicon.ico" /> <!-- 4552604-globe-internet-sphere-web_121385 Icon - Icons Free Icon PNG, SVG -->
+	<link rel="icon" type="image/png" href="favicon.png" /> <!-- location_map_pin_mark_icon_148685 - Location map pin mark - Free Icon in PNG and SVG By IconMarket -->
 
 <style>
 
@@ -341,7 +341,7 @@
 		function resizeWindow() {
 			var hBody = window.innerHeight; 
 			var hTabScheda = document.getElementById( "tab_scheda" ).offsetHeight; 
-			var hDiff = hBody - hTabScheda - 12; // - 9
+			var hDiff = hBody - hTabScheda - 20; // - 9
 			//alert( hDiff );
 			document.getElementById( "schedaBlazor" ).style.height = hDiff; 
 			document.getElementById( "schedaReact" ).style.height = hDiff; 
@@ -418,7 +418,7 @@
 
 	</script>
 
-	<div id="tab_scheda" style="margin-bottom: 1vh;" >
+	<div id="tab_scheda" style="margin-bottom: 0.5vh;" >
 		<button id="tab_schedaBlazor" class="btn tabBlazor" onclick="gestioneSchede( 'schedaBlazor' )">- BLAZOR -</button>
 		<button id="tab_schedaReact" class="btn tabReact" onclick="gestioneSchede( 'schedaReact' )">- REACT -</button>
 		<button id="tab_schedaRShiny" class="btn tabRShiny" onclick="gestioneSchede( 'schedaRShiny' )">- R / SHINY -</button>
