@@ -162,9 +162,11 @@
 					maxZoom: 19,
 				}).addTo(map02);
 
+				/*
 				var baseStadiaMap = L.tileLayer('https://tiles.stadiamaps.com/tiles/stamen_toner/{z}/{x}/{y}{r}.png', {
 					maxZoom: 19,
 				}).addTo(map02);
+				*/
 
 				map02.addEventListener('mousemove', function( e ) {
 					//innerHTML textArea
@@ -184,7 +186,6 @@
 					"Google Hybrid": baseGoogleHybrid,
 					"Google Satellite": baseGoogleSatellite,
 					"Google Road": baseGoogleRoad,
-					"Stadia Map": baseStadiaMap,
 				}
 
 				//map02.addLayer( layerDrawItems );
@@ -258,7 +259,7 @@
 				//}
 				//click_elements.length
 
-				click_elements[ 5 ].click(); //baseMaps
+				click_elements[ 4 ].click(); //baseMaps
 
 				click_elements[ click_elements.length - 2 ].click(); //layerDrawItems
 				click_elements[ click_elements.length - 1 ].click(); //layerMarkers //Vedi funzione seguente
@@ -469,6 +470,25 @@
 	<br>
 
 	<div id = "blocco02GIS" class = "span4 roundBorder" >
+		GeoJSON (EPSG 4326 - WGS84)
+		<br>
+		<br>
+		Link di riferimento: <a href="https://ec.europa.eu/eurostat/web/gisco/geodata/administrative-units/countries">GISCO - GeoData - Countries</a>
+		<br>
+		<br>
+		<div id="blocco02GIS" class="span4 roundBorder" style="width: 98%; height: 70vh; " > <!-- span1 -->
+			<div id="leafletMap03" style="height: 60vh; border: 2px solid " ></div> 
+			<script>
+
+
+			</script>
+		</div>
+	</div>
+
+	<br>
+	<br>
+
+	<div id = "blocco03GIS" class = "span4 roundBorder" >
 		Mappe QGIS
 		<br>
 		<br>
