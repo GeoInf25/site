@@ -342,7 +342,7 @@
 				<br>
 				<br>
 				<!-- <textarea id= "txt_resQueryUfoDb" style="width: 100%; height: 50vh; resize: none; overflow: scroll; white-space: pre; font-family: 'Trebuchet MS';" readonly ></textarea> -->
-				<div id="div_resQueryUfoDb" style="height: 50vh;" ></div>
+				<div id="div_resQueryUfoDb" style="height: 50vh; font-size: 1.75vh; " ></div>
 				<br>
 
 			</div>
@@ -477,92 +477,144 @@
 		<br>
 		- Link di riferimento: <a href="https://ec.europa.eu/eurostat/web/gisco/geodata/administrative-units/countries">GISCO - GeoData - Countries (EPSG 4326)</a>, <a href="https://colorbrewer2.org/">Gradazione colori (Colorbrewer2)</a>, <a href="https://leafletjs.com/examples/choropleth/">Leafletjs choropleth</a>
 		<br>
-		- Mappa COROPLETICA legata all'estensione dei vari Stati nazionali
+		- Mappa COROPLETICA legata all'estensione in Area dei vari Stati nazionali
 		<br>
 		<br>
-		<div id="leafletMap03" style="height: 60vh; border: 2px solid " ></div> 
-			<script>
-				var map03 = L.map('leafletMap03' , { 
-					zoomSnap: 1 , //1
-					zoomDelta : 1, 
-					wheelPxPerZoomLevel: 90, //60 
+		<div id="contMap03">
+			<div id="leafletMap03" style="float: left; height: 60vh; width: 52%; border: 2px solid " ></div> 
+			<div id="div_dataCountr" style="float: left; margin-left: 0.5vh;height: 60vh; width: 45%; font-size: 1.50vh; " ></div>
 
-				} ).setView([ 46.035235, 10.980633], 3);
+			<div style=" clear: both">
+				<br>
+			</div>
 
-				var baseOSM = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-					maxZoom: 19,
-				}).addTo(map03);
-
-				function getColor( area ) {
-					//var rifArea = 2442857;
-					
-					if( area > (10000000) ) {
-						return "#ffffd9"; 
-					} else if( area > (5000000) ) { 
-						return "#edf8b1"; 
-					} else if( area > (1000000) ) {
-						return "#c7e9b4"; 
-					} else if( area > (100000) ) {
-						return "#7fcdbb";
-					} else if( area > (10000) ) {
-						return "#41b6c4";
-					} else if( area > (1000) ) {
-						return "#1d91c0";
-					} else if( area > (100) ) {
-						return "#225ea8"; 
-					} else {
-						return "#0c2c84"; 
-					}
-				}
-
-				function fooStyle(feature) { 
-					return {
-						fillColor: getColor( turf.area(feature) / 1000000 ), //mq -> Km^2
-						fillOpacity: 0.7, 
-					}
-				}
-
-				(async () => {
-					try {
-						const response = await fetch( "./GIS/Map03_CNTR_RG_20M_2024_4326.geojson" );
-        				const countrData = await response.json(); 
-
-						console.log( "Map03 CRS: " + map03.options.crs.code ); 
-						//L.geoJSON in EPSG:4326 - WGS84 (si presume conversione automatica su Tile Layer EPSG 3857)
-						//Turf.js in EPSG:4326 - WGS84
-						//console.log( "Data GeoJSON 3857: " + countrData ); 
-						console.log(  "Tot features in GeoJson: " + countrData.features.length);
-
-						const swissFormatter = new Intl.NumberFormat('de-CH');
-
-						L.geoJSON( countrData , {
-							//coordsToLatLng: function (coords) {
-        						// Converte le coordinate proiettate [x, y] in [lat, lng]
-        						//return L.CRS.EPSG3857.unproject(L.point(coords));
-    						//},
-            				onEachFeature: function (feature, layer) {
-								//console.log( "Test "); 
-                				layer.bindPopup(`
-									<div>
-										<li><b>NAME_ENGL -</b> ${feature.properties.NAME_ENGL}</li>
-										<li><b>SVRG_UN -</b> ${feature.properties.SVRG_UN}</li>
-										<li><b>CAPT -</b> ${feature.properties.CAPT}</li>
-										<li><b>AREA (calculated sq.km) -</b> ${ swissFormatter.format(( turf.area(feature) / 1000000 ).toFixed(2)) }</li>
-									</div>
-								`)
-            				}, 
-							style: fooStyle,
-
-        				}).addTo(map03);
-
-					} catch (error) {
-        				console.log("Errore nel caricamento del GeoJSON:", error);
-    				}
-
-				})(); 
-
-			</script>
 		</div>
+
+		<script>
+
+			var dataCountrJson = [ ]; 
+
+			var map03 = L.map('leafletMap03' , { 
+				zoomSnap: 1 , //1
+				zoomDelta : 1, 
+				wheelPxPerZoomLevel: 90, //60 
+
+			} ).setView([ 46.035235, 10.980633], 1);
+
+			var baseOSM = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+				maxZoom: 19,
+			}).addTo(map03);
+
+			function getColor( area ) {
+				//var rifArea = 2442857;
+				
+				if( area > (10000000) ) {
+					return "#ffffd9"; 
+				} else if( area > (5000000) ) { 
+					return "#edf8b1"; 
+				} else if( area > (1000000) ) {
+					return "#c7e9b4"; 
+				} else if( area > (100000) ) {
+					return "#7fcdbb";
+				} else if( area > (10000) ) {
+					return "#41b6c4";
+				} else if( area > (1000) ) {
+					return "#1d91c0";
+				} else if( area > (100) ) {
+					return "#225ea8"; 
+				} else {
+					return "#0c2c84"; 
+				}
+			}
+
+			function fooStyle(feature) { 
+				return {
+					fillColor: getColor( turf.area(feature) / 1000000 ), //mq -> Km^2
+					fillOpacity: 0.7, 
+				}
+			}
+
+			var legend = L.control({position: 'bottomright'});
+
+			legend.onAdd = function (map03) {
+				var div = L.DomUtil.create( "div" , "" ); //div , class ... 
+				div.style.background = "white"; 
+				div.style.border = "solid 1px"; 
+				div.style.fontFamily = "trebuchet ms"; 
+				div.innerHTML = "<b>Area (Km^2)</b><br>";
+				div.innerHTML += "<i style='background: #ffffd9'>&nbsp&nbsp</i> >10'000'000<br>";
+				div.innerHTML += "<i style='background: #edf8b1'>&nbsp&nbsp</i> 5'000'000-10'000'000<br>";
+				div.innerHTML += "<i style='background: #c7e9b4'>&nbsp&nbsp</i> 1'000'000-5'000'000<br>";
+				div.innerHTML += "<i style='background: #7fcdbb'>&nbsp&nbsp</i> 100'000-1'000'000<br>";
+				div.innerHTML += "<i style='background: #41b6c4'>&nbsp&nbsp</i> 10'000-100'000<br>";
+				div.innerHTML += "<i style='background: #1d91c0'>&nbsp&nbsp</i> 1'000-10'000<br>";
+				div.innerHTML += "<i style='background: #225ea8'>&nbsp&nbsp</i> 100-1'000<br>";
+				div.innerHTML += "<i style='background: #0c2c84'>&nbsp&nbsp</i> 0-100<br>";
+				return div;
+			};
+
+			legend.addTo(map03);
+
+			async function avvioMap03() {
+				try {
+					const response = await fetch( "./GIS/Map03_CNTR_RG_20M_2024_4326.geojson" );
+					const countrData = await response.json(); 
+
+					console.log( "Map03 CRS: " + map03.options.crs.code ); 
+					//L.geoJSON in EPSG:4326 - WGS84 (si presume conversione automatica su Tile Layer EPSG 3857)
+					//Turf.js in EPSG:4326 - WGS84
+					//console.log( "Data GeoJSON 3857: " + countrData ); 
+					console.log(  "Tot features in GeoJson: " + countrData.features.length);
+
+					const swissFormatter = new Intl.NumberFormat('de-CH');
+
+					L.geoJSON( countrData , {
+						//coordsToLatLng: function (coords) {
+							// Converte le coordinate proiettate [x, y] in [lat, lng]
+							//return L.CRS.EPSG3857.unproject(L.point(coords));
+						//},
+						onEachFeature: function (feature, layer) {
+							var areaCountr = ( turf.area(feature) / 1000000 ).toFixed(2);
+							dataCountrJson.push( 
+								{ 
+									"Name": feature.properties.NAME_ENGL, 
+									"Sovereignty": feature.properties.SVRG_UN, 
+									"Capital": feature.properties.CAPT, 
+									"Area": areaCountr, 
+								}
+							); 
+							layer.bindPopup(`
+								<div>
+									<li><b>NAME_ENGL -</b> ${feature.properties.NAME_ENGL}</li>
+									<li><b>SVRG_UN -</b> ${feature.properties.SVRG_UN}</li>
+									<li><b>CAPT -</b> ${feature.properties.CAPT}</li>
+									<li><b>AREA (calculated sq.km) -</b> ${ swissFormatter.format( areaCountr ) }</li>
+								</div>
+							`)
+						}, 
+						style: fooStyle,
+
+					}).addTo(map03);
+
+				} catch (error) {
+					console.log("Errore nel caricamento del GeoJSON:", error);
+				}
+			}
+
+			//Avvio map03
+			(async () => {
+				await avvioMap03(); 
+
+				//Elaborazione dataCountrJson ...
+
+				div_dataCountr = new Tabulator( "#div_dataCountr", {
+					data: dataCountrJson, // Carica i dati JSON
+					autoColumns: true, // Crea automaticamente le colonne in base alle chiavi del JSON
+				});
+
+			})(); 
+
+		</script>
 	</div>
 
 	<br>
