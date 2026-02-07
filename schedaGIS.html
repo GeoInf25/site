@@ -479,6 +479,8 @@
 		<br>
 		- Mappa COROPLETICA legata all'estensione in Area dei vari Stati nazionali
 		<br>
+		*** Nota: i filtri consentono di ricercare i relativi nominativi, oppure le aree aventi valore <u>inferiore</u> a quanto indicato; il "click" sulla riga (in Tabella) consente di evidenziare la nazione coinvolta.
+		<br>
 		<br>
 		<div id="contMap03">
 			<div id="leafletMap03" style="float: left; height: 60vh; width: 52%; border: 2px solid " ></div> 
@@ -492,7 +494,9 @@
 
 		<script>
 
-			var dataCountrJson = [ ]; 
+			var dataCountrTable = [ ]; 
+			var countrData = null; 
+			var layerCountr = null; 
 
 			var map03 = L.map('leafletMap03' , { 
 				zoomSnap: 1 , //1
@@ -558,7 +562,7 @@
 			async function avvioMap03() {
 				try {
 					const response = await fetch( "./GIS/Map03_CNTR_RG_20M_2024_4326.geojson" );
-					const countrData = await response.json(); 
+					countrData = await response.json(); 
 
 					console.log( "Map03 CRS: " + map03.options.crs.code ); 
 					//L.geoJSON in EPSG:4326 - WGS84 (si presume conversione automatica su Tile Layer EPSG 3857)
@@ -568,14 +572,14 @@
 
 					const swissFormatter = new Intl.NumberFormat('de-CH');
 
-					L.geoJSON( countrData , {
+					layerCountr = L.geoJSON( countrData , {
 						//coordsToLatLng: function (coords) {
 							// Converte le coordinate proiettate [x, y] in [lat, lng]
 							//return L.CRS.EPSG3857.unproject(L.point(coords));
 						//},
 						onEachFeature: function (feature, layer) {
-							var areaCountr = ( turf.area(feature) / 1000000 ).toFixed(2);
-							dataCountrJson.push( 
+							var areaCountr = parseFloat( ( turf.area(feature) / 1000000 ).toFixed(2) );
+							dataCountrTable.push( 
 								{ 
 									"Name": feature.properties.NAME_ENGL, 
 									"Sovereignty": feature.properties.SVRG_UN, 
@@ -605,11 +609,27 @@
 			(async () => {
 				await avvioMap03(); 
 
-				//Elaborazione dataCountrJson ...
+				//Elaborazione dataCountrTable ...
 
 				div_dataCountr = new Tabulator( "#div_dataCountr", {
-					data: dataCountrJson, // Carica i dati JSON
-					autoColumns: true, // Crea automaticamente le colonne in base alle chiavi del JSON
+					data: dataCountrTable, // Carica i dati JSON
+					//autoColumns: true, // Crea automaticamente le colonne in base alle chiavi del JSON
+					columns: [
+       					{title: "Name", field: "Name", headerFilter: "input", headerFilterParams: { elementAttributes: { style: "width: 100%; font-size: 1.5vh;" } } },
+       					{title: "Sovereignty", field: "Sovereignty", headerFilter: "input", headerFilterParams: { elementAttributes: { style: "width: 100%; font-size: 1.5vh;" } } },
+        				{title: "Capital", field: "Capital", headerFilter: "input", headerFilterParams: { elementAttributes: { style: "width: 100%; font-size: 1.5vh;" } } }, 
+						{title: "Area (Km^2)", field: "Area (Km^2)", headerFilter: "number", headerFilterFunc: "<=", headerFilterParams: { elementAttributes: { style: "width: 100%; font-size: 1.5vh;" } } }, 
+    				]
+				});
+
+				//countrData
+				div_dataCountr.on("rowClick", function(e, row) {
+					layerCountr.eachLayer(function ( singleCountr ) { //gruppo di Layer -> singolo Layer
+  						if ( singleCountr.feature.properties.NAME_ENGL === row.getData().Name ) {
+							// Zoom to that layer.
+							map03.fitBounds( singleCountr.getBounds());
+  						}
+					});
 				});
 
 			})(); 
