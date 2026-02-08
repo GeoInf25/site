@@ -27,7 +27,8 @@
 	<script src="https://cdn.jsdelivr.net/npm/leaflet.awesome-markers@2.0.5/dist/leaflet.awesome-markers.min.js"></script>
 	<link href="https://cdn.jsdelivr.net/npm/leaflet.awesome-markers@2.0.5/dist/leaflet.awesome-markers.min.css" rel="stylesheet">
 
-	<script src=https://cdnjs.cloudflare.com/ajax/libs/alasql/4.6.6/alasql.min.js></script> 
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/alasql/4.6.6/alasql.min.js"></script> 
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.core.min.js"></script>
 
 	<link href="https://unpkg.com/tabulator-tables@6.3.1/dist/css/tabulator.min.css" rel="stylesheet">
  	<script type="text/javascript" src="https://unpkg.com/tabulator-tables@6.3.1/dist/js/tabulator.min.js"></script>
@@ -484,11 +485,14 @@
 		<br>
 		<div id="contMap03">
 			<div id="leafletMap03" style="float: left; height: 60vh; width: 52%; border: 2px solid " ></div> 
-			<div id="div_dataCountr" style="float: left; margin-left: 0.5vh;height: 60vh; width: 46%; font-size: 1.50vh; " ></div>
+			<div id="div_dataCountr" style="float: left; margin-left: 0.5%; height: 60vh; width: 46%; font-size: 1.50vh; " ></div>
+			<button onclick="excelMap03()" style="margin-top: 0.5%; margin-left: 78.5%; width: 20%; ">Download Table Data (.xlsx)</button>
 
-			<div style=" clear: both">
-				<br>
-			</div>
+			<!-- 
+				<div style=" clear: both">
+					<br>
+				</div>
+			-->
 
 		</div>
 
@@ -634,6 +638,23 @@
 
 			})(); 
 
+			async function excelMap03() {
+				var copyDataCountrTable = JSON.parse(JSON.stringify(dataCountrTable)); //copy of JSON
+
+				copyDataCountrTable.forEach(function(row) {
+    				for (var key in row) {
+        				// Sostituisce null/undefined con una stringa vuota 
+        				if (row[key] === null || row[key] === undefined) {
+            				row[key] = ""; 
+        				}
+						//Da verificare eventuali caratteri di controllo \u0000-\u0008\u000B- ... 
+					}
+				}); 
+
+				await alasql.promise( "SELECT * INTO XLSX( 'excelTableMap03.xlsx' , {headers:true} ) FROM ? " , [ copyDataCountrTable ]); //Dati Tabella; countrData -> Dati GeoJSON
+
+			}
+
 		</script>
 	</div>
 
@@ -647,9 +668,10 @@
 		Link di riferimento: <a href="https://www.qgistutorials.com/en/docs/3/making_a_map.html">Spatial Thoughts - QGIS Tutorials</a>
 		<br>
 		<br>
-		<div id="blocco01Map" class="span4 roundBorder" style="width: 98%; height: 70vh; " > <!-- span1 -->
+		<div id="blocco01Map" style="width: 98%; height: 70vh; " > <!-- span1 --> <!-- class="span4 roundBorder"  -->
 			<iframe src="https://geoinf25.github.io/site/GIS/MapQGIS01.pdf#view=fit" type="application/pdf" allow="fullscreen" width="100%" height="100%" ></iframe>
 		</div>
+		<br>
 	</div>
 
 </body>
