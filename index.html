@@ -185,6 +185,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="utf-8" >
 <!-- charset per Font in localhost -->
 
+<script src="https://cjrtnc.leaningtech.com/4.2/loader.js"></script>
+
 </head>
 
 <body>
@@ -396,6 +398,20 @@
 			]; 
 
 			gestioneSchede( "schedaGIS" );
+
+			(async () => {
+				// Inizializza l'ambiente Java nel browser
+				await cheerpjInit( { version: 17 } );
+
+				// Crea l'area grafica per Swing
+				const container = document.getElementById('java-container');
+				// Crea il display all'interno del div con le stesse dimensioni
+				cheerpjCreateDisplay(400, 500, container );
+
+				// Esegue il JAR della calcolatrice
+				await cheerpjRunJar("/app/site/calc.jar");
+
+			})();
 
 			resizeWindow();
 
