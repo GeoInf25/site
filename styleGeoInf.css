@@ -5,7 +5,7 @@ body {
 	font-family: "Trebuchet MS";
 	font-size: 1.75vh;
 	/* font-size: 1 em rem ... 14 px ; */
-	/* overflow: hidden; */
+	overflow-y: hidden;
 }
 
 .justify {
