@@ -49,12 +49,18 @@
     		</script>
 			-->
 
+			<div id="java-container" style="width: 300px; height: 400px;"></div>
+
 			<script>
 				(async function() {
 					// Inizializza l'ambiente Java nel browser
 					await cheerpjInit( { version: 17 } );
+
 					// Crea l'area grafica per Swing
-					cheerpjCreateDisplay(300, 400);
+					const container = document.getElementById('java-container');
+  					// Crea il display all'interno del div con le stesse dimensioni
+					cheerpjCreateDisplay(300, 400, container );
+
 					// Esegue il JAR della calcolatrice
 					await cheerpjRunJar("/app/site/calc.jar");
 				})();
