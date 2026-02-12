@@ -9,7 +9,8 @@
 	</style>
 
 	<!-- Carica il loader di CheerpJ 3.0 via CDN -->
-    <script src="https://cjrtnc.leaningtech.com/3.0/cj3loader.js"></script>
+    <!-- <script src="https://cjrtnc.leaningtech.com/3.0/cj3loader.js"></script> -->
+	<script src="https://cjrtnc.leaningtech.com/4.2/loader.js"></script>
 
 </head>
 
@@ -33,6 +34,7 @@
 			<h2>• Applet01</h2>
 			<!-- <embed code="MyApplet.class" style="border: 1px solid black;" ></embed> --> <!-- width="100vh" height="60vh" --> 
 
+			<!--
 			<cheerpj-applet 
         		archive="https://geoinf25.github.io/site/" 
        			code="MyApplet.class" 
@@ -44,6 +46,18 @@
 				// Inizializza il runtime di CheerpJ
 				// Per gli applet, Java 8 è la versione predefinita e richiesta
         		cheerpjInit();
+    		</script>
+			-->
+
+			<script>
+				(async function() {
+					// Inizializza l'ambiente Java nel browser
+					await cheerpjInit( { version: 17 } );
+					// Crea l'area grafica per Swing
+					cheerpjCreateDisplay(300, 400);
+					// Esegue il JAR della calcolatrice
+					await cheerpjRunJar("/app/calc.jar");
+				})();
     		</script>
 
 			<br>
