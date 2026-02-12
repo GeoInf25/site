@@ -8,6 +8,9 @@
 
 	</style>
 
+	<!-- Carica il loader di CheerpJ 3.0 via CDN -->
+    <script src="https://cjrtnc.leaningtech.com/3.0/cj3loader.js"></script>
+
 </head>
 
 <body style = "overflow-y: scroll" >
@@ -28,7 +31,19 @@
 
 		<div id = "blocco01Java" class = "span4 roundBorder" >
 			<h2>• Applet01</h2>
-			<embed code="MyApplet.class" style="border: 1px solid black;" ></embed> <!-- width="100vh" height="60vh" -->
+			<!-- <embed code="MyApplet.class" style="border: 1px solid black;" ></embed> --> <!-- width="100vh" height="60vh" --> 
+
+			<cheerpj-applet 
+        		archive="https://geoinf25.github.io/site/" 
+       			code="MyApplet.class" 
+        		width="100%" height="60vh">
+    		</cheerpj-applet>
+
+    		<script>
+				// Inizializza il runtime di CheerpJ
+				// Per gli applet, Java 8 è la versione predefinita e richiesta
+        		cheerpjInit();
+    		</script>
 
 			<br>
 			<b>NOTA</b>: Abilitare l'estensione CheerpJ (Java) Applet Runner per la Pagina Web corrente. 
