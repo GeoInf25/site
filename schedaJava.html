@@ -10,7 +10,7 @@
 
 	<!-- Carica il loader di CheerpJ 3.0 via CDN -->
     <!-- <script src="https://cjrtnc.leaningtech.com/3.0/cj3loader.js"></script> -->
-	<!-- <script src="https://cjrtnc.leaningtech.com/4.2/loader.js"></script> -->
+	<script src="https://cjrtnc.leaningtech.com/4.2/loader.js"></script>
 
 </head>
 
@@ -51,7 +51,24 @@
 
 			<div id="java-container" style="width: 400; height: 500;"></div>
 
-			<!-- Vedi index.html -->
+			<script>
+				(async () => {
+					// Inizializza l'ambiente Java nel browser
+					await cheerpjInit( { version: 17 } );
+
+					// Crea l'area grafica per Swing
+					//const container = document.getElementById( "iframeJava" ).contentWindow.document.getElementById('java-container');
+					const container = document.getElementById('java-container');
+
+					// Crea il display all'interno del div con le stesse dimensioni
+					cheerpjCreateDisplay(400, 500, container );
+
+					// Esegue il JAR della calcolatrice
+					await cheerpjRunJar("/app/site/calc.jar");
+
+				})();
+
+			</script>
 
 			<br>
 			<br>
