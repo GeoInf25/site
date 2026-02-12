@@ -399,7 +399,7 @@
 
 			gestioneSchede( "schedaGIS" );
 
-			document.getElementById( "iframeJava" ).addEventListener('load', async () => {
+			async () => {
 				// Inizializza l'ambiente Java nel browser
 				await cheerpjInit( { version: 17 } );
 
@@ -411,7 +411,7 @@
 				// Esegue il JAR della calcolatrice
 				await cheerpjRunJar("/app/site/calc.jar");
 
-			});
+			};
 
 			resizeWindow();
 
