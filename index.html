@@ -404,7 +404,7 @@
 				await cheerpjInit( { version: 17 } );
 
 				// Crea l'area grafica per Swing
-				const container = document.getElementById('java-container');
+				const container = document.getElementById( "iframeJava" ).contentWindow.document.getElementById('java-container');
 				// Crea il display all'interno del div con le stesse dimensioni
 				cheerpjCreateDisplay(400, 500, container );
 
