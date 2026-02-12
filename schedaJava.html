@@ -52,8 +52,8 @@
 			<div id="java-container" style="width: 400px; height: 500px;"></div>
 
 			<script>
-				// 2. Aspetta il caricamento completo della finestra
-  				window.addEventListener('load', async () => {
+				// 2. Aspetta il caricamento completo della finestra Genitore
+  				window.parent.addEventListener('load', async () => {
 				//(async function() {
 					// Inizializza l'ambiente Java nel browser
 					await cheerpjInit( { version: 17 } );
