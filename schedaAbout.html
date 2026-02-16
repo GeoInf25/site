@@ -5,7 +5,20 @@
 	<link rel="stylesheet" href="styleGeoInf.css">
 
 	<style>
+		
+		li {
+			list-style: none; /* Hide default bullet */
+			position: relative;
+			padding-left: 20px;
+		}
 
+		li::before {
+			content: "✔"; /* Or a Font Awesome unicode like "\f00c" */
+			color: green;
+			position: absolute;
+			left: 5px; /* Adjust based on alignment needs */ /* -20px */ 
+		}
+		
 	</style>
 
 </head>
@@ -29,32 +42,22 @@
 		<b>*** ATTENZIONE ***: i contenuti proposti nei Link esterni seguenti appartengono ai rispettivi proprietari. </b>
 		<br>
 		<br>
+	&#9632; Teoria:
 		<li> <a href="https://www.w3schools.com/">W3Schools</a> (Linguaggi di programmazione) </li>
+		<li> <a href="https://www.acn.gov.it/portale/e-academy">E-Academy</a> (E-Academy ACN Cybersecurity) </li>
 		<li> <a href="https://www.edutecnica.it/">EduTecnica</a> (Appunti ambito meccanico / elettronico / informatico) </li>
 		<li> <a href="https://www.vitobarone.it/elettrotecnica.htm">Prof. Barone</a> (Appunti Elettrotecnica) </li>
 		<li> <a href="https://www.alfredocentinaro.it/">Prof. Centinaro</a> (Appunti Informatica) </li>
 		<li> <a href="https://www.circuitlab.com/">CircuitLab</a> (Simulazione circuiti elettrici) </li>
-		<li> <a href="https://skilldrick.github.io/easy6502/">Skilldrick 6502</a> (Assembly Microprocessore 6502) </li>
-		<li> <a href="https://github.com/marcodotsh/programmazione-in-c-esercizi/tree/main">GitHub Marcodotsh - Esercizi in C</a> (Linguaggio C) </li>
 		<li> <a href="https://profzanghi.weebly.com/">Prof. Zanghi</a> (Appunti ambito Geometra) </li>
 		<li> <a href="https://www.oppo.it/home.html">OPPO</a> (Tabelle e Sezioni) </li>
+	&#9632; Informatica:
+		<li> <a href="https://skilldrick.github.io/easy6502/">Skilldrick 6502</a> (Assembly Microprocessore 6502) </li>
+		<li> <a href="https://github.com/marcodotsh/programmazione-in-c-esercizi/tree/main">GitHub Marcodotsh - Esercizi in C</a> (Linguaggio C) </li>
 		<li> <a href="https://www.spyder-ide.org/">Spyder IDE</a> (IDE Python) </li>
 		<li> <a href="https://streamlit.io/">Streamlit Python</a> (Creazione Siti Web in Python) </li>
 		<li> <a href="https://remix-project.org/?lang=it">Remix IDE</a> (IDE Solidity / Blockchain) </li>
 		<li> <a href="https://stackoverflow.com/questions">stackoverflow</a> (StackOverflow Questions) </li>
-		<li> <a href="https://gis.stackexchange.com/">gis.stackexchange</a> (GIS StackExchange Questions) </li>
-		<li> <a href="https://qgis.org/">QGIS</a> (QGIS Project) </li>
-		<li> <a href="https://live.osgeo.org/en/index.html">OSGeoLive</a> (OSGeoLive Project) </li>
-		<li> <a href="https://www.osgeo.org/">OSGeo</a> (Open Source Geospatial Foundation) </li>
-		<li> <a href="https://overpass-turbo.eu/">Overpass OpenStreetMap API</a> (Overpass Query) </li>
-		<li> <a href="https://www.nicoladeinnocentis.it/">Geopillole</a> (Pillole di GIS) </li>
-		<li> <a href="https://idrogeo.isprambiente.it/app/monitoraggio">WebGIS IdroGeo</a> (Monitoraggio frane) </li>
-		<li> <a href="https://kartaview.org/landing">Karta View</a> (Collect and share street level imagery) </li>
-		<li> <a href="https://www.graphhopper.com/">Graphhopper</a> (GraphHopper Directions API) </li>
-		<li> <a href="https://www.prismacad.it/disegni-meccanici/">PrismaCad</a> (Disegni meccanici) </li>
-		<li> <a href="https://www.ilcalibro.it/">Il Calibro</a> (Lavorazioni meccaniche) </li>
-		<li> <a href="https://www.gdandtbasics.com/">GDandT</a> (Tolleranze geometriche e dimensionali) </li>
-		<li> <a href="https://www.tinkercad.com/">Tinkercad</a> (Disegni 3D e simulazioni (Arduino)) </li>
 		<li> <a href="https://www.arduino.cc/">Arduino</a> (Piattaforma Arduino) </li>
 		<li> <a href="https://cheerpj.com/">CheerpJ</a> (Java / JVM for the Browser) </li>
 		<li> <a href="https://browserify.org/">Browserify</a> (Bundler / Impacchettatore lato Client (per Browser), utile per riutilizzare pacchetti NPM pensati lato Server (Node.js)) </li>
@@ -69,9 +72,22 @@
 		<li> <a href="https://sqlitebrowser.org/">DB Browser</a> (DB Browser for SQLite) </li>
 		<li> <a href="https://danfo.jsdata.org/">Danfo js</a> (Libreria Javascript Danfo alternativa alla Libreria Python Pandas) </li>
 		<li> <a href="https://www.linqpad.net/">LINQPad</a> (Scratchpad per C#) </li>
-		<li> <a href="https://www.acn.gov.it/portale/e-academy">E-Academy</a> (E-Academy ACN Cybersecurity) </li>
+	&#9632; GIS / Sistemi Informativi Territoriali:
+		<li> <a href="https://gis.stackexchange.com/">gis.stackexchange</a> (GIS StackExchange Questions) </li>
+		<li> <a href="https://qgis.org/">QGIS</a> (QGIS Project) </li>
+		<li> <a href="https://live.osgeo.org/en/index.html">OSGeoLive</a> (OSGeoLive Project) </li>
+		<li> <a href="https://www.osgeo.org/">OSGeo</a> (Open Source Geospatial Foundation) </li>
+		<li> <a href="https://overpass-turbo.eu/">Overpass OpenStreetMap API</a> (Overpass Query) </li>
+		<li> <a href="https://www.nicoladeinnocentis.it/">Geopillole</a> (Pillole di GIS) </li>
+		<li> <a href="https://idrogeo.isprambiente.it/app/monitoraggio">WebGIS IdroGeo</a> (Monitoraggio frane) </li>
+		<li> <a href="https://kartaview.org/landing">Karta View</a> (Collect and share street level imagery) </li>
+		<li> <a href="https://www.graphhopper.com/">Graphhopper</a> (GraphHopper Directions API) </li>
+	&#9632; Disegno tecnico Meccanico:
+		<li> <a href="https://www.prismacad.it/disegni-meccanici/">PrismaCad</a> (Disegni meccanici) </li>
+		<li> <a href="https://www.ilcalibro.it/">Il Calibro</a> (Lavorazioni meccaniche) </li>
+		<li> <a href="https://www.gdandtbasics.com/">GDandT</a> (Tolleranze geometriche e dimensionali) </li>
+		<li> <a href="https://www.tinkercad.com/">Tinkercad</a> (Disegni 3D e simulazioni) </li>
 		
-
 	</ul>
 
 	<script>
