@@ -65,7 +65,6 @@
 				<div id="titleDescrMap02" >
 					<p> <u>Mappa Leaflet</u>:  </p> 
 					<br>
-					<br>
 					- Link GitHub di riferimento: <a href="https://github.com/planetsig/ufo-reports">Ufo Reports Dataset</a>; 
 					<br>
 					- Link al file CSV: <a href="https://raw.githubusercontent.com/planetsig/ufo-reports/master/csv-data/ufo-scrubbed-geocoded-time-standardized.csv">File CSV</a>; 
@@ -74,15 +73,15 @@
 					<br> 
 					<!-- - Impiego della Libreria Python <a href="https://python-visualization.github.io/folium/latest/">Folium</a>;
 					<br> -->
-					- Impiego della Libreria <a href="https://leafletjs.com/">Leaflet</a>, <a href="https://turfjs.org/">Turf</a>;
+					- Impiego delle Librerie <a href="https://leafletjs.com/">Leaflet</a>, <a href="https://turfjs.org/">Turf</a>;
 					<br>
 					- JavaScript SQL Database, per tabelle relazionali tradizionali e dati JSON annidati (NoSQL): <a href="https://alasql.org/">AlaSQL</a>.
 					<br>
-					*** Nota FLUTTER: flutter_map wants to help keep map data available for everyone; we use the OpenStreetMap public tile servers in our code examples & demo app, but they are NOT free to use by everyone;please review whether OSM's tile servers are appropriate and the best choice for your app; see: <a href="https://operations.osmfoundation.org/policies/tiles">OSM Tile Usage Policy</a>, <a href="https://docs.fleaflet.dev/osm-warn">OSM-WARN</a> for more information about this warning.
-					<br>
-					- Legende eventualmente presenti: <a href="https://www.cyclosm.org/legend.html">CyclOsmMap Legend</a>;
+					- Legende eventualmente presenti: <a href="https://www.cyclosm.org/legend.html">CyclOsmMap Legend</a>.
 					<br>
 					*** Nota: la variazione dell'anno di riferimento o l'esecuzione di una query SQL consentono l'aggiornamento degli avvistamenti ottenuti in mappa o nel seguito. 
+					<br>
+					*** Nota FLUTTER: flutter_map wants to help keep map data available for everyone; we use the OpenStreetMap public tile servers in our code examples & demo app, but they are NOT free to use by everyone;please review whether OSM's tile servers are appropriate and the best choice for your app; see: <a href="https://operations.osmfoundation.org/policies/tiles">OSM Tile Usage Policy</a>, <a href="https://docs.fleaflet.dev/osm-warn">OSM-WARN</a> for more information about this warning.
 					<br>
 					<br>
 				</div>
@@ -550,7 +549,7 @@
 
 			} ).setView([ 46.035235, 10.980633], 1);
 
-			var baseOSM = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+			var baseOSMMap03 = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 				maxZoom: 19,
 			}).addTo(map03);
 
@@ -703,26 +702,172 @@
 	<br>
 
 	<div id = "blocco03GIS" class = "span4 roundBorder" >
-		<u>Immagini stradali </u>
+		<u>Street View Map</u>
 		<br>
 		<br>
-		- Link di riferimento: <a href="https://ec.europa.eu/eurostat/web/gisco/geodata/administrative-units/countries">GISCO - GeoData - Countries (EPSG 4326)</a>, <a href="https://colorbrewer2.org/">Gradazione colori (Colorbrewer2)</a>, <a href="https://leafletjs.com/examples/choropleth/">Leafletjs choropleth</a>
+		- Link di riferimento: <a href="https://kartaview.org/landing">Karta View</a>, <a href="https://kartaview.org/doc/photos">Karta View - Photos (API)</a>
 		<br>
-		- Mappa COROPLETICA legata all'estensione in Area dei vari Stati nazionali
+		- Mappa contenente Immagini stradali entro una BB (Bounding Box) di lato pari a (circa) 500 metri.
 		<br>
-		*** Nota: i filtri consentono di ricercare i relativi nominativi, oppure le aree aventi valore <u>inferiore</u> a quanto indicato; il "click" sulla riga (in Tabella) consente di evidenziare la nazione coinvolta.
+		*** Nota: esegui una ricerca entro i limiti della BB (Bounding Box) centrata sulla mappa, clicca sui Marker per visualizzare le immagini recuperate dal Servizio Karta View.
 		<br>
 		<br>
 		<div id="contMap04">
-			<div id="leafletMap04" style="float: left; height: 60vh; width: 52%; border: 2px solid " ></div> 
-
+			<div style="float: left; width: 55%;" >
+				<div id="leafletMap04" style="height: 70vh; border: 2px solid; " ></div> 
+				<button type="button" id="button_searchPhotosMap04" style="height: 3vh; width: 100%; " onclick = "searchPhotosMap04()" >Search Photos on KartaView</button>
+			</div>
+			<div id="contImageMarkerMap04" style="float: right; height: 73vh; width: 44%; display: flex; align-items: center; ">
+				<img id="imageMarkerMap04" src="" alt= "" style="width: 100%; height: auto; border: 2px solid; " >
+			</div>
+			<div style=" clear: both">
+				<br>
+			</div>
 		</div>
 
 		<script>
-			//
-		</script>
+			var map04 = L.map('leafletMap04' , { 
+				zoomSnap: 1 , //1
+				zoomDelta : 1, 
+				wheelPxPerZoomLevel: 90, //60 
 
+			} ).setView([ 45.870770, 10.876221 ], 16 );
+
+			var baseOSMMap04 = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+				maxZoom: 19,
+			}).addTo(map04);
+
+			var centerMap04 = null;  
+			var bboxTurf = null; 
+			var bboxMap04 = null; 
+			var arrMarkerMap04 = []; 
+
+			function addBBoxMap04( ) {
+
+				centerMap04 = map04.getCenter();
+				var centerMap04Lat = centerMap04.lat;
+				var centerMap04Lng = centerMap04.lng;
+
+				var centerTurf = [ centerMap04Lng , centerMap04Lat ]; // [lng, lat]
+				var pointCenterTurf = turf.point( centerTurf );
+				//Crea un buffer di 250 metri (per avere un lato totale di 500 metri )
+				//Usiamo 'steps: 4' per approssimare un quadrato orientato
+				var bufferedTurf = turf.buffer( pointCenterTurf , 0.25, { units: 'kilometers' , steps: 4 } );
+				bboxTurf = turf.bbox( bufferedTurf ); // Restituisce [minX, minY, maxX, maxY]
+
+				//Ulteriore BBox / poligono GeoJSON per Leaflet
+				var bboxPolyTurf = turf.bboxPolygon( bboxTurf );
+
+				//Raffigurazione sulla mappa (Leaflet)
+				bboxMap04 = L.geoJSON( bboxPolyTurf , {
+    				style: {
+        				color: "#ff7800",
+        				weight: 2,
+        				fillOpacity: 0.2
+    				}
+				}); 
+
+				bboxMap04.addTo(map04); 
+
+			}
+
+			async function getPhotosBBoxMap04() {
+				try {
+					//radius NON utilizzato in API version 2.0
+
+					const baseUrlMap04 = 'https://api.openstreetcam.org/2.0/photo/';
+
+					const paramsMap04 = new URLSearchParams({
+  						nwLat: bboxTurf[3], //nwLat , nwLng //maxLat, minLng
+  						nwLng: bboxTurf[0],
+  						seLat: bboxTurf[1], //seLat, seLng //minLat, maxLng
+  						seLng: bboxTurf[2],
+						page: 2, //Page number for pagination (default: 1).
+  						ipp: 150, //Number of items per page (default: 50, max: 150).
+					});
+
+					const responseOSCMap04 = await fetch(`${baseUrlMap04}?${paramsMap04}`, { 
+      					signal: AbortSignal.timeout(5000) // Timeout di 5 secondi
+    				});
+
+					jsonPhotosMap04 = await responseOSCMap04.json(); 
+					console.log( jsonPhotosMap04 ); 
+
+					if( jsonPhotosMap04 != null && jsonPhotosMap04.result?.data != undefined ) { //Attenzione "?"
+						jsonPhotosMap04.result.data.forEach( (ele, index) => { //result.data[0]. ... 
+							var tempMarker = L.marker([ ele.lat , ele.lng ] , { //options
+								imageUrl : ele.fileurlLTh,  
+							});
+							tempMarker.bindPopup(`
+								<div style="text-align: center;">
+								<img src="${ele.fileurlLTh}" alt="OpenStreetCam Image ${index}" style="width: 30vh; height: auto; border: 2px solid;">
+								<p>
+									<b>Coordinates (lat/lng)</b>: ${ele.lat} :: ${ele.lng}
+									<br>
+									<b>Datetime</b>: ${ele.dateAdded}
+									<br>
+									<b>Marker index</b>: ${index}
+								</p>
+								</div>
+							`);
+							tempMarker.on('click', function( e ) {
+								document.getElementById( "imageMarkerMap04" ).src = this.options.imageUrl;  
+							}); 
+							arrMarkerMap04.push( tempMarker ); 
+						}); 
+						arrMarkerMap04.forEach( (ele, index) => { 
+							ele.addTo( map04 );  
+						});  
+					} else {
+						var tempMarker = L.marker([ centerMap04.lat, centerMap04.lng ] );
+						tempMarker.bindPopup(`
+							<div style="text-align: center;">
+								No photos found!
+							</div>
+							`
+						); 
+						arrMarkerMap04.push( tempMarker ); 
+						arrMarkerMap04[ 0 ].addTo( map04 ); 
+					}
+
+				} catch( e ) {
+					console.log( e );  
+				}
+			}
+
+			( async () => { 
+				await addBBoxMap04(); //primo Avvio 
+				await getPhotosBBoxMap04();  //primo Avvio
+				arrMarkerMap04[ 0 ].fire('click'); //primo Avvio
+			})();
+
+			function searchPhotosMap04() { //map04.on('dragend', function(e) { //moveend
+    			console.log("Nuovo centro:", map04.getCenter());
+
+				if( bboxTurf != null ) {
+					bboxTurf = null;  
+				}
+				if( bboxMap04 != null ) {
+					map04.removeLayer( bboxMap04 );  
+					bboxMap04 = null; 
+				}
+				addBBoxMap04(); 
+
+				if( arrMarkerMap04.length > 0 ) {
+					arrMarkerMap04.forEach( (ele, index) => { 
+						map04.removeLayer( ele );  
+					});  
+					arrMarkerMap04 = [ ];
+				}
+				getPhotosBBoxMap04();
+
+			};
+
+		</script>
+		
 	</div>
+
+	<br>
 
 	<div id = "blocco04GIS" class = "span4 roundBorder" >
 		<u>Mappe QGIS</u>
