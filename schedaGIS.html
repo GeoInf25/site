@@ -836,8 +836,8 @@
 			}
 
 			( async () => { 
-				await addBBoxMap04(); //primo Avvio 
-				await getPhotosBBoxMap04();  //primo Avvio
+				await ( async () => { addBBoxMap04();  })();  //primo Avvio con Promise - Versione super compatta (Async)
+				await ( async () => { getPhotosBBoxMap04(); })();  //primo Avvio
 				arrMarkerMap04[ 0 ].fire('click'); //primo Avvio
 			})();
 
