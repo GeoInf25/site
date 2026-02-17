@@ -744,6 +744,9 @@
 
 			function addBBoxMap04( ) {
 
+				return new Promise((resolve, reject) => 
+				{
+
 				centerMap04 = map04.getCenter();
 				var centerMap04Lat = centerMap04.lat;
 				var centerMap04Lng = centerMap04.lng;
@@ -769,9 +772,17 @@
 
 				bboxMap04.addTo(map04); 
 
+				resolve("End addBBoxMap04"); 
+
+				}); 
+
 			}
 
 			async function getPhotosBBoxMap04() {
+
+				return new Promise( async (resolve, reject) => 
+				{
+
 				try {
 					//radius NON utilizzato in API version 2.0
 
@@ -833,21 +844,18 @@
 				} catch( e ) {
 					console.log( e );  
 				}
+
+				resolve("End getPhotosBBoxMap04"); 
+
+				}); 
 			}
 
 			( async () => { 
-				//
-			})();
-				
-			//primo Avvio
-			( async () => { 
-				await ( async () => { return new Promise( ( resolve, reject ) => { addBBoxMap04(); resolve( "promessa01 conclusa" ); } ); })(); 
-				await ( async () => { return new Promise( ( resolve, reject ) => { getPhotosBBoxMap04(); resolve( "promessa02 conclusa" ); } ); })(); 
+				await  addBBoxMap04();
+				await getPhotosBBoxMap04(); 
 				arrMarkerMap04[ 0 ].fire('click');
+			})();
 			
-			} )();
-			
-
 			function searchPhotosMap04() { //map04.on('dragend', function(e) { //moveend
     			console.log("Nuovo centro:", map04.getCenter());
 
