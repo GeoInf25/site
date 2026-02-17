@@ -840,11 +840,12 @@
 			})();
 				
 			//primo Avvio
-			new Promise(resolve => addBBoxMap04() ).then( 
-				new Promise(resolve => getPhotosBBoxMap04() ).then( 
-					arrMarkerMap04[ 0 ].fire('click')
-				)
-			)
+			( async () => { 
+				await ( () => { return new Promise( () => { addBBoxMap04(); resolve( "promessa01 conclusa" ); } ); }); 
+				await ( () => { return new Promise( () => { getPhotosBBoxMap04(); resolve( "promessa01 conclusa" ); } ); }); 
+				arrMarkerMap04[ 0 ].fire('click');
+			
+			} );
 			
 
 			function searchPhotosMap04() { //map04.on('dragend', function(e) { //moveend
