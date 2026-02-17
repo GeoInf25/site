@@ -339,9 +339,13 @@
 
 			if( scheda == "schedaJava" ) {
 
-				if( iframeAttivi.iframeJava == true && primoAvvioJava == true  ) {
+				if( iframeAttivi.iframeJava == true  ) {
 					//https://geoinf25.github.io/site/schedaJava.html
-					document.getElementById( "iframeJava" ).src="./schedaJava.html"; 
+					if( primoAvvioJava == true ) {
+						document.getElementById( "iframeJava" ).src="./schedaJava.html"; 
+						primoAvvioJava = false;
+					}
+					
 				} else {
 					document.getElementById( "iframeJava" ).src=""; 
 				}
