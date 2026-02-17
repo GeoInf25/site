@@ -274,19 +274,19 @@
 				//
 			} else {
 				iframeAttivi.iframeBlazor = true ; 
-				iframeAttivi.iframeReact = false ; 
-				iframeAttivi.iframeRShiny = false ; 
+				iframeAttivi.iframeReact = true ; 
+				iframeAttivi.iframeRShiny = true ; 
 				iframeAttivi.iframeJupyter = true ; 
 				iframeAttivi.iframeCSharp = true ;
 				iframeAttivi.iframeJavascript = true ;
-				iframeAttivi.iframeJava = false ;
+				iframeAttivi.iframeJava = true ;
 				iframeAttivi.iframeDatabase = true ;
 				iframeAttivi.iframeGIS = true ;
 				iframeAttivi.iframeDisegni3D = true ;
 				iframeAttivi.iframeDartFlutter = false ;
 				iframeAttivi.iframeAbout = true ;
 
-				alert( "OS diverso da Windows, alcune schede risultano DISABILITATE." ); 
+				alert( "OS diverso da Windows, alcune schede potrebbero essere state DISABILITATE." ); 
 
 			}
 
@@ -335,9 +335,11 @@
 				//
 			}
 
+			var primoAvvioJava = true; 
+
 			if( scheda == "schedaJava" ) {
 
-				if( iframeAttivi.iframeJava == true ) {
+				if( iframeAttivi.iframeJava == true && primoAvvioJava == true  ) {
 					//https://geoinf25.github.io/site/schedaJava.html
 					document.getElementById( "iframeJava" ).src="./schedaJava.html"; 
 				} else {
