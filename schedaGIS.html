@@ -836,8 +836,8 @@
 			}
 
 			( async () => { 
-				await ( async () => { return new Promise(() => { addBBoxMap04(); }); })();  //primo Avvio
-				await ( async () => { return new Promise(() => { getPhotosBBoxMap04(); }); })();   //primo Avvio
+				await ( async () => { return new Promise( resolve => { addBBoxMap04(); }); })();  //primo Avvio
+				await ( async () => { return new Promise( resolve => { getPhotosBBoxMap04(); }); })();   //primo Avvio
 				arrMarkerMap04[ 0 ].fire('click'); //primo Avvio
 			})();
 
