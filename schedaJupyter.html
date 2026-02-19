@@ -132,6 +132,7 @@
 
 				def printHW( event ):
 					print("Hello World (from PyScript)!")
+					js.window.alert("Hello World (from PyScript)!")
 
 				function_proxy01 = create_proxy(printHW)
 				document.getElementById("btn_helloWorld").addEventListener("click", function_proxy01)
