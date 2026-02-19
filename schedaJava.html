@@ -65,7 +65,7 @@
 
 					// Crea il display all'interno del div con le stesse dimensioni
 					//console.log( "Verifica Display Java: " + document.getElementById( "java-container" ).offsetHeight );  
-					cheerpjCreateDisplay( 400, 500, container );
+					cheerpjCreateDisplay( document.body.offsetWidth, (60/100)*document.body.offsetHeight, container );
 
 					// Esegue il JAR della calcolatrice //http://localhost:3000/app001.jar
 					//await cheerpjRunJar("/app/site/app001.jar");
