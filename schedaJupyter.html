@@ -63,6 +63,7 @@
 	<br>
 	- Link di riferimento: <a href="https://discourse.jupyter.org/t/how-to-establish-communication-with-parent-window-and-jupyterlite-instance-running-in-an-iframe/26945">Communication with Parent Window - Jupyter Community Forum</a>, <a href="https://github.com/jupyterlite">JupyterLite GitHub</a>
 	<br>
+	<br>
 	<b>
 	*** ATTENZIONE ***: il Notebook Jupyter ed eventuali altri elementi ad esso associato appartengono ai rispettivi proprietari. 
 	</b>
@@ -143,7 +144,7 @@
 			<h2>• Static Web Site JupyterLite (Jupyter Notebook)</h2>
 			<button type="button" onclick="ricaricaNotebook01()" >Ricarica il Notebook</button>
 
-			<iframe id="iframeNotebook01" src="./Jupyter_Py/outputStaticJupyter/lab/index.html?path=nb.ipynb" style="width: 100%; height: 60vh; "></iframe>
+			<iframe id="iframeNotebook01" src="./Jupyter_Py/outputStaticJupyter/lab/index.html?path=nb.ipynb" style="width: 100%; height: 120vh; " onload="console.log('Iframe caricato!')"></iframe>
 
 			<script>
 				async function ricaricaNotebook01() {
@@ -272,15 +273,15 @@ print( "Quadrato di lato " + str(lato) + " ed area " + str(area) )`
 
 		</div>
 	-->
-
-		<div id="bloccoJupyter03" class="span4 roundBorder" >
-			Esempi di codice:
-			<br>
-			(in costruzione)
-			<br>
-
-		</div>
 	
+	</div>
+
+	<div id="bloccoJupyter03" class="span4 roundBorder" >
+		Esempi di codice:
+		<br>
+		(in costruzione)
+		<br>
+
 	</div>
 
 </body>
