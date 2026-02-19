@@ -64,7 +64,8 @@
 					const container = document.getElementById('java-container');
 
 					// Crea il display all'interno del div con le stesse dimensioni
-					cheerpjCreateDisplay(400, 500, container );
+					console.log( "AAAAAAAAAA: " + document.getElementById( "java-container" ).offsetHeight );  
+					cheerpjCreateDisplay( 400, 500, container );
 
 					// Esegue il JAR della calcolatrice
 					await cheerpjRunJar("/app/site/app001.jar");
