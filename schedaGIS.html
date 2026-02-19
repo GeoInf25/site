@@ -808,10 +808,10 @@
 
 					if( jsonPhotosMap04 != null && jsonPhotosMap04.result?.data != undefined ) { //Attenzione "?"
 						jsonPhotosMap04.result.data.forEach( (ele, index) => { //result.data[0]. ... 
-							var tempMarker = L.marker([ ele.lat , ele.lng ] , { //options
+							arrMarkerMap04[ index ] = L.marker([ ele.lat , ele.lng ] , { //options
 								imageUrl : ele.fileurlLTh,  
 							});
-							tempMarker.bindPopup(`
+							arrMarkerMap04[ index ].bindPopup(`
 								<div style="text-align: center;">
 								<img src="${ele.fileurlLTh}" alt="OpenStreetCam Image ${index}" style="width: 30vh; height: auto; border: 2px solid;">
 								<p>
@@ -823,23 +823,23 @@
 								</p>
 								</div>
 							`);
-							tempMarker.on('click', function( e ) {
+							arrMarkerMap04[ index ].on('click', function( e ) {
 								document.getElementById( "imageMarkerMap04" ).src = this.options.imageUrl;  
 							}); 
-							arrMarkerMap04.push( tempMarker ); 
+							//arrMarkerMap04.push( L.marker(tempMarker.getLatLng(), tempMarker.options).bindPopup( tempMarker.getPopup().getContent(), tempMarker.getPopup().options) ); ... //tempMarker
 						}); 
 						arrMarkerMap04.forEach( (ele, index) => { 
 							ele.addTo( map04 );  
 						});  
 					} else {
-						var tempMarker = L.marker([ centerMap04.lat, centerMap04.lng ] );
-						tempMarker.bindPopup(`
+						arrMarkerMap04[ 0 ] = L.marker([ centerMap04.lat, centerMap04.lng ] );
+						arrMarkerMap04[ 0 ].bindPopup(`
 							<div style="text-align: center;">
 								No photos found!
 							</div>
 							`
 						); 
-						arrMarkerMap04.push( tempMarker ); 
+						//arrMarkerMap04.push( L.marker(tempMarker.getLatLng(), tempMarker.options).bindPopup( tempMarker.getPopup().getContent(), tempMarker.getPopup().options) ); ... //tempMarker
 						arrMarkerMap04[ 0 ].addTo( map04 ); 
 					}
 
@@ -857,6 +857,7 @@
 			( async () => { 
 				await  addBBoxMap04();
 				await getPhotosBBoxMap04(); 
+				console.log( "Verifica Marker Map04: " + arrMarkerMap04[ 0 ]  ); 
 				arrMarkerMap04[ 0 ].fire('click');
 			})();
 			
