@@ -147,7 +147,7 @@
 
 			<script>
 				async function ricaricaNotebook01() {
-					document.getElementById( "iframeNotebook01" ).contentWindow.jupyterapp.commands.execute('notebook:run-all-cells'); 
+					await document.getElementById( "iframeNotebook01" ).contentWindow.jupyterapp.commands.execute('notebook:run-all-cells'); 
 				}
 
 			</script>
