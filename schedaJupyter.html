@@ -53,15 +53,18 @@
 	Anteprima Jupyter Notebook disponibile tramite i servizi <a href="https://nbviewer.org/">Nbviewer</a>, <a href="https://mybinder.org/">Binder</a> <!-- permalink GitHub -->
 	<br>
 	<br>
-	Impiego di: 
+	POSSIBILE impiego di: 
 	<br>
 	- Python in the browser, <a href="https://pyscript.net/">PyScript</a>; 
 	<br>
 	- Embed a live REPL on a WebSite, <a href="https://jupyterlite.readthedocs.io/en/latest/quickstart/embed-repl.html">REPL / Read–Eval–Print Loop</a>.
 	<br>
+	- Esecuzione dei seguenti comandi: jupyter lite build --contents content/ , jupyter lite serve , http://localhost:8000/lab/index.html?path=nb.ipynb (aggiunta di "exposeAppInBrowser": true in "jupyter-config-data" / jupyter-lite.json (jupyterapp.commands.execute('notebook:run-all-cells')))
+	<br>
+	- Link di riferimento: <a href="https://discourse.jupyter.org/t/how-to-establish-communication-with-parent-window-and-jupyterlite-instance-running-in-an-iframe/26945">Communication with Parent Window - Jupyter Community Forum</a>, <a href="https://github.com/jupyterlite">JupyterLite GitHub</a>
 	<br>
 	<b>
-	*** ATTENZIONE ***: il Notebook Jupyter ed eventuali altri elementi ad essi associati appartengono ai rispettivi proprietari. 
+	*** ATTENZIONE ***: il Notebook Jupyter ed eventuali altri elementi ad esso associato appartengono ai rispettivi proprietari. 
 	</b>
 	<br>
 	<br>
@@ -106,6 +109,7 @@
 				<li>Iframe Jupyter Notebook per il linguaggio Javascript (Libreria p5.js) <a href="https://jupyterlite.github.io/demo">Notebook (02)</a> </li>
 				<li>Esempio <a href= "./Jupyter_Py/REPL/iframeJupyterREPL01.html" >REPL (01)</a> </li>
 				<li>Esempio <a href= "./Jupyter_Py/REPL/iframeJupyterREPL02.html" >REPL (02)</a> </li>
+				
 			</ul>
 
 		</div>
@@ -136,8 +140,19 @@
 
 		<div id="bloccoJupyter02" class="span4 roundBorder" >
 
-			<h2>• PyScript Terminal</h2>
+			<h2>• Static Web Site JupyterLite (Jupyter Notebook)</h2>
+			<button type="button" onclick="ricaricaNotebook01()" >Ricarica il Notebook</button>
 
+			<iframe id="iframeNotebook01" src="./Jupyter_Py/outputStaticJupyter/lab/index.html?path=nb.ipynb" style="width: 100%; height: 60vh; "></iframe>
+
+			<script>
+				async function ricaricaNotebook01() {
+					document.getElementById( "iframeNotebook01" ).contentWindow.jupyterapp.commands.execute('notebook:run-all-cells'); 
+				}
+
+			</script>
+
+			<!--
 			<p>Scrivi Codice Python ed eseguilo tramite <a href="https://pyscript.net/">PyScript</a>, ovvero</p>
 			<textarea id="txt_code" style="height: 63vh; width:100%" ></textarea>
 
@@ -256,6 +271,7 @@ print( "Quadrato di lato " + str(lato) + " ed area " + str(area) )`
 			</script>
 
 		</div>
+	-->
 
 		<div id="bloccoJupyter03" class="span4 roundBorder" >
 			Esempi di codice:
