@@ -119,7 +119,8 @@
 
 			<h2>• Hello World</h2> 
 			<div>
-				<p class="justify" >Classico Hello Word iniziale con alert e messaggio in Console relativo: <button id="btn_helloWorld" onclick="alert( 'Hello World in Console ...' ); " >Hello World</button></p> <!-- style="width: 10%; " -->
+				<!-- onclick="alert( 'Hello World in Console ...' ) ; " -->
+				<p class="justify" >Classico Hello Word iniziale con alert e messaggio in Console relativo: <button id="btn_helloWorld" >Hello World</button></p> <!-- style="width: 10%; " -->
 			</div>
 
 			<py-script>
@@ -130,7 +131,7 @@
 				#js.window.alert("Fase di loading completata ... ")
 
 				def printHW( event ):
-					print("Hello World!")
+					print("Hello World (from PyScript)!")
 
 				function_proxy01 = create_proxy(printHW)
 				document.getElementById("btn_helloWorld").addEventListener("click", function_proxy01)
