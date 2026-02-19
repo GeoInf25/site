@@ -826,6 +826,7 @@
 							arrMarkerMap04[ index ].on('click', function( e ) {
 								document.getElementById( "imageMarkerMap04" ).src = this.options.imageUrl;  
 							}); 
+							//Evitare arrMarkerMap04.push( ... ) per problemi di riferimento 
 							//arrMarkerMap04.push( L.marker(tempMarker.getLatLng(), tempMarker.options).bindPopup( tempMarker.getPopup().getContent(), tempMarker.getPopup().options) ); ... //tempMarker
 						}); 
 						arrMarkerMap04.forEach( (ele, index) => { 
@@ -857,7 +858,7 @@
 			( async () => { 
 				await  addBBoxMap04();
 				await getPhotosBBoxMap04(); 
-				console.log( "Verifica Marker Map04: " + arrMarkerMap04[ 0 ]  ); 
+				console.log( "Verifica Marker iniziale (Map04): " + arrMarkerMap04[ 0 ]  ); 
 				arrMarkerMap04[ 0 ].fire('click');
 			})();
 			
