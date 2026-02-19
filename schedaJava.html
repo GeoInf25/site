@@ -52,7 +52,7 @@
     		</script>
 			-->
 
-			<div id="java-container" style="width: 400; height: 500; "></div>
+			<div id="java-container" style="width: 100%; height: 60vh; "></div>
 
 			<script>
 				(async () => {
@@ -64,10 +64,11 @@
 					const container = document.getElementById('java-container');
 
 					// Crea il display all'interno del div con le stesse dimensioni
-					console.log( "Verifica Display Java: " + document.getElementById( "java-container" ).offsetHeight );  
+					//console.log( "Verifica Display Java: " + document.getElementById( "java-container" ).offsetHeight );  
 					cheerpjCreateDisplay( 400, 500, container );
 
-					// Esegue il JAR della calcolatrice
+					// Esegue il JAR della calcolatrice //http://localhost:3000/app001.jar
+					//await cheerpjRunJar("/app/site/app001.jar");
 					await cheerpjRunJar("/app/site/app001.jar");
 
 				})();
