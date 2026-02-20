@@ -64,6 +64,9 @@
 	- Link di riferimento: <a href="https://discourse.jupyter.org/t/how-to-establish-communication-with-parent-window-and-jupyterlite-instance-running-in-an-iframe/26945">Communication with Parent Window - Jupyter Community Forum</a>, <a href="https://github.com/jupyterlite">JupyterLite GitHub</a>
 	<br>
 	<br>
+	*** Nota: i kernel WASM (come Pyodide) richiedono spesso SharedArrayBuffer per gestire il multithreading; per sicurezza, i Browser lo abilitano solo in contesti isolati; nell'iframe, aggiungi l'attributo per autorizzare l'isolamento ( ... iframe ... allow="cross-origin-isolated" ... /iframe ... ).
+	<br>
+	<br>
 	<b>
 	*** ATTENZIONE ***: il Notebook Jupyter ed eventuali altri elementi ad esso associato appartengono ai rispettivi proprietari. 
 	</b>
