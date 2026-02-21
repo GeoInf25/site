@@ -160,19 +160,27 @@
 
 				function foo() {
 					console.log( "foo 555 ... " ); 
-					if( document.getElementById( "iframeNotebook01" ).contentWindow.document.querySelector('.jp-Cell') ) {
+					if( jupyter.shell.currentWidget?.sessionContext ) {
 						console.log( "Entrato 9999 ... " );
 						clearTimeout( ftt ); 
 						( async () => {
 							//await jupyter.shell.currentWidget.sessionContext.ready;
 							//await jupyter.commands.execute('notebook:run-all-cells');
 							//console.log( "SessContx WW: " + jupyter.shell.currentWidget.sessionContext ); 
-							console.log( "Ci siamo ... " );
+							/*console.log( "Ci siamo ... " );
 							console.log( "QQ:  " + document.getElementById( "iframeNotebook01" ).contentWindow.document.querySelector('.jp-Cell').innerHTML );
 							document.getElementById( "iframeNotebook01" ).contentWindow.document.querySelector('.jp-Cell').click(); 
 							//const button = document.getElementById( "btn_fontNotebook" );
-							//button.click();
-							ricaricaNotebook01(); 
+							//button.click();*/
+							jupyter.shell.currentWidget.sessionContext.ready.then(() => {
+								console.log("Kernel connesso");
+								return sessionContext.kernel.statusChanged.connect((_, status) => {
+									if (status === 'idle') {
+										console.log("Il kernel Pyodide è ora inattivo e pronto.");
+										//ricaricaNotebook01(); 
+									}
+								});
+							});
 
 						})(); 
 					} else {
@@ -198,7 +206,7 @@
 								const shell = jupyter.shell;
 								//console.log( "EE: " + shell.currentWidget.content.activeCell.model.sharedModel.getSource() ); 
 
-								//foo(); /////////////////////////////////////////////////////// FOO
+								foo(); /////////////////////////////////////////////////////// FOO
 
 
 								//document.getElementById( "iframeNotebook01" ).contentWindow.document.querySelector('.jp-Cell').click();  
