@@ -179,7 +179,7 @@
 					}
 				}
 
-				timeoutNotebook = setTimeout( foo() , 1000); 
+				timeoutNotebook = setTimeout( foo, 1000); 
 
 				async function ricaricaNotebook01() {
 					await document.getElementById( "iframeNotebook01" ).contentWindow.jupyterapp.commands.execute('notebook:run-all-cells'); 
