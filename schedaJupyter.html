@@ -174,7 +174,7 @@
 								//console.log( "EE: " + shell.currentWidget.content.activeCell.model.sharedModel.getSource() ); 
 
 								( async () => {
-									jupyter.commands.execute('notebook:run-all-cells');
+									await jupyter.commands.execute('notebook:run-all-cells');
 								})(); 
 
 								/*
