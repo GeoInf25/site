@@ -156,6 +156,8 @@
 				var tt = null;  
 				var ftt = null; 
 
+				var jupyter = null; 
+
 				function foo() {
 
 					if( jupyter.shell.currentWidget.sessionContext == null ) {
@@ -175,7 +177,7 @@
 
 				function checkJupyterCommand() {
 					const iframe = document.getElementById("iframeNotebook01");
-					const jupyter = iframe.contentWindow.jupyterapp;
+					jupyter = iframe.contentWindow.jupyterapp;
 
 					if (jupyter && jupyter.commands) {
 						if (jupyter.commands.hasCommand('notebook:run-all-cells')) {
