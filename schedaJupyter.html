@@ -153,34 +153,25 @@
 
 			<script>
 
-				var impostaFontNotebook = true; 
-				var impostaFontNotebookCount = 0;  
-				var timeoutNotebook  = null; 
+				function checkJupyterCommand() {
+					const iframe = document.getElementById("iframeNotebook01");
+					const jupyter = iframe.contentWindow.jupyterapp;
 
-				function foo() {
-					console.log( "VV: " + document.getElementById( "iframeNotebook01" ).contentWindow.jupyterapp ); 
-					console.log( "BB: " + document.getElementById( "iframeNotebook01" ).contentWindow.jupyterapp.commands );  //.hasCommand('notebook:run-all-cells') ); 
-					while( impostaFontNotebook ) {
-						if( impostaFontNotebookCount >= 7 ) {  //limite 7 sec. 
-							impostaFontNotebook = false;  
-							impostaFontNotebookCount++;  
-							console.log( "Jupyter Notebook: numero di Tentativi esaurito (" + impostaFontNotebookCount + ")" );  
-							clearTimeout( timeoutNotebook ); 
-
-						} else if( document.getElementById( "iframeNotebook01" ).contentWindow.jupyterapp != undefined ) {
-							ricaricaNotebook01(); 
-							impostaFontNotebook = false;  
-							impostaFontNotebookCount++;  
-							clearTimeout( timeoutNotebook ); 
-
-						} else if( document.getElementById( "iframeNotebook01" ).contentWindow.jupyterapp == undefined ) {
-							impostaFontNotebook = true;  
-							impostaFontNotebookCount++;  
+					if (jupyter && jupyter.commands) {
+						if (jupyter.commands.hasCommand('notebook:run-all-cells')) {
+						console.log("Comando disponibile! Esecuzione...");
+						jupyter.commands.execute('notebook:run-all-cells');
+						} else {
+						console.warn("Jupyter pronto, ma il comando non è ancora registrato.");
 						}
+					} else {
+						console.log("JupyterLite sta ancora caricando...");
+						// Riprova tra 500ms
+						setTimeout(checkJupyterCommand, 500);
 					}
 				}
 
-				timeoutNotebook = setTimeout( foo, 1000); 
+				checkJupyterCommand(); 
 
 				async function ricaricaNotebook01() {
 					await document.getElementById( "iframeNotebook01" ).contentWindow.jupyterapp.commands.execute('notebook:run-all-cells'); 
