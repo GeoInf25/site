@@ -160,7 +160,7 @@
 
 				function foo() {
 					console.log( "foo 777 ... " ); 
-					if( jupyter.shell.currentWidget?.sessionContext?.kernel ) {
+					if( jupyter.shell.currentWidget?.sessionContext ) {
 						console.log( "Entrato Kernel 9999 ... " );
 						document.getElementById("iframeNotebook01").contentWindow.document.querySelector().click();
 						clearTimeout( ftt ); 
