@@ -174,7 +174,7 @@
 								//console.log( "EE: " + shell.currentWidget.content.activeCell.model.sharedModel.getSource() ); 
 
 								( async () => {
-									await shell.currentWidget.sessionContext.ready;
+									await jupyter.shell.currentWidget.sessionContext.ready;
 									//await jupyter.commands.execute('notebook:run-all-cells');
 									console.log( "SessContx: " + shell.currentWidget.sessionContext ); 
 									const button = document.getElementById( "btn_fontNotebook" );
