@@ -166,12 +166,13 @@
 							jupyter.commands.execute('notebook:run-all-cells');
 						} else {
 						console.warn("Jupyter pronto, ma il comando non è ancora registrato.");
+						tt = setTimeout(checkJupyterCommand, 500);// Riprova tra 500ms
 						}
 					} else {
 						console.log("JupyterLite sta ancora caricando...");
+						tt = setTimeout(checkJupyterCommand, 500);// Riprova tra 500ms
 						
 					}
-					tt = setTimeout(checkJupyterCommand, 500);// Riprova tra 500ms
 				}
 
 				checkJupyterCommand(); 
