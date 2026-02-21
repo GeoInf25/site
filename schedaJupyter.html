@@ -160,7 +160,7 @@
 
 				function foo() {
 					console.log( "foo 333 ... " ); 
-					if( jupyter.shell.currentWidget?.sessionContext ) {
+					if( jupyter.shell?.currentWidget ) {
 						console.log( "Entrato 2222 ... " );
 						clearTimeout( ftt ); 
 						( async () => {
