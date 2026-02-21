@@ -167,11 +167,11 @@
 							//const app = document.getElementById( "iframeNotebook01" ).contentWindow.jupyterapp;
 
 							// Attendi che l'applicazione abbia ripristinato lo stato
-							jupyter.restored.then(() => {
+							jupyter.started.then(() => {
 								console.log("L'interfaccia è completamente caricata e i widget sono pronti.");
 								// Ora puoi controllare se esiste una sessione attiva
 								const shell = jupyter.shell;
-								console.log( "EE: " + shell.currentWidget.content.activeCell.model.sharedModel.getSource() ); 
+								//console.log( "EE: " + shell.currentWidget.content.activeCell.model.sharedModel.getSource() ); 
 
 								jupyter.commands.execute('notebook:run-all-cells');
 
