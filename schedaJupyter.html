@@ -157,7 +157,7 @@
 				var impostaFontNotebookCount = 0;  
 				var timeoutNotebook  = null; 
 
-				timeoutNotebook = setTimeout( () => {
+				function foo() {
 					console.log( "VV: " + document.getElementById( "iframeNotebook01" ).contentWindow.jupyterapp ); 
 					while( impostaFontNotebook ) {
 						if( impostaFontNotebookCount >= 7 ) {  //limite 7 sec. 
@@ -177,7 +177,9 @@
 							impostaFontNotebookCount++;  
 						}
 					}
-				}, 1000); 
+				}
+
+				timeoutNotebook = setTimeout( foo() , 1000); 
 
 				async function ricaricaNotebook01() {
 					await document.getElementById( "iframeNotebook01" ).contentWindow.jupyterapp.commands.execute('notebook:run-all-cells'); 
