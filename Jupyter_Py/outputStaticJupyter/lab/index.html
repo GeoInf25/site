@@ -111,15 +111,13 @@
         100% { opacity: 0; }
       }
 
-      /* Cambia il font e la dimensione per tutto il corpo del testo */
-      body, .jp-Notebook {
-          font-family: "Trebuchet MS", sans-serif !important;
-          font-size: 16px !important;
+      /* Intero documento */
+      body, .jp-Notebook, .jp-RenderedHTMLCommon {
+        font-family: 'Trebuchet MS', sans-serif !important;
       }
-      /* Cambia specificamente il font del codice */
-      .jp-CodeMirror, .jp-Editor, .jp-InputArea-editor {
-          font-family: "Trebuchet MS", monospace !important;
-          font-size: 16px !important;
+      /* Solo codice */
+      .jp-Editor, .jp-InputArea-editor, .CodeMirror pre {
+        font-family: 'Trebuchet MS', monospace !important;
       }
 
     </style>
