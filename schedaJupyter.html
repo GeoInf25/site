@@ -160,7 +160,7 @@
 
 				function foo() {
 					console.log( "foo ... " ); 
-					if( jupyter.shell.currentWidget.sessionContext == null ) {
+					if( jupyter.shell.currentWidget?.sessionContext == null ) {
 						ftt = setTimeout(foo, 500);// Riprova tra 500ms;
 
 					} else {
