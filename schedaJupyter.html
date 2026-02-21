@@ -64,7 +64,13 @@
 	- Link di riferimento: <a href="https://discourse.jupyter.org/t/how-to-establish-communication-with-parent-window-and-jupyterlite-instance-running-in-an-iframe/26945">Communication with Parent Window - Jupyter Community Forum</a>, <a href="https://github.com/jupyterlite">JupyterLite GitHub</a>
 	<br>
 	<br>
-	*** Nota: i kernel WASM (come Pyodide) richiedono spesso SharedArrayBuffer per gestire il multithreading; per sicurezza, i Browser lo abilitano solo in contesti isolati; nell'iframe, aggiungi l'attributo per autorizzare l'isolamento ( ... iframe ... allow="cross-origin-isolated" ... /iframe ... ).
+	*** Note: 
+	<br>
+	- overrides.json ed impostazioni Jupyter Notebook (Theme -> Settings Editor); 
+	<br>
+	- percorso: jupyter = iframe.contentWindow.jupyterapp; jupyter.shell.currentWidget.sessionContext.session.kernel.status; 
+	<br>
+	- i kernel WASM (come Pyodide) richiedono spesso SharedArrayBuffer per gestire il multithreading; per sicurezza, i Browser lo abilitano solo in contesti isolati; nell'iframe, aggiungi l'attributo per autorizzare l'isolamento ( ... iframe ... allow="cross-origin-isolated" ... /iframe ... ).
 	<br>
 	<br>
 	<b>
@@ -152,7 +158,8 @@
 			<iframe id="iframeNotebook01" src="./Jupyter_Py/outputStaticJupyter/lab/index.html?path=nb.ipynb" style="width: 100%; height: 120vh; " onload="" allow="cross-origin-isolated" ></iframe>
 
 			<script>
-
+				
+				/*
 				var tt = null;  
 				var ftt = null; 
 
@@ -169,13 +176,14 @@
 							//await jupyter.shell.currentWidget.sessionContext.ready;
 							//await jupyter.commands.execute('notebook:run-all-cells');
 							//console.log( "SessContx WW: " + jupyter.shell.currentWidget.sessionContext ); 
-							/*console.log( "Ci siamo ... " );
-							console.log( "QQ:  " + document.getElementById( "iframeNotebook01" ).contentWindow.document.querySelector('.jp-Cell').innerHTML );
-							document.getElementById( "iframeNotebook01" ).contentWindow.document.querySelector('.jp-Cell').click(); 
+							
+							//console.log( "Ci siamo ... " );
+							//console.log( "QQ:  " + document.getElementById( "iframeNotebook01" ).contentWindow.document.querySelector('.jp-Cell').innerHTML );
+							//document.getElementById( "iframeNotebook01" ).contentWindow.document.querySelector('.jp-Cell').click(); 
 							//const button = document.getElementById( "btn_fontNotebook" );
-							//button.click();*/
+							//button.click();
 							const kk = jupyter.shell.currentWidget.sessionContext.session.kernel;
-							console.log("Kernel -->:", kk);
+							//console.log("Kernel", kk);
 							if( kk.status == "idle" ) {
 								console.log( "Ok" );  
 								ricaricaNotebook01(); 
@@ -200,7 +208,7 @@
 
 							// Attendi che l'applicazione abbia ripristinato lo stato
 							jupyter.started.then(() => {
-								console.log("L'interfaccia è completamente caricata e i widget sono pronti.");
+								//console.log("L'interfaccia è completamente caricata e i widget sono pronti.");
 								// Ora puoi controllare se esiste una sessione attiva
 								const shell = jupyter.shell;
 								//console.log( "EE: " + shell.currentWidget.content.activeCell.model.sharedModel.getSource() ); 
@@ -213,7 +221,7 @@
 								//const button = document.getElementById( "btn_fontNotebook" );
 								//button.click();
 
-								/*
+								
 								// Ottieni il widget (notebook) attualmente visualizzato
 								const currentWidget = app.shell.currentWidget;
 
@@ -227,7 +235,7 @@
 									console.log("Contenuto:", activeCell.model.sharedModel.getSource());
 								
 								}
-								*/
+								
 
 								// Logica aggiuntiva per verificare il kernel...
 								console.log( "Fine" ); 
@@ -243,8 +251,9 @@
 						
 					}
 				}
+				*/
 
-				checkJupyterCommand(); 
+				//checkJupyterCommand(); 
 
 				async function ricaricaNotebook01() {
 					await document.getElementById( "iframeNotebook01" ).contentWindow.jupyterapp.commands.execute('notebook:run-all-cells'); 
