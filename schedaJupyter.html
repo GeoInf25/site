@@ -193,7 +193,12 @@
 								const shell = jupyter.shell;
 								//console.log( "EE: " + shell.currentWidget.content.activeCell.model.sharedModel.getSource() ); 
 
-								foo(); 
+								//foo(); /////////////////////////////////////////////////////// FOO
+
+								document.getElementById( "iframeNotebook01" ).contentWindow.document.querySelector('.jp-Cell').click();  
+
+								const button = document.getElementById( "btn_fontNotebook" );
+								button.click();
 
 								/*
 								// Ottieni il widget (notebook) attualmente visualizzato
