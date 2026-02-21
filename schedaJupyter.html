@@ -175,8 +175,9 @@
 							//const button = document.getElementById( "btn_fontNotebook" );
 							//button.click();*/
 							const kk = jupyter.shell.currentWidget.sessionContext.session.kernel;
-							console.log("Kernel:", kk);
+							console.log("Kernel -->:", kk);
 							if( kk.status == "idle" ) {
+								console.log( "Ok" );  
 								ricaricaNotebook01(); 
 							}
 
