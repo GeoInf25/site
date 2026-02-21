@@ -154,6 +154,24 @@
 			<script>
 
 				var tt = null;  
+				var ftt = null; 
+
+				function foo() {
+
+					if( jupyter.shell.currentWidget.sessionContext == null ) {
+						ftt = setTimeout(foo, 500);// Riprova tra 500ms;
+
+					} else {
+						clearTimeout( ftt ); 
+						( async () => {
+							await jupyter.shell.currentWidget.sessionContext.ready;
+							//await jupyter.commands.execute('notebook:run-all-cells');
+							console.log( "SessContx WW: " + shell.currentWidget.sessionContext ); 
+							const button = document.getElementById( "btn_fontNotebook" );
+							button.click();
+						})(); 
+					}
+				}
 
 				function checkJupyterCommand() {
 					const iframe = document.getElementById("iframeNotebook01");
@@ -173,22 +191,7 @@
 								const shell = jupyter.shell;
 								//console.log( "EE: " + shell.currentWidget.content.activeCell.model.sharedModel.getSource() ); 
 
-								function foo() {
-
-									if( jupyter.shell.currentWidget.sessionContext == null ) {
-										ftt = setTimeout(foo, 500);// Riprova tra 500ms;
-
-									} else {
-										clearTimeout( ftt ); 
-										( async () => {
-											await jupyter.shell.currentWidget.sessionContext.ready;
-											//await jupyter.commands.execute('notebook:run-all-cells');
-											console.log( "SessContx BB: " + shell.currentWidget.sessionContext ); 
-											const button = document.getElementById( "btn_fontNotebook" );
-											button.click();
-										})(); 
-									}
-								}
+								foo(); 
 
 								/*
 								// Ottieni il widget (notebook) attualmente visualizzato
