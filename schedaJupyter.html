@@ -171,6 +171,25 @@
 								console.log("L'interfaccia è completamente caricata e i widget sono pronti.");
 								// Ora puoi controllare se esiste una sessione attiva
 								const shell = app.shell;
+
+								document.getElementById( "iframeNotebook01" ).contentWindow.jupyterapp.commands.execute('notebook:run-all-cells');
+
+								/*
+								// Ottieni il widget (notebook) attualmente visualizzato
+								const currentWidget = app.shell.currentWidget;
+
+								// Verifica che sia effettivamente un notebook
+								if (currentWidget && currentWidget.content) {
+									const notebook = currentWidget.content;
+									
+									// Ottieni la cella attualmente attiva
+									const activeCell = notebook.activeCell;
+									console.log("ID Cella:", activeCell.model.id);
+									console.log("Contenuto:", activeCell.model.sharedModel.getSource());
+								
+								}
+								*/
+
 								// Logica aggiuntiva per verificare il kernel...
 								console.log( "Fine" ); 
 							});
