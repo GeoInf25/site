@@ -158,6 +158,7 @@
 				var timeoutNotebook  = null; 
 
 				timeoutNotebook = setTimeout( () => {
+					console.log( "VV: " + document.getElementById( "iframeNotebook01" ).contentWindow.jupyterapp ); 
 					while( impostaFontNotebook ) {
 						if( impostaFontNotebookCount >= 70 ) {  //limite 7 sec. 
 							impostaFontNotebook = false;  
