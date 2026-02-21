@@ -160,9 +160,10 @@
 
 				function foo() {
 					console.log( "foo 888 ... " ); 
+					document.getElementById("iframeNotebook01").contentWindow.document.querySelector( ".jp-Cell" ).click();
 					if( jupyter.shell.currentWidget?.sessionContext ) {
 						console.log( "Entrato Kernel 9999 ... " );
-						document.getElementById("iframeNotebook01").contentWindow.document.querySelector( ".jp-Cell" ).click();
+						
 						clearTimeout( ftt ); 
 						( async () => {
 							//await jupyter.shell.currentWidget.sessionContext.ready;
