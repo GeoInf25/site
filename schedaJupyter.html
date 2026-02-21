@@ -164,16 +164,16 @@
 							console.log("Comando disponibile! Esecuzione...");
 							clearTimeout( tt ); 
 							//jupyter.commands.execute('notebook:run-all-cells');
-							const app = document.getElementById( "iframeNotebook01" ).contentWindow.jupyterapp;
+							//const app = document.getElementById( "iframeNotebook01" ).contentWindow.jupyterapp;
 
 							// Attendi che l'applicazione abbia ripristinato lo stato
-							app.restored.then(() => {
+							jupyter.restored.then(() => {
 								console.log("L'interfaccia è completamente caricata e i widget sono pronti.");
 								// Ora puoi controllare se esiste una sessione attiva
-								const shell = app.shell;
-								console.log( shell ); 
+								const shell = jupyter.shell;
+								console.log( "DD: " + shell ); 
 
-								document.getElementById( "iframeNotebook01" ).contentWindow.jupyterapp.commands.execute('notebook:run-all-cells');
+								jupyter.commands.execute('notebook:run-all-cells');
 
 								/*
 								// Ottieni il widget (notebook) attualmente visualizzato
