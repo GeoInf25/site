@@ -168,7 +168,7 @@
 						( async () => {
 							await jupyter.shell.currentWidget.sessionContext.ready;
 							//await jupyter.commands.execute('notebook:run-all-cells');
-							console.log( "SessContx WW: " + shell.currentWidget.sessionContext ); 
+							console.log( "SessContx WW: " + jupyter.shell.currentWidget.sessionContext ); 
 							const button = document.getElementById( "btn_fontNotebook" );
 							button.click();
 						})(); 
