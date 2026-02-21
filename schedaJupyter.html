@@ -152,6 +152,32 @@
 			<iframe id="iframeNotebook01" src="./Jupyter_Py/outputStaticJupyter/lab/index.html?path=nb.ipynb" style="width: 100%; height: 120vh; " onload="" allow="cross-origin-isolated" ></iframe>
 
 			<script>
+
+				var impostaFontNotebook = true; 
+				var impostaFontNotebookCount = 0;  
+				var timeoutNotebook  = null; 
+
+				timeoutNotebook = setTimeout( () => {
+					while( impostaFontNotebook ) {
+						if( impostaFontNotebookCount >= 30 ) {  //limite 3 sec. 
+							impostaFontNotebook = false;  
+							impostaFontNotebookCount++;  
+							console.log( "Jupyter Notebook: numero di Tentativi esaurito (" + impostaFontNotebookCount + ")" );  
+							clearTimeout( timeoutNotebook ); 
+
+						} else if( document.getElementById( "iframeNotebook01" ).contentWindow.jupyterapp != undefined ) {
+							ricaricaNotebook01(); 
+							impostaFontNotebook = false;  
+							impostaFontNotebookCount++;  
+							clearTimeout( timeoutNotebook ); 
+
+						} else if( document.getElementById( "iframeNotebook01" ).contentWindow.jupyterapp == undefined ) {
+							impostaFontNotebook = true;  
+							impostaFontNotebookCount++;  
+						}
+					}
+				}, 100); 
+
 				async function ricaricaNotebook01() {
 					await document.getElementById( "iframeNotebook01" ).contentWindow.jupyterapp.commands.execute('notebook:run-all-cells'); 
 				}
