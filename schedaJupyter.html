@@ -159,14 +159,16 @@
 				var jupyter = null; 
 
 				function foo() {
-					console.log( "foo 444 ... " ); 
-					if( jupyter.shell?.currentWidget ) {
-						console.log( "Entrato 2222 ... " );
+					console.log( "foo 555 ... " ); 
+					if( document.getElementById( "iframeNotebook01" ).contentWindow.document.querySelector('.jp-Cell') ) {
+						console.log( "Entrato 9999 ... " );
 						clearTimeout( ftt ); 
 						( async () => {
 							//await jupyter.shell.currentWidget.sessionContext.ready;
 							//await jupyter.commands.execute('notebook:run-all-cells');
-							console.log( "SessContx WW: " + jupyter.shell.currentWidget.sessionContext ); 
+							//console.log( "SessContx WW: " + jupyter.shell.currentWidget.sessionContext ); 
+							console.log( "Ci siamo ... " );
+							document.getElementById( "iframeNotebook01" ).contentWindow.document.querySelector('.jp-Cell').click(); 
 							const button = document.getElementById( "btn_fontNotebook" );
 							button.click();
 						})(); 
@@ -193,12 +195,13 @@
 								const shell = jupyter.shell;
 								//console.log( "EE: " + shell.currentWidget.content.activeCell.model.sharedModel.getSource() ); 
 
-								//foo(); /////////////////////////////////////////////////////// FOO
+								foo(); /////////////////////////////////////////////////////// FOO
 
-								document.getElementById( "iframeNotebook01" ).contentWindow.document.querySelector('.jp-Cell').click();  
 
-								const button = document.getElementById( "btn_fontNotebook" );
-								button.click();
+								//document.getElementById( "iframeNotebook01" ).contentWindow.document.querySelector('.jp-Cell').click();  
+
+								//const button = document.getElementById( "btn_fontNotebook" );
+								//button.click();
 
 								/*
 								// Ottieni il widget (notebook) attualmente visualizzato
