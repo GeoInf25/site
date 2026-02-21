@@ -168,11 +168,12 @@
 							//await jupyter.commands.execute('notebook:run-all-cells');
 							//console.log( "SessContx WW: " + jupyter.shell.currentWidget.sessionContext ); 
 							console.log( "Ci siamo ... " );
+							console.log( document.getElementById( "iframeNotebook01" ).contentWindow.document.querySelector('.jp-Cell').innerHTML );
 							document.getElementById( "iframeNotebook01" ).contentWindow.document.querySelector('.jp-Cell').click(); 
 							//const button = document.getElementById( "btn_fontNotebook" );
 							//button.click();
 							ricaricaNotebook01(); 
-							
+
 						})(); 
 					} else {
 						ftt = setTimeout(foo, 500);// Riprova tra 500ms;
