@@ -174,7 +174,7 @@
 							document.getElementById( "iframeNotebook01" ).contentWindow.document.querySelector('.jp-Cell').click(); 
 							//const button = document.getElementById( "btn_fontNotebook" );
 							//button.click();*/
-							const kk = jupyter.shell.currentWidget.sessionContext.kernel;
+							const kk = jupyter.shell.currentWidget.sessionContext.session.kernel;
 							console.log("Kernel:", kk);
 
 						})(); 
