@@ -172,9 +172,9 @@
 							document.getElementById( "iframeNotebook01" ).contentWindow.document.querySelector('.jp-Cell').click(); 
 							//const button = document.getElementById( "btn_fontNotebook" );
 							//button.click();*/
-							jupyter.shell.currentWidget.sessionContext.ready.then(() => {
+							await jupyter.shell.currentWidget.sessionContext.ready.then(() => {
 								console.log("Kernel connesso");
-								return sessionContext.kernel.statusChanged.connect((_, status) => {
+								return jupyter.shell.currentWidget.sessionContext.kernel.statusChanged.connect((_, status) => {
 									if (status === 'idle') {
 										console.log("Il kernel Pyodide è ora inattivo e pronto.");
 										//ricaricaNotebook01(); 
