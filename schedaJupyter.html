@@ -153,7 +153,7 @@
 
 			<script>
 
-				const app = iframe.contentWindow.jupyterapp;
+				const app = document.getElementById( "iframeNotebook01" ).contentWindow.jupyterapp;
 
 				// Attendi che l'applicazione abbia ripristinato lo stato
 				app.restored.then(() => {
