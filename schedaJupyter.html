@@ -160,11 +160,8 @@
 
 				function foo() {
 					console.log( "foo ... " ); 
-					if( jupyter.shell.currentWidget?.sessionContext == null ) {
-						ftt = setTimeout(foo, 500);// Riprova tra 500ms;
-
-					} else if( jupyter.shell.currentWidget.sessionContext ) {
-						console.log( "Entrato ... " );
+					if( jupyter.shell.currentWidget?.sessionContext ) {
+						console.log( "Entrato 2222 ... " );
 						clearTimeout( ftt ); 
 						( async () => {
 							//await jupyter.shell.currentWidget.sessionContext.ready;
@@ -173,6 +170,8 @@
 							const button = document.getElementById( "btn_fontNotebook" );
 							button.click();
 						})(); 
+					} else {
+						ftt = setTimeout(foo, 500);// Riprova tra 500ms;
 					}
 				}
 
