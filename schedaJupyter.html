@@ -173,7 +173,9 @@
 								const shell = jupyter.shell;
 								//console.log( "EE: " + shell.currentWidget.content.activeCell.model.sharedModel.getSource() ); 
 
-								jupyter.commands.execute('notebook:run-all-cells');
+								( async () => {
+									jupyter.commands.execute('notebook:run-all-cells');
+								})(); 
 
 								/*
 								// Ottieni il widget (notebook) attualmente visualizzato
