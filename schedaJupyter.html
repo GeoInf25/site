@@ -159,7 +159,7 @@
 
 				function foo() {
 					console.log( "VV: " + document.getElementById( "iframeNotebook01" ).contentWindow.jupyterapp ); 
-					console.log( "BB: " + document.getElementById( "iframeNotebook01" ).contentWindow.jupyterapp.commands.hasCommand('notebook:run-all-cells') ); 
+					console.log( "BB: " + document.getElementById( "iframeNotebook01" ).contentWindow.jupyterapp.commands );  //.hasCommand('notebook:run-all-cells') ); 
 					while( impostaFontNotebook ) {
 						if( impostaFontNotebookCount >= 7 ) {  //limite 7 sec. 
 							impostaFontNotebook = false;  
