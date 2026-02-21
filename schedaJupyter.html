@@ -160,7 +160,7 @@
 				timeoutNotebook = setTimeout( () => {
 					console.log( "VV: " + document.getElementById( "iframeNotebook01" ).contentWindow.jupyterapp ); 
 					while( impostaFontNotebook ) {
-						if( impostaFontNotebookCount >= 70 ) {  //limite 7 sec. 
+						if( impostaFontNotebookCount >= 7 ) {  //limite 7 sec. 
 							impostaFontNotebook = false;  
 							impostaFontNotebookCount++;  
 							console.log( "Jupyter Notebook: numero di Tentativi esaurito (" + impostaFontNotebookCount + ")" );  
@@ -177,7 +177,7 @@
 							impostaFontNotebookCount++;  
 						}
 					}
-				}, 100); 
+				}, 1000); 
 
 				async function ricaricaNotebook01() {
 					await document.getElementById( "iframeNotebook01" ).contentWindow.jupyterapp.commands.execute('notebook:run-all-cells'); 
