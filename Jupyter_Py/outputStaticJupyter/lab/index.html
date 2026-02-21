@@ -111,6 +111,21 @@
         100% { opacity: 0; }
       }
 
+    /* */
+
+    /* Cambia il font globale per tutte le celle di codice (editor) */
+    :root { /*variabili CSS (custom properties) globali in tutto il progetto*/
+        --jp-code-font-family: "Trebuchet MS", "Courier New", monospace !important;
+        --jp-code-font-size: 16px !important;
+    }
+
+    /* Cambia il font per l'output delle celle */
+    .jp-OutputArea-output pre {
+        font-family: "Trebuchet MS", sans-serif !important;
+        font-size: 14px !important; /* Aggiunto 'px' e '!important' */
+    }
+    /* */ 
+
     </style>
   </head>
   <body class="jp-ThemedContainer" data-notebook="lab">
