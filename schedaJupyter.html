@@ -160,8 +160,8 @@
 
 				function foo() {
 					console.log( "foo 666 ... " ); 
-					if( jupyter.shell.currentWidget?.sessionContext ) {
-						console.log( "Entrato 9999 ... " );
+					if( jupyter.shell.currentWidget?.sessionContext?.kernel ) {
+						console.log( "Entrato Kernel 9999 ... " );
 						clearTimeout( ftt ); 
 						( async () => {
 							//await jupyter.shell.currentWidget.sessionContext.ready;
@@ -172,15 +172,8 @@
 							document.getElementById( "iframeNotebook01" ).contentWindow.document.querySelector('.jp-Cell').click(); 
 							//const button = document.getElementById( "btn_fontNotebook" );
 							//button.click();*/
-							await jupyter.shell.currentWidget.sessionContext.ready.then(() => {
-								console.log("Kernel connesso");
-								return jupyter.shell.currentWidget.sessionContext.kernel.statusChanged.connect((_, status) => {
-									if (status === 'idle') {
-										console.log("Il kernel Pyodide è ora inattivo e pronto.");
-										//ricaricaNotebook01(); 
-									}
-								});
-							});
+							const status = jupyter.shell.currentWidget.sessionContext.kernel.status;
+							console.log("Kernel Status:", status);
 
 						})(); 
 					} else {
