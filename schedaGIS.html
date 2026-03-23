@@ -788,7 +788,7 @@
 				try {
 					//radius NON utilizzato in API version 2.0
 
-					const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+					//const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
 
 					const baseUrlMap04 = 'https://api.openstreetcam.org/2.0/photo/';
 
@@ -801,12 +801,13 @@
   						ipp: 150, //Number of items per page (default: 50, max: 150).
 					});
 
-					const responseOSCMap04 = await fetch(`${proxyUrl}${baseUrlMap04}?${paramsMap04}`, {
-						method: 'POST', 
-						headers: {
+					//const responseOSCMap04 = await fetch(`${proxyUrl}${baseUrlMap04}?${paramsMap04}`, {
+					const responseOSCMap04 = await fetch(`${baseUrlMap04}?${paramsMap04}`, { 
+						//method: 'GET', 
+						//headers: {
         					// Questo header è fondamentale per soddisfare la richiesta del proxy
-        					'X-Requested-With': 'XMLHttpRequest'
-    					},
+        					//'X-Requested-With': 'XMLHttpRequest'
+    					//},
       					signal: AbortSignal.timeout(7000) // Timeout di 7 secondi
     				});
 
