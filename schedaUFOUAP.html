@@ -500,7 +500,10 @@
 				//map01.addLayer(cluMarkers);
 
 				dataUfoDataset = dfd.toJSON( ndf )
-				ufoDataset.setData( dataUfoDataset )
+
+				ufoDataset.on("tableBuilt", function(){
+					ufoDataset.setData( dataUfoDataset )
+				});
 
 
 			})
