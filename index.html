@@ -19,6 +19,12 @@
 
 <style>
 
+	#schedaUFOUAP {
+		width: 100%;
+  		/* height: 94%; */
+		overflow-x: hidden;
+  		overflow-y: hidden; /*scroll*/
+	}
 	#schedaBlazor {
   		width: 100%;
   		/* height: 94%; */
@@ -120,6 +126,10 @@
 	}
 	*/
 
+	.tabUFOUAP {
+		border-color: green;
+		/*color: white;*/
+  	}
 	.tabBlazor {
 		border-color: green;
   		/*color: white;*/
@@ -227,6 +237,7 @@
 	<script>
 
 		var iframeAttivi = {
+			iframeUFOUAP : true ,
 			iframeBlazor : true , 
 			iframeReact : true , 
 			iframeRShiny : true , 
@@ -273,6 +284,7 @@
 			if( osWin == true ) {
 				//
 			} else {
+				iframeAttivi.iframeUFOUAP = true ; 
 				iframeAttivi.iframeBlazor = true ; 
 				iframeAttivi.iframeReact = true ; 
 				iframeAttivi.iframeRShiny = true ; 
@@ -331,7 +343,8 @@
 				schedaDatabaseCliccata = false; 
 			}
 
-			if( scheda == "schedaGIS" ) {
+			//if( scheda == "schedaGIS" ) {
+			if( scheda == "schedaUFOUAP" ) {
 				window.dispatchEvent(new Event('resize')); // force reflow
 			} else {
 				//
@@ -363,6 +376,7 @@
 			var hTabScheda = document.getElementById( "tab_scheda" ).offsetHeight; 
 			var hDiff = hBody - hTabScheda - 20; // - 9
 			//alert( hDiff );
+			document.getElementById( "schedaUFOUAP" ).style.height = hDiff; 
 			document.getElementById( "schedaBlazor" ).style.height = hDiff; 
 			document.getElementById( "schedaReact" ).style.height = hDiff; 
 			document.getElementById( "schedaRShiny" ).style.height = hDiff; 
@@ -385,6 +399,7 @@
 
 		window.addEventListener( 'load' , function(event) { 
 
+			schedaGIS = document.getElementById( "schedaUFOUAP" );
 			schedaBlazor = document.getElementById( "schedaBlazor" );
 			schedaReact = document.getElementById( "schedaReact" );
 			schedaRShiny = document.getElementById( "schedaRShiny" );
@@ -401,6 +416,7 @@
 			schedaDatabaseCliccata = false; 
 
 			schede = [ 
+				schedaUFOUAP,
 				schedaBlazor,
 				schedaReact,
 				schedaRShiny,
@@ -415,7 +431,8 @@
 				schedaAbout
 			]; 
 
-			gestioneSchede( "schedaGIS" );
+			gestioneSchede( "schedaUFOUAP" );
+			//gestioneSchede( "schedaGIS" );
 
 			resizeWindow();
 
@@ -439,6 +456,7 @@
 	</script>
 
 	<div id="tab_scheda" style="margin-bottom: 0.5vh;" >
+		<button id="tab_schedaUFOUAP" class="btn tabUFOUAP" onclick="gestioneSchede( 'schedaUFOUAP' )">- UFO/UAP -</button>
 		<button id="tab_schedaGIS" class="btn tabGIS" onclick="gestioneSchede( 'schedaGIS' )">- GIS -</button>
 		<button id="tab_schedaBlazor" class="btn tabBlazor" onclick="gestioneSchede( 'schedaBlazor' )">- BLAZOR -</button>
 		<button id="tab_schedaReact" class="btn tabReact" onclick="gestioneSchede( 'schedaReact' )">- REACT -</button>
@@ -470,6 +488,29 @@
 			barTot.style.visibility = "visible";
 			barLoading.style.display = "block"; 
 			barLoading.style.visibility = "visible";
+
+		</script>
+
+	</div>
+
+	<div id="schedaUFOUAP" > 
+		
+		<iframe
+			id="iframeUFOUAP" 
+			src=""  
+			width="100%"
+			height="100%"
+			frameBorder="0"
+
+		></iframe>
+
+		<script>
+			if( iframeAttivi.iframeUFOUAP == true ) {
+				//https://geoinf25.github.io/site/schedaUFOUAP.html
+				document.getElementById( "iframeUFOUAP" ).src="./schedaUFOUAP.html"; 
+			} else {
+				document.getElementById( "iframeUFOUAP" ).src=""; 
+			}
 
 		</script>
 
