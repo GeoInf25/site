@@ -24,8 +24,16 @@
 	<script src="https://cdn.jsdelivr.net/npm/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.min.js"></script>
 	<link href="https://cdn.jsdelivr.net/npm/leaflet.markercluster@1.5.3/dist/MarkerCluster.min.css" rel="stylesheet">
 
-	<script src="https://cdn.jsdelivr.net/npm/leaflet.awesome-markers@2.0.5/dist/leaflet.awesome-markers.min.js"></script>
-	<link href="https://cdn.jsdelivr.net/npm/leaflet.awesome-markers@2.0.5/dist/leaflet.awesome-markers.min.css" rel="stylesheet">
+	<script src=
+		"https://cdn.jsdelivr.net/npm/leaflet.awesome-markers@2.0.5/dist/leaflet.awesome-markers.min.js">
+	</script>
+	<link href=
+		"https://cdn.jsdelivr.net/npm/leaflet.awesome-markers@2.0.5/dist/leaflet.awesome-markers.min.css" 
+	rel="stylesheet">
+	<link rel="stylesheet" href="http://code.ionicframework.com/ionicons/1.5.2/css/ionicons.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.5/leaflet.awesome-markers.js"></script>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.5/leaflet.awesome-markers.css" rel="stylesheet">
+	<!-- 2.05 -->
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/alasql/4.6.6/alasql.min.js"></script> 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.core.min.js"></script>
@@ -58,9 +66,9 @@
 			<div id="contMap01" style="width: 100%;"> <!-- overflow: hidden; height: 60vh -->
 				<div id="leafletMap01" style="height: 70vh; border: 0px solid " ></div> <!-- height: 55vh -->
 				<div style="width: 100%; display: flex; " > <!-- Disposizione ORRIZONALE: flex -->
-					<div id="latLngZoom" style="width: 7%; max-width: 7%; height: 25vh; max-height: 25vh; float: left; margin: 0; padding: 0; " ></div> <!-- 1.75vh style='float: left; ' width: 100%; -->
-					<div id="consoleApp" style="width: 22%; max-width: 22%; height: 25vh; max-height: 25vh; float: left; margin: 0; padding: 0; " ></div> <!-- height: 20vh -->
-					<div id="ufoDataset" style="width: 70.5%; max-width: 70.5%; height: 25vh; max-height: 25vh; float: left; margin: 0; padding: 0; " ></div>
+					<div id="latLngZoom" style="width: 5%; max-width: 5%; height: 25vh; max-height: 25vh; float: left; margin: 0; padding: 0; " ></div> <!-- 1.75vh style='float: left; ' width: 100%; -->
+					<div id="consoleApp" style="width: 17%; max-width: 17%; height: 25vh; max-height: 25vh; float: left; margin: 0; padding: 0; " ></div> <!-- height: 20vh -->
+					<div id="ufoDataset" style="width: 77.5%; max-width: 77.5%; height: 25vh; max-height: 25vh; float: left; margin: 0; padding: 0; " ></div>
 				</div>
 			</div>
 
@@ -206,14 +214,39 @@
 
 		//minimap 
 		
-		layerMiniMap = L.tileLayer( 'https://tile.openstreetmap.org/{z}/{x}/{y}.png' ); 
+		layerMiniMap = L.tileLayer( 'https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}' ); 
 		miniMap = new L.Control.MiniMap( layerMiniMap , { 
 				toggleDisplay : true , 
-				width: Math.round( window.screen.width /15 ), 
-				height: Math.round( window.screen.height /15 ) , 
+				zoomLevelOffset: -16, 
+				width: Math.round( window.screen.width /10.0 ), 
+				height: Math.round( window.screen.height /10.0 ) , 
 		} ).addTo(map01);
 
-		//miniMap.setPosition('topright'); 
+		miniMap.setPosition('topright'); 
+
+		var measureControl = new L.Control.Measure( { primaryLengthUnit: "kilometers" , primaryAreaUnit: "sqmeters" } );
+
+		// Disable auto-pan by overriding the plugin’s internal method(s):
+		L.Control.Measure.include({
+			// Prevent auto-panning when the capture marker is placed
+			_setCaptureMarkerIcon: function () {
+				// Turn off autoPan
+				this._captureMarker.options.autoPanOnFocus = false;
+				// Call the original icon setup
+				this._captureMarker.setIcon(
+				L.divIcon({
+					iconSize: this._map.getSize().multiplyBy(2),
+				})
+				);
+			},
+
+			// Optionally, override _startMeasure or other private methods if needed
+			// _startMeasure: function () {
+				//   // Your custom override
+			// },
+			});
+
+		measureControl.addTo( map01 );
 
 		//*** TABULATOR JS ***// 
 
@@ -297,9 +330,9 @@
 			//height: "100%", //Evitare per MANCANZA di SCROLLBAR verticale
 
 			columns: [
-				{title: "DateTime", headerTooltip: true , field: "DateTime", widthGrow: 4, formatter: "textarea", resizable: false},
+				{title: "DateTime", headerTooltip: true , field: "DateTime", widthGrow: 3, formatter: "textarea", resizable: false},
     			{title: "Event", headerTooltip: true , field: "Event", widthGrow: 3, formatter: "textarea", resizable: false},
-    			{title: "Message_Console", headerTooltip: true , field: "Message_ConsoleApp", widthGrow: 7, formatter: "textarea", resizable: false},
+    			{title: "Message_Console", headerTooltip: true , field: "Message_ConsoleApp", widthGrow: 6, formatter: "textarea", resizable: false},
 
 				
 			],
@@ -327,18 +360,33 @@
 
 		ufoDataset = new Tabulator( "#ufoDataset", {
 			data: dataUfoDataset, // Carica i dati 
+
+			//height: "500px" ,   
+			//progressiveRender: "load", // Renderizza i dati a blocchi in background [3, 4]
+			renderVertical: "virtual", // Forza il Virtual DOM verticale [2, 5]
+			virtualDom: true,
+			//layout: "fitData", // Evita continui ricalcoli delle colonne [6] 
+			//virtualDomBuffer: 300,
 			
 			//autoColumns: true, // Crea automaticamente le colonne in base alle chiavi 
 			layout: "fitColumns",
 			columns: [ 
+				{title: "ID", 
+					headerFilter: "input", headerFilterParams: { elementAttributes: { style: "font-size: 1.3vh; width: 100%; box-sizing: border-box;" } }, 
+					headerTooltip: true, field: "ID", widthGrow: 0.7, formatter: "textarea", resizable: false , 
+					contextMenu: menuDellaCella  
+				} ,
 				{title: "Date-time", 
 					headerFilter: "input", headerFilterParams: { elementAttributes: { style: "font-size: 1.3vh; width: 100%; box-sizing: border-box;" } }, 
 					headerTooltip: true, field: "datetime", widthGrow: 1, formatter: "textarea", resizable: false , 
-					contextMenu: menuDellaCella
+					contextMenu: menuDellaCella  
 				} ,
 				{title: "City", 
 					headerFilter: "input", headerFilterParams: { elementAttributes: { style: "font-size: 1.3vh; width: 100%; box-sizing: border-box;" } },
-					headerTooltip: true, field: "city", widthGrow: 1, formatter: "textarea", resizable: false } , 
+					headerTooltip: true, field: "city", widthGrow: 1, formatter: "textarea", resizable: false , 
+					contextMenu: menuDellaCella 
+				
+				} , 
 				{
 					title: "Shape",
 					headerTooltip: true,  
@@ -358,37 +406,57 @@
 							return label; 
         				}
             		} ,
-					widthGrow: 1, formatter: "textarea", resizable: false
+					widthGrow: 1, formatter: "textarea", resizable: false , 
+					contextMenu: menuDellaCella 
 				} , 
 				{title: "Duration_Text", 
 					headerFilter: "input", headerFilterParams: { elementAttributes: { style: "font-size: 1.3vh; width: 100%; box-sizing: border-box;" } },
-					headerTooltip: true, field: "duration_text" , widthGrow: 1, formatter: "textarea", resizable: false } , 
+					headerTooltip: true, field: "duration_text" , widthGrow: 1, formatter: "textarea", resizable: false , 
+					contextMenu: menuDellaCella  
+				} , 
 				{title: "Description", 
 					headerFilter: "input", headerFilterParams: { elementAttributes: { style: "font-size: 1.3vh; width: 100%; box-sizing: border-box;" } },
-					headerTooltip: true, field: "description" , widthGrow: 5, formatter: "textarea", resizable: false } , 
+					headerTooltip: true, field: "description" , widthGrow: 4, formatter: "textarea", resizable: false , 
+					contextMenu: menuDellaCella 
+				} , 
 				{title: "Duration_Seconds", 
 					headerFilter: "input", headerFilterParams: { elementAttributes: { style: "font-size: 1.3vh; width: 100%; box-sizing: border-box;" } },
-					headerTooltip: true, field: "duration_seconds" , widthGrow: 1, formatter: "textarea", resizable: false } ,
+					headerTooltip: true, field: "duration_seconds" , widthGrow: 1, formatter: "textarea", resizable: false , 
+					contextMenu: menuDellaCella 
+				} ,
 				{title: "Report_Date", 
 					headerFilter: "input", headerFilterParams: { elementAttributes: { style: "font-size: 1.3vh; width: 100%; box-sizing: border-box;" } },
-					headerTooltip: true, field: "report_date" , widthGrow: 1, formatter: "textarea", resizable: false } , 
+					headerTooltip: true, field: "report_date" , widthGrow: 1, formatter: "textarea", resizable: false ,
+					contextMenu: menuDellaCella 
+				
+				} , 
 				{title: "State", 
 					headerFilter: "input", headerFilterParams: { elementAttributes: { style: "font-size: 1.3vh; width: 100%; box-sizing: border-box;" } },
-					headerTooltip: true, field: "state" , widthGrow: 1, formatter: "textarea", resizable: false } , 
+					headerTooltip: true, field: "state" , widthGrow: 0.7, formatter: "textarea", resizable: false ,
+					contextMenu: menuDellaCella  
+				
+				} , 
 				{title: "Country", 
 					headerFilter: "input", headerFilterParams: { elementAttributes: { style: "font-size: 1.3vh; width: 100%; box-sizing: border-box;" } },
-					headerTooltip: true, field: "country" , widthGrow: 1, formatter: "textarea", resizable: false } , 
+					headerTooltip: true, field: "country" , widthGrow: 0.7, formatter: "textarea", resizable: false ,
+					contextMenu: menuDellaCella 
+				
+				} , 
 				{title: "Latitude", 
 					headerFilter: "input", headerFilterParams: { elementAttributes: { style: "font-size: 1.3vh; width: 100%; box-sizing: border-box;" } },
-					headerTooltip: true, field: "latitude" , widthGrow: 1, formatter: "textarea", resizable: false } , 
+					headerTooltip: true, field: "latitude" , widthGrow: 1, formatter: "textarea", resizable: false , 
+					contextMenu: menuDellaCella  
+				
+				} , 
 				{title: "Longitude", 
 					headerFilter: "input", headerFilterParams: { elementAttributes: { style: "font-size: 1.3vh; width: 100%; box-sizing: border-box;" } },
-					headerTooltip: true, field: "longitude" , widthGrow: 1, formatter: "textarea", resizable: false } 
+					headerTooltip: true, field: "longitude" , widthGrow: 1, formatter: "textarea", resizable: false ,
+					contextMenu: menuDellaCella 
+				
+				} 
 				
 				//headerFilter: "list", headerFilterParams: {valuesLookup: true}}, // Menu a tendina automatico
-			],
-
-			
+			], 
 
 			footerElement: 
         		"<div style='height: 2vh'> " +
@@ -405,6 +473,9 @@
 						"Export PDF" + 
 					"</button>" + 
         		"</div>" 
+
+			//selectableRows: "highlight",
+
 		});
 
 		//ufoDataset.element.style.fontFamily = "'Courier New', monospace";
@@ -412,9 +483,172 @@
 
 		// Bind the rowClick event
 		ufoDataset.on("rowClick", function(e, row){
-			map01.setView( [ row.getData()["latitude"], row.getData()["longitude"] ], 15);
+
+			const ID = row.getData()["ID"];
+			const lat = row.getData()["latitude"];
+			const lng = row.getData()["longitude"]; 
+
+			if( !isNaN(lat) && !isNaN(lng) ) {
+				
+				var tempIcon = L.AwesomeMarkers.icon({ //red, blue, green, purple, orange, yellow, black, grey
+					icon: 'coffee',
+    				markerColor: 'red' , 
+    				className: 'awesome-marker awesome-marker-square'
+					/*
+					icon: 'star',          // Nome dell'icona (es. senza il prefisso 'fa-')
+					markerColor: 'orange',   // Colore del marker di sfondo
+					prefix: 'fa',            // Libreria di origine ('fa' per Font Awesome)
+					iconColor: 'white'       // Colore del simbolo interno
+					*/
+				});
+				
+				/*
+				const tempIcon = L.divIcon({
+    				html: '<span style="font-size: 40px;">🛸</span>',
+					className: '', // Rimuove lo sfondo bianco di default
+    				//iconSize:,
+					iconAnchor: [40, 40]  
+				});
+				*/
+
+				//L.markerClusterGroup()
+				var tempArr = cluMarkers.getLayers(); //markerClusterGroup -> array JS
+				//L'oridnamento NON e' quello di INSERIMENTO dei Markers
+
+				var markerSpecifico = tempArr.find(function(marker) {
+    				return marker.options.id === ID; 
+				});
+
+				//Cambia l'icona al marker
+				markerSpecifico.setIcon( tempIcon ); 
+				//Forza l'aggiornamento visivo del cluster
+				cluMarkers.refreshClusters( markerSpecifico );
+
+				/* 
+				tempArr.find(function(m) { //m -> marker
+        			return m.options.id === idCercato;
+    			});
+				*/
+
+				map01.setView( [ lat, lng ], 19);
+
+			} else {
+				tempObj = {
+					DateTime : getDateTime() , 
+					Event : "Unable to locate Marker ... ",
+					Message_ConsoleApp : ( "Wrong Coordinates: " + lat + ", " + lng ),
+				}; 
+			
+				dataConsoleApp.unshift( tempObj ); //Inizio Array 
+
+				consoleApp.setData( dataConsoleApp );
+
+			}
 
 		}); 
+
+		//Aggancia l'evento SUBITO DOPO l'inizializzazione
+		ufoDataset.on("rowMouseEnter", function(e, row){
+			// 'e' è l'oggetto evento del mouse
+			// 'row' è il componente riga di Tabulator
+			//console.log("Il mouse è entrato sulla riga:", row.getData());
+			
+			// Esempio: cambia lo sfondo delle celle di questa riga
+			row.getCells().forEach(cell => {
+				cell.getElement().style.backgroundColor = "#ffeb3b"; 
+			});
+
+			//TOOLTIP ROW
+			var rowElement = row.getElement(); // Prendi l'elemento HTML della riga
+        	// Imposta il messaggio del tooltip usando l'attributo 'title' standard del browser
+        	rowElement.title = "Click to display UFO / UAP SIGHTING on Map ...";
+
+		});
+
+		// Ricordati di ripristinare il colore quando il mouse esce!
+		ufoDataset.on("rowMouseLeave", function(e, row){
+			row.getCells().forEach(cell => {
+				cell.getElement().style.backgroundColor = ""; 
+			});
+		});
+		/*
+		ufoDataset.on("scrollVertical", function(top){
+			//Ottieni l'elemento che contiene lo scroll (il viewport della tabella)
+			var container = ufoDataset.element.querySelector(".tabulator-tableholder");
+		
+			//Calcola lo spazio totale disponibile per lo scroll
+			var maxScroll = container.scrollHeight - container.clientHeight;
+		
+			//Verifica se la posizione attuale è maggiore o uguale al massimo (con tolleranza di 1px per i decimali)
+			if (Math.ceil(top) >= maxScroll) {
+				//console.log("Sei alla fine dello scroll!");
+				//Inserisci qui la tua logica (es. carica altri dati)
+				ufoDataset.redraw(true);
+			}
+		});
+		*/
+
+		ufoDataset.on("tableBuilt", function(){
+    		// Esempio: esegui un'azione sicura qui, come impostare un ordinamento iniziale
+			//ufoDataset.setData( dataUfoDataset )
+    		//ufoDataset.redraw(true); 
+			console.log( "ufoDataset: tableBuilt (!)" );
+			 
+		});
+
+		var divNote = L.control({ position: 'bottomright' });
+
+		divNote.onAdd = function (map01) {
+
+			var div = L.DomUtil.create('div' ); //, CSS Style ...
+
+			div.innerHTML = `
+				<div style="background: #ffffff; border: 2px solid #000000; border-radius: 5px; margin: 0px; padding: 5px;" >
+					<div id="rifDivContenuto" style=" font-family: 'Trebuchet MS'; width: 45vh; " >
+						<b>RIFERIMENTI</b>:
+						<br>
+						- Link GitHub di riferimento: <a href="https://github.com/planetsig/ufo-reports">Ufo Reports Dataset</a>; 
+						<br>
+						- Link al file CSV: <a href="https://raw.githubusercontent.com/planetsig/ufo-reports/master/csv-data/ufo-scrubbed-geocoded-time-standardized.csv">File CSV</a>; 
+						<br>
+						- Articolo di riferimento: <a href="https://drlee.io/exploring-ufo-sightings-with-python-pandas-and-google-colab-3cf24d1843d3">Exploring UFO Sightings with Python, Pandas, and Google Colab</a>; 
+						<br> 
+						<!-- - Impiego della Libreria Python <a href="https://python-visualization.github.io/folium/latest/">Folium</a>;
+						<br> -->
+						- Impiego della Libreria <a href="https://leafletjs.com/">Leaflet</a>; <!--, <a href="https://turfjs.org/">Turf</a>; -->
+						<br>
+						- JavaScript SQL Database, per tabelle relazionali tradizionali e dati JSON annidati (NoSQL): <a href="https://alasql.org/">AlaSQL</a>, <a href="https://github.com/alasql/alasql/wiki/XLSX">XLSX</a>;
+						<br>
+						- Legenda di riferimento: <a href="https://www.cyclosm.org/legend.html">CyclOsmMap Legend</a>.
+					</div>
+
+					<button id="rifDivButton" type="button" style="font-family: 'Trebuchet MS'; font-size: 1.5vh; font-style: italic; " >
+						🗺️ Mostra / Nascondi RIFERIMENTI
+					</button>
+
+				</div>				
+			`;
+
+			const bottone = div.querySelector('#rifDivButton');
+    		const contenuto = div.querySelector('#rifDivContenuto');
+			
+			bottone.addEventListener('click', function() {
+        		if (contenuto.style.display === 'none') {
+            		contenuto.style.display = 'block';
+            		bottone.textContent = '❌ Nascondi RIFERIMENTI';
+        		} else {
+            		contenuto.style.display = 'none';
+            		bottone.textContent = '🗺️ Mostra / Nascondi RIFERIMENTI';
+        		}
+    		});
+			
+			L.DomEvent.disableClickPropagation(div);
+
+			return div;
+
+		};
+
+		divNote.addTo(map01);
 
 		//*** EVENTS ***//
 
@@ -453,19 +687,23 @@
 		dfd.readCSV( url , { header: false } )
 			.then(df => {
 				//Header 0,1,2 ... NON rimovibile
+
+				const righe = Array.from({ length: df.shape[0] }, (_, i) => i ); //Parto da 0 ... 
+				df.addColumn("ID", righe, { inplace: true });
+				df = df.loc({ columns: ["ID", ...df.columns.filter(c => c !== "ID")] }); //ID = Numero Riga (Prima posizione)
+
 				const tempArr = df.values;
+
 				let ndf = new dfd.DataFrame( tempArr , {
-					columns: ["datetime", "city", "state", "country", "shape", "duration_seconds", "duration_text", "description", "report_date", "latitude", "longitude"]
+					columns: ["ID" , "datetime", "city", "state", "country", "shape", "duration_seconds", "duration_text", "description", "report_date", "latitude", "longitude"]
 				});
 				//console.log( ndf )
 
 				//VEDI N (enne) DF ovvero ndf 
 
 				const info = ndf.loc({ //df ridotto
-					columns: [ "latitude", "longitude" , "datetime", "city" , "shape" , "duration_text" , "description" ] 
+					columns: [ "ID" , "latitude", "longitude" , "datetime", "city" , "shape" , "duration_text" , "description" ] 
 				})
-
-				//console.log( info ); 
 
 				if( layerMarkers.hasLayer( cluMarkers ) ) {
 					layerMarkers.removeLayer( cluMarkers ); 
@@ -474,19 +712,31 @@
 
 				//console.log( "isNaN: " + isNaN( '33q.200088' ) ); 
 
-				info.values.map((ele, i) => { //df -> array
-					const lat = ele[0];
-					const lon = ele[1];
+				const arrInfo = info.values; 
+				const numbRowsArrInfo = arrInfo.length; 
+				//Metodo "shape" NON permesso in quanto esiste gia' un nome di Colonna 'SHAPE' (!)
+
+				arrInfo.map((ele, i) => { //df -> array
+					const ID = ele[0]; 
+					const lat = ele[1];
+					const lon = ele[2];
+					/*
+					if( i == 0 ) {
+						console.log( "ID: " + ID + ", lat: " + lat + ", lon: " + lon);
+					}  
+					*/
 					var tempMarker = null; 
 					if( !isNaN(lat) && !isNaN(lon) ) {
 						//console.log( lat, lon , i )
-						tempMarker = L.marker([lat, lon]).bindPopup(`
-							<b>🛸UFO / UAP SIGHTING:</b><br> 
-							<b>* Date-time:</b> ${ele[2]};<br>
-							<b>* City:</b> ${ele[3]};<br>
-							<b>* Shape:</b> ${ele[4]};<br>
-							<b>* Duration:</b> ${ele[5]};<br>
-							<b>* Description:</b> <i>${ele[6]}</i>.
+						tempMarker = L.marker([lat, lon] , { id: ID } ).bindPopup(`
+							<b>🛸UFO / UAP SIGHTING:</b><br>
+							<b>* ID:</b> ${ID} di ${numbRowsArrInfo};<br> 
+							<b>* Latitude, Longitude:</b> ${lat}, ${lon};<br> 
+							<b>* Date-time:</b> ${ele[3]};<br>
+							<b>* City:</b> ${ele[4]};<br>
+							<b>* Shape:</b> ${ele[5]};<br>
+							<b>* Duration:</b> ${ele[6]};<br>
+							<b>* Description:</b> <i>${ele[7]}</i>.
 							`
 						);
 					}
@@ -499,11 +749,26 @@
 				layerMarkers.addLayer( cluMarkers ); 
 				//map01.addLayer(cluMarkers);
 
+				//Estrazione Marker da MarkerCluster: 
+				/*
+				In Leaflet.markercluster, il metodo nativo getLayers() non garantisce la restituzione dei marker secondo l'ordine cronologico 
+				di inserimento precedente. Questo accade perche' la libreria indicizza e riorganizza internamente gli elementi in una struttura 
+				ad albero (basata su griglie e coordinate) per ottimizzare le prestazioni di clustering.
+				*/
+
 				dataUfoDataset = dfd.toJSON( ndf )
 
 				//ufoDataset.on("tableBuilt", function(){
-				ufoDataset.setData( dataUfoDataset )
+					//ufoDataset.setData( dataUfoDataset )
 				//});
+
+				// Se carichi i dati dopo l'inizializzazione
+				ufoDataset.setData(dataUfoDataset).then(function(){
+    				// Forza Tabulator a ricalcolare le posizioni del Virtual DOM
+
+					ufoDataset.setSort("ID", "asc"); //INDISPENSABILE PER VIRTUAL DOM (!!!) //Altri campi: datetime, ... 
+    				//ufoDataset.redraw(true); 
+				});
 
 
 			})
