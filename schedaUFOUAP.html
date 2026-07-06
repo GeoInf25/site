@@ -605,25 +605,25 @@
 			div.innerHTML = `
 				<div style="background: #ffffff; border: 2px solid #000000; border-radius: 5px; margin: 0px; padding: 5px;" >
 					<div id="rifDivContenuto" style=" font-family: 'Trebuchet MS'; width: 45vh; " >
-						<b>RIFERIMENTI</b>:
+						<b>REFERENCES</b>:
 						<br>
-						- Link GitHub di riferimento: <a href="https://github.com/planetsig/ufo-reports">Ufo Reports Dataset</a>; 
+						- Reference GitHub link: <a href="https://github.com/planetsig/ufo-reports">Ufo Reports Dataset</a>; 
 						<br>
-						- Link al file CSV: <a href="https://raw.githubusercontent.com/planetsig/ufo-reports/master/csv-data/ufo-scrubbed-geocoded-time-standardized.csv">File CSV</a>; 
+						- Link to the CSV file: <a href="https://raw.githubusercontent.com/planetsig/ufo-reports/master/csv-data/ufo-scrubbed-geocoded-time-standardized.csv">File CSV</a>; 
 						<br>
-						- Articolo di riferimento: <a href="https://drlee.io/exploring-ufo-sightings-with-python-pandas-and-google-colab-3cf24d1843d3">Exploring UFO Sightings with Python, Pandas, and Google Colab</a>; 
+						- Reference Article: <a href="https://drlee.io/exploring-ufo-sightings-with-python-pandas-and-google-colab-3cf24d1843d3">Exploring UFO Sightings with Python, Pandas, and Google Colab</a>; 
 						<br> 
 						<!-- - Impiego della Libreria Python <a href="https://python-visualization.github.io/folium/latest/">Folium</a>;
 						<br> -->
-						- Impiego della Libreria <a href="https://leafletjs.com/">Leaflet</a>; <!--, <a href="https://turfjs.org/">Turf</a>; -->
+						- Using the Library <a href="https://leafletjs.com/">Leaflet</a>, <a href="https://www.tabulator.info/">Tabulator JS</a>; <!--, <a href="https://turfjs.org/">Turf</a>; -->
 						<br>
-						- JavaScript SQL Database, per tabelle relazionali tradizionali e dati JSON annidati (NoSQL): <a href="https://alasql.org/">AlaSQL</a>, <a href="https://github.com/alasql/alasql/wiki/XLSX">XLSX</a>;
+						- JavaScript SQL Database, for traditional relational tables and nested JSON data (NoSQL): <a href="https://alasql.org/">AlaSQL</a>, <a href="https://github.com/alasql/alasql/wiki/XLSX">XLSX</a>;
 						<br>
-						- Legenda di riferimento: <a href="https://www.cyclosm.org/legend.html">CyclOsmMap Legend</a>.
+						- Reference Legend: <a href="https://www.cyclosm.org/legend.html">CyclOsmMap Legend</a>.
 					</div>
 
 					<button id="rifDivButton" type="button" style="font-family: 'Trebuchet MS'; font-size: 1.5vh; font-style: italic; " >
-						🗺️ Mostra / Nascondi RIFERIMENTI
+						🗺️ Show / Hide REFERENCES
 					</button>
 
 				</div>				
@@ -635,10 +635,10 @@
 			bottone.addEventListener('click', function() {
         		if (contenuto.style.display === 'none') {
             		contenuto.style.display = 'block';
-            		bottone.textContent = '❌ Nascondi RIFERIMENTI';
+            		bottone.textContent = '❌ Hide REFERENCES';
         		} else {
             		contenuto.style.display = 'none';
-            		bottone.textContent = '🗺️ Mostra / Nascondi RIFERIMENTI';
+            		bottone.textContent = '🗺️ Show / Hide REFERENCES';
         		}
     		});
 			
