@@ -1,798 +1,858 @@
 <html>
 
 <head>
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+	<!-- Make sure you put this AFTER Leaflet's CSS -->
+ 	<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
-	<title>GeoInf25 06 2026</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-minimap/3.6.1/Control.MiniMap.js" integrity="sha512-ceQPs2CHke3gSINLt/JV37W1rfJOM64yuH999hnRhTP7tNtcSBp5hlTKhn8CEIhsFweSBrZMPVotAKjoyxGWNg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-minimap/3.6.1/Control.MiniMap.css" integrity="sha512-efbAfGnrnjA+hLwOLu91W034fBGPsMwZMVCTwLUI2PDX/m7rOiuhYZ+D2mZ8rKcpC/I/7pdgoL8T4eYvMHNoQg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js" integrity="sha512-ozq8xQKq6urvuU6jNgkfqAmT7jKN2XumbrX1JiB3TnF7tI48DPI4Gy1GXKD/V3EExgAs1V+pRO7vwtS1LHg0Gw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css" integrity="sha512-gc3xjCmIy673V6MyOAZhIW93xhM9ei1I+gLbmFjUHIjocENRsLX/QUE1htk5q1XV2D/iie/VQ8DXI6Vu8bexvQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+	<script src="https://cdn.jsdelivr.net/npm/leaflet-measure@3.1.0/dist/leaflet-measure.min.js"></script>
+	<link href="https://cdn.jsdelivr.net/npm/leaflet-measure@3.1.0/dist/leaflet-measure.min.css" rel="stylesheet">
+
+	<!-- MANTENERE PER COLORI MARKER CLUSTER -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/MarkerCluster.css" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.0/MarkerCluster.Default.min.css" />
+	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/leaflet.markercluster.js"></script> -->
+
+	<script src="https://cdn.jsdelivr.net/npm/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.min.js"></script>
+	<link href="https://cdn.jsdelivr.net/npm/leaflet.markercluster@1.5.3/dist/MarkerCluster.min.css" rel="stylesheet">
+
+	<script src=
+		"https://cdn.jsdelivr.net/npm/leaflet.awesome-markers@2.0.5/dist/leaflet.awesome-markers.min.js">
+	</script>
+	<link href=
+		"https://cdn.jsdelivr.net/npm/leaflet.awesome-markers@2.0.5/dist/leaflet.awesome-markers.min.css" 
+	rel="stylesheet">
+	<!-- <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/1.5.2/css/ionicons.min.css"> -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.5/leaflet.awesome-markers.js"></script>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.5/leaflet.awesome-markers.css" rel="stylesheet">
+	<!-- 2.05 -->
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/alasql/4.6.6/alasql.min.js"></script> 
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.core.min.js"></script>
+
+	<link href="https://unpkg.com/tabulator-tables@6.3.1/dist/css/tabulator.min.css" rel="stylesheet">
+ 	<script type="text/javascript" src="https://unpkg.com/tabulator-tables@6.3.1/dist/js/tabulator.min.js"></script>
+
+	<script src="https://cdn.jsdelivr.net/npm/@turf/turf@7/turf.min.js"></script>
+
+	<script src="https://cdn.jsdelivr.net/npm/danfojs@1.2.0/lib/bundle.min.js"></script>
+
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.20/jspdf.plugin.autotable.min.js"></script>
 
 	<link rel="stylesheet" href="styleGeoInf.css">
 
-	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> -->
+	<style>
 
-	<script type="text/javascript" src="./file_funzSupp.js"></script> 
-
-	<link rel="stylesheet" href="https://pyscript.net/releases/2025.7.2/core.css" />
-	<script type="module" src="https://pyscript.net/releases/2025.7.2/core.js" ></script>
-
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-
-	<link rel="icon" type="image/png" href="favicon.png" /> <!-- location_map_pin_mark_icon_148685 - Location map pin mark - Free Icon in PNG and SVG By IconMarket -->
-
-<style>
-
-	#schedaUFOUAP {
-		width: 100%;
-  		/* height: 94%; */
-		overflow-x: hidden;
-  		overflow-y: hidden; /*scroll*/
-	}
-	#schedaBlazor {
-  		width: 100%;
-  		/* height: 94%; */
-		overflow-x: hidden;
-  		overflow-y: hidden; /*scroll*/
-	}
-	#schedaReact {
-  		width: 100%;
-  		/* height: 94%; */
-		overflow-x: hidden;
-  		overflow-y: hidden; /*scroll*/
-	}
-	#schedaRShiny {
-  		width: 100%;
-  		/* height: 94%; */
-		overflow-x: hidden;
-  		overflow-y: hidden; /*scroll*/
-	}
-	#schedaJupyter {
-  		width: 100%;
-  		/* height: 94%; */
-		overflow-x: hidden;
-  		overflow-y: hidden; /*scroll*/
-	}
-	#schedaCSharp {
-		width: 100%;
-  		/* height: 94%; */
-		overflow-x: hidden;
-  		overflow-y: hidden; /*scroll*/
-	}
-	#schedaJavascript {
-		width: 100%;
-  		/* height: 94%; */
-		overflow-x: hidden;
-  		overflow-y: hidden; /*scroll*/
-	}
-	#schedaDatabase {
-		width: 100%;
-  		/* height: 94%; */
-		overflow-x: hidden;
-  		overflow-y: hidden; /*scroll*/
-	}
-	#schedaGIS {
-		width: 100%;
-  		/* height: 94%; */
-		overflow-x: hidden;
-  		overflow-y: hidden; /*scroll*/
-	}
-	#schedaDisegni3D {
-		width: 100%;
-  		/* height: 94%; */
-		overflow-x: hidden;
-  		overflow-y: hidden; /*scroll*/
-	}
-	#schedaDartFlutter {
-		width: 100%;
-  		/* height: 94%; */
-		overflow-x: hidden;
-  		overflow-y: hidden; /*scroll*/
-	}
-	#schedaAbout {
-		width: 100%;
-  		/* height: 94%; */
-		overflow-x: hidden;
-  		overflow-y: hidden; /*scroll*/
-	}
-
-	#tab_scheda {
-		/* */
-	}
-
-	.btn {
-		/* border: 2px solid yellow; */
-		background-color: white ;
-		color: green; /*lightseagreen*/
-		padding: 0vh 0vh;
-		font-size: 1.8vh; /* 16px */
-		font-weight: bold;
-
-		border-radius: 1vh;
-
-		min-width: 15vh; 
-		height: 3.5vh; 
-
-		/*height: auto; */
-  	}
-
-	/*
-	@media screen and (max-width: 594px) {
-		#tab_scheda {
-			height: 10.75vh;
-		}
-	}
-
-	@media screen and (min-width: 595px) {
-		#tab_scheda {
-			height: 5.0vh;
-		}
-	}
-	*/
-
-	.tabUFOUAP {
-		border-color: green;
-		/*color: white;*/
-  	}
-	.tabBlazor {
-		border-color: green;
-  		/*color: white;*/
-  	}
-
-  	.tabReact {
-		border-color: green;
-  		/*color: white;*/
-  	}
-
-	.tabRShiny {
-		border-color: green;
-  		/*color: white;*/
-  	}
-
-	.tabJupyter {
-		border-color: green;
-  		/*color: white;*/
-  	}
-
-  	.tabCSharp {
-		border-color: green;
-		/*color: white;*/
-  	}
-
-  	.tabJavascript {
-		border-color: green;
-		/*color: white;*/
-  	}
-
-	.tabJava {
-		border-color: green;
-		/*color: white;*/
-  	}
-
-	.tabDatabase {
-		border-color: green;
-		/*color: white;*/
-  	}
-
-	.tabGIS {
-		border-color: green;
-		/*color: white;*/
-  	}
-
-	.tabDisegni3D {
-		border-color: green;
-		/*color: white;*/
-  	}
-
-	.tabDartFlutter {
-		border-color: green;
-		/*color: white;*/
-  	}
-
-  	.tabAbout {
-		border-color: green;
-		/*color: white;*/
-  	}
-
-</style>
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0" charset="utf-8" >
-<!-- charset per Font in localhost -->
+	</style>
 
 </head>
 
-<body>
 
-	<py-config>
-    	#packages = ["sqlite3", "numpy",  "prettytable", "pandas", "tabulate" ]
+<body style = "overflow-y: scroll" >
 
-		#folium , matplotlib , ipympl , ipywidgets
+	<div id="tabellaGIS" class="grid">
 
-		#[[fetch]]
-		#from = 'https://geoinf25.github.io/site/Python/'
-    	#files = ['codePy.py']
+		<div id = "blocco01GIS" class = "span4 roundBorder" >
 
-		#[[fetch]]
-		#from = './GIS/'
-    	#files = [ "UfoDataset.csv" ]
+			<div id="contMap01" style="width: 100%;"> <!-- overflow: hidden; height: 60vh -->
+				<div id="leafletMap01" style="height: 70vh; border: 0px solid " ></div> <!-- height: 55vh -->
+				<div style="width: 100%; display: flex; " > <!-- Disposizione ORRIZONALE: flex -->
+					<div id="latLngZoom" style="width: 5%; max-width: 5%; height: 25vh; max-height: 25vh; float: left; margin: 0; padding: 0; " ></div> <!-- 1.75vh style='float: left; ' width: 100%; -->
+					<div id="consoleApp" style="width: 17%; max-width: 17%; height: 25vh; max-height: 25vh; float: left; margin: 0; padding: 0; " ></div> <!-- height: 20vh -->
+					<div id="ufoDataset" style="width: 77.5%; max-width: 77.5%; height: 25vh; max-height: 25vh; float: left; margin: 0; padding: 0; " ></div>
+				</div>
+			</div>
 
-		#[[fetch]]
-		#from = './Database/'
-    	#files = [ "db01.py" ]
+		</div>
 
-		#[[fetch]]
-		#from = './GIS/'
-    	#files = [ "gis01.py" ]
-
-		#[[fetch]]
-		#from = './GIS/'
-    	#files = [ "UfoDb.db" ]
-
-		# [[fetch]]
-     	# files = ["https://geoinf25.github.io/site/Database/dbSqliteEs01.db"]
-
-    </py-config>
-		
-	<py-script >
-		#Test
-
-	</py-script>
+	</div>
 
 	<script>
 
-		var iframeAttivi = {
-			iframeUFOUAP : true ,
-			iframeBlazor : true , 
-			iframeReact : true , 
-			iframeRShiny : true , 
-			iframeJupyter : true , 
-			iframeCSharp : true , 
-			iframeJavascript : true ,
-			iframeJava : true ,
-			iframeDatabase : true ,
-			iframeGIS : true ,
-			iframeDisegni3D : true ,
-			iframeDartFlutter : true ,
-			iframeAbout : true ,
-		}
+		//*** MAP01 ***//
 
-		//Selezione Iframe
-		/*
-		iframeAttivi = {
-			iframeBlazor : true , 
-			iframeReact : true , 
-			iframeRShiny : false , 
-			iframeJupyter : false , 
-			iframeCSharp : false , 
-			iframeJavascript : false ,
-			iframeJava : false ,
-			iframeDatabase : false ,
-			iframeGIS : false ,
-			iframeDisegni3D : false ,
-			iframeDartFlutter : false ,
-			iframeAbout : false ,
-		}
-		*/
+		map01 = L.map('leafletMap01' , { 
 
-		function getOSIframe() {
-			var os =  window.navigator.platform; 
-			var osWin = true; 
-			if( ["Win32", "Win64", "Windows", "WinCE"].indexOf( os ) >= 0 ) {
-				osWin = true; 
-			} else {
-				osWin = false; 
-			}
+			zoomControl: false , // Lo disabilitiamo per controllare l'ordine di inserimento
 
-			console.log( "OS: " + os );
+			zoomSnap: 1 , //1
+			zoomDelta : 1, 
+			wheelPxPerZoomLevel: 70, //60 
 
-			if( osWin == true ) {
-				//
-			} else {
-				iframeAttivi.iframeUFOUAP = true ; 
-				iframeAttivi.iframeBlazor = true ; 
-				iframeAttivi.iframeReact = true ; 
-				iframeAttivi.iframeRShiny = true ; 
-				iframeAttivi.iframeJupyter = true ; 
-				iframeAttivi.iframeCSharp = true ;
-				iframeAttivi.iframeJavascript = true ;
-				iframeAttivi.iframeJava = true ;
-				iframeAttivi.iframeDatabase = true ;
-				iframeAttivi.iframeGIS = true ;
-				iframeAttivi.iframeDisegni3D = true ;
-				iframeAttivi.iframeDartFlutter = false ;
-				iframeAttivi.iframeAbout = true ;
+		} ).setView([ 46.035235, 10.980633], 3.0 );
 
-				alert( "OS diverso da Windows, alcune schede potrebbero essere state DISABILITATE." ); 
-
-			}
-
-		}
-
-		getOSIframe();  
+		baseOSM = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+			maxZoom: 19,
+		}).addTo(map01);
 
 		/*
-		//iframeAttivi true / false
-		for (var prop in iframeAttivi) {
-    		if (Object.prototype.hasOwnProperty.call( iframeAttivi, prop)) {
-        		iframeAttivi[ prop ] = true; //Scelta valore
-    		}	
-		}
+		baseCartoDarkMap = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+			maxZoom: 19,
+		}).addTo(map01);
 		*/
 
-		var primoAvvioJava = true; //Variabile esterna "globale"
+		baseCyclOsmMap = L.tileLayer('https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png', {
+			maxZoom: 19,
+		})//.addTo(map01);
 
-		function gestioneSchede( scheda ) {
+		baseOpenTopoMap = L.tileLayer('https://tile.opentopomap.org/{z}/{x}/{y}.png', {
+			maxZoom: 19,
+		})//.addTo(map01);
 
-			//console.log( "Test: " + schede )
+		baseGoogleHybrid = L.tileLayer('https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}', {
+			maxZoom: 19,
+		})//.addTo(map01);
 
-			for( var i = 0; i < schede.length; i++ ) {
-				try{
-				var tempNomeScheda = schede[ i ].id; 
-				} catch(e) {
-					alert( "i : " + i ); 
-				}
-				if( tempNomeScheda == ( "" + scheda ) ) { //vedi nome schede
-					schede[ i ].style.display = "block"; 
-					schede[ i ].style.visibility = "visible";
-				} else {
-					schede[ i ].style.display = "none"; 
-					schede[ i ].style.visibility = "hidden";
-				}
-			}
+		baseGoogleSatellite = L.tileLayer('https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+			maxZoom: 19,
+		})//.addTo(map01);
+
+		baseGoogleRoad = L.tileLayer('https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
+			maxZoom: 19,
+		})//.addTo(map01);
+
+		baseMaps = {  
+			"<span style='font-family: Trebuchet MS; font-size: 1.75vh;'>OpenStreetMap</span>": baseOSM,
+			//"CartoDarkMap": baseCartoDarkMap, 
+			"<span style='font-family: Trebuchet MS; font-size: 1.75vh;'>CyclOsmMap</span>": baseCyclOsmMap,
+			"<span style='font-family: Trebuchet MS; font-size: 1.75vh;'>OpenTopoMap</span>": baseOpenTopoMap,
+			"<span style='font-family: Trebuchet MS; font-size: 1.75vh;'>Google Hybrid</span>": baseGoogleHybrid,
+			"<span style='font-family: Trebuchet MS; font-size: 1.75vh;'>Google Satellite</span>": baseGoogleSatellite,
+			"<span style='font-family: Trebuchet MS; font-size: 1.75vh;'>Google Road</span>": baseGoogleRoad,
+		}
+
+		layerDrawItems = new L.FeatureGroup();
+		layerMarkers = new L.FeatureGroup();
+
+		overlayMaps = {
+			//GeoJSON data initialization 
+			"<span style='font-family: Trebuchet MS; font-size: 1.75vh;'><u>Draw Items</u></span>" : layerDrawItems, 
+			"<span style='font-family: Trebuchet MS; font-size: 1.75vh;'><u>Markers</u></span>" : layerMarkers,
+		};
+
+		layerControl = L.control.layers(baseMaps, overlayMaps).addTo( map01 );
+
+		//Aggiunta Titolo BASE MAP DOPO inserimento Controllo sulla Mappa
+
+		baseLayersContainer = document.querySelector('.leaflet-control-layers-base');
+
+		titleElement01 = document.createElement('div');
+		titleElement01.innerHTML = "<span style='font-family: Trebuchet MS; font-size: 1.75vh;'><b>Base Map: </b></span>";
+
+		baseLayersContainer.insertBefore(titleElement01, baseLayersContainer.firstChild);
+
+		//
+
+		//Aggiunta Titolo OVERLAY MAP DOPO inserimento Controllo sulla Mappa 
+
+		var overlayContainer = document.querySelector('.leaflet-control-layers-overlays');
+
+		titleElement02 = document.createElement('div');
+		titleElement02.innerHTML = "<span style='font-family: Trebuchet MS; font-size: 1.75vh;'><b>Overlay Map: </b></span>";
+
+		overlayContainer.insertBefore(titleElement02, overlayContainer.firstChild);
+
+		//Link Button for SITE
+
+		var divLink = L.control({ position: 'topleft' });
+
+		divLink.onAdd = function (map01) {
+			var div = L.DomUtil.create('div' ); //, CSS Style ...
+
+			var btnStyle = "background-color: lightgray ; color: green; padding: 0vh 0vh; font-size: 1.5vh; font-weight: bold; font-style: italic; border-radius: 1vh; min-width: 14vh; height: 3.0vh; border-color: green; cursor: pointer; ";
+			/*var btnStyle = "background-color: white ; color: green; padding: 0vh 0vh; font-size: 1.8vh; font-weight: bold; border-radius: 1vh; min-width: 15vh; height: 3.5vh; border-color: green;";*/
+			/* border: 2px solid yellow; */
+			/*lightseagreen*/
+			/* 16px */
+			/*height: auto; */
+			/*color: white;*/
+
+			div.innerHTML = `
+				<div style="display: flex; background: #ffffff; border: 0px solid #000000; border-radius: 5px; margin: 0px; padding: 2px;" >
+					<div id="rif_LINK_Contenuto" >
+						<!-- <button id="tab_schedaUFOUAP" onclick="window.open('...URL...', '_blank')" >- UFO/UAP -</button> -->
+						<button id="tab_schedaGIS" onclick="window.open('./schedaGIS.html', '_blank')" style="${btnStyle}" >- GIS -</button>
+						<button id="tab_schedaBlazor" onclick="window.open('https://geoinf25.github.io/repoBlazor/', '_blank')" style="${btnStyle}" >- BLAZOR -</button>
+						<button id="tab_schedaReact" onclick="window.open('https://geoinf25.github.io/my-project/', '_blank')" style="${btnStyle}" >- REACT -</button>
+						<button id="tab_schedaRShiny" onclick="window.open('https://geoinf25.github.io/site/Shiny/docs/index.html', '_blank')" style="${btnStyle}" >- R / SHINY -</button>
+						<button id="tab_schedaJupyter" onclick="window.open('./schedaJupyter.html', '_blank')" style="${btnStyle}" >- JUPYTER / PY -</button>
+						<button id="tab_schedaCSharp" onclick="window.open('./schedaCSharp.html', '_blank')" style="${btnStyle}" >- C# -</button>
+						<br>
+						<button id="tab_schedaJavascript" onclick="window.open('./schedaJavascript.html', '_blank')" style="${btnStyle}" >- JAVASCRIPT -</button>
+						<button id="tab_schedaJava" onclick="window.open('./schedaJava.html', '_blank')" style="${btnStyle}" >- JAVA -</button>
+						<button id="tab_schedaDatabase" onclick="window.open('./schedaDatabase.html', '_blank')" style="${btnStyle}" >- DATABASE -</button>
+						<!-- Tab GIS -->
+						<button id="tab_schedaDisegni3D" onclick="window.open('./schedaDisegni3D.html', '_blank')" style="${btnStyle}" >- DISEGNI 3D -</button>
+						<button id="tab_schedaDartFlutter" onclick="window.open('https://geoinf25.github.io/site/Flutter/flutter_app01/build/web/index.html', '_blank')" style="${btnStyle}" >- FLUTTER -</button>
+						<button id="tab_schedaAbout" onclick="window.open('./schedaAbout.html', '_blank')" style="${btnStyle}" >- ABOUT -</button>
+
+						<!-- '_blank': Questo secondo parametro indica al browser di aprire l'URL in una nuova scheda o finestra. -->
+						<!-- Esempio URL completo: https://geoinf25.github.io/site/schedaJavascript.html -->
+					</div>
+
+					<button id="rif_LINK_Button" type="button" style="font-family: 'Trebuchet MS'; font-size: 1.5vh; font-style: italic; " >
+						🔄 Show / Hide<br>BUTTONS
+					</button>
+				</div>				
+			`;
+
+			const btn_LINK = div.querySelector('#rif_LINK_Button');
+    		const contenuto_LINK = div.querySelector('#rif_LINK_Contenuto');
 			
-			if( scheda == "schedaDatabase" ) {
-				schedaDatabaseCliccata = true; 
-				//console.log( "lato JS " + schedaDatabaseCliccata )
-			} else {
-				schedaDatabaseCliccata = false; 
-			}
+			btn_LINK.addEventListener('click', function() {
+        		if (contenuto_LINK.style.display === 'none') {
+            		contenuto_LINK.style.display = 'block';
+            		btn_LINK.textContent = '❌ Hide BUTTONS';
+        		} else {
+            		contenuto_LINK.style.display = 'none';
+            		btn_LINK.textContent = '🔄 Show / Hide BUTTONS';
+        		}
+    		});
 
-			//if( scheda == "schedaGIS" ) {
-			if( scheda == "schedaUFOUAP" ) {
-				window.dispatchEvent(new Event('resize')); // force reflow
-			} else {
-				//
-			}
+			L.DomEvent.disableClickPropagation(div);
 
-			if( scheda == "schedaJava" ) {
+			return div;
 
-				if( iframeAttivi.iframeJava == true  ) {
-					//https://geoinf25.github.io/site/schedaJava.html
-					if( primoAvvioJava == true ) {
-						document.getElementById( "iframeJava" ).src="./schedaJava.html"; 
-						primoAvvioJava = false;
-						console.log( "Primo Avvio Java!" );  
-					}
+		};
 
-				} else {
-					document.getElementById( "iframeJava" ).src=""; 
+		divLink.addTo(map01);
+
+		//ZOOM Control 
+
+		L.control.zoom({ position: 'topleft' }).addTo(map01);
+
+		//DRAW Control
+
+		var drawControl = new L.Control.Draw({
+			edit: {
+				featureGroup: layerDrawItems,
+			},
+			draw: {
+				polyline: {	metric: 'metric' },
+				polygon : { metric: 'metric' },
+				rectangle: { metric: 'metric' },  
+				circle: { metric: 'metric' },
+				marker: { metric: 'metric' }, 
+				circlemarker: { metric: 'metric' }, 
+			},
+		});
+				
+		map01.addControl(drawControl);
+
+		map01.on( "draw:created" , function( e ) {
+				type = e.layerType; 
+				layer = e.layer;
+				
+				jsonFeature = "" + JSON.stringify( layer.toGeoJSON() )
+
+				popup = L.popup().setContent( jsonFeature );
+
+				layer.bindPopup( popup ); 
+				console.log( layer.toGeoJSON() );
+
+				tempObj = {
+					DateTime : getDateTime() , 
+					Event : "Plot Feature on Map",
+					Message_ConsoleApp : "- Type of Feature: " + type + "\n" + 
+						jsonFeature
+				};
+
+				dataConsoleApp.unshift( tempObj );
+
+				consoleApp.setData( dataConsoleApp );
+				
+				layerDrawItems.addLayer( layer ); 
+		}); 
+
+		//Mappe, Layer visibili
+		var click_elements = document.getElementsByClassName("leaflet-control-layers-selector");
+
+		click_elements[ 0 ].click(); //baseMaps
+
+		click_elements[ click_elements.length - 2 ].click(); //layerDrawItems
+		click_elements[ click_elements.length - 1 ].click(); //layerMarkers //Vedi funzione seguente
+
+		//markerClusterGroup
+		var cluMarkers = L.markerClusterGroup();
+
+		//minimap 
+		
+		layerMiniMap = L.tileLayer( 'https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}' ); 
+		miniMap = new L.Control.MiniMap( layerMiniMap , { 
+				toggleDisplay : true , 
+				zoomLevelOffset: -16, 
+				width: Math.round( window.screen.width /10.0 ), 
+				height: Math.round( window.screen.height /10.0 ) , 
+		} ).addTo(map01);
+
+		miniMap.setPosition('topright'); 
+
+		var measureControl = new L.Control.Measure( { primaryLengthUnit: "kilometers" , primaryAreaUnit: "sqmeters" } );
+
+		// Disable auto-pan by overriding the plugin’s internal method(s):
+		L.Control.Measure.include({
+			// Prevent auto-panning when the capture marker is placed
+			_setCaptureMarkerIcon: function () {
+				// Turn off autoPan
+				this._captureMarker.options.autoPanOnFocus = false;
+				// Call the original icon setup
+				this._captureMarker.setIcon(
+				L.divIcon({
+					iconSize: this._map.getSize().multiplyBy(2),
+				})
+				);
+			},
+
+			// Optionally, override _startMeasure or other private methods if needed
+			// _startMeasure: function () {
+				//   // Your custom override
+			// },
+			});
+
+		measureControl.addTo( map01 );
+
+		//*** TABULATOR JS ***// 
+
+		getDateTime = () => {
+			tempDateTime = new Date(); 
+			dd = ( "" + tempDateTime.getDate() ).padStart(2, '0');
+			mm = ("" + (tempDateTime.getMonth() + 1) ).padStart(2, '0'); // Nota: i mesi in JS partono da 0 (0 = Gennaio)
+			yyyy = "" + tempDateTime.getFullYear();
+			h = ( "" + tempDateTime.getHours()).padStart(2, '0');
+			m = ( "" + tempDateTime.getMinutes()).padStart(2, '0');
+			s = ( "" + tempDateTime.getSeconds()).padStart(2, '0');
+			return "" + dd + "/" + mm + "/" + yyyy + " " + h + ":" + m + ":" + s; 
+		};
+
+		var menuDellaCella = [
+			{
+				label: "<span style='font-size: 1.3vh; font-weight: bold; color: #28a745;'>📋 Copia Cella</span>",
+				action: function(e, cell) {
+					// Il parametro 'cell' è il componente cella di Tabulator
+					const valore = cell.getValue();
+					
+					navigator.clipboard.writeText(valore)
+						.then(() => console.log("Copiato: " + valore))
 				}
-
-			} else { 
-				//
 			}
-	
-		}
+		];
+
+		dataLatLngZoom = [
+			{
+				Coordinates: "Latitude: --" 
+			},
+			{
+				Coordinates: "Longitude: --" 
+			},
+			{
+				Coordinates: "Zoom: 3.00" 
+			},
+		];
+
+		dataConsoleApp = [
+			/*{
+				DateTime: "", 
+				Event: "",
+				Message_ConsoleApp: "",
+				 
+			},*/
+		];
+
+		dataUfoDataset = [
+			/*{
+				... Tabella VUOTA iniziale
+				 
+			},*/
+		];
+
+		latLngZoom = new Tabulator( "#latLngZoom", {
+			data: dataLatLngZoom, // Carica i dati 
+			layout: "fitColumns", 
+			//height: "100%", //Evitare per MANCANZA di SCROLLBAR verticale
+			
+			//autoColumns: true, // Crea automaticamente le colonne in base alle chiavi 
+			columns: [
+				{title: "Coordinates", headerTooltip: true , field: "Coordinates", widthGrow: 1, formatter: "textarea", resizable: false},
+			],
 
 
-		function resizeWindow() {
-			var hBody = window.innerHeight; 
-			var hTabScheda = document.getElementById( "tab_scheda" ).offsetHeight; 
-			var hDiff = hBody - hTabScheda - 20; // - 9
-			//alert( hDiff );
-			document.getElementById( "schedaUFOUAP" ).style.height = hDiff; 
-			document.getElementById( "schedaBlazor" ).style.height = hDiff; 
-			document.getElementById( "schedaReact" ).style.height = hDiff; 
-			document.getElementById( "schedaRShiny" ).style.height = hDiff; 
-			document.getElementById( "schedaJupyter" ).style.height = hDiff; 
-			document.getElementById( "schedaCSharp" ).style.height = hDiff; 
-			document.getElementById( "schedaJavascript" ).style.height = hDiff; 
-			document.getElementById( "schedaJava" ).style.height = hDiff; 
-			document.getElementById( "schedaDatabase" ).style.height = hDiff; 
-			document.getElementById( "schedaGIS" ).style.height = hDiff; 
-			document.getElementById( "schedaDisegni3D" ).style.height = hDiff; 
-			document.getElementById( "schedaDartFlutter" ).style.height = hDiff; 
-			document.getElementById( "schedaAbout" ).style.height = hDiff; 
+			footerElement: 
+        		"<div style='height: 2vh'>" +
+					"<br>" + 
+				"</div>"
+		});
 
-			/*
-			if( document.getElementById( "plot01Blocco03Py" ).firstChild != null ) {
-				document.getElementById( "plot01Blocco03Py" ).offsetHeight = document.getElementById( "plot01Blocco03Py" ).firstChild.offsetHeight;
-			}
-			*/
-		}
+		//latLngZoom.element.style.fontFamily = "'Courier New', monospace";
+		latLngZoom.element.style.fontSize = "1.3vh";
 
-		window.addEventListener( 'load' , function(event) { 
+		consoleApp = new Tabulator( "#consoleApp", {
+			data: dataConsoleApp, // Carica i dati 
+			//autoColumns: true, // Crea automaticamente le colonne in base alle chiavi 
 
-			schedaGIS = document.getElementById( "schedaUFOUAP" );
-			schedaBlazor = document.getElementById( "schedaBlazor" );
-			schedaReact = document.getElementById( "schedaReact" );
-			schedaRShiny = document.getElementById( "schedaRShiny" );
-			schedaJupyter = document.getElementById( "schedaJupyter" );
-			schedaCSharp = document.getElementById( "schedaCSharp" );
-			schedaJavascript = document.getElementById( "schedaJavascript" );
-			schedaJava = document.getElementById( "schedaJava" );
-			schedaDatabase = document.getElementById( "schedaDatabase" );
-			schedaGIS = document.getElementById( "schedaGIS" );
-			schedaDisegni3D = document.getElementById( "schedaDisegni3D" );
-			schedaDartFlutter = document.getElementById( "schedaDartFlutter" );
-			schedaAbout = document.getElementById( "schedaAbout" );
+			layout: "fitColumns", 
+			//height: "100%", //Evitare per MANCANZA di SCROLLBAR verticale
 
-			schedaDatabaseCliccata = false; 
+			columns: [
+				{title: "DateTime", headerTooltip: true , field: "DateTime", widthGrow: 3, formatter: "textarea", resizable: false},
+    			{title: "Event", headerTooltip: true , field: "Event", widthGrow: 3, formatter: "textarea", resizable: false},
+    			{title: "Message_Console", headerTooltip: true , field: "Message_ConsoleApp", widthGrow: 6, formatter: "textarea", resizable: false},
 
-			schede = [ 
-				schedaUFOUAP,
-				schedaBlazor,
-				schedaReact,
-				schedaRShiny,
-				schedaJupyter,
-				schedaCSharp,
-				schedaJavascript,
-				schedaJava, 
-				schedaDatabase,
-				schedaGIS,
-				schedaDisegni3D,
-				schedaDartFlutter,
-				schedaAbout
-			]; 
+				
+			],
 
-			gestioneSchede( "schedaUFOUAP" );
-			//gestioneSchede( "schedaGIS" );
-
-			resizeWindow();
+			footerElement: 
+        		"<div style='height: 2vh'> " +
+					"<button style='font-family: Trebuchet MS; font-size: 1.3vh; font-style: italic; cursor: pointer; margin-right: 5px; '" +
+					"onclick='consoleApp.download(\"xlsx\", \"Message_Console.xlsx\", {sheetName: \"Sheet01\"});'>" +
+						"Export XLSX" + 
+					"</button>" + 
+					"<button style='font-family: Trebuchet MS; font-size: 1.3vh; font-style: italic; cursor: pointer; margin-right: 5px; '" +
+					"onclick='consoleApp.download(\"csv\", \"Message_Console.csv\");'>" +
+						"Export CSV" + 
+					"</button>" + 
+					"<button style='font-family: Trebuchet MS; font-size: 1.3vh; font-style: italic; cursor: pointer; margin-right: 5px; '" +
+					"onclick='consoleApp.download(\"pdf\", \"Message_Console.pdf\");'>" +
+						"Export PDF" + 
+					"</button>" + 
+        		"</div>" 
 
 		});
 
-		window.addEventListener( 'resize' , function(event) {
-			//console.log( "RESIZE ... " ); 
-			resizeWindow();
+		//consoleApp.element.style.fontFamily = "'Courier New', monospace";
+		consoleApp.element.style.fontSize = "1.3vh";
 
-			//consoleMap02
-			if( iframeAttivi.iframeGIS == true ) {
-				document.getElementById( "iframeGIS" ).contentWindow.document.getElementById( "consoleMap02" ).style.height = 
-					document.getElementById( "iframeGIS" ).contentWindow.document.getElementById( "contMap02" ).offsetHeight - 
-					document.getElementById( "iframeGIS" ).contentWindow.document.getElementById("contControlMap02ParteSup" ).offsetHeight; 
+		ufoDataset = new Tabulator( "#ufoDataset", {
+			data: dataUfoDataset, // Carica i dati 
 
-				//
-			}
+			//height: "500px" ,   
+			//progressiveRender: "load", // Renderizza i dati a blocchi in background [3, 4]
+			renderVertical: "virtual", // Forza il Virtual DOM verticale [2, 5]
+			virtualDom: true,
+			//layout: "fitData", // Evita continui ricalcoli delle colonne [6] 
+			//virtualDomBuffer: 300,
+			
+			//autoColumns: true, // Crea automaticamente le colonne in base alle chiavi 
+			layout: "fitColumns",
+			columns: [ 
+				{title: "ID", 
+					headerFilter: "input", headerFilterParams: { elementAttributes: { style: "font-size: 1.3vh; width: 100%; box-sizing: border-box;" } }, 
+					headerTooltip: true, field: "ID", widthGrow: 0.7, formatter: "textarea", resizable: false , 
+					contextMenu: menuDellaCella  
+				} ,
+				{title: "Date-time", 
+					headerFilter: "input", headerFilterParams: { elementAttributes: { style: "font-size: 1.3vh; width: 100%; box-sizing: border-box;" } }, 
+					headerTooltip: true, field: "datetime", widthGrow: 1, formatter: "textarea", resizable: false , 
+					contextMenu: menuDellaCella  
+				} ,
+				{title: "City", 
+					headerFilter: "input", headerFilterParams: { elementAttributes: { style: "font-size: 1.3vh; width: 100%; box-sizing: border-box;" } },
+					headerTooltip: true, field: "city", widthGrow: 1, formatter: "textarea", resizable: false , 
+					contextMenu: menuDellaCella 
+				
+				} , 
+				{
+					title: "Shape",
+					headerTooltip: true,  
+					field: "shape" , 
+					headerFilter: "list",  
+					//Questa configurazione permette di intercettare l'elemento HTML prima che venga mostrato
+            		headerFilterParams: {
+						valuesLookup: true , // <--- Prende i valori presenti nella tabella
+						// Applica lo stile al campo di input visibile nell'header
+                		elementAttributes: {
+                    		style: "font-size: 1.3vh; width: 100%; box-sizing: border-box;" // Inietta lo stile inline direttamente sull'input JS, attenzione alle dimensioni
+                		} , 
+						// Applica lo stile ai singoli elementi della lista a discesa
+        				itemFormatter: function(value, label, item, element) {
+            				element.style.fontSize = "12px";
+            				element.style.fontFamily = "'YourCustomFont', sans-serif";
+							return label; 
+        				}
+            		} ,
+					widthGrow: 1, formatter: "textarea", resizable: false , 
+					contextMenu: menuDellaCella 
+				} , 
+				{title: "Duration_Text", 
+					headerFilter: "input", headerFilterParams: { elementAttributes: { style: "font-size: 1.3vh; width: 100%; box-sizing: border-box;" } },
+					headerTooltip: true, field: "duration_text" , widthGrow: 1, formatter: "textarea", resizable: false , 
+					contextMenu: menuDellaCella  
+				} , 
+				{title: "Description", 
+					headerFilter: "input", headerFilterParams: { elementAttributes: { style: "font-size: 1.3vh; width: 100%; box-sizing: border-box;" } },
+					headerTooltip: true, field: "description" , widthGrow: 4, formatter: "textarea", resizable: false , 
+					contextMenu: menuDellaCella 
+				} , 
+				{title: "Duration_Seconds", 
+					headerFilter: "input", headerFilterParams: { elementAttributes: { style: "font-size: 1.3vh; width: 100%; box-sizing: border-box;" } },
+					headerTooltip: true, field: "duration_seconds" , widthGrow: 1, formatter: "textarea", resizable: false , 
+					contextMenu: menuDellaCella 
+				} ,
+				{title: "Report_Date", 
+					headerFilter: "input", headerFilterParams: { elementAttributes: { style: "font-size: 1.3vh; width: 100%; box-sizing: border-box;" } },
+					headerTooltip: true, field: "report_date" , widthGrow: 1, formatter: "textarea", resizable: false ,
+					contextMenu: menuDellaCella 
+				
+				} , 
+				{title: "State", 
+					headerFilter: "input", headerFilterParams: { elementAttributes: { style: "font-size: 1.3vh; width: 100%; box-sizing: border-box;" } },
+					headerTooltip: true, field: "state" , widthGrow: 0.7, formatter: "textarea", resizable: false ,
+					contextMenu: menuDellaCella  
+				
+				} , 
+				{title: "Country", 
+					headerFilter: "input", headerFilterParams: { elementAttributes: { style: "font-size: 1.3vh; width: 100%; box-sizing: border-box;" } },
+					headerTooltip: true, field: "country" , widthGrow: 0.7, formatter: "textarea", resizable: false ,
+					contextMenu: menuDellaCella 
+				
+				} , 
+				{title: "Latitude", 
+					headerFilter: "input", headerFilterParams: { elementAttributes: { style: "font-size: 1.3vh; width: 100%; box-sizing: border-box;" } },
+					headerTooltip: true, field: "latitude" , widthGrow: 1, formatter: "textarea", resizable: false , 
+					contextMenu: menuDellaCella  
+				
+				} , 
+				{title: "Longitude", 
+					headerFilter: "input", headerFilterParams: { elementAttributes: { style: "font-size: 1.3vh; width: 100%; box-sizing: border-box;" } },
+					headerTooltip: true, field: "longitude" , widthGrow: 1, formatter: "textarea", resizable: false ,
+					contextMenu: menuDellaCella 
+				
+				} 
+				
+				//headerFilter: "list", headerFilterParams: {valuesLookup: true}}, // Menu a tendina automatico
+			], 
+
+			footerElement: 
+        		"<div style='height: 2vh'> " +
+					"<button style='font-family: Trebuchet MS; font-size: 1.3vh; font-style: italic; cursor: pointer; margin-right: 5px; '" +
+					"onclick='ufoDataset.download(\"xlsx\", \"UfoDataset.xlsx\", {sheetName: \"Sheet01\"});'>" +
+						"Export XLSX" + 
+					"</button>" + 
+					"<button style='font-family: Trebuchet MS; font-size: 1.3vh; font-style: italic; cursor: pointer; margin-right: 5px; '" +
+					"onclick='ufoDataset.download(\"csv\", \"UfoDataset.csv\");'>" +
+						"Export CSV" + 
+					"</button>" + 
+					"<button style='font-family: Trebuchet MS; font-size: 1.3vh; font-style: italic; cursor: pointer; margin-right: 5px; '" +
+					"onclick='ufoDataset.download(\"pdf\", \"UfoDataset.pdf\");'>" +
+						"Export PDF" + 
+					"</button>" + 
+        		"</div>" 
+
+			//selectableRows: "highlight",
 
 		});
+
+		//ufoDataset.element.style.fontFamily = "'Courier New', monospace";
+		ufoDataset.element.style.fontSize = "1.3vh";
+
+		// Bind the rowClick event
+		ufoDataset.on("rowClick", function(e, row){
+
+			const ID = row.getData()["ID"];
+			const lat = row.getData()["latitude"];
+			const lng = row.getData()["longitude"]; 
+
+			if( !isNaN(lat) && !isNaN(lng) ) {
+				
+				var tempIcon = L.AwesomeMarkers.icon({ //red, blue, green, purple, orange, yellow, black, grey
+					icon: 'coffee',
+    				markerColor: 'red' , 
+    				className: 'awesome-marker awesome-marker-square'
+					/*
+					icon: 'star',          // Nome dell'icona (es. senza il prefisso 'fa-')
+					markerColor: 'orange',   // Colore del marker di sfondo
+					prefix: 'fa',            // Libreria di origine ('fa' per Font Awesome)
+					iconColor: 'white'       // Colore del simbolo interno
+					*/
+				});
+				
+				/*
+				const tempIcon = L.divIcon({
+    				html: '<span style="font-size: 40px;">🛸</span>',
+					className: '', // Rimuove lo sfondo bianco di default
+    				//iconSize:,
+					iconAnchor: [40, 40]  
+				});
+				*/
+
+				//L.markerClusterGroup()
+				var tempArr = cluMarkers.getLayers(); //markerClusterGroup -> array JS
+				//L'oridnamento NON e' quello di INSERIMENTO dei Markers
+
+				var markerSpecifico = tempArr.find(function(marker) {
+    				return marker.options.id === ID; 
+				});
+
+				//Cambia l'icona al marker
+				markerSpecifico.setIcon( tempIcon ); 
+				//Forza l'aggiornamento visivo del cluster
+				cluMarkers.refreshClusters( markerSpecifico );
+
+				/* 
+				tempArr.find(function(m) { //m -> marker
+        			return m.options.id === idCercato;
+    			});
+				*/
+
+				map01.setView( [ lat, lng ], 19);
+
+			} else {
+				tempObj = {
+					DateTime : getDateTime() , 
+					Event : "Unable to locate Marker ... ",
+					Message_ConsoleApp : ( "Wrong Coordinates: " + lat + ", " + lng ),
+				}; 
+			
+				dataConsoleApp.unshift( tempObj ); //Inizio Array 
+
+				consoleApp.setData( dataConsoleApp );
+
+			}
+
+		}); 
+
+		//Aggancia l'evento SUBITO DOPO l'inizializzazione
+		ufoDataset.on("rowMouseEnter", function(e, row){
+			// 'e' è l'oggetto evento del mouse
+			// 'row' è il componente riga di Tabulator
+			//console.log("Il mouse è entrato sulla riga:", row.getData());
+			
+			// Esempio: cambia lo sfondo delle celle di questa riga
+			row.getCells().forEach(cell => {
+				cell.getElement().style.backgroundColor = "#ffeb3b"; 
+			});
+
+			//TOOLTIP ROW
+			var rowElement = row.getElement(); // Prendi l'elemento HTML della riga
+        	// Imposta il messaggio del tooltip usando l'attributo 'title' standard del browser
+        	rowElement.title = "Click to display UFO / UAP SIGHTING on Map ...";
+
+		});
+
+		// Ricordati di ripristinare il colore quando il mouse esce!
+		ufoDataset.on("rowMouseLeave", function(e, row){
+			row.getCells().forEach(cell => {
+				cell.getElement().style.backgroundColor = ""; 
+			});
+		});
+		/*
+		ufoDataset.on("scrollVertical", function(top){
+			//Ottieni l'elemento che contiene lo scroll (il viewport della tabella)
+			var container = ufoDataset.element.querySelector(".tabulator-tableholder");
+		
+			//Calcola lo spazio totale disponibile per lo scroll
+			var maxScroll = container.scrollHeight - container.clientHeight;
+		
+			//Verifica se la posizione attuale è maggiore o uguale al massimo (con tolleranza di 1px per i decimali)
+			if (Math.ceil(top) >= maxScroll) {
+				//console.log("Sei alla fine dello scroll!");
+				//Inserisci qui la tua logica (es. carica altri dati)
+				ufoDataset.redraw(true);
+			}
+		});
+		*/
+
+		ufoDataset.on("tableBuilt", function(){
+    		// Esempio: esegui un'azione sicura qui, come impostare un ordinamento iniziale
+			//ufoDataset.setData( dataUfoDataset )
+    		//ufoDataset.redraw(true); 
+			console.log( "ufoDataset: tableBuilt (!)" );
+			 
+		});
+		
+		var divNote = L.control({ position: 'bottomright' });
+
+		divNote.onAdd = function (map01) {
+
+			var div = L.DomUtil.create('div' ); //, CSS Style ...
+
+			div.innerHTML = `
+				<div style="background: #ffffff; border: 2px solid #000000; border-radius: 5px; margin: 0px; padding: 5px;" >
+					<div id="rifDivContenuto" style=" font-family: 'Trebuchet MS'; width: 45vh; " >
+						<b>REFERENCES</b>:
+						<br>
+						- Reference GitHub link: <a href="https://github.com/planetsig/ufo-reports">Ufo Reports Dataset</a>; 
+						<br>
+						- Link to the CSV file: <a href="https://raw.githubusercontent.com/planetsig/ufo-reports/master/csv-data/ufo-scrubbed-geocoded-time-standardized.csv">File CSV</a>; 
+						<br>
+						- Reference Article: <a href="https://drlee.io/exploring-ufo-sightings-with-python-pandas-and-google-colab-3cf24d1843d3">Exploring UFO Sightings with Python, Pandas, and Google Colab</a>; 
+						<br> 
+						<!-- - Impiego della Libreria Python <a href="https://python-visualization.github.io/folium/latest/">Folium</a>;
+						<br> -->
+						- Using the Library <a href="https://leafletjs.com/">Leaflet</a>, <a href="https://www.tabulator.info/">Tabulator JS</a>; <!--, <a href="https://turfjs.org/">Turf</a>; -->
+						<br>
+						- JavaScript SQL Database, for traditional relational tables and nested JSON data (NoSQL): <a href="https://alasql.org/">AlaSQL</a>, <a href="https://github.com/alasql/alasql/wiki/XLSX">XLSX</a>;
+						<br>
+						- Reference Legend: <a href="https://www.cyclosm.org/legend.html">CyclOsmMap Legend</a>.
+					</div>
+
+					<button id="rifDivButton" type="button" style="font-family: 'Trebuchet MS'; font-size: 1.5vh; font-style: italic; " >
+						🗺️ Show / Hide REFERENCES
+					</button>
+
+				</div>				
+			`;
+
+			const bottone = div.querySelector('#rifDivButton');
+    		const contenuto = div.querySelector('#rifDivContenuto');
+			
+			bottone.addEventListener('click', function() {
+        		if (contenuto.style.display === 'none') {
+            		contenuto.style.display = 'block';
+            		bottone.textContent = '❌ Hide REFERENCES';
+        		} else {
+            		contenuto.style.display = 'none';
+            		bottone.textContent = '🗺️ Show / Hide REFERENCES';
+        		}
+    		});
+			
+			L.DomEvent.disableClickPropagation(div);
+
+			return div;
+
+		};
+
+		divNote.addTo(map01);
+
+		//*** EVENTS ***//
+
+		map01.addEventListener('mousemove', function( e ) {
+			dataLatLngZoom[0].Coordinates = "Latitude: " + ( e.latlng.lat ).toFixed( 6 ); 
+			dataLatLngZoom[1].Coordinates = "Longitude: " + ( e.latlng.lng ).toFixed( 6 );
+
+			latLngZoom.setData( dataLatLngZoom )
+
+		});
+
+		map01.addEventListener('zoomend', function( e ) {
+			dataLatLngZoom[2].Coordinates  = "Zoom: " + ( map01.getZoom() ).toFixed( 2 );
+
+			latLngZoom.setData( dataLatLngZoom )
+		});
+
+		map01.on('click', function(e) {
+			
+			tempObj = {
+				DateTime : getDateTime() , 
+				Event : "Click on Map",
+    			Message_ConsoleApp : ( "Map clicked at: " + e.latlng.lat.toFixed( 6 ) + ", " + e.latlng.lng.toFixed( 6 ) ),
+			}; 
+			
+			dataConsoleApp.unshift( tempObj ); //Inizio Array 
+
+			consoleApp.setData( dataConsoleApp );
+
+		});
+
+		//*** DANFO JS ***//
+
+		const url = "https://geoinf25.github.io/site/GIS/UfoDataset.csv";
+
+		dfd.readCSV( url , { header: false } )
+			.then(df => {
+				//Header 0,1,2 ... NON rimovibile
+
+				const righe = Array.from({ length: df.shape[0] }, (_, i) => i ); //Parto da 0 ... 
+				df.addColumn("ID", righe, { inplace: true });
+				df = df.loc({ columns: ["ID", ...df.columns.filter(c => c !== "ID")] }); //ID = Numero Riga (Prima posizione)
+
+				const tempArr = df.values;
+
+				let ndf = new dfd.DataFrame( tempArr , {
+					columns: ["ID" , "datetime", "city", "state", "country", "shape", "duration_seconds", "duration_text", "description", "report_date", "latitude", "longitude"]
+				});
+				//console.log( ndf )
+
+				//VEDI N (enne) DF ovvero ndf 
+
+				const info = ndf.loc({ //df ridotto
+					columns: [ "ID" , "latitude", "longitude" , "datetime", "city" , "shape" , "duration_text" , "description" ] 
+				})
+
+				if( layerMarkers.hasLayer( cluMarkers ) ) {
+					layerMarkers.removeLayer( cluMarkers ); 
+				}
+				cluMarkers.clearLayers();
+
+				//console.log( "isNaN: " + isNaN( '33q.200088' ) ); 
+
+				const arrInfo = info.values; 
+				const numbRowsArrInfo = arrInfo.length; 
+				//Metodo "shape" NON permesso in quanto esiste gia' un nome di Colonna 'SHAPE' (!)
+
+				arrInfo.map((ele, i) => { //df -> array
+					const ID = ele[0]; 
+					const lat = ele[1];
+					const lon = ele[2];
+					/*
+					if( i == 0 ) {
+						console.log( "ID: " + ID + ", lat: " + lat + ", lon: " + lon);
+					}  
+					*/
+					var tempMarker = null; 
+					if( !isNaN(lat) && !isNaN(lon) ) {
+						//console.log( lat, lon , i )
+						tempMarker = L.marker([lat, lon] , { id: ID } ).bindPopup(`
+							<b>🛸UFO / UAP SIGHTING:</b><br>
+							<b>* ID:</b> ${ID} di ${numbRowsArrInfo};<br> 
+							<b>* Latitude, Longitude:</b> ${lat}, ${lon};<br> 
+							<b>* Date-time:</b> ${ele[3]};<br>
+							<b>* City:</b> ${ele[4]};<br>
+							<b>* Shape:</b> ${ele[5]};<br>
+							<b>* Duration:</b> ${ele[6]};<br>
+							<b>* Description:</b> <i>${ele[7]}</i>.
+							`
+						);
+					}
+					if( tempMarker != null ) {
+						cluMarkers.addLayer( tempMarker );
+					}
+				});
+
+
+				layerMarkers.addLayer( cluMarkers ); 
+				//map01.addLayer(cluMarkers);
+
+				//Estrazione Marker da MarkerCluster: 
+				/*
+				In Leaflet.markercluster, il metodo nativo getLayers() non garantisce la restituzione dei marker secondo l'ordine cronologico 
+				di inserimento precedente. Questo accade perche' la libreria indicizza e riorganizza internamente gli elementi in una struttura 
+				ad albero (basata su griglie e coordinate) per ottimizzare le prestazioni di clustering.
+				*/
+
+				dataUfoDataset = dfd.toJSON( ndf )
+
+				//ufoDataset.on("tableBuilt", function(){
+					//ufoDataset.setData( dataUfoDataset )
+				//});
+
+				// Se carichi i dati dopo l'inizializzazione
+				ufoDataset.setData(dataUfoDataset).then(function(){
+    				// Forza Tabulator a ricalcolare le posizioni del Virtual DOM
+
+					ufoDataset.setSort("ID", "asc"); //INDISPENSABILE PER VIRTUAL DOM (!!!) //Altri campi: datetime, ... 
+    				//ufoDataset.redraw(true); 
+				});
+
+
+			})
+			.catch(err => {
+				console.log(err);
+			});
+		
 
 	</script>
 
-	<div id="tab_scheda" style="margin-bottom: 0.5vh;" >
-		<button id="tab_schedaUFOUAP" class="btn tabUFOUAP" onclick="gestioneSchede( 'schedaUFOUAP' )">- UFO/UAP -</button>
-		<button id="tab_schedaGIS" class="btn tabGIS" onclick="gestioneSchede( 'schedaGIS' )">- GIS -</button>
-		<button id="tab_schedaBlazor" class="btn tabBlazor" onclick="gestioneSchede( 'schedaBlazor' )">- BLAZOR -</button>
-		<button id="tab_schedaReact" class="btn tabReact" onclick="gestioneSchede( 'schedaReact' )">- REACT -</button>
-		<button id="tab_schedaRShiny" class="btn tabRShiny" onclick="gestioneSchede( 'schedaRShiny' )">- R / SHINY -</button>
-		<button id="tab_schedaJupyter" class="btn tabJupyter" onclick="gestioneSchede( 'schedaJupyter' )">- JUPYTER / PY -</button>
-		<button id="tab_schedaCSharp" class="btn tabCSharp" onclick="gestioneSchede( 'schedaCSharp' )">- C# -</button>
-		<button id="tab_schedaJavascript" class="btn tabJavascript" onclick="gestioneSchede( 'schedaJavascript' )">- JAVASCRIPT -</button>
-		<button id="tab_schedaJava" class="btn tabJava" onclick="gestioneSchede( 'schedaJava' )">- JAVA -</button>
-		<button id="tab_schedaDatabase" class="btn tabDatabase" onclick="gestioneSchede( 'schedaDatabase' )">- DATABASE -</button>
-		<!-- <button id="tab_schedaGIS" class="btn tabGIS" onclick="gestioneSchede( 'schedaGIS' )">- GIS -</button> -->
-		<button id="tab_schedaDisegni3D" class="btn tabDisegni3D" onclick="gestioneSchede( 'schedaDisegni3D' )">- DISEGNI 3D -</button>
-		<button id="tab_schedaDartFlutter" class="btn tabDartFlutter" onclick="gestioneSchede( 'schedaDartFlutter' )">- FLUTTER -</button>
-		<button id="tab_schedaAbout" class="btn tabAbout" onclick="gestioneSchede( 'schedaAbout' )">- ABOUT -</button>
-		<br>
-		<div id="barTot" style= "width: 100%; background-color: lightgreen; " >
-			<!-- <br> -->
-  			<div id="barLoading" 
-				style= "width: 30%; height: 2vh; background-color: green; font-family: 'Trebuchet MS'; font-size: 1.75vh; text-align: center; line-height: 2vh; color: white; " >Loading ... 30%
-			</div>
-		</div>
-
-		<script>
-			//Progress Bar
-
-			barTot = document.getElementById( "barTot" );
-			barLoading = document.getElementById( "barLoading" );
-
-			barTot.style.display = "block"; 
-			barTot.style.visibility = "visible";
-			barLoading.style.display = "block"; 
-			barLoading.style.visibility = "visible";
-
-		</script>
-
-	</div>
-
-	<div id="schedaUFOUAP" > 
-		
-		<iframe
-			id="iframeUFOUAP" 
-			src=""  
-			width="100%"
-			height="100%"
-			frameBorder="0"
-
-		></iframe>
-
-		<script>
-			if( iframeAttivi.iframeUFOUAP == true ) {
-				//https://geoinf25.github.io/site/schedaUFOUAP.html
-				document.getElementById( "iframeUFOUAP" ).src="./schedaUFOUAP.html"; 
-			} else {
-				document.getElementById( "iframeUFOUAP" ).src=""; 
-			}
-
-		</script>
-
-	</div>
-
-	<div id="schedaBlazor" >
-		<iframe
-			id="iframeBlazor"
-			src=""  
-			width="100%"
-			height="100%"
-			frameBorder="0"
-
-		></iframe>
-
-		<script>
-			if( iframeAttivi.iframeBlazor == true ) {
-				document.getElementById( "iframeBlazor" ).src="https://geoinf25.github.io/repoBlazor/"; 
-			} else {
-				document.getElementById( "iframeBlazor" ).src=""; 
-			}
-		</script>
-	</div>
-
-	<div id="schedaReact" >
-		<iframe
-			id="iframeReact"
-			src=""  
-			width="100%"
-			height="100%"
-			frameBorder="0"
-
-		></iframe>
-
-		<script>
-			if( iframeAttivi.iframeReact == true ) {
-				document.getElementById( "iframeReact" ).src="https://geoinf25.github.io/my-project/"; 
-			} else {
-				document.getElementById( "iframeReact" ).src=""; 
-			}
-		</script>
-	</div>
-
-	<div id="schedaRShiny" >
-
-		<iframe
-			id="iframeRShiny" 
-			src=""  
-			width="100%"
-			height="100%"
-			frameBorder="0"
-
-		></iframe>
-
-		<script>
-			if( iframeAttivi.iframeRShiny == true ) {
-				document.getElementById( "iframeRShiny" ).src="https://geoinf25.github.io/site/Shiny/docs/index.html"; 
-			} else {
-				document.getElementById( "iframeRShiny" ).src=""; 
-			}
-		</script>
-
-	</div>
-
-	<div id="schedaJupyter" >
-		
-		<iframe
-			id="iframeJupyter" 
-			src=""  
-			width="100%"
-			height="100%"
-			frameBorder="0"
-
-		></iframe>
-		<!-- style = "overflow: scroll" scrolling = yes -->
-
-		<script>
-			if( iframeAttivi.iframeJupyter == true ) {
-				//https://geoinf25.github.io/site/schedaJupyter.html
-				document.getElementById( "iframeJupyter" ).src="./schedaJupyter.html"; 
-			} else {
-				document.getElementById( "iframeJupyter" ).src=""; 
-			}
-
-		</script>
-
-	</div>
-
-	<div id="schedaCSharp" >
-
-		<iframe
-			id="iframeCSharp" 
-			src=""  
-			width="100%"
-			height="100%"
-			frameBorder="0"
-
-		></iframe>
-
-		<script>
-			if( iframeAttivi.iframeCSharp == true ) {
-				//https://geoinf25.github.io/site/schedaCSharp.html
-				document.getElementById( "iframeCSharp" ).src="./schedaCSharp.html"; 
-			} else {
-				document.getElementById( "iframeCSharp" ).src=""; 
-			}
-
-		</script>
-
-	</div>
-
-	<div id="schedaJavascript" > 
-
-		<iframe
-			id="iframeJavascript" 
-			src=""  
-			width="100%"
-			height="100%"
-			frameBorder="0"
-
-		></iframe>
-
-		<script>
-			if( iframeAttivi.iframeJavascript == true ) {
-				//https://geoinf25.github.io/site/schedaJavascript.html
-				document.getElementById( "iframeJavascript" ).src="./schedaJavascript.html"; 
-			} else {
-				document.getElementById( "iframeJavascript" ).src=""; 
-			}
-
-		</script>
-
-	</div>
-
-	<div id="schedaJava" > 
-
-		<iframe
-			id="iframeJava" 
-			src=""  
-			width="100%"
-			height="100%"
-			frameBorder="0"
-
-		></iframe>
-
-		<script>
-			//if( iframeAttivi.iframeJava == true ) {
-				//https://geoinf25.github.io/site/schedaJava.html
-				//document.getElementById( "iframeJava" ).src="./schedaJava.html"; 
-			//} else {
-				////document.getElementById( "iframeJava" ).src=""; 
-			//}
-
-		</script>
-		
-	</div>
-
-	<div id="schedaDatabase" > 
-
-		<iframe
-			id="iframeDatabase" 
-			src=""  
-			width="100%"
-			height="100%"
-			frameBorder="0"
-
-		></iframe>
-
-		<script>
-			if( iframeAttivi.iframeDatabase == true ) {
-				//https://geoinf25.github.io/site/schedaDatabase.html
-				document.getElementById( "iframeDatabase" ).src="./schedaDatabase.html"; 
-			} else {
-				document.getElementById( "iframeDatabase" ).src=""; 
-			}
-
-		</script>
-
-	</div>
-
-	<div id="schedaGIS" > 
-		
-		<iframe
-			id="iframeGIS" 
-			src=""  
-			width="100%"
-			height="100%"
-			frameBorder="0"
-
-		></iframe>
-
-		<script>
-			if( iframeAttivi.iframeGIS == true ) {
-				//https://geoinf25.github.io/site/schedaGIS.html
-				document.getElementById( "iframeGIS" ).src="./schedaGIS.html"; 
-			} else {
-				document.getElementById( "iframeGIS" ).src=""; 
-			}
-
-		</script>
-
-	</div>
-
-	<div id="schedaDisegni3D" > 
-		
-		<iframe
-			id="iframeDisegni3D" 
-			src=""  
-			width="100%"
-			height="100%"
-			frameBorder="0"
-
-		></iframe>
-
-		<script>
-			if( iframeAttivi.iframeDisegni3D == true ) {
-				//https://geoinf25.github.io/site/schedaDisegni3D.html
-				document.getElementById( "iframeDisegni3D" ).src="./schedaDisegni3D.html"; 
-			} else {
-				document.getElementById( "iframeDisegni3D" ).src=""; 
-			}
-
-		</script>
-
-	</div>
-
-	<div id="schedaDartFlutter" >
-
-		<iframe
-			id="iframeDartFlutter" 
-			src=""  
-			width="100%"
-			height="100%"
-			frameBorder="0"
-
-		></iframe>
-
-		<script>
-			if( iframeAttivi.iframeDartFlutter == true ) {
-				document.getElementById( "iframeDartFlutter" ).src="https://geoinf25.github.io/site/Flutter/flutter_app01/build/web/index.html"; 
-			} else {
-				document.getElementById( "iframeDartFlutter" ).src="https://geoinf25.github.io/site/Flutter/flutter_app01/build/web/index.html"; 
-			}
-		</script>
-
-	</div>
-
-	<div id="schedaAbout" >
-
-		<iframe
-			id="iframeAbout" 
-			src=""  
-			width="100%"
-			height="100%"
-			frameBorder="0"
-
-		></iframe>
-
-		<script>
-			if( iframeAttivi.iframeAbout == true ) {
-				//https://geoinf25.github.io/site/schedaAbout.html
-				document.getElementById( "iframeAbout" ).src="./schedaAbout.html"; 
-			} else {
-				document.getElementById( "iframeAbout" ).src=""; 
-			}
-
-		</script>
-
-	</div>
-
-	<py-script>
-
-		import js
-		from js import console, document, window
-
-		js.barTot.style.display = "none"; 
-		js.barTot.style.visibility = "hidden";
-		js.barLoading.style.display = "none"; 
-		js.barLoading.style.visibility = "hidden";
-
-	</py-script>
 
 </body>
+
 
 </html>

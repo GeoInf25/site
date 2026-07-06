@@ -1,0 +1,798 @@
+<html>
+
+<head>
+
+	<title>GeoInf25 06 2026</title>
+
+	<link rel="stylesheet" href="styleGeoInf.css">
+
+	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> -->
+
+	<script type="text/javascript" src="./file_funzSupp.js"></script> 
+
+	<link rel="stylesheet" href="https://pyscript.net/releases/2025.7.2/core.css" />
+	<script type="module" src="https://pyscript.net/releases/2025.7.2/core.js" ></script>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+	<link rel="icon" type="image/png" href="favicon.png" /> <!-- location_map_pin_mark_icon_148685 - Location map pin mark - Free Icon in PNG and SVG By IconMarket -->
+
+<style>
+
+	#schedaUFOUAP {
+		width: 100%;
+  		/* height: 94%; */
+		overflow-x: hidden;
+  		overflow-y: hidden; /*scroll*/
+	}
+	#schedaBlazor {
+  		width: 100%;
+  		/* height: 94%; */
+		overflow-x: hidden;
+  		overflow-y: hidden; /*scroll*/
+	}
+	#schedaReact {
+  		width: 100%;
+  		/* height: 94%; */
+		overflow-x: hidden;
+  		overflow-y: hidden; /*scroll*/
+	}
+	#schedaRShiny {
+  		width: 100%;
+  		/* height: 94%; */
+		overflow-x: hidden;
+  		overflow-y: hidden; /*scroll*/
+	}
+	#schedaJupyter {
+  		width: 100%;
+  		/* height: 94%; */
+		overflow-x: hidden;
+  		overflow-y: hidden; /*scroll*/
+	}
+	#schedaCSharp {
+		width: 100%;
+  		/* height: 94%; */
+		overflow-x: hidden;
+  		overflow-y: hidden; /*scroll*/
+	}
+	#schedaJavascript {
+		width: 100%;
+  		/* height: 94%; */
+		overflow-x: hidden;
+  		overflow-y: hidden; /*scroll*/
+	}
+	#schedaDatabase {
+		width: 100%;
+  		/* height: 94%; */
+		overflow-x: hidden;
+  		overflow-y: hidden; /*scroll*/
+	}
+	#schedaGIS {
+		width: 100%;
+  		/* height: 94%; */
+		overflow-x: hidden;
+  		overflow-y: hidden; /*scroll*/
+	}
+	#schedaDisegni3D {
+		width: 100%;
+  		/* height: 94%; */
+		overflow-x: hidden;
+  		overflow-y: hidden; /*scroll*/
+	}
+	#schedaDartFlutter {
+		width: 100%;
+  		/* height: 94%; */
+		overflow-x: hidden;
+  		overflow-y: hidden; /*scroll*/
+	}
+	#schedaAbout {
+		width: 100%;
+  		/* height: 94%; */
+		overflow-x: hidden;
+  		overflow-y: hidden; /*scroll*/
+	}
+
+	#tab_scheda {
+		/* */
+	}
+
+	.btn {
+		/* border: 2px solid yellow; */
+		background-color: white ;
+		color: green; /*lightseagreen*/
+		padding: 0vh 0vh;
+		font-size: 1.8vh; /* 16px */
+		font-weight: bold;
+
+		border-radius: 1vh;
+
+		min-width: 15vh; 
+		height: 3.5vh; 
+
+		/*height: auto; */
+  	}
+
+	/*
+	@media screen and (max-width: 594px) {
+		#tab_scheda {
+			height: 10.75vh;
+		}
+	}
+
+	@media screen and (min-width: 595px) {
+		#tab_scheda {
+			height: 5.0vh;
+		}
+	}
+	*/
+
+	.tabUFOUAP {
+		border-color: green;
+		/*color: white;*/
+  	}
+	.tabBlazor {
+		border-color: green;
+  		/*color: white;*/
+  	}
+
+  	.tabReact {
+		border-color: green;
+  		/*color: white;*/
+  	}
+
+	.tabRShiny {
+		border-color: green;
+  		/*color: white;*/
+  	}
+
+	.tabJupyter {
+		border-color: green;
+  		/*color: white;*/
+  	}
+
+  	.tabCSharp {
+		border-color: green;
+		/*color: white;*/
+  	}
+
+  	.tabJavascript {
+		border-color: green;
+		/*color: white;*/
+  	}
+
+	.tabJava {
+		border-color: green;
+		/*color: white;*/
+  	}
+
+	.tabDatabase {
+		border-color: green;
+		/*color: white;*/
+  	}
+
+	.tabGIS {
+		border-color: green;
+		/*color: white;*/
+  	}
+
+	.tabDisegni3D {
+		border-color: green;
+		/*color: white;*/
+  	}
+
+	.tabDartFlutter {
+		border-color: green;
+		/*color: white;*/
+  	}
+
+  	.tabAbout {
+		border-color: green;
+		/*color: white;*/
+  	}
+
+</style>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0" charset="utf-8" >
+<!-- charset per Font in localhost -->
+
+</head>
+
+<body>
+
+	<py-config>
+    	#packages = ["sqlite3", "numpy",  "prettytable", "pandas", "tabulate" ]
+
+		#folium , matplotlib , ipympl , ipywidgets
+
+		#[[fetch]]
+		#from = 'https://geoinf25.github.io/site/Python/'
+    	#files = ['codePy.py']
+
+		#[[fetch]]
+		#from = './GIS/'
+    	#files = [ "UfoDataset.csv" ]
+
+		#[[fetch]]
+		#from = './Database/'
+    	#files = [ "db01.py" ]
+
+		#[[fetch]]
+		#from = './GIS/'
+    	#files = [ "gis01.py" ]
+
+		#[[fetch]]
+		#from = './GIS/'
+    	#files = [ "UfoDb.db" ]
+
+		# [[fetch]]
+     	# files = ["https://geoinf25.github.io/site/Database/dbSqliteEs01.db"]
+
+    </py-config>
+		
+	<py-script >
+		#Test
+
+	</py-script>
+
+	<script>
+
+		var iframeAttivi = {
+			iframeUFOUAP : true ,
+			iframeBlazor : true , 
+			iframeReact : true , 
+			iframeRShiny : true , 
+			iframeJupyter : true , 
+			iframeCSharp : true , 
+			iframeJavascript : true ,
+			iframeJava : true ,
+			iframeDatabase : true ,
+			iframeGIS : true ,
+			iframeDisegni3D : true ,
+			iframeDartFlutter : true ,
+			iframeAbout : true ,
+		}
+
+		//Selezione Iframe
+		/*
+		iframeAttivi = {
+			iframeBlazor : true , 
+			iframeReact : true , 
+			iframeRShiny : false , 
+			iframeJupyter : false , 
+			iframeCSharp : false , 
+			iframeJavascript : false ,
+			iframeJava : false ,
+			iframeDatabase : false ,
+			iframeGIS : false ,
+			iframeDisegni3D : false ,
+			iframeDartFlutter : false ,
+			iframeAbout : false ,
+		}
+		*/
+
+		function getOSIframe() {
+			var os =  window.navigator.platform; 
+			var osWin = true; 
+			if( ["Win32", "Win64", "Windows", "WinCE"].indexOf( os ) >= 0 ) {
+				osWin = true; 
+			} else {
+				osWin = false; 
+			}
+
+			console.log( "OS: " + os );
+
+			if( osWin == true ) {
+				//
+			} else {
+				iframeAttivi.iframeUFOUAP = true ; 
+				iframeAttivi.iframeBlazor = true ; 
+				iframeAttivi.iframeReact = true ; 
+				iframeAttivi.iframeRShiny = true ; 
+				iframeAttivi.iframeJupyter = true ; 
+				iframeAttivi.iframeCSharp = true ;
+				iframeAttivi.iframeJavascript = true ;
+				iframeAttivi.iframeJava = true ;
+				iframeAttivi.iframeDatabase = true ;
+				iframeAttivi.iframeGIS = true ;
+				iframeAttivi.iframeDisegni3D = true ;
+				iframeAttivi.iframeDartFlutter = false ;
+				iframeAttivi.iframeAbout = true ;
+
+				alert( "OS diverso da Windows, alcune schede potrebbero essere state DISABILITATE." ); 
+
+			}
+
+		}
+
+		getOSIframe();  
+
+		/*
+		//iframeAttivi true / false
+		for (var prop in iframeAttivi) {
+    		if (Object.prototype.hasOwnProperty.call( iframeAttivi, prop)) {
+        		iframeAttivi[ prop ] = true; //Scelta valore
+    		}	
+		}
+		*/
+
+		var primoAvvioJava = true; //Variabile esterna "globale"
+
+		function gestioneSchede( scheda ) {
+
+			//console.log( "Test: " + schede )
+
+			for( var i = 0; i < schede.length; i++ ) {
+				try{
+				var tempNomeScheda = schede[ i ].id; 
+				} catch(e) {
+					alert( "i : " + i ); 
+				}
+				if( tempNomeScheda == ( "" + scheda ) ) { //vedi nome schede
+					schede[ i ].style.display = "block"; 
+					schede[ i ].style.visibility = "visible";
+				} else {
+					schede[ i ].style.display = "none"; 
+					schede[ i ].style.visibility = "hidden";
+				}
+			}
+			
+			if( scheda == "schedaDatabase" ) {
+				schedaDatabaseCliccata = true; 
+				//console.log( "lato JS " + schedaDatabaseCliccata )
+			} else {
+				schedaDatabaseCliccata = false; 
+			}
+
+			//if( scheda == "schedaGIS" ) {
+			if( scheda == "schedaUFOUAP" ) {
+				window.dispatchEvent(new Event('resize')); // force reflow
+			} else {
+				//
+			}
+
+			if( scheda == "schedaJava" ) {
+
+				if( iframeAttivi.iframeJava == true  ) {
+					//https://geoinf25.github.io/site/schedaJava.html
+					if( primoAvvioJava == true ) {
+						document.getElementById( "iframeJava" ).src="./schedaJava.html"; 
+						primoAvvioJava = false;
+						console.log( "Primo Avvio Java!" );  
+					}
+
+				} else {
+					document.getElementById( "iframeJava" ).src=""; 
+				}
+
+			} else { 
+				//
+			}
+	
+		}
+
+
+		function resizeWindow() {
+			var hBody = window.innerHeight; 
+			var hTabScheda = document.getElementById( "tab_scheda" ).offsetHeight; 
+			var hDiff = hBody - hTabScheda - 20; // - 9
+			//alert( hDiff );
+			document.getElementById( "schedaUFOUAP" ).style.height = hDiff; 
+			document.getElementById( "schedaBlazor" ).style.height = hDiff; 
+			document.getElementById( "schedaReact" ).style.height = hDiff; 
+			document.getElementById( "schedaRShiny" ).style.height = hDiff; 
+			document.getElementById( "schedaJupyter" ).style.height = hDiff; 
+			document.getElementById( "schedaCSharp" ).style.height = hDiff; 
+			document.getElementById( "schedaJavascript" ).style.height = hDiff; 
+			document.getElementById( "schedaJava" ).style.height = hDiff; 
+			document.getElementById( "schedaDatabase" ).style.height = hDiff; 
+			document.getElementById( "schedaGIS" ).style.height = hDiff; 
+			document.getElementById( "schedaDisegni3D" ).style.height = hDiff; 
+			document.getElementById( "schedaDartFlutter" ).style.height = hDiff; 
+			document.getElementById( "schedaAbout" ).style.height = hDiff; 
+
+			/*
+			if( document.getElementById( "plot01Blocco03Py" ).firstChild != null ) {
+				document.getElementById( "plot01Blocco03Py" ).offsetHeight = document.getElementById( "plot01Blocco03Py" ).firstChild.offsetHeight;
+			}
+			*/
+		}
+
+		window.addEventListener( 'load' , function(event) { 
+
+			schedaGIS = document.getElementById( "schedaUFOUAP" );
+			schedaBlazor = document.getElementById( "schedaBlazor" );
+			schedaReact = document.getElementById( "schedaReact" );
+			schedaRShiny = document.getElementById( "schedaRShiny" );
+			schedaJupyter = document.getElementById( "schedaJupyter" );
+			schedaCSharp = document.getElementById( "schedaCSharp" );
+			schedaJavascript = document.getElementById( "schedaJavascript" );
+			schedaJava = document.getElementById( "schedaJava" );
+			schedaDatabase = document.getElementById( "schedaDatabase" );
+			schedaGIS = document.getElementById( "schedaGIS" );
+			schedaDisegni3D = document.getElementById( "schedaDisegni3D" );
+			schedaDartFlutter = document.getElementById( "schedaDartFlutter" );
+			schedaAbout = document.getElementById( "schedaAbout" );
+
+			schedaDatabaseCliccata = false; 
+
+			schede = [ 
+				schedaUFOUAP,
+				schedaBlazor,
+				schedaReact,
+				schedaRShiny,
+				schedaJupyter,
+				schedaCSharp,
+				schedaJavascript,
+				schedaJava, 
+				schedaDatabase,
+				schedaGIS,
+				schedaDisegni3D,
+				schedaDartFlutter,
+				schedaAbout
+			]; 
+
+			gestioneSchede( "schedaUFOUAP" );
+			//gestioneSchede( "schedaGIS" );
+
+			resizeWindow();
+
+		});
+
+		window.addEventListener( 'resize' , function(event) {
+			//console.log( "RESIZE ... " ); 
+			resizeWindow();
+
+			//consoleMap02
+			if( iframeAttivi.iframeGIS == true ) {
+				document.getElementById( "iframeGIS" ).contentWindow.document.getElementById( "consoleMap02" ).style.height = 
+					document.getElementById( "iframeGIS" ).contentWindow.document.getElementById( "contMap02" ).offsetHeight - 
+					document.getElementById( "iframeGIS" ).contentWindow.document.getElementById("contControlMap02ParteSup" ).offsetHeight; 
+
+				//
+			}
+
+		});
+
+	</script>
+
+	<div id="tab_scheda" style="margin-bottom: 0.5vh;" >
+		<button id="tab_schedaUFOUAP" class="btn tabUFOUAP" onclick="gestioneSchede( 'schedaUFOUAP' )">- UFO/UAP -</button>
+		<button id="tab_schedaGIS" class="btn tabGIS" onclick="gestioneSchede( 'schedaGIS' )">- GIS -</button>
+		<button id="tab_schedaBlazor" class="btn tabBlazor" onclick="gestioneSchede( 'schedaBlazor' )">- BLAZOR -</button>
+		<button id="tab_schedaReact" class="btn tabReact" onclick="gestioneSchede( 'schedaReact' )">- REACT -</button>
+		<button id="tab_schedaRShiny" class="btn tabRShiny" onclick="gestioneSchede( 'schedaRShiny' )">- R / SHINY -</button>
+		<button id="tab_schedaJupyter" class="btn tabJupyter" onclick="gestioneSchede( 'schedaJupyter' )">- JUPYTER / PY -</button>
+		<button id="tab_schedaCSharp" class="btn tabCSharp" onclick="gestioneSchede( 'schedaCSharp' )">- C# -</button>
+		<button id="tab_schedaJavascript" class="btn tabJavascript" onclick="gestioneSchede( 'schedaJavascript' )">- JAVASCRIPT -</button>
+		<button id="tab_schedaJava" class="btn tabJava" onclick="gestioneSchede( 'schedaJava' )">- JAVA -</button>
+		<button id="tab_schedaDatabase" class="btn tabDatabase" onclick="gestioneSchede( 'schedaDatabase' )">- DATABASE -</button>
+		<!-- <button id="tab_schedaGIS" class="btn tabGIS" onclick="gestioneSchede( 'schedaGIS' )">- GIS -</button> -->
+		<button id="tab_schedaDisegni3D" class="btn tabDisegni3D" onclick="gestioneSchede( 'schedaDisegni3D' )">- DISEGNI 3D -</button>
+		<button id="tab_schedaDartFlutter" class="btn tabDartFlutter" onclick="gestioneSchede( 'schedaDartFlutter' )">- FLUTTER -</button>
+		<button id="tab_schedaAbout" class="btn tabAbout" onclick="gestioneSchede( 'schedaAbout' )">- ABOUT -</button>
+		<br>
+		<div id="barTot" style= "width: 100%; background-color: lightgreen; " >
+			<!-- <br> -->
+  			<div id="barLoading" 
+				style= "width: 30%; height: 2vh; background-color: green; font-family: 'Trebuchet MS'; font-size: 1.75vh; text-align: center; line-height: 2vh; color: white; " >Loading ... 30%
+			</div>
+		</div>
+
+		<script>
+			//Progress Bar
+
+			barTot = document.getElementById( "barTot" );
+			barLoading = document.getElementById( "barLoading" );
+
+			barTot.style.display = "block"; 
+			barTot.style.visibility = "visible";
+			barLoading.style.display = "block"; 
+			barLoading.style.visibility = "visible";
+
+		</script>
+
+	</div>
+
+	<div id="schedaUFOUAP" > 
+		
+		<iframe
+			id="iframeUFOUAP" 
+			src=""  
+			width="100%"
+			height="100%"
+			frameBorder="0"
+
+		></iframe>
+
+		<script>
+			if( iframeAttivi.iframeUFOUAP == true ) {
+				//https://geoinf25.github.io/site/schedaUFOUAP.html
+				document.getElementById( "iframeUFOUAP" ).src="./schedaUFOUAP.html"; 
+			} else {
+				document.getElementById( "iframeUFOUAP" ).src=""; 
+			}
+
+		</script>
+
+	</div>
+
+	<div id="schedaBlazor" >
+		<iframe
+			id="iframeBlazor"
+			src=""  
+			width="100%"
+			height="100%"
+			frameBorder="0"
+
+		></iframe>
+
+		<script>
+			if( iframeAttivi.iframeBlazor == true ) {
+				document.getElementById( "iframeBlazor" ).src="https://geoinf25.github.io/repoBlazor/"; 
+			} else {
+				document.getElementById( "iframeBlazor" ).src=""; 
+			}
+		</script>
+	</div>
+
+	<div id="schedaReact" >
+		<iframe
+			id="iframeReact"
+			src=""  
+			width="100%"
+			height="100%"
+			frameBorder="0"
+
+		></iframe>
+
+		<script>
+			if( iframeAttivi.iframeReact == true ) {
+				document.getElementById( "iframeReact" ).src="https://geoinf25.github.io/my-project/"; 
+			} else {
+				document.getElementById( "iframeReact" ).src=""; 
+			}
+		</script>
+	</div>
+
+	<div id="schedaRShiny" >
+
+		<iframe
+			id="iframeRShiny" 
+			src=""  
+			width="100%"
+			height="100%"
+			frameBorder="0"
+
+		></iframe>
+
+		<script>
+			if( iframeAttivi.iframeRShiny == true ) {
+				document.getElementById( "iframeRShiny" ).src="https://geoinf25.github.io/site/Shiny/docs/index.html"; 
+			} else {
+				document.getElementById( "iframeRShiny" ).src=""; 
+			}
+		</script>
+
+	</div>
+
+	<div id="schedaJupyter" >
+		
+		<iframe
+			id="iframeJupyter" 
+			src=""  
+			width="100%"
+			height="100%"
+			frameBorder="0"
+
+		></iframe>
+		<!-- style = "overflow: scroll" scrolling = yes -->
+
+		<script>
+			if( iframeAttivi.iframeJupyter == true ) {
+				//https://geoinf25.github.io/site/schedaJupyter.html
+				document.getElementById( "iframeJupyter" ).src="./schedaJupyter.html"; 
+			} else {
+				document.getElementById( "iframeJupyter" ).src=""; 
+			}
+
+		</script>
+
+	</div>
+
+	<div id="schedaCSharp" >
+
+		<iframe
+			id="iframeCSharp" 
+			src=""  
+			width="100%"
+			height="100%"
+			frameBorder="0"
+
+		></iframe>
+
+		<script>
+			if( iframeAttivi.iframeCSharp == true ) {
+				//https://geoinf25.github.io/site/schedaCSharp.html
+				document.getElementById( "iframeCSharp" ).src="./schedaCSharp.html"; 
+			} else {
+				document.getElementById( "iframeCSharp" ).src=""; 
+			}
+
+		</script>
+
+	</div>
+
+	<div id="schedaJavascript" > 
+
+		<iframe
+			id="iframeJavascript" 
+			src=""  
+			width="100%"
+			height="100%"
+			frameBorder="0"
+
+		></iframe>
+
+		<script>
+			if( iframeAttivi.iframeJavascript == true ) {
+				//https://geoinf25.github.io/site/schedaJavascript.html
+				document.getElementById( "iframeJavascript" ).src="./schedaJavascript.html"; 
+			} else {
+				document.getElementById( "iframeJavascript" ).src=""; 
+			}
+
+		</script>
+
+	</div>
+
+	<div id="schedaJava" > 
+
+		<iframe
+			id="iframeJava" 
+			src=""  
+			width="100%"
+			height="100%"
+			frameBorder="0"
+
+		></iframe>
+
+		<script>
+			//if( iframeAttivi.iframeJava == true ) {
+				//https://geoinf25.github.io/site/schedaJava.html
+				//document.getElementById( "iframeJava" ).src="./schedaJava.html"; 
+			//} else {
+				////document.getElementById( "iframeJava" ).src=""; 
+			//}
+
+		</script>
+		
+	</div>
+
+	<div id="schedaDatabase" > 
+
+		<iframe
+			id="iframeDatabase" 
+			src=""  
+			width="100%"
+			height="100%"
+			frameBorder="0"
+
+		></iframe>
+
+		<script>
+			if( iframeAttivi.iframeDatabase == true ) {
+				//https://geoinf25.github.io/site/schedaDatabase.html
+				document.getElementById( "iframeDatabase" ).src="./schedaDatabase.html"; 
+			} else {
+				document.getElementById( "iframeDatabase" ).src=""; 
+			}
+
+		</script>
+
+	</div>
+
+	<div id="schedaGIS" > 
+		
+		<iframe
+			id="iframeGIS" 
+			src=""  
+			width="100%"
+			height="100%"
+			frameBorder="0"
+
+		></iframe>
+
+		<script>
+			if( iframeAttivi.iframeGIS == true ) {
+				//https://geoinf25.github.io/site/schedaGIS.html
+				document.getElementById( "iframeGIS" ).src="./schedaGIS.html"; 
+			} else {
+				document.getElementById( "iframeGIS" ).src=""; 
+			}
+
+		</script>
+
+	</div>
+
+	<div id="schedaDisegni3D" > 
+		
+		<iframe
+			id="iframeDisegni3D" 
+			src=""  
+			width="100%"
+			height="100%"
+			frameBorder="0"
+
+		></iframe>
+
+		<script>
+			if( iframeAttivi.iframeDisegni3D == true ) {
+				//https://geoinf25.github.io/site/schedaDisegni3D.html
+				document.getElementById( "iframeDisegni3D" ).src="./schedaDisegni3D.html"; 
+			} else {
+				document.getElementById( "iframeDisegni3D" ).src=""; 
+			}
+
+		</script>
+
+	</div>
+
+	<div id="schedaDartFlutter" >
+
+		<iframe
+			id="iframeDartFlutter" 
+			src=""  
+			width="100%"
+			height="100%"
+			frameBorder="0"
+
+		></iframe>
+
+		<script>
+			if( iframeAttivi.iframeDartFlutter == true ) {
+				document.getElementById( "iframeDartFlutter" ).src="https://geoinf25.github.io/site/Flutter/flutter_app01/build/web/index.html"; 
+			} else {
+				document.getElementById( "iframeDartFlutter" ).src="https://geoinf25.github.io/site/Flutter/flutter_app01/build/web/index.html"; 
+			}
+		</script>
+
+	</div>
+
+	<div id="schedaAbout" >
+
+		<iframe
+			id="iframeAbout" 
+			src=""  
+			width="100%"
+			height="100%"
+			frameBorder="0"
+
+		></iframe>
+
+		<script>
+			if( iframeAttivi.iframeAbout == true ) {
+				//https://geoinf25.github.io/site/schedaAbout.html
+				document.getElementById( "iframeAbout" ).src="./schedaAbout.html"; 
+			} else {
+				document.getElementById( "iframeAbout" ).src=""; 
+			}
+
+		</script>
+
+	</div>
+
+	<py-script>
+
+		import js
+		from js import console, document, window
+
+		js.barTot.style.display = "none"; 
+		js.barTot.style.visibility = "hidden";
+		js.barLoading.style.display = "none"; 
+		js.barLoading.style.visibility = "hidden";
+
+	</py-script>
+
+</body>
+
+</html>
