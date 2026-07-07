@@ -13,24 +13,40 @@ import js
 
 connection = None
 
+'''
 def controlConnection( *args ):
-  global connection
-  print( "Controllo Scheda Database: " + str( window.parent.schedaDatabaseCliccata ) )
-  if( window.parent.schedaDatabaseCliccata == True ):
+global connection
+print( "Controllo Scheda Database: " + str( window.parent.schedaDatabaseCliccata ) )
+if( window.parent.schedaDatabaseCliccata == True ):
     #document.getElementById("txt_displayTabClassDbEs01").innerHTML = ""
     #document.getElementById("txt_displayTabStudentDbEs01").innerHTML = ""
-    document.getElementById("txt_displayQuerySQLDbEs01").value = "" + document.getElementById("select_listQuerySQLDb01").value; #innerHTML
-    connection = sqlite3.connect( ":memory:" ) #https://geoinf25.github.io/site/Database/dbSqliteEs01.db
-    tablePopulating()
-    executeQuerySQL()
+'''
 
-    
+def controlConnection( *args ): 
+  global connection 
+  document.getElementById("txt_displayQuerySQLDbEs01").value = "" + document.getElementById("select_listQuerySQLDb01").value; #innerHTML
+  connection = sqlite3.connect( ":memory:" ) #https://geoinf25.github.io/site/Database/dbSqliteEs01.db 
+  tablePopulating()
+  executeQuerySQL()
+
+'''  
   else:
     if( not ( connection is None ) ):
       connection.close()
     document.getElementById("txt_displayTabClassDbEs01").innerHTML = ""
     document.getElementById("txt_displayTabStudentDbEs01").innerHTML = ""
     #print( "Controllo connessione terminata ... " )
+'''
+
+def closeDB( *args ):
+  if( not ( connection is None ) ):
+    connection.close()
+  document.getElementById("txt_displayTabClassDbEs01").innerHTML = ""
+  document.getElementById("txt_displayTabStudentDbEs01").innerHTML = ""
+  #print( "Controllo connessione terminata ... " )
+
+add_event_listener( window , "beforeunload", closeDB ) 
+
 
 #Variables
 idClasse = 0 #incr
@@ -130,6 +146,10 @@ def executeQuerySQL( *args ):
 add_event_listener( document.getElementById("btn_tablePopulating") , "click", tablePopulating)
 add_event_listener( document.getElementById("btn_executeQuerySQL") , "click", executeQuerySQL)	
 
+#*** AVVIO APPLICAZIONE ***
+controlConnection()
+
+'''
 #Schede
 add_event_listener( window.parent.document.getElementById("tab_schedaReact") , "click", controlConnection ) #Privo di argomenti 
 add_event_listener( window.parent.document.getElementById("tab_schedaRShiny") , "click", controlConnection ) #Privo di argomenti 
@@ -141,7 +161,7 @@ add_event_listener( window.parent.document.getElementById("tab_schedaDatabase") 
 add_event_listener( window.parent.document.getElementById("tab_schedaGIS") , "click", controlConnection )	
 add_event_listener( window.parent.document.getElementById("tab_schedaDisegni3D") , "click", controlConnection )
 add_event_listener( window.parent.document.getElementById("tab_schedaAbout") , "click", controlConnection )	
-
+'''
 
 #Test iniziale all'apertura della Pagina Web
 #if( window.sessionStorage.getItem( "superatoPrimoAvvio2" ) is None ):
