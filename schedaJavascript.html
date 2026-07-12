@@ -336,7 +336,7 @@
 						Color: "Blue" , Value: 101    
 					},
 					{
-						Color: "Alpha" , Value: 110   
+						Color: "Alpha" , Value: 1.0   
 					},
 				]; 
 
@@ -375,6 +375,46 @@
 							editor: "progress" , //number
 							resizable: false , 
 							//cellVertAlign: "middle", //NON valido
+							formatterParams: function( cell ) {
+								const rowIndex = cell.getTable().getRows("data").indexOf(cell.getRow());
+								if( rowIndex <=2 ) { //Righe 0,1,2 - RGB
+									return {
+										min: 0, 
+										max: 255, 
+										color: "green", 
+										legend: function( value ) {
+											roundValue = Math.round(value) + ""; //%
+											return roundValue;
+										}
+									}
+
+								} else if( rowIndex == 3 ) { //Riga 3 - ALPHA 
+									return {
+										min: 0.0, 
+										max: 1.0, 
+										color: "orange", 
+										legend: function( value ) {
+											roundValue = parseFloat( value , 10 ).toFixed( 4 ) + ""; //%
+											return roundValue;
+										}
+									}
+								}
+							} , 
+							editorParams: function( cell ) {
+								const rowIndex = cell.getTable().getRows("data").indexOf(cell.getRow());
+								if( rowIndex <=2 ) { //Righe 0,1,2 - RGB
+									return {
+										min: 0, 
+										max: 255, 
+									}
+								} else if( rowIndex == 3 ) { //Riga 3 - ALPHA 
+									return {
+										min: 0.0, 
+										max: 1.0, 
+									}
+								}
+							}
+							/*
 							formatterParams: {
 								min: 0,
 								max: 255,
@@ -385,11 +425,12 @@
 									roundValue = Math.round(value) + ""; //%
 									return roundValue;
 								}
-							} , 
+							} ,  
 							editorParams: { //Modifica Utente 
         						min: 0,
         						max: 255,
-    						} , 
+    						} ,
+							*/ 
 							//mutator
 						} 
 
@@ -400,13 +441,19 @@
 				tableRGBA.on("tableBuilt", function() { //Aggiornamento PictureBox
 					document.getElementById("pictureBox").style.backgroundColor = 
 						"rgba(" + dataTableRGBA[0].Value + ", " + dataTableRGBA[1].Value + ", " + dataTableRGBA[2].Value + ", " + 
-						(dataTableRGBA[3].Value / 255.0 ).toFixed(4) + ")";
+						dataTableRGBA[3].Value + ")";
 				}); 
 
 				tableRGBA.on("cellEdited", function(cell) { 
 					const rowIndex = cell.getTable().getRows("data").indexOf(cell.getRow());
 					newModifiedValue = cell.getElement().innerText; //NON cell.getValue() valore NON formattato; //Valore formattato tramite LEGEND
-					dataTableRGBA[ rowIndex ].Value = parseInt( newModifiedValue , 10 );   
+
+					if( rowIndex <= 2 ) { //Righe RGB
+						dataTableRGBA[ rowIndex ].Value = parseInt( newModifiedValue , 10 );
+					} else if( rowIndex == 3 ) { //Riga ALPHA
+						dataTableRGBA[ rowIndex ].Value = parseFloat( newModifiedValue , 10 )
+					}
+
 					//console.log( dataTableRGBA );
 					//tableRGBA.getRows()[ rowIndex ].update( { col : value } );
 
@@ -415,7 +462,7 @@
 
 					//Aggiornamento PictureBox
 					rgbaIstr = "rgba(" + dataTableRGBA[0].Value + ", " + dataTableRGBA[1].Value + ", " + dataTableRGBA[2].Value + ", " + 
-						( dataTableRGBA[3].Value / 255.0 ).toFixed(4) + ")";
+						dataTableRGBA[3].Value + ")";
 					//console.log( rgbaIstr );
 					document.getElementById("pictureBox").style.backgroundColor = rgbaIstr;
 					
