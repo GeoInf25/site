@@ -2,9 +2,18 @@
 
 <head>
 
-	<!-- <link href="https://unpkg.com/tabulator-tables@6.3.1/dist/css/tabulator_midnight.min.css" rel="stylesheet"> -->
 	<!-- <link href="https://unpkg.com/tabulator-tables@6.3.1/dist/css/tabulator_site_dark.min.css" rel="stylesheet"> -->
-	<link href="https://unpkg.com/tabulator-tables@6.3.1/dist/css/tabulator_bulma.min.css" rel="stylesheet"> 
+	<link href="https://unpkg.com/tabulator-tables@6.3.1/dist/css/tabulator.min.css" rel="stylesheet">
+	<!-- <link href="https://unpkg.com/tabulator-tables@6.3.1/dist/css/tabulator_midnight.min.css" rel="stylesheet"> -->
+
+	<!-- 
+		Temi Tabulator JS
+		Simple
+		Midnight
+		Modern
+		Bootstrap
+		Materialize
+	-->
 	
  	<script type="text/javascript" src="https://unpkg.com/tabulator-tables@6.3.1/dist/js/tabulator.min.js"></script>
 
@@ -107,8 +116,10 @@
 						{ title: "ODD_numbers", field: "ODD_numbers", widthGrow: 2, formatter: "textarea", resizable: false } , 
 						{ title: "PRIME_numbers", field: "PRIME_numbers", widthGrow: 2, formatter: "textarea", resizable: false } , 
 
-						{ title: "FIBONACCI_sequence", field: "FIBONACCI_sequence", widthGrow: 3, formatter: "textarea", resizable: false , 
+						{ title: "FIBONACCI_sequence", field: "FIBONACCI_sequence", widthGrow: 3, resizable: false , 
 							formatter: function(cell) { 
+								//Forza la cella a comportarsi come una textarea (gestisce i testi lunghi e va a capo)
+    							cell.getElement().style.whiteSpace = "pre-wrap";
 								let valore = cell.getValue(); 
 								if ( valore === "" ) return ""; //Attenzione a === //console.log( valore ); 
 
@@ -124,12 +135,14 @@
     						}
 						} ,
 
-						{ title: "FACTORIAL", field: "FACTORIAL", widthGrow: 3, formatter: "textarea", resizable: false , 
+						{ title: "FACTORIAL", field: "FACTORIAL", widthGrow: 3, resizable: false ,  
 							formatter: function(cell) { 
+								//Forza la cella a comportarsi come una textarea (gestisce i testi lunghi e va a capo)
+    							cell.getElement().style.whiteSpace = "pre-wrap";
 								let valore = cell.getValue(); 
 								if ( valore === "" ) return ""; //Attenzione a === //console.log( valore ); 
 
-								if( ( "" + valore ).length <= 15 ) { //Verifica NUMERO CIFRE
+								if( ( "" + valore ).length <= 15 ) { //Verifica NUMERO CIFRE (preferibile NON superare le 15 cifre)
 									// Formatta usando le regole locali (es. 'it-IT' per l'italiano)
 									return new Intl.NumberFormat('it-IT', {
 										//notation: "compact",
@@ -186,7 +199,7 @@
 
 			<h2 style="margin: 0vh; padding: 0vh 0vh 1vh 0vh; ">📑NUMBER BASE</h2>
 
-			<div id="tableBase" style="width: 80%; max-width: 80%; float: left; margin: 0; padding: 0; " ></div> 
+			<div id="tableBase" style="width: 100%; max-width: 100%; float: left; margin: 0; padding: 0; " ></div> 
 			<!-- height: 10vh; max-height: 10vh; -->
 
 			<script>
@@ -224,38 +237,71 @@
 					//autoColumns: true, // Crea automaticamente le colonne in base alle chiavi 
 					layout: "fitColumns",
 					columns: [ 
-						{ title: "Base02", field: "Base02", widthGrow: 1, formatter: "textarea", resizable: false , editor: "input" } , 
-						{ title: "Base03", field: "Base03", widthGrow: 1, formatter: "textarea", resizable: false , editor: "input" } , 
-						{ title: "Base04", field: "Base04", widthGrow: 1, formatter: "textarea", resizable: false , editor: "input" } , 
-						{ title: "Base05", field: "Base05", widthGrow: 1, formatter: "textarea", resizable: false , editor: "input" } , 
-						{ title: "Base06", field: "Base06", widthGrow: 1, formatter: "textarea", resizable: false , editor: "input" } , 
-						{ title: "Base07", field: "Base07", widthGrow: 1, formatter: "textarea", resizable: false , editor: "input" } , 
-						{ title: "Base08", field: "Base08", widthGrow: 1, formatter: "textarea", resizable: false , editor: "input" } , 
-						{ title: "Base09", field: "Base09", widthGrow: 1, formatter: "textarea", resizable: false , editor: "input" } , 
-						{ title: "Base10", field: "Base10", widthGrow: 1, formatter: "textarea", resizable: false , editor: "input" } , 
-						{ title: "Base11", field: "Base11", widthGrow: 1, formatter: "textarea", resizable: false , editor: "input" } , 
-						{ title: "Base12", field: "Base12", widthGrow: 1, formatter: "textarea", resizable: false , editor: "input" } , 
-						{ title: "Base13", field: "Base13", widthGrow: 1, formatter: "textarea", resizable: false , editor: "input" } , 
-						{ title: "Base14", field: "Base14", widthGrow: 1, formatter: "textarea", resizable: false , editor: "input" } , 
-						{ title: "Base15", field: "Base15", widthGrow: 1, formatter: "textarea", resizable: false , editor: "input" } ,
-						{ title: "Base16", field: "Base16", widthGrow: 1, formatter: "textarea", resizable: false , editor: "input" } 
+						{ title: "Base02", field: "Base02", headerTooltip: true, widthGrow: 2, formatter: "textarea", resizable: false , editor: "input" } , 
+						{ title: "Base03", field: "Base03", headerTooltip: true, widthGrow: 2, formatter: "textarea", resizable: false , editor: "input" } , 
+						{ title: "Base04", field: "Base04", headerTooltip: true, widthGrow: 2, formatter: "textarea", resizable: false , editor: "input" } , 
+						{ title: "Base05", field: "Base05", headerTooltip: true, widthGrow: 1.5, formatter: "textarea", resizable: false , editor: "input" } , 
+						{ title: "Base06", field: "Base06", headerTooltip: true, widthGrow: 1.5, formatter: "textarea", resizable: false , editor: "input" } , 
+						{ title: "Base07", field: "Base07", headerTooltip: true, widthGrow: 1.5, formatter: "textarea", resizable: false , editor: "input" } , 
+						{ title: "Base08", field: "Base08", headerTooltip: true, widthGrow: 1, formatter: "textarea", resizable: false , editor: "input" } , 
+						{ title: "Base09", field: "Base09", headerTooltip: true, widthGrow: 1, formatter: "textarea", resizable: false , editor: "input" } , 
+						{ 
+							title: "Base10", field: "Base10", headerTooltip: true, widthGrow: 1, resizable: false , editor: "input" , //BASE 10 (!)
+							formatter: function(cell, formatterParams, onRendered){
+								//formatterParams.type = "textarea"; //formatter: "textarea" 
+								//formatterParams: { type: "textarea" }
+								//NON FUNZIONANTI
+								//Forza la cella a comportarsi come una textarea (gestisce i testi lunghi e va a capo)
+    							cell.getElement().style.whiteSpace = "pre-wrap";
+            					cell.getElement().style.backgroundColor = "#ffff00";
+        						return( cell.getValue() ); 
+            				} 
+						} , 
+						{ title: "Base11", field: "Base11", headerTooltip: true, widthGrow: 1, formatter: "textarea", resizable: false , editor: "input" } , 
+						{ title: "Base12", field: "Base12", headerTooltip: true, widthGrow: 1, formatter: "textarea", resizable: false , editor: "input" } , 
+						{ title: "Base13", field: "Base13", headerTooltip: true, widthGrow: 1, formatter: "textarea", resizable: false , editor: "input" } , 
+						{ title: "Base14", field: "Base14", headerTooltip: true, widthGrow: 1, formatter: "textarea", resizable: false , editor: "input" } , 
+						{ title: "Base15", field: "Base15", headerTooltip: true, widthGrow: 1, formatter: "textarea", resizable: false , editor: "input" } ,
+						{ title: "Base16", field: "Base16", headerTooltip: true, widthGrow: 1, formatter: "textarea", resizable: false , editor: "input" } 
 					] 
 
 				} ); 
 
+				//Vedi INPUT CSS
+
 				tableBase.on("cellEdited", function(cell) { 
-					//console.log( "Test ... " )
-					const valore = cell.getValue();
+					//console.log( "Test ... " ) 
+					const value = cell.getValue().toLowerCase();
 					//const col = cell.getColumn();
 					//const row = cell.getRow();
 					const rowIndex = cell.getTable().getRows("data").indexOf(cell.getRow());
 					const colIndex = cell.getTable().getColumns("data").indexOf(cell.getColumn());
-					console.log( valore + "::" + rowIndex + "::" + colIndex )
+					//console.log( "Value: " + value + " :: " + "RowIndex: " + rowIndex + " :: " + "ColIndex: " + colIndex )
 					
-					for( i=0; i<=14; i++ ) { //Attenzione agli indici: in Tabella parto da 0, per le Basi da 2 ... 
-						if( i != colIndex ) {
-							dataTableBase[ rowIndex ][ "Base" + ("0" + (i+2) ).slice(-2) ] = parseInt( valore , (colIndex+2) ).toString( (i+2) );
+					const validChars = "0123456789abcdef".substring(0, (colIndex+2) ); //Entro i limiti della BASE (colIndex+2)
+					var error = false; 
+
+					for (var digit of value ) {
+        				if (!validChars.includes( digit )) {
+            				error = true; // Trovato un carattere NON valido per questa BASE
+        				}
+					}
+
+					if( error == true ) {
+						for( i=0; i<=14; i++ ) { //Attenzione agli indici: in Tabella parto da 0, per le Basi da 2 ... 
+							//if( i != colIndex ) { //Verifico ERRORI
+							dataTableBase[ rowIndex ][ "Base" + ("0" + (i+2) ).slice(-2) ] = "Not a Number";
+							//}
 						}
+
+					} else {
+
+						for( i=0; i<=14; i++ ) { //Attenzione agli indici: in Tabella parto da 0, per le Basi da 2 ... 
+							//if( i != colIndex ) { //Verifico ERRORI
+							dataTableBase[ rowIndex ][ "Base" + ("0" + (i+2) ).slice(-2) ] = parseInt( value , (colIndex+2) ).toString( (i+2) );
+							//}
+						}
+
 					}
 					
 					tableBase.setData( dataTableBase );
@@ -271,53 +317,112 @@
 
 			<h2 style="margin: 0vh; padding: 0vh 0vh 1vh 0vh; ">📑PICTURE BOX</h2>
 
-			<div id="tablePictureBox" style="width: 80%; max-width: 80%; height: 20vh; max-height: 20vh; float: left; margin: 0; padding: 0; " ></div>
+			<div id="pictureBox" 
+				style="width: 5%; max-width: 5%; height: 10vh; max-height: 10vh; float: left; margin: 0vh 1vh 0vh 0vh; padding: 0; border: 2px solid #000000; " 
+			></div>
+
+			<div id="tableRGBA" style="width: 60%; max-width: 60%; height: 25vh; max-height: 25vh; float: left; margin:0; padding: 0; " ></div>
 
 			<script>
 
+				var dataTableRGBA = [ 
+					{
+						Color: "Red" , Value: 50  
+					},
+					{
+						Color: "Green" , Value: 25  
+					},
+					{
+						Color: "Blue" , Value: 101    
+					},
+					{
+						Color: "Alpha" , Value: 110   
+					},
+				]; 
+
+				tableRGBA = new Tabulator( "#tableRGBA", {
+					data: dataTableRGBA , 
+
+					//height: "500px" ,   
+					//progressiveRender: "load", // Renderizza i dati a blocchi in background [3, 4]
+					renderVertical: "virtual", // Forza il Virtual DOM verticale [2, 5]
+					virtualDom: true,
+					//layout: "fitData", // Evita continui ricalcoli delle colonne [6] 
+					//virtualDomBuffer: 300,
+					
+					//autoColumns: true, // Crea automaticamente le colonne in base alle chiavi 
+					layout: "fitColumns",
+					rowHeight: Math.round(( 5.0 / 100.0) * window.innerHeight) , //Conversione in 5vh 
+					columns: [ 
+						{ 
+							title: "Color", field: "Color", widthGrow: 1, resizable: false , 
+							formatter: function(cell, formatterParams, onRender) { 
+								//Forza la cella a comportarsi come una textarea (gestisce i testi lunghi e va a capo)
+    							cell.getElement().style.whiteSpace = "pre-wrap";
+
+								const rowIndex = cell.getTable().getRows("data").indexOf(cell.getRow());
+								//const colIndex = cell.getTable().getColumns("data").indexOf(cell.getColumn());
+								return( dataTableRGBA[ rowIndex ].Color + " (" + dataTableRGBA[ rowIndex ].Value + ")" ); //Attenzione a cell.getValue() ed alle propagazioni ...  
+
+							}
+							//mutator
+						} , //editor: "input"
+						{ 
+							title: "Value", 
+							field: "Value", 
+							widthGrow: 6, 
+							formatter: "progress", 
+							editor: "progress" , //number
+							resizable: false , 
+							//cellVertAlign: "middle", //NON valido
+							formatterParams: {
+								min: 0,
+								max: 255,
+								//color: "...", //Colore della barra (es. Blu)
+
+								//legend: true //Mostra il valore numerico al centro della barra
+								legend: function( value ) { //Iniettiamo la legenda dinamica
+									roundValue = Math.round(value) + ""; //%
+									return roundValue;
+								}
+							} , 
+							editorParams: { //Modifica Utente 
+        						min: 0,
+        						max: 255,
+    						} , 
+							//mutator
+						} 
+
+					] 
+
+				} ); 
+
+				tableRGBA.on("tableBuilt", function() { //Aggiornamento PictureBox
+					document.getElementById("pictureBox").style.backgroundColor = 
+						"rgba(" + dataTableRGBA[0].Value + ", " + dataTableRGBA[1].Value + ", " + dataTableRGBA[2].Value + ", " + 
+						(dataTableRGBA[3].Value / 255.0 ).toFixed(4) + ")";
+				}); 
+
+				tableRGBA.on("cellEdited", function(cell) { 
+					const rowIndex = cell.getTable().getRows("data").indexOf(cell.getRow());
+					newModifiedValue = cell.getElement().innerText; //NON cell.getValue() valore NON formattato; //Valore formattato tramite LEGEND
+					dataTableRGBA[ rowIndex ].Value = parseInt( newModifiedValue , 10 );   
+					//console.log( dataTableRGBA );
+					//tableRGBA.getRows()[ rowIndex ].update( { col : value } );
+
+					//tableRGBA.setData( dataTableRGBA ); //PONE PROBLEMI CON IL VERTICAL SCROLL
+					tableRGBA.getRows()[ rowIndex ].getCell("Color").getElement().innerText = dataTableRGBA[ rowIndex ].Color + " (" + dataTableRGBA[ rowIndex ].Value + ")";
+
+					//Aggiornamento PictureBox
+					rgbaIstr = "rgba(" + dataTableRGBA[0].Value + ", " + dataTableRGBA[1].Value + ", " + dataTableRGBA[2].Value + ", " + 
+						( dataTableRGBA[3].Value / 255.0 ).toFixed(4) + ")";
+					//console.log( rgbaIstr );
+					document.getElementById("pictureBox").style.backgroundColor = rgbaIstr;
+					
+				});
+
+
 			</script>
-
-			<div >
-				<table>
-					<tr>
-						<td>Rosso: </td> <td ><input type="range" id="sliderRed" class="slider"  min="0" max="255"  value="255" oninput="changeColor();"></td>
-					</tr>
-					<tr>
-						<td>Verde: </td> <td ><input type="range" id="sliderGreen" class="slider" min="0" max="255"  value="150" oninput="changeColor();"></td>
-					</tr>
-					<tr>
-						<td>Blu: </td> <td ><input type="range" id="sliderBlue" class="slider" min="0" max="255"  value="0" oninput="changeColor();"></td>
-					</tr>
-					<tr>
-						<td>Alpha: </td> <td ><input type="range" id="sliderAlpha" class="slider" min="0" max="100"  value="255" oninput="changeColor();"></td>
-					</tr>
-
-				</table>
-			</div>
-
-			<script>
-				function changeColor() {
-					valueRed = document.getElementById( "sliderRed" ).value;
-					valueGreen = document.getElementById( "sliderGreen" ).value;
-					valueBlue = document.getElementById( "sliderBlue" ).value;
-					valueAlpha = document.getElementById( "sliderAlpha" ).value;
-					valueAlphaFloat = ( valueAlpha / 100.00 ).toFixed(2);
-					document.getElementById("div_pictureBox").style.backgroundColor = 'rgba(' + valueRed + ',' + valueGreen + ',' + valueBlue + ',' + valueAlphaFloat + ')';
-					document.getElementById("txt_valueColor").value = '(' + valueRed + ',' + valueGreen + ',' + valueBlue + ',' + valueAlphaFloat + ')'
-				}
-
-			</script>
-			<br>
-			Valore del colore (rgba, con a / alpha trasparenza):
-			<br>
-			<input type="text" id="txt_valueColor" class= "centerInputText" size="12" >
-			<br>
-
-			<script>
-				changeColor();
-			</script>
-
-
 
 		</div> 
 
