@@ -1,108 +1,107 @@
 <html>
 
-<head>
+<head>  
 
 	<link rel="stylesheet" href="styleGeoInf.css">
 
-	<style>
-		
-		li {
-			list-style: none; /* Hide default bullet */
-			position: relative;
-			padding-left: 20px;
-		}
-
-		li::before {
-			content: "✔"; /* Or a Font Awesome unicode like "\f00c" */
-			color: green;
-			position: absolute;
-			left: 5px; /* Adjust based on alignment needs */ /* -20px */ 
-		}
-		
-	</style>
-
 </head>
 
-<body style = "overflow-y: scroll" >
+<body > <!-- style = "overflow-y: scroll" -->
+
+	<!-- HEADER -->
+	<button id="tab_schedaJavascript" style="background-color: lightgray ; color: green; padding: 0vh 0vh; font-size: 1.75vh; font-weight: bold; font-style: italic; border-radius: 1vh; width: 100%; min-width: 16vh; height: 3.0vh; border-color: green; " disabled>- ABOUT -</button>	<!-- cursor: pointer; -->	
+
+	<!-- BODY -->
+	<div id="tabellaAbout" class="grid" style="height: 84vh; overflow-y: scroll; " >
+
+		<div id="blocco01About" class="span4 roundBorder" >
+
+			<h2 style="margin: 0vh; padding: 0vh 0vh 1vh 0vh; ">📑LINKS FOR IT / ELECTRONICS AND SURVEYING / BUILT ENVIRONMENT</h2>
+
+			<div id="divLinks" style="width: 80%; max-width: 80%; float: left; margin: 0; padding: 0; " >
+			<!-- height: 50vh; max-height: 50vh; -->
+				<br>
+				📜 <a href="http://150.146.207.184:8080/chargefinder/WebContent/file_view.html">ChargeFinder LabGeoInf</a> (GIS Application, concerning myself)
+				<br>
+				<br>
+				📝 Theory:
+					<li> <a href="https://www.w3schools.com/">W3Schools</a> (Programming Languages) </li>
+					<li> <a href="https://www.acn.gov.it/portale/e-academy">E-Academy</a> (E-Academy ACN Cybersecurity) </li>
+					<li> <a href="https://www.edutecnica.it/">EduTecnica</a> (Lessons on Mechanical, Electronic, and IT systems) </li>
+					<li> <a href="https://www.vitobarone.it/elettrotecnica.htm">Prof. Barone</a> (Electrotechnics) </li>
+					<li> <a href="https://www.alfredocentinaro.it/">Prof. Centinaro</a> (Computer Science) </li>
+					<li> <a href="https://www.circuitlab.com/">CircuitLab</a> (Electrical Circuit Simulation) </li>
+					<li> <a href="https://profzanghi.weebly.com/">Prof. Zanghi</a> (Surveyors) </li>
+					<li> <a href="https://www.oppo.it/home.html">OPPO</a> (Tables and Sections) </li>
+				<!-- <br> -->
+				<br>
+				📝 Computer Science:
+					<li> <a href="https://skilldrick.github.io/easy6502/">Skilldrick 6502</a> (6502 Microprocessor Assembly) </li>
+					<li> <a href="https://github.com/marcodotsh/programmazione-in-c-esercizi/tree/main">GitHub Marcodotsh - Esercizi in C</a> (C Programming Language) </li>
+					<li> <a href="https://www.spyder-ide.org/">Spyder IDE</a> (Python IDE) </li>
+					<li> <a href="https://streamlit.io/">Streamlit Python</a> (Website Creation in Python) </li>
+					<li> <a href="https://remix-project.org/?lang=it">Remix IDE</a> (Solidity IDE / Blockchain) </li>
+					<li> <a href="https://stackoverflow.com/questions">Stackoverflow</a> (StackOverflow Questions) </li>
+					<li> <a href="https://www.arduino.cc/">Arduino</a> (Arduino platform) </li>
+					<li> <a href="https://cheerpj.com/">CheerpJ</a> (Java / JVM for Browsers) </li>
+					<li> <a href="https://browserify.org/">Browserify</a> (Client-side Bundler (for Browsers), useful for reusing NPM Packages designed for the Server side (Node.js)) </li>
+					<li> <a href="https://pygame-web.github.io/wiki/pygbag/">Pygbag / Pygame wasm</a> (Pygame executable on the Web) </li>
+					<li> <a href="https://pypi.org/project/pikepdf/">PikePdf</a> (PDF File Management) </li>
+					<li> <a href="https://github.com/copy/v86?tab=readme-ov-file#demos">Github copy/v86</a> (Emulation of old Operating Systems) </li>
+					<li> <a href="https://copy.sh/v86/">Damn Small Linux - copy/v86</a> (Operating System Emulation, specifically Damn Small Linux) </li>
+					<li> <a href="https://duckdb.org/">DuckDB</a> (DuckDB Database) </li>
+					<li> <a href="https://dynamobim.org/download/">Dynamo Sandbox</a> (Dynamo Open Source for Visual/Block-based Programming) </li>
+					<li> <a href="https://postgis.net/">PostGIS</a> (PostgreSQL extended for Geospatial Data) </li>
+					<li> <a href="https://www.pgadmin.org/">pgAdmin</a> (pgAdmin for PostgreSQL) </li>
+					<li> <a href="https://sqlitebrowser.org/">DB Browser</a> (DB Browser for SQLite) </li>
+					<li> <a href="https://danfo.jsdata.org/">Danfo js</a> (Danfo JavaScript Library, an alternative to the Python Pandas Library) </li>
+					<li> <a href="https://www.linqpad.net/">LINQPad</a> (Scratchpad for C#) </li>
+				<!-- <br> -->
+				<br>
+				📝 GIS / Geographic Information Systems:
+					<li> <a href="https://gis.stackexchange.com/">gis.stackexchange</a> (GIS StackExchange Questions) </li>
+					<li> <a href="https://qgis.org/">QGIS</a> (QGIS Project) </li>
+					<li> <a href="https://live.osgeo.org/en/index.html">OSGeoLive</a> (OSGeoLive Project) </li>
+					<li> <a href="https://www.osgeo.org/">OSGeo</a> (Open Source Geospatial Foundation) </li>
+					<li> <a href="https://overpass-turbo.eu/">Overpass OpenStreetMap API</a> (Overpass Query) </li>
+					<li> <a href="https://www.nicoladeinnocentis.it/">Geopillole</a> (GIS lessons) </li>
+					<li> <a href="https://idrogeo.isprambiente.it/app/monitoraggio">WebGIS IdroGeo</a> (Landslide monitoring) </li>
+					<li> <a href="https://kartaview.org/landing">Karta View</a> (Collect and share Street Level Imagery) </li>
+					<li> <a href="https://www.graphhopper.com/">Graphhopper</a> (GraphHopper Directions API) </li>
+					<li> <a href="https://www.gisinfrastrutture.it/">GIS Infrastrutture</a> (GIS-focused Blog) </li>
+				<!-- <br> -->
+				<br>
+				📝 Mechanical Technical Drawing:
+					<li> <a href="https://www.prismacad.it/disegni-meccanici/">PrismaCad</a> (Mechanical Drawings) </li>
+					<li> <a href="https://www.ilcalibro.it/">Il Calibro</a> (Mechanical Machining / Processing) </li>
+					<li> <a href="https://www.gdandtbasics.com/">GDandT</a> (Geometric and Dimensional Tolerances) </li>
+					<li> <a href="https://www.tinkercad.com/">Tinkercad</a> (3D Designs and Simulations) </li>
+				<!-- <br> -->
+				<br>
+
+			</div>
+
+			<script>
+				//
+			</script>
+
+		</div>
+
+	</div>
+
+	<!-- FOOTER -->
+	<div style="margin: 1vh; "></div>
+	<div style="height: 10vh; overflow-y: scroll; " >
+		<div id="footer" class="span4 roundBorder" style="font-size: 1.5vh; " > <!-- font-weight: bold; font-style: italic; -->
+			<b>2026 - GEOINF - PLEASE NOTE: libraries, frameworks, Software, suggested links and any other associated elements belong to their respective owners; <u>this Site is simply intended to provide some examples of Applications without any particular purpose</u>.</b>
+			<br>
+			Applications developed in Javascript through <a href="https://github.com/apps/desktop">GitHub Desktop</a> and <a href="https://code.visualstudio.com/">Visual Studio Code</a>. 
+			<br>
+			Test phase is performed locally (see <u>python -m http.server 3000</u>, <u>npx http-server -p 3000</u> (a more full-featured server like http-server via npm, or a custom Python script that implements the Accept-Ranges header), <u>localhost:3000/index.html</u>, with reference to the <a href="https://www.youtube.com/watch?v=H7ZTrqhonHc">CORS Policy</a>).
+		</div>
+	</div>
+
 	
-	Alcune Applicazioni sviluppate tramite GIT, GitHub Desktop e Visual Studio Code.
-	<br>
-	<br> 
-	Fase di Test eseguita in locale (vedi <u>python -m http.server 3000</u> oppure <u>npx http-server -p 3000</u> (server più completo come http-server (via npm) o uno script Python personalizzato che implementi l'header Accept-Ranges), localhost:3000/index.html</u>, in riferimento alle <a href="https://www.youtube.com/watch?v=H7ZTrqhonHc">CORS Policy</a>). 
-	<br>
-	<br>
-	<b>*** ATTENZIONE ***: le Librerie, i Framework, i Programmi / Software ed eventuali altri elementi ad essi associati appartengono ai rispettivi proprietari; il presente Sito vuole fornire semplicemente alcuni esempi di Applicazioni senza alcuna finalità particolare.</b>
-	<br>
-	<br>
-	<li> <a href="http://150.146.207.184:8080/chargefinder/WebContent/file_view.html">ChargeFinder LabGeoInf</a> (Applicazione in ambito GIS, <u>riguardante la mia persona</u>) </li>
-	<br>
-	Ulteriori Link utili relativi al mondo dell'Informatica / Elettronica e del mondo CAT (Costruzioni-Ambiente-Territorio):  
-	<br>
-	<ul>
-		<b>*** ATTENZIONE ***: i contenuti proposti nei Link esterni seguenti appartengono ai rispettivi proprietari. </b>
-		<br>
-		<br>
-	&#9632; Teoria:
-		<li> <a href="https://www.w3schools.com/">W3Schools</a> (Linguaggi di programmazione) </li>
-		<li> <a href="https://www.acn.gov.it/portale/e-academy">E-Academy</a> (E-Academy ACN Cybersecurity) </li>
-		<li> <a href="https://www.edutecnica.it/">EduTecnica</a> (Appunti ambito meccanico / elettronico / informatico) </li>
-		<li> <a href="https://www.vitobarone.it/elettrotecnica.htm">Prof. Barone</a> (Appunti Elettrotecnica) </li>
-		<li> <a href="https://www.alfredocentinaro.it/">Prof. Centinaro</a> (Appunti Informatica) </li>
-		<li> <a href="https://www.circuitlab.com/">CircuitLab</a> (Simulazione circuiti elettrici) </li>
-		<li> <a href="https://profzanghi.weebly.com/">Prof. Zanghi</a> (Appunti ambito Geometra) </li>
-		<li> <a href="https://www.oppo.it/home.html">OPPO</a> (Tabelle e Sezioni) </li>
-	&#9632; Informatica:
-		<li> <a href="https://skilldrick.github.io/easy6502/">Skilldrick 6502</a> (Assembly Microprocessore 6502) </li>
-		<li> <a href="https://github.com/marcodotsh/programmazione-in-c-esercizi/tree/main">GitHub Marcodotsh - Esercizi in C</a> (Linguaggio C) </li>
-		<li> <a href="https://www.spyder-ide.org/">Spyder IDE</a> (IDE Python) </li>
-		<li> <a href="https://streamlit.io/">Streamlit Python</a> (Creazione Siti Web in Python) </li>
-		<li> <a href="https://remix-project.org/?lang=it">Remix IDE</a> (IDE Solidity / Blockchain) </li>
-		<li> <a href="https://stackoverflow.com/questions">stackoverflow</a> (StackOverflow Questions) </li>
-		<li> <a href="https://www.arduino.cc/">Arduino</a> (Piattaforma Arduino) </li>
-		<li> <a href="https://cheerpj.com/">CheerpJ</a> (Java / JVM for the Browser) </li>
-		<li> <a href="https://browserify.org/">Browserify</a> (Bundler / Impacchettatore lato Client (per Browser), utile per riutilizzare pacchetti NPM pensati lato Server (Node.js)) </li>
-		<li> <a href="https://pygame-web.github.io/wiki/pygbag/">Pygbag / Pygame wasm</a> (Pygame eseguibile sul Web) </li>
-		<li> <a href="https://pypi.org/project/pikepdf/">PikePdf</a> (Gestione file Pdf) </li>
-		<li> <a href="https://github.com/copy/v86?tab=readme-ov-file#demos">Github copy/v86</a> (Emulazione Sistemi Operativi del passato) </li>
-		<li> <a href="https://copy.sh/v86/">Damn Small Linux - copy/v86</a> (Emulazione Sistemi Operativi, in particolare Damn Small Linux) </li>
-		<li> <a href="https://duckdb.org/">DuckDB</a> (Database DuckDB) </li>
-		<li> <a href="https://dynamobim.org/download/">Dynamo Sandbox</a> (Dynamo Open Source per la programmazione visuale / a blocchi) </li>
-		<li> <a href="https://postgis.net/">PostGIS</a> (PostgreSQL esteso a dati di natura geospaziale) </li>
-		<li> <a href="https://www.pgadmin.org/">pgAdmin</a> (pgAdmin for PostgreSQL) </li>
-		<li> <a href="https://sqlitebrowser.org/">DB Browser</a> (DB Browser for SQLite) </li>
-		<li> <a href="https://danfo.jsdata.org/">Danfo js</a> (Libreria Javascript Danfo alternativa alla Libreria Python Pandas) </li>
-		<li> <a href="https://www.linqpad.net/">LINQPad</a> (Scratchpad per C#) </li>
-	&#9632; GIS / Sistemi Informativi Territoriali:
-		<li> <a href="https://gis.stackexchange.com/">gis.stackexchange</a> (GIS StackExchange Questions) </li>
-		<li> <a href="https://qgis.org/">QGIS</a> (QGIS Project) </li>
-		<li> <a href="https://live.osgeo.org/en/index.html">OSGeoLive</a> (OSGeoLive Project) </li>
-		<li> <a href="https://www.osgeo.org/">OSGeo</a> (Open Source Geospatial Foundation) </li>
-		<li> <a href="https://overpass-turbo.eu/">Overpass OpenStreetMap API</a> (Overpass Query) </li>
-		<li> <a href="https://www.nicoladeinnocentis.it/">Geopillole</a> (Pillole di GIS) </li>
-		<li> <a href="https://idrogeo.isprambiente.it/app/monitoraggio">WebGIS IdroGeo</a> (Monitoraggio frane) </li>
-		<li> <a href="https://kartaview.org/landing">Karta View</a> (Collect and share street level imagery) </li>
-		<li> <a href="https://www.graphhopper.com/">Graphhopper</a> (GraphHopper Directions API) </li>
-		<li> <a href="https://www.gisinfrastrutture.it/">GIS Infrastrutture</a> (Blog ambito GIS) </li>
-	&#9632; Disegno tecnico Meccanico:
-		<li> <a href="https://www.prismacad.it/disegni-meccanici/">PrismaCad</a> (Disegni meccanici) </li>
-		<li> <a href="https://www.ilcalibro.it/">Il Calibro</a> (Lavorazioni meccaniche) </li>
-		<li> <a href="https://www.gdandtbasics.com/">GDandT</a> (Tolleranze geometriche e dimensionali) </li>
-		<li> <a href="https://www.tinkercad.com/">Tinkercad</a> (Disegni 3D e simulazioni) </li>
-		
-	</ul>
-
-	<script>
-
-		//
-
-	</script>
-
-	<script>
-
-		//
-
-	</script>
-
 
 </body>
 
