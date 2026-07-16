@@ -436,7 +436,7 @@
 		consoleApp.element.style.fontSize = "1.3vh";
 
 		ufoDataset = new Tabulator( "#ufoDataset", {
-			data: dataUfoDataset, // Carica i dati 
+			//data: dataUfoDataset, // CARICAMENTO DATI ESEGUITO IN SEGUITO (!!!)
 
 			//height: "500px" ,   
 			//progressiveRender: "load", // Renderizza i dati a blocchi in background [3, 4]
@@ -665,13 +665,13 @@
 		});
 		*/
 
-		ufoDataset.on("tableBuilt", function(){
+		//ufoDataset.on("tableBuilt", function(){
     		// Esempio: esegui un'azione sicura qui, come impostare un ordinamento iniziale
 			//ufoDataset.setData( dataUfoDataset )
     		//ufoDataset.redraw(true); 
-			console.log( "ufoDataset: tableBuilt (!)" );
+			//console.log( "ufoDataset: tableBuilt (!)" );
 			 
-		});
+		//});
 		
 		var divNote = L.control({ position: 'bottomright' });
 
@@ -761,8 +761,12 @@
 
 		const url = "https://geoinf25.github.io/site/GIS/UfoDataset.csv";
 
+		ufoDataset.on("tableBuilt", function()
+		{
+		console.log( "ufoDataset: tableBuilt (!)" );
+		//
 		dfd.readCSV( url , { header: false } )
-			.then(df => {
+			.then( ( df ) => {
 				//Header 0,1,2 ... NON rimovibile
 
 				const righe = Array.from({ length: df.shape[0] }, (_, i) => i ); //Parto da 0 ... 
@@ -835,23 +839,24 @@
 
 				dataUfoDataset = dfd.toJSON( ndf )
 
-				//ufoDataset.on("tableBuilt", function(){
+				//ufoDataset.on("tableBuilt", function(){ 
 					//ufoDataset.setData( dataUfoDataset )
 				//});
-
+	
 				// Se carichi i dati dopo l'inizializzazione
 				ufoDataset.setData(dataUfoDataset).then(function(){
-    				// Forza Tabulator a ricalcolare le posizioni del Virtual DOM
-
+					// Forza Tabulator a ricalcolare le posizioni del Virtual DOM
 					ufoDataset.setSort("ID", "asc"); //INDISPENSABILE PER VIRTUAL DOM (!!!) //Altri campi: datetime, ... 
-    				//ufoDataset.redraw(true); 
-				});
+					//ufoDataset.redraw(true); 
 
-
-			})
+				});  
+			}) //Eventuali ulteriori then ... 
 			.catch(err => {
 				console.log(err);
-			});
+			}); 
+
+			}
+			) //TableBuilt ... 
 		
 
 	</script>
