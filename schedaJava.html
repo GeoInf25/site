@@ -39,7 +39,12 @@
     		</script>
 			-->
 
-			<div id="java-container" style="width: 300; height: 438; "></div> <!-- "width: 99%; height: 92%; " -->
+			<div id="java-container" 
+				style="width: 292px; height: 430px;  
+					display: flex; 
+					justify-content: center; align-items: center;
+					margin: 0 auto; "
+			></div> <!-- "width: 99%; height: 92%; " -->
 			<!-- height: 70vh; -->
 
 			<script>
@@ -55,7 +60,7 @@
 					//console.log( "Verifica Display Java: " + document.getElementById( "java-container" ).offsetHeight );  
 					//cheerpjCreateDisplay( document.getElementById('java-container').offsetWidth - 10, document.getElementById('java-container').offsetHeight - 5 , document.getElementById('java-container')  );
 
-					cheerpjCreateDisplay( 292, 430, document.getElementById('java-container')  );
+					cheerpjCreateDisplay( "100%", "100%", document.getElementById('java-container')  );
 
 					// Esegue il JAR della calcolatrice //http://localhost:3000/app001.jar
 					//await cheerpjRunJar("/app/site/app001.jar");
