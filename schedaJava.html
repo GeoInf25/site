@@ -39,11 +39,14 @@
     		</script>
 			-->
 
+			<!-- style="width: 292; height: 430;  
+				display: flex; 
+				justify-content: center; align-items: center;
+				margin: 0 auto; " 
+			-->
+
 			<div id="java-container" 
-				style="width: 292; height: 430;  
-					display: flex; 
-					justify-content: center; align-items: center;
-					margin: 0 auto; "
+				style="width: 292; height: 430; "
 			></div> <!-- "width: 99%; height: 92%; " -->
 			<!-- height: 70vh; -->
 
@@ -58,6 +61,7 @@
 
 					// Crea il display all'interno del div con le stesse dimensioni
 					//console.log( "Verifica Display Java: " + document.getElementById( "java-container" ).offsetHeight );  
+
 					//cheerpjCreateDisplay( document.getElementById('java-container').offsetWidth - 10, document.getElementById('java-container').offsetHeight - 5 , document.getElementById('java-container')  );
 
 					cheerpjCreateDisplay( 292 , 430 , document.getElementById('java-container')  );
@@ -66,7 +70,7 @@
 					//await cheerpjRunJar("/app/site/app001.jar");
 					await cheerpjRunJar("/app/site/MainGUI.jar");
 
-				})();
+				})(); 
 
 			</script>
 
