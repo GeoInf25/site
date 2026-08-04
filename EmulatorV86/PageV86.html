@@ -1,17 +1,19 @@
 
 
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <title>My Browser OS</title>
     <script src="./libv86.js"></script> 
 
+    <link rel="stylesheet" href="https://geoinf25.github.io/site/styleGeoInf.css">
+
     <style>
-        #screen_container {
+        #screen_container { 
 
             white-space: pre-wrap; /* Preserve terminal formatting */
-            font-family: 'Courier New', Courier, monospace;
+            font-family: monospace , 'Courier New', Courier;
 
             image-rendering: pixelated; 
 
@@ -21,8 +23,64 @@
 </head>
 <body>
 
-    <div id="screen_container" >
+    <div>
+        <!-- border: 1px solid -->
+        <div id="screen_container" style="width: 59.5%; height: 100%; float: left; margin: 0; padding: 0; " >
+        </div>
+
+        <div id="commands" style="width: 39.5%; height: 100%; float: right; margin: 0; padding: 0; " >
+
+            <div id="tabellaLinux" class="grid" style="height: 99vh; overflow-y: scroll; " >
+		        <div id="blocco01Linux" class="span4 roundBorder" >
+
+                    <h2 style="margin: 0vh; padding: 0vh 0vh 1vh 0vh; ">📑 LINUX COMMANDS:</h2>
+                    <br>
+
+                    Start the virtual machine via "Boot TinyCore" and open the Terminal, then try the following commands:
+                    <br>
+                    <br>
+
+                    ✦ <b><i>echo ... </i></b>: it displays messages or variables   
+                    <br>
+                    ✦ <b><i>pwd</i></b>: it shows your current directory 
+                    <br>
+                    ✦ <b><i>ping -c 1 8.8.8.8</i></b>: it checks connectivity to Google (sending one packet)
+                    <br>
+                    ✦ <b><i>ls -l</i></b>: it shows detailed information about files 
+                    <br>
+                    ✦ <b><i>cd ..</i></b>: it means "change directory", which lets you move to the parent folder 
+                    <br>
+                    ✦ <b><i>date</i></b>: displays day, month, time, timezone, and year 
+                    <br>
+                    ✦ <b><i>whoami</i></b>: prints only your current username 
+                    <br>
+                    <br>
+
+                    ✦✦✦ <b><i>REFERENCES</i></b>: 
+                        <a href="https://github.com/copy/v86">GitHub V86</a>
+                        <a href="https://copy.sh/v86/">Copy V86</a>
+                        <a href="http://www.tinycorelinux.net/">TinyCoreLinux</a>  
+                    <br>
+                    <br>
+
+                    ✦✦✦ <b><i>ALTERNATIVE OS LINUX TO TEST (in this context)</i></b>: 
+                        <a href="https://alpinelinux.org/downloads/">AlpineLinux</a>
+                    <br>
+                    <br>
+
+                    ✦✦✦ <b><i>NOTE</i></b>: 
+                        This machine operates entirely within the <u>Client computer's RAM</u>
+                    <br>
+
+
+                </div>
+            </div>
+                    
+
+        </div>
+
     </div>
+    
 
     <script>
 
@@ -33,7 +91,7 @@
             emulator = new V86({ //NON V86Starter o simili
 
             wasm_path: "./v86.wasm",
-            memory_size: 3500 * 1024 * 1024, // 4GB RAM //256 MB - 256 * 1024 * 1024
+            memory_size: 2000 * 1024 * 1024, // 3500 * 1024 * 1024 // 4GB RAM //256 MB - 256 * 1024 * 1024
             vga_memory_size: 64 * 1024 * 1024, //8 * 1024 * 1024
             screen_container: document.getElementById("screen_container"),
             bios: { url: "./bios/seabios.bin" },
