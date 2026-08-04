@@ -1,0 +1,65 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Browser OS</title>
+    <script src="./libv86.js"></script> 
+
+    <style>
+        #screen_container {
+
+            white-space: pre-wrap; /* Preserve terminal formatting */
+            font-family: 'Courier New', Courier, monospace;
+
+            image-rendering: pixelated; 
+
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="screen_container" >
+    </div>
+
+    <script>
+
+        var emulator = null; 
+
+        window.onload = function() { 
+
+            emulator = new V86({ //NON V86Starter o simili
+
+            wasm_path: "./v86.wasm",
+            memory_size: 3500 * 1024 * 1024, // 4GB RAM //256 MB - 256 * 1024 * 1024
+            vga_memory_size: 64 * 1024 * 1024, //8 * 1024 * 1024
+            screen_container: document.getElementById("screen_container"),
+            bios: { url: "./bios/seabios.bin" },
+            vga_bios: { url: "./bios/vgabios.bin" },
+
+            cdrom: { url: "./TinyCore-current.iso" },
+
+            network_relay_url: "wss://relay.widgetry.org/", // Un relay pubblico comune
+
+            virtio_console: true ,
+
+            //Set boot order: 0x213 indica CD / Floppy / Hard Disk)
+            boot_order: "0x23", 
+
+            autostart: true,
+
+            });
+
+        };
+
+        console.log( "Test V86 ... " );
+
+
+            
+
+    </script>
+
+</body>
+</html>
