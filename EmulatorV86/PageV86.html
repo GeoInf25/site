@@ -1,6 +1,6 @@
 
 
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html>
 <head>
     <meta charset="UTF-8">
@@ -11,17 +11,21 @@
 
     <style>
         #screen_container { 
+            white-space: pre-wrap; /* ATTENZIONE AI RITORNI A CAPO IN QUESTO CODICE */ /* Preserve terminal formatting */
+            font-family: monospace , 'Courier New', Courier; /* RIEMPIMENTO SFONDO */
+            image-rendering: pixelated;   
+            width: 1300px ; /* 1300px */ /* NON ... % */
+            height: 900px ; /* 900px */ /* NON ... % */
+            margin: 0; 
+            padding: 0; 
+            overflow: scroll;
 
-            white-space: pre-wrap; /* Preserve terminal formatting */
-            font-family: monospace , 'Courier New', Courier;
-
-            image-rendering: pixelated; 
-
+            cursor: none !important;
         }
 
         .btn-custom {
             font-family: "Trebuchet MS";
-            font-size: 1.75vh;
+            font-size: 1.5vh;
         }
 
     </style>
@@ -30,13 +34,16 @@
 
     <div>
         <!-- border: 1px solid -->
-        <div id="screen_container" style="width: 59.5%; height: 100%; float: left; margin: 0; padding: 0; " >
-        </div>
+        <!-- width: 60.5%; height: auto; -->
+        <div id="screen_container" style=" 
+            float: left; 
+            margin: 0; padding: 0;  
+        " ></div> <!-- ATTENZIONE AI RITORNI A CAPO IN QUESTO CODICE -->
 
-        <div id="commands" style="width: 39.5%; height: 100%; float: right; margin: 0; padding: 0; " >
+        <div id="commands" style="width: 29.5%; height: 100%; float: right; margin: 0; padding: 0; " >
 
             <div id="tabellaLinux" class="grid" style="height: 99vh; overflow-y: scroll; " >
-		        <div id="blocco01Linux" class="span4 roundBorder" >
+		        <div id="blocco01Linux" class="span4 roundBorder" style="font-size: 1.5vh; " >
 
                     <h2 style="margin: 0vh; padding: 0vh 0vh 1vh 0vh; ">📑 LINUX COMMANDS:</h2>
                     <br>
@@ -78,18 +85,18 @@
                     <br>
                     <br>
 
-                    Anoher Activities: 
+                    Another Activities: 
                     <br>
                     <br>
 
                     ✦ <input type="file" id="iso-selector" accept=".iso" style="display: none; ">
                     <button id="lang_iso-selector" onclick="document.getElementById('iso-selector').click()" class="btn-custom" >SELECT ISO FILE</button>
                     <br>
+                    ✦ <button id="load-iso-btn" class="btn-custom" >LOAD ISO Image from CD-ROM</button>
+                    <br>
+                    <br>
                     ✦ <input type="file" id="img-selector" accept=".img" style="display: none; ">
                     <button id="lang_img-selector" onclick="document.getElementById('img-selector').click()" class="btn-custom" >SELECT IMG FILE</button>
-                    <br>
-                    <br>
-                    ✦ <button id="load-iso-btn" class="btn-custom" >LOAD ISO Image from CD-ROM</button>
                     <br>
                     ✦ <button id="load-img-btn" class="btn-custom" >BOOT Operating System (IMG)</button>
 
@@ -112,13 +119,15 @@
             emulator = new V86({ //NON V86Starter o simili
 
                 wasm_path: "./v86.wasm",
-                memory_size: 2000 * 1024 * 1024, // 3500 * 1024 * 1024 // 4GB RAM //256 MB - 256 * 1024 * 1024
+                memory_size: 3000 * 1024 * 1024, // 3500 * 1024 * 1024 // 4GB RAM //256 MB - 256 * 1024 * 1024
                 vga_memory_size: 64 * 1024 * 1024, //8 * 1024 * 1024
                 screen_container: document.getElementById("screen_container"),
                 bios: { url: "./bios/seabios.bin" },
                 vga_bios: { url: "./bios/vgabios.bin" },
 
                 //cdrom: { url: "./TinyCore-current.iso" },
+
+                //hda: ... , 
 
                 network_relay_url: "wss://relay.widgetry.org/", // Un relay pubblico comune
 
@@ -164,7 +173,7 @@
             //BOOT Operating System (IMG)
 
             document.getElementById('load-img-btn').addEventListener('click', async function() {
-                /*
+                
                 const fileInput = document.getElementById('img-selector');
                 const file = fileInput.files[0];
 
@@ -172,7 +181,7 @@
                     alert('Please select an IMG file first!');
                     return;
                 }
-                */
+                
 
                 /*
                 const CHUNK_SIZE = 1024 * 1024 * 10; // 10 MB a blocco
@@ -199,12 +208,12 @@
 
                 // Legge l'intero file da 4GB in memoria come ArrayBuffer
                 //const buffer = await file.arrayBuffer();
+                
 
-                /*
                 emulator = new V86({ //NON V86Starter o simili
 
                     wasm_path: "./v86.wasm",
-                    memory_size: 2000 * 1024 * 1024, // 3500 * 1024 * 1024 // 4GB RAM //256 MB - 256 * 1024 * 1024
+                    memory_size: 3000 * 1024 * 1024, // 3500 * 1024 * 1024 // 4GB RAM //256 MB - 256 * 1024 * 1024
                     vga_memory_size: 64 * 1024 * 1024, //8 * 1024 * 1024
                     screen_container: document.getElementById("screen_container"),
                     bios: { url: "./bios/seabios.bin" },
@@ -219,14 +228,13 @@
                     //Set boot order: 0x213 indica CD / Floppy / Hard Disk)
                     boot_order: "0x23", 
 
-                    hda: { buffer: buffer, async: true , size: file.size }, // Passa l'ArrayBuffer del file img
+                    hda: { buffer: file, async: true } , // , size: file.size }, //DA SETTARE ALL'AVVIO (!)
 
-                    autostart: false,
+                    autostart: true, //INDISPENSABILE (!)
 
                 });
-                */
-
-                //emulator.run();
+                
+                //emulator.run(); //NON FUNZIONANTE
 
             });
 
