@@ -1,0 +1,24 @@
+var table = new Tabulator("#example-table", {
+    data: tableData,
+    locale: "en-gb", // Default starting language
+    langs: {
+        "en-gb": {
+            "columns": {
+                "name_label": "Name", // Map keyword to English
+                "age_label": "Age",
+            }
+        },
+        "fr-fr": {
+            "columns": {
+                "name_label": "Nom", // Map keyword to French
+                "age_label": "Âge",
+            }
+        }
+    },
+    columns: [
+        {title: "name_label", field: "name"}, // Tabulator checks 'langs' for this exact string
+        {title: "age_label", field: "age"},
+    ],
+});
+Usa il codice con cautela.Step 2: Trigger the Language ReloadWhen a user toggles a language dropdown button, change the locale. Tabulator will instantly redraw the headers without reloading your data row array.javascript// Instantly reloads headers to French text
+table.setLocale("fr-fr"); 
