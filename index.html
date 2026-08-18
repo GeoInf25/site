@@ -816,9 +816,53 @@
 					}  
 					*/
 					var tempMarker = null; 
+
+					var tempIcon = L.divIcon({
+						html: 
+							`<div style="font-family: 'Trebuchet MS'; text-align: center; ">
+								<div>
+									<span style="font-size: 3.5vh; background: transparent; padding: 1px 3px; border-radius: 3px;">
+										${ ( () => {
+											if( ele[5] == "cylinder" ) { return "🛢️"; }
+											else if( ele[5] == "light" ) { return "🌟"; }
+											else if( ele[5] == "circle" ) { return "⭕"; }
+											else if( ele[5] == "sphere" ) { return "🟠"; }
+											else if( ele[5] == "disk" ) { return "🛸"; }
+											else if( ele[5] == "fireball" ) { return "☄️"; }
+											else if( ele[5] == "unknown" ) { return "❓"; } 
+											else if( ele[5] == "oval" ) { return "🏉"; }
+											else if( ele[5] == "other" ) { return "🖖"; }
+											else if( ele[5] == "cigar" ) { return "🚬"; }
+											else if( ele[5] == "rectangle" ) { return "🔲"; }
+											else if( ele[5] == "chevron" ) { return "🔰"; }
+											else if( ele[5] == "triangle" ) { return "🔼"; }
+											else if( ele[5] == "formation" ) { return "🌌"; }
+											else if( ele[5] == "egg" ) { return "🥚"; }
+											else if( ele[5] == "changing" ) { return "✨"; }
+											else if( ele[5] == "flash" ) { return "⚡"; }
+											else if( ele[5] == "diamond" ) { return "💎"; }
+											else if( ele[5] == "teardrop" ) { return "💧"; }
+											else if( ele[5] == "" ) { return "👽"; } 
+											else return "✖️";  
+											
+										})()
+										}
+										
+									</span>
+								</div>
+								<div>
+									<span style="font-size: 1.5vh; background: white; padding: 2px; border-radius: 3px;">${(""+ID).padStart(5, '0')}</span>
+								</div>
+							</div>` ,
+						className: "", //'...', // Lasciando vuoto, Leaflet non applica i suoi stili di default
+						//iconSize: [30, 42],      // Dimensioni dell'icona [larghezza, altezza]
+						//iconAnchor: [15, 42],    // Punto dell'icona che si ancora alle coordinate (es. la punta in basso)
+						//popupAnchor: [0, -40]    // Punto da cui si apre il popup rispetto all'anchor
+					});
+
 					if( !isNaN(lat) && !isNaN(lon) ) {
 						//console.log( lat, lon , i )
-						tempMarker = L.marker([lat, lon] , { id: ID } ).bindPopup(`
+						tempMarker = L.marker([lat, lon] , { id: ID , icon: tempIcon } ).bindPopup(`
 							<b>🛸UFO / UAP SIGHTING:</b><br>
 							<b>* ID:</b> ${ID} di ${numbRowsArrInfo};<br> 
 							<b>* Latitude, Longitude:</b> ${lat}, ${lon};<br> 
