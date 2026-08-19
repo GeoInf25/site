@@ -821,7 +821,7 @@
 						html: 
 							`<div style="font-family: 'Trebuchet MS'; text-align: center; ">
 								<div>
-									<span style="font-size: 3.5vh; background: transparent; padding: 1px 3px; border-radius: 3px;">
+									<span style="font-size: 2.5vh; background: transparent; padding: 1px 3px; border-radius: 3px;">
 										${ ( () => {
 											if( ele[5] == "cylinder" ) { return "🛢️"; }
 											else if( ele[5] == "light" ) { return "🌟"; }
@@ -837,13 +837,23 @@
 											else if( ele[5] == "chevron" ) { return "🔰"; }
 											else if( ele[5] == "triangle" ) { return "🔼"; }
 											else if( ele[5] == "formation" ) { return "🌌"; }
-											else if( ele[5] == "egg" ) { return "🥚"; }
+											else if( ele[5] == "delta" ) { return "Δ"; }
 											else if( ele[5] == "changing" ) { return "✨"; }
-											else if( ele[5] == "flash" ) { return "⚡"; }
+											else if( ele[5] == "egg" ) { return "🥚"; }
 											else if( ele[5] == "diamond" ) { return "💎"; }
+											else if( ele[5] == "flash" ) { return "⚡"; }
 											else if( ele[5] == "teardrop" ) { return "💧"; }
+											else if( ele[5] == "cone" ) { return "🔺"; }
+											else if( ele[5] == "cross" ) { return "➕"; }
+											else if( ele[5] == "pyramid" ) { return "𓉴"; }
+											else if( ele[5] == "round" ) { return "🔘"; }
+											else if( ele[5] == "crescent" ) { return "🌙"; }
+											else if( ele[5] == "flare" ) { return "🔆"; }
+											else if( ele[5] == "hexagon" ) { return "🛑"; }
+											else if( ele[5] == "dome" ) { return "🕍"; }
+											else if( ele[5] == "changed" ) { return "✨"; }
 											else if( ele[5] == "" ) { return "👽"; } 
-											else return "✖️";  
+											else return "✖️";   
 											
 										})()
 										}
@@ -851,7 +861,7 @@
 									</span>
 								</div>
 								<div>
-									<span style="font-size: 1.5vh; background: white; padding: 2px; border-radius: 3px;">${(""+ID).padStart(5, '0')}</span>
+									<span style="font-size: 1.5vh; background: white; padding: 2px; border-radius: 3px;">${("Nr. "+ID).padStart(5, '0')}</span>
 								</div>
 							</div>` ,
 						className: "", //'...', // Lasciando vuoto, Leaflet non applica i suoi stili di default
