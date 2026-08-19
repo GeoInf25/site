@@ -824,7 +824,7 @@
 						html: 
 							`<div style="font-family: 'Trebuchet MS'; text-align: center; ">
 								<div>
-									<span id=${"markerFontIcon_" + ID}; style="font-size: 2.5vh; background: transparent; padding: 1px 3px; border-radius: 3px;">
+									<span id=${"markerFontIcon_" + ID} style="font-size: 2.5vh; background: transparent; padding: 1px 3px; border-radius: 3px;">
 										${ ( () => {
 											if( ele[5] == "cylinder" ) { return "🛢️"; }
 											else if( ele[5] == "light" ) { return "🌟"; }
@@ -864,7 +864,7 @@
 									</span>
 								</div>
 								<div>
-									<span style="font-size: 0.5vh; background: white; padding: 2px; border-radius: 3px;">${("Nr_"+ID).padStart(5, '0')}</span>
+									<span style="font-size: 1.0vh; background: white; padding: 2px; border-radius: 3px;">${("Nr_"+ID).padStart(5, '0')}</span>
 								</div>
 							</div>` ,
 						className: "", //'...', // Lasciando vuoto, Leaflet non applica i suoi stili di default
