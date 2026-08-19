@@ -594,15 +594,19 @@
 				*/
 
 				//L.markerClusterGroup()
-				//var tempArr = cluMarkers.getLayers(); //markerClusterGroup -> array JS
+				var tempArr = cluMarkers.getLayers(); //markerClusterGroup -> array JS
 				//L'oridnamento NON e' quello di INSERIMENTO dei Markers
 
-				//var markerSpecifico = tempArr.find(function(marker) {
-    				//return marker.options.id === ID; 
-				//});
+				var markerSpecifico = tempArr.find(function(marker) {
+    				return marker.options.id === ID; 
+				});
 
 				//Cambia l'icona al marker
 				//markerSpecifico.setIcon( tempIcon ); 
+
+				var span = markerSpecifico.querySelector('span');
+				console.log( span );
+
 				//Forza l'aggiornamento visivo del cluster
 				//cluMarkers.refreshClusters( markerSpecifico );
 
@@ -612,7 +616,7 @@
     			});
 				*/
 
-				document.getElementById( "markerFontIcon_" + ID ).textContent = "✅";
+				//document.getElementById( "markerFontIcon_" + ID ).textContent = "✅";
 
 				map01.setView( [ lat, lng ], 19);
 
@@ -809,7 +813,7 @@
 				const numbRowsArrInfo = arrInfo.length; 
 				//Metodo "shape" NON permesso in quanto esiste gia' un nome di Colonna 'SHAPE' (!)
 
-				arrInfo.map((ele, i) => { //df -> array
+				arrInfo.map((ele, i) => { //df -> array 
 					const ID = ele[0]; 
 					const lat = ele[1];
 					const lon = ele[2];
@@ -824,8 +828,8 @@
 						html: 
 							`<div style="font-family: 'Trebuchet MS'; text-align: center; ">
 								<div>
-									<span id=${"markerFontIcon_" + ID} style="font-size: 2.5vh; background: transparent; padding: 1px 3px; border-radius: 3px;">
-										${ ( () => {
+									<span style="font-size: 2.5vh; background: transparent; padding: 1px 3px; border-radius: 3px;"
+									>${ ( () => {
 											if( ele[5] == "cylinder" ) { return "🛢️"; }
 											else if( ele[5] == "light" ) { return "🌟"; }
 											else if( ele[5] == "circle" ) { return "⭕"; }
@@ -859,12 +863,10 @@
 											else return "✖️";   
 											
 										})()
-										}
-										
-									</span>
+										}</span>
 								</div>
 								<div>
-									<span style="font-size: 1.0vh; background: white; padding: 2px; border-radius: 3px;">${("Nr_"+ID).padStart(5, '0')}</span>
+									<span style="font-size: 1.25vh; background: white; padding: 2px; border-radius: 3px;">${"Nr_" + (ID).padStart(5, '0')}</span>
 								</div>
 							</div>` ,
 						className: "", //'...', // Lasciando vuoto, Leaflet non applica i suoi stili di default
