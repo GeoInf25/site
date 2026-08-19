@@ -291,7 +291,7 @@
 		click_elements[ click_elements.length - 1 ].click(); //layerMarkers //Vedi funzione seguente
 
 		//markerClusterGroup
-		var cluMarkers = L.markerClusterGroup();
+		var cluMarkers = L.markerClusterGroup( { spiderfyDistanceMultiplier : 1.5 } );
 
 		//minimap 
 		
@@ -569,7 +569,7 @@
 			const lat = row.getData()["latitude"];
 			const lng = row.getData()["longitude"]; 
 
-			if( !isNaN(lat) && !isNaN(lng) ) {
+			if( !isNaN(lat) && !isNaN(lng) ) { 
 				
 				/*var tempIcon = L.AwesomeMarkers.icon({ //red, blue, green, purple, orange, yellow, black, grey
 					icon: 'coffee',
@@ -604,8 +604,34 @@
 				//Cambia l'icona al marker
 				//markerSpecifico.setIcon( tempIcon ); 
 
-				var span = markerSpecifico.querySelector('span');
-				console.log( span ); 
+				//console.log( markerSpecifico.options.icon.options.html );
+				
+				// Prendi la stringa HTML dall'icona
+				var stringaHtml = markerSpecifico.options.icon.options.html;
+
+				// Crea il parser e trasforma la stringa in un documento virtuale
+				var parser = new DOMParser();
+				var doc = parser.parseFromString(stringaHtml, 'text/html');
+
+				// Recupera la PRIMA OCCORRENZA dello span
+				var loSpan = doc.querySelector('span');
+
+				//console.log( doc.body.innerHTML )
+
+				if (loSpan) {
+					// LEGGERNE IL CONTENUTO:
+					//console.log("Contenuto attuale dello span:", loSpan.innerHTML);
+					
+					// MODIFICARNE IL CONTENUTO (Opzionale):
+					loSpan.innerHTML = "✅";
+
+					// MODIFICA IL FONT SIZE (puoi usare vh, px, em, ecc.)
+    				loSpan.style.fontSize = "3.5vh"; 
+					
+					// Salva le modifiche riportando tutto a stringa e aggiorna il marker
+					markerSpecifico.options.icon.options.html = doc.body.innerHTML;
+					markerSpecifico.setIcon(markerSpecifico.options.icon);
+				}
 
 				//Forza l'aggiornamento visivo del cluster
 				//cluMarkers.refreshClusters( markerSpecifico );
@@ -615,8 +641,6 @@
         			return m.options.id === idCercato;
     			});
 				*/
-
-				//document.getElementById( "markerFontIcon_" + ID ).textContent = "✅";
 
 				map01.setView( [ lat, lng ], 19);
 
@@ -866,10 +890,10 @@
 										}</span>
 								</div>
 								<div>
-									<span style="font-size: 1.25vh; background: white; padding: 2px; border-radius: 3px;">${"Nr_" + ( ("" + ID).padStart(5, '0') ) }</span>
+									<span style="font-size: 1.00vh; background: white; padding: 2px; border-radius: 3px;">${"Nr_" + ( ("" + ID).padStart(5, '0') ) }</span>
 								</div>
 							</div>` ,
-						className: "", //'...', // Lasciando vuoto, Leaflet non applica i suoi stili di default
+						className: "", //'...', // Lasciando vuoto, Leaflet non applica i suoi stili di default //leaflet-div-icon
 						//iconSize: [30, 42],      // Dimensioni dell'icona [larghezza, altezza]
 						//iconAnchor: [15, 42],    // Punto dell'icona che si ancora alle coordinate (es. la punta in basso)
 						//popupAnchor: [0, -40]    // Punto da cui si apre il popup rispetto all'anchor
