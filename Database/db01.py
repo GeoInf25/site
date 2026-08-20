@@ -11,6 +11,8 @@ from pyodide.ffi.wrappers import add_event_listener
 
 import js
 
+import json
+
 connection = None
 
 '''
@@ -132,7 +134,15 @@ def executeQuerySQL( *args ):
     tempResultQuerySQL = from_db_cursor(cursor)
     if( not( tempResultQuerySQL is None ) ):
       tempResultQuerySQL.align = "l" 
-      document.getElementById("txt_displayResultDbEs01").innerHTML = tempResultQuerySQL.get_string()
+      tempResultQuerySQL.header = False #Rimuove intestazione PRIMA RIGA
+      document.getElementById("txt_displayResultDbEs01").innerHTML = tempResultQuerySQL.get_json_string() # ... .innerHTML , tempResultQuerySQL.get_string()
+
+      jsonResult = json.loads( tempResultQuerySQL.get_json_string() )
+      print( jsonResult )
+
+      #Trasforma la stringa in un oggetto JSON/Dizionario Python
+      #dati_json = json.loads(json_string)
+
       #connection.close()
     else: 
       document.getElementById("txt_displayResultDbEs01").innerHTML = "Operazione eseguita; mancata restituzione di un Oggetto SQL (None / NoneType Python Object). "
