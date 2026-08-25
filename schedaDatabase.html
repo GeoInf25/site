@@ -5,52 +5,12 @@
 	<link rel="stylesheet" href="https://pyscript.net/releases/2025.7.2/core.css" />
 	<script type="module" src="https://pyscript.net/releases/2025.7.2/core.js" ></script>
 
+	<link id="tabulator-theme" href="https://unpkg.com/tabulator-tables@6.3.1/dist/css/tabulator.min.css" rel="stylesheet">
+ 	<script type="text/javascript" src="https://unpkg.com/tabulator-tables@6.3.1/dist/js/tabulator.min.js"></script>
+
 	<link rel="stylesheet" href="styleGeoInf.css">
 
 	<style>
-
-		#displayTabDbEs01 {
-			width: 100%;
-			height: 50vh;
-		}
-
-		#displayTabStudentDbEs01 {
-			font-family: "Trebuchet MS";
-			width: 49%; 
-			height: auto;
-			float: right; 
-		}
-
-		#displayTabClassDbEs01 {
-			font-family: "Trebuchet MS";
-			width: 50%; 
-			height: auto; 
-			float: left;
-		}
-
-		#txt_displayTabStudentDbEs01 {
-			font-family: "Cascadia Code";
-			width: 100%; 
-			height: 100%; 
-			resize: none;
-			overflow: scroll; 
-			white-space: pre; 
-
-			background-color: darkblue;
-			color: white;
-		}
-
-		#txt_displayTabClassDbEs01 {
-			font-family: "Cascadia Code";
-			width: 100%; 
-			height: 100%; 
-			resize: none; 
-			overflow: scroll; 
-			white-space: pre; 
-
-			background-color: darkblue;
-			color: white;
-		}
 
 		#querySQLResultDbEs01 {
 			width: 100%;
@@ -61,13 +21,6 @@
 			width: 100%; 
 			height: auto;
 		}
-		
-		#resultDbEs01 {
-			font-family: "Trebuchet MS";
-			width: 100%; 
-			height: auto;
-		}
-		
 
 		#select_listQuerySQLDb01{
 			font-family: "Trebuchet MS";
@@ -84,18 +37,6 @@
 			resize: none; 
 			overflow-y: scroll; 
 			/*white-space: pre; */
-		}
-
-		#txt_displayResultDbEs01 {
-			font-family: "Cascadia Code";
-			width: 100%; 
-			height: 50vh; 
-			resize: none; 
-			overflow: scroll; 
-			white-space: pre; 
-
-			background-color: darkblue;
-			color: white;
 		}
 
 		.popup {
@@ -117,6 +58,12 @@
 			left: 50%;
 			margin: ... */
 
+			/* bottom: 100%; */
+			top: 15%; 
+			left: 50%; 
+
+			cursor: grab; /* Shows user the item can be dragged */
+
 		}
 		
 		/*
@@ -129,7 +76,10 @@
 
 </head>
 
-<body style = "overflow-y: scroll" >
+<body style = "overflow-y: scroll" class="popup" >
+
+	<!-- HEADER -->
+	<button id="tab_schedaDatabase" style="background-color: lightgray ; color: green; padding: 0vh 0vh; font-size: 1.75vh; font-weight: bold; font-style: italic; border-radius: 1vh; width: 100%; min-width: 16vh; height: 3.0vh; border-color: green; " disabled>- DATABASE -</button>	<!-- cursor: pointer; -->
 
 	<py-config>
     	#packages = ["sqlite3", "numpy",  "prettytable", "pandas", "tabulate" ]
@@ -140,58 +90,106 @@
     	files = [ "db01.py" ]
 
 	</py-config>
-	
-	<div>
-		Esempi di Applicazione del Database <a href="https://sqlite.org/">Sqlite</a>/<a href="https://www.gaia-gis.it/fossil/libspatialite/index">Spatialite</a>. 
-		<br>
-		<br>
-		<b>
-			*** ATTENZIONE ***: i Servizi di Database richiamati nel seguito appartengono ai rispettivi proprietari. 
-		</b>
-		<br>
-		<br>
-	
-	</div>
 
-	<div id="tabellaDb" class="grid">
+	<div id="tabellaDatabase" class="grid" style="height: 84vh; overflow-y: scroll; " >
 
 		<div id = "blocco01Db" class = "span4 roundBorder" >
-
-			<h2>• Link esterni per Database (di tipo Relazionale / NON Relazionale)</h2>
-			
-			- Query di esempio in ambito MySQL: <a href="https://www.w3schools.com/MySQL/trymysql.asp?filename=trysql_select_all">W3School MySQL</a>
+			<b>• External links for databases (relational / non-relational)</b>
 			<br>
-			- Query di esempio in ambito PostgreSQL, SQL Server, MySQL: <a href="https://runsql.com/r">Run SQL</a>
 			<br>
-			- Query di esempio in ambito MongoDB: <a href=https://www.humongous.io/tools/playground/mongodb/new>MongoDB Query</a>
+			- Example queries for MySQL: <a href="https://www.w3schools.com/MySQL/trymysql.asp?filename=trysql_select_all">W3School MySQL</a>
 			<br>
-
+			- Example queries for PostgreSQL, SQL Server, and MySQL: <a href="https://runsql.com/r">Run SQL</a>
+			<br>
+			- Example query for MongoDB:<a href=https://www.humongous.io/tools/playground/mongodb/new>MongoDB Query</a>
 		</div>
 
-		<div id = "blocco02Db" class = "span4 roundBorder" >
-
-			<h2>• Database Relazionale SQLITE</h2>
-
-			Definizione di due Tabelle: Classe, Studente. 
+		<div id = "blocco02Db" class = "span4 roundBorder"  >
+			<b>• SQLite Relational Database</b>
 			<br>
-			Popolamento / Valorizzazione delle Tabelle in riferimento al numero di ID scelti:
+			<br>
+			Definition of two tables: <i>Class</i>, <i>Student</i>; populating/updating the tables based on the selected ID numbers:
 			<br>
 
-			<div class="popup" > <!-- posizione Popup -->
+			<div > <!-- posizione Popup -->
 				<table>
-					<tr><td>- nr. ID Tabella Classe (valore compreso fra 1 e 25, predefinito 15): </td> <td>
+					<tr><td>- Table Class ID No. (value between 1 and 25, default 15):</td> <td>
 						<input type="number" id="totIDTabClass" min="1" max="25" value="15" style="width: 10vh" ></td> <!-- No size -->
 					<tr>
-					<tr><td>- nr. ID Tabella Studente (valore compreso fra 1 e 150, predefinito 120): </td> <td>
+					<tr><td>- Student Table ID No. (value between 1 and 150, default 120):</td> <td>
 						<input type="number" id="totIDTabStudent" min="1" max="150" value="120" style="width: 10vh" ></td> <!-- No size -->
 					<tr>
 				</table>
-				<span class="popuptext" id="popupInputDb01" 
-					onclick="/*this.style.display = 'none';*/ this.style.visibility = 'hidden'; " >
-				</span>
+				<div class="popuptext" id="popupInputDb01" onclick=" this.style.visibility = 'hidden'; " > <!-- this.style.display = 'none';  -->
+					<!-- SPAN ... -->
+					<button >Test ... </button>
+				</div>
 			</div>
 
+			<br>
+			<button id="btn_tablePopulating" >Define Tables</button>
+			<br>
+			<br>
+
+			<div id="tableClass"></div>
+			<br>
+			<div id="tableStudent"></div>
+
 			<script>
+
+				dataTableClass = [
+					/*{
+						field: "", 
+						...
+					},*/
+				];
+
+				tableClass = new Tabulator( "#tableClass", {
+					data: dataTableClass, // Carica i dati 
+					//autoColumns: true, // Crea automaticamente le colonne in base alle chiavi 
+
+					layout: "fitColumns", 
+					//height: "100%", //Evitare per MANCANZA di SCROLLBAR verticale
+
+					columns: [
+						{title: "idClass", headerTooltip: true , field: "idClass", widthGrow: 3, formatter: "textarea", resizable: false},
+						{title: "superficieMq", headerTooltip: true , field: "superficieMq", widthGrow: 3, formatter: "textarea", resizable: false},
+						{title: "piano", headerTooltip: true , field: "piano", widthGrow: 3, formatter: "textarea", resizable: false},
+						{title: "tipo", headerTooltip: true , field: "tipo", widthGrow: 3, formatter: "textarea", resizable: false},
+					],
+
+				});
+
+				tableClass.element.style.fontSize = "1.3vh";
+
+				dataTableStudent = [
+					/*{
+						field: "", 
+						...
+					},*/
+				];
+
+				tableStudent = new Tabulator( "#tableStudent", {
+					data: dataTableStudent, // Carica i dati 
+					//autoColumns: true, // Crea automaticamente le colonne in base alle chiavi 
+
+					layout: "fitColumns", 
+					//height: "100%", //Evitare per MANCANZA di SCROLLBAR verticale
+
+					columns: [
+						{title: "idStud", headerTooltip: true , field: "idStud", widthGrow: 3, formatter: "textarea", resizable: false},
+						{title: "nome", headerTooltip: true , field: "nome", widthGrow: 3, formatter: "textarea", resizable: false},
+						{title: "cognome", headerTooltip: true , field: "cognome", widthGrow: 3, formatter: "textarea", resizable: false},
+						{title: "eta", headerTooltip: true , field: "eta", widthGrow: 3, formatter: "textarea", resizable: false},
+						{title: "luogoNascita", headerTooltip: true , field: "luogoNascita", widthGrow: 3, formatter: "textarea", resizable: false},
+						{title: "idClass", headerTooltip: true , field: "idClass", widthGrow: 3, formatter: "textarea", resizable: false},
+					],
+
+				});
+
+				tableStudent.element.style.fontSize = "1.3vh";
+
+				//ALTRI CAMPI
 
 				var totIDTabClass = { obj: document.getElementById( "totIDTabClass" ), limInf: 1,  limSup: 25, predef: 15 };
 				var totIDTabStudent = { obj: document.getElementById( "totIDTabStudent" ), limInf: 1,  limSup: 150, predef: 120 }; 
@@ -219,13 +217,13 @@
 					//var tempTotIDTabClass = document.getElementById('totIDTabClass').value;
 					var popupInputDb01 = document.getElementById("popupInputDb01");
 					if( obj.value == "" || ( obj.value % 1 != 0 ) ) {
-						popupInputDb01.innerHTML = "Inserisci un valore numerico intero <br>(Clicca qui per chiudere)";
+						//popupInputDb01.innerHTML = "QQ"; //Inserisci un valore numerico intero <br>(Clicca qui per chiudere)
 						//popupInputDb01.style.display = "display";  
 						popupInputDb01.style.visibility = "visible";
 						//obj.value = predef;
 
 					} else if( obj.value < min || obj.value > max ) {
-						popupInputDb01.innerHTML = "Inserisci un valore numerico compreso fra "+ min + " e " + max + " <br>(Clicca qui per chiudere)";
+						popupInputDb01.innerHTML = "Enter a numeric value between "+ min + " and " + max + " <br>(Click here to close)";
 						//popupInputDb01.style.display = "display";  
 						popupInputDb01.style.visibility = "visible";  
 						//obj.value = predef;
@@ -236,50 +234,58 @@
 					}
 				}
 
+				var isDragging = false;
+				var offsetX = null; 
+				var offsetY = null; 
+
+				var popupInputDb01 = document.getElementById("popupInputDb01");
+
+				popupInputDb01.addEventListener("mousedown", (e) => {
+
+					isDragging = true;
+					
+					// Calculate the distance between the mouse pointer and the element's top-left corner
+					offsetX = e.clientX - popupInputDb01.offsetLeft;
+					offsetY = e.clientY - popupInputDb01.offsetTop;
+				});
+
+				document.addEventListener("mousemove", (e) => {
+
+					if (!isDragging) return; // Se non stai cliccando, non fare nulla
+					
+					//var popupInputDb01 = document.getElementById("popupInputDb01");
+
+					// Calculate new coordinates 
+					let newX = e.clientX - offsetX;
+					let newY = e.clientY - offsetY;
+
+					// Optional: Keep element inside viewport bounds
+					const minX = 0;
+					const maxX = window.innerWidth - popupInputDb01.offsetWidth;
+					const minY = 0;
+					const maxY = window.innerHeight - popupInputDb01.offsetHeight;
+
+					newX = Math.max(minX, Math.min(newX, maxX));
+					newY = Math.max(minY, Math.min(newY, maxY));
+
+					// Apply new position styles
+					popupInputDb01.style.left = `${newX}px`;
+					popupInputDb01.style.top = `${newY}px`;
+				});
+
+				// 3. RILASCIO (Mouseup): Ferma il trascinamento (registrato sul document)
+				document.addEventListener("mouseup", () => {
+					isDragging = false;
+				});
+
 			</script>
-
-			<br>
-
-			<button id="btn_tablePopulating" >Valorizza Tabelle</button>
-
-			<div id="displayTabDbEs01">
-
-				<div id="displayTabClassDbEs01" >
-					<br>
-					<u> - Tabella "Classe" - </u> 
-					<br>
-					<textarea id="txt_displayTabClassDbEs01" ></textarea>
-
-				</div>
-
-				<div id="displayTabStudentDbEs01" >
-					<br>
-					<u> - Tabella "Studente" - </u> 
-					<br>
-					<textarea id="txt_displayTabStudentDbEs01" ></textarea>
-
-				</div>
-
-				<script>
-					document.getElementById("txt_displayTabClassDbEs01").innerHTML = "Attendi ... ";
-					document.getElementById("txt_displayTabStudentDbEs01").innerHTML = "Attendi ... ";
-
-					document.getElementById("txt_displayTabClassDbEs01").readOnly = true;
-					document.getElementById("txt_displayTabStudentDbEs01").readOnly = true;
-				</script>
-
-			</div>
-
-			<br>
 
 			<div id="querySQLResultDbEs01" >
 				<div id="querySQLDbEs01" >
 					<br>
+					<b>• SQL Query</b> 
 					<br>
-					<u> - Query SQL - </u> 
-					<br>
-					<br>
-					Scegli una delle Query esistenti o scrivi direttamente un'Interrogazione / Query SQL: 
+					Choose one of the existing queries or write an SQL query directly:
 					<br>
 					<select id="select_listQuerySQLDb01">
 						<!-- <option value="query01">query01Text</option> -->
@@ -335,22 +341,36 @@
 
 				</div>
 
-				<button id="btn_executeQuerySQL" >Esegui Query SQL</button>
-
-				<div id="resultDbEs01" >
-					<br>
-					<u> - Risultato dell'interrogazione - </u> 
-					<br>
-					<textarea id="txt_displayResultDbEs01" ></textarea>
-				</div>
-
-				<script>
-					//document.getElementById("txt_displayQuerySQLDbEs01").readOnly = true;
-					document.getElementById("txt_displayResultDbEs01").readOnly = true;
-
-				</script>
-
+				<button id="btn_executeQuerySQL" >Execute SQL Query</button>
 			</div>
+
+			<br>
+			<div id="tableResult"></div>
+			<br>
+
+			<script>
+
+				dataTableResult = [
+					/*{
+						field: "", 
+						...
+					},*/
+				];
+
+				tableResult = new Tabulator( "#tableResult", {
+					data: dataTableResult, // Carica i dati 
+					//autoColumns: true, // Crea automaticamente le colonne in base alle chiavi 
+
+					autoColumns: true,     // Genera automaticamente le colonne in base alle chiavi
+
+					layout: "fitColumns",  
+					//height: "100%", //Evitare per MANCANZA di SCROLLBAR verticale
+
+				});
+
+				tableResult.element.style.fontSize = "1.3vh";
+
+			</script>
 		
 			<py-script>
 				
@@ -359,20 +379,22 @@
 
 				from db01 import *
 
-
-				'''
-				window.parent.document.getElementById("barLoading").style.width = "75%"; 
-				window.parent.document.getElementById("barLoading").innerHTML = "Loading ... 75%";
-				''' 
-
 			</py-script>
-
-			<script>
-				//
-			</script>
 		
 		</div>
 
+	</div>
+
+	<!-- FOOTER -->
+	<div style="margin: 1vh; "></div>
+	<div style="height: 10vh; overflow-y: scroll; " >
+		<div id="footer" class="span4 roundBorder" style="font-size: 1.5vh; " > <!-- font-weight: bold; font-style: italic; -->
+			<b>2026 - GEOINF - PLEASE NOTE: libraries, frameworks, databases and any other associated elements belong to their respective owners. </b>
+			<br>
+			Applications developed in <a href="https://pyscript.net/">Pyscript</a>, SQL, Javascript (Tabulator JS) through <a href="https://github.com/apps/desktop">GitHub Desktop</a> and <a href="https://code.visualstudio.com/">Visual Studio Code</a>, in particular for the <a href="https://sqlite.org/">Sqlite</a>/<a href="https://www.gaia-gis.it/fossil/libspatialite/index">Spatialite</a> Databases.
+			<br>
+			<br>
+		</div>
 	</div>
 
 </body>

@@ -6,12 +6,13 @@ import sqlite3
 from prettytable import from_db_cursor
 from random import randint
 
-from js import console, document, window
+from js import console, document, window, Tabulator
 from pyodide.ffi.wrappers import add_event_listener
 
 import js
-
 import json
+
+from pyodide.ffi import to_js
 
 connection = None
 
@@ -43,8 +44,6 @@ def controlConnection( *args ):
 def closeDB( *args ):
   if( not ( connection is None ) ):
     connection.close()
-  document.getElementById("txt_displayTabClassDbEs01").innerHTML = ""
-  document.getElementById("txt_displayTabStudentDbEs01").innerHTML = ""
   #print( "Controllo connessione terminata ... " )
 
 add_event_listener( window , "beforeunload", closeDB ) 
@@ -107,21 +106,22 @@ def tablePopulating( *args ):
     cursor.execute( "SELECT * FROM Classe" )
     tempResultQuerySQL = from_db_cursor(cursor)
     tempResultQuerySQL.align = "l" 
-    document.getElementById("txt_displayTabClassDbEs01").innerHTML = tempResultQuerySQL.get_string()
+    tempResultQuerySQL.header = False #Rimuove intestazione PRIMA RIGA
+    dataTableClass = json.loads( tempResultQuerySQL.get_json_string() ) 
+    js.tableClass.setData( to_js(dataTableClass) ); 
 
     cursor.execute( "SELECT * FROM Studente" )
     tempResultQuerySQL = from_db_cursor(cursor)
     tempResultQuerySQL.align = "l" 
-    document.getElementById("txt_displayTabStudentDbEs01").innerHTML = tempResultQuerySQL.get_string()
-
-    document.getElementById("txt_displayResultDbEs01").innerHTML = ""
+    tempResultQuerySQL.header = False #Rimuove intestazione PRIMA RIGA
+    dataTableStudent = json.loads( tempResultQuerySQL.get_json_string() )
+    js.tableStudent.setData( to_js(dataTableStudent) ); 
 
     #connection.close()
     print( "-- Fine valorizzazione Tabelle -- " )
 
   except Exception as e:
-    document.getElementById("txt_displayTabStudentDbEs01").innerHTML = f"Error detected: {str(e)}"
-    document.getElementById("txt_displayTabClassDbEs01").innerHTML = "--"
+    print( f"Error detected: {str(e)}" );
 
 def executeQuerySQL( *args ):
   try: 
@@ -135,22 +135,25 @@ def executeQuerySQL( *args ):
     if( not( tempResultQuerySQL is None ) ):
       tempResultQuerySQL.align = "l" 
       tempResultQuerySQL.header = False #Rimuove intestazione PRIMA RIGA
-      document.getElementById("txt_displayResultDbEs01").innerHTML = tempResultQuerySQL.get_json_string() # ... .innerHTML , tempResultQuerySQL.get_string()
-
-      jsonResult = json.loads( tempResultQuerySQL.get_json_string() )
-      print( jsonResult )
+      
+      #document.getElementById("txt_displayResultDbEs01").innerHTML = tempResultQuerySQL.get_json_string() # ... .innerHTML , tempResultQuerySQL.get_string()
+      #jsonResult = json.loads( tempResultQuerySQL.get_json_string() )
+      #print( jsonResult )
 
       #Trasforma la stringa in un oggetto JSON/Dizionario Python
       #dati_json = json.loads(json_string)
 
+      dataTableResult = json.loads( tempResultQuerySQL.get_json_string() )
+      js.tableResult.setData( to_js( dataTableResult ) ); 
+
       #connection.close()
     else: 
-      document.getElementById("txt_displayResultDbEs01").innerHTML = "Operazione eseguita; mancata restituzione di un Oggetto SQL (None / NoneType Python Object). "
+      print( "Operazione eseguita; mancata restituzione di un Oggetto SQL (None / NoneType Python Object). " )
 
     print( "-- Fine Esecuzione Query SQL -- " )
 
   except Exception as e:
-    document.getElementById("txt_displayResultDbEs01").innerHTML = f"Error detected: {str(e)}"
+    print( f"Error detected: {str(e)}" )
 
 
 add_event_listener( document.getElementById("btn_tablePopulating") , "click", tablePopulating)
