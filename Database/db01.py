@@ -50,15 +50,15 @@ add_event_listener( window , "beforeunload", closeDB )
 
 
 #Variables
-idClasse = 0 #incr
-idStudente = 0 #incr
-nome = [ "Alessandro", "Marco", "Michele", "Rolando", "Chiara", "Francesca", "Fernanda", "Giulia", "Alberto", "Daniele", "Gianni", "Paolo", "Veronica", "Margherita", "Annalisa", "Carmelo", "Pasquale", "Sonia", "Vincenzo", "Salvatore" ]
-cognome = [ "Veroli", "Bertoldi", "D'Addetta", "Del Fabbro", "Malfer", "Bassetti", "Ferri", "Righi", "Calza'", "Viola", "Rossi", "Neri", "Bianchi", "Bettoni", "Flessati", "Russo", "Greco", "Bianco", "Esposito", "Romeo" ]
+idClass = 0 #incr
+idStudent = 0 #incr
+name = [ "Alexander", "Mark", "Michael", "Roland", "Claire", " Frances", "Fernanda", "Julia", "Albert", "Daniel", "John", "Paul", "Veronica", "Margaret", "Annalise", "Carmine", "Pascal", "Sonya", "Vincent", "Sam" ]
+surname = [ "Smith", "Baker", "Miller", "Taylor", "Fisher", "Johnson", "Jackson", "Wilson", "Davis", "Jones", "Brooks", "Hill", "Wood", "Green", "Moore", "Brown", "White", "Young", "Long", "King" ]
 #eta randint(18, 45) limite incluso
-luogoNascita = [ "Arco", "Riva del Garda", "Rovereto", "Storo", "Trento", "Bolzano", "Brescia", "Palermo", "Affi", "Verona", "Treviso", "Portograuro", "Vicenza", "Napoli", "Mantova" ]
-superficie = [ 25, 30, 35, 40, 45, 50, 70, 100 ]
-piano = [ -1, 0, 1, 2, 3, 4, 5 ]
-tipo = [ "Aula", "Laboratorio fisica", "Palestra", "Aula CAD", "Aula informatica" ]
+birthPlace = [ "London", "Paris", "Rome", "Berlin", "Madrid", "Amsterdam", "Vienna", "Athens", "New York", "Los Angeles", "Chicago", "Miami", "San Francisco", "Boston", "Seattle" ]
+areaSqMt = [ 25, 30, 35, 40, 45, 50, 70, 100 ]
+floor = [ -1, 0, 1, 2, 3, 4, 5 ]
+kind = [ "Classroom", "Physics lab", "Gym", "CAD Lab", "Computer Lab" ]
   
 def tablePopulating( *args ):
   try: 
@@ -70,58 +70,62 @@ def tablePopulating( *args ):
     print("connection.total_changes: " + str( connection.total_changes ) )
     cursor = connection.cursor()
 
-    cursor.execute("DROP TABLE IF EXISTS Classe")
-    cursor.execute("DROP TABLE IF EXISTS Studente")
+    cursor.execute("DROP TABLE IF EXISTS Class")
+    cursor.execute("DROP TABLE IF EXISTS Student")
 
-    cursor.execute("CREATE TABLE IF NOT EXISTS Classe (idClass INTEGER, superficieMq INTEGER, piano INTEGER, tipo TEXT )")
-    cursor.execute("CREATE TABLE IF NOT EXISTS Studente (idStud INTEGER, nome TEXT, cognome TEXT, eta INTEGER, luogoNascita TEXT, idClass INTEGER )")
+    cursor.execute("CREATE TABLE IF NOT EXISTS Class (idClass INTEGER, areaSqMt INTEGER, floor INTEGER, kind TEXT )")
+    cursor.execute("CREATE TABLE IF NOT EXISTS Student (idStud INTEGER, name TEXT, surname TEXT, age INTEGER, birthPlace TEXT, idClass INTEGER )")
 
-    idClasse = 0
-    idStudente = 0
+    idClass = 0
+    idStudent = 0
 
     #print( nome[ randint(0, len(nome)-1) ] )
 
     for i in range(0, totIDTabClass, 1): #limite escluso 
-      cursor.execute("INSERT INTO Classe VALUES ( ?, ?, ?, ? )", ( 
-        idClasse, 
-        superficie[ randint(0, len(superficie)-1) ], 
-        piano[ randint(0, len(piano)-1) ], 
-        tipo[ randint(0, len(tipo)-1) ]
+      cursor.execute("INSERT INTO Class VALUES ( ?, ?, ?, ? )", ( 
+        idClass, 
+        areaSqMt[ randint(0, len(areaSqMt)-1) ], 
+        floor[ randint(0, len(floor)-1) ], 
+        kind[ randint(0, len(kind)-1) ]
       ))
-      idClasse = idClasse + 1
+      idClass = idClass + 1
 
     for i in range(0, totIDTabStudent, 1): #limite escluso 
-      cursor.execute("INSERT INTO Studente VALUES ( ?, ?, ?, ?, ?, ? )", ( 
-        idStudente, 
-        nome[ randint(0, len(nome)-1) ], 
-        cognome[ randint(0, len(cognome)-1) ], 
+      cursor.execute("INSERT INTO Student VALUES ( ?, ?, ?, ?, ?, ? )", ( 
+        idStudent, 
+        name[ randint(0, len(name)-1) ], 
+        surname[ randint(0, len(surname)-1) ], 
         randint(18, 45), #entrambi i limiti inclusi 
-        luogoNascita[ randint(0, len(luogoNascita)-1) ],
+        birthPlace[ randint(0, len(birthPlace)-1) ],
         randint(0, ( totIDTabClass - 1 ) ) #conteggio a partire da 0
       ))
-      idStudente = idStudente + 1
+      idStudent = idStudent + 1
 
     connection.commit()
 
-    cursor.execute( "SELECT * FROM Classe" )
+    #CODICE RIPETUTO
+
+    cursor.execute( "SELECT * FROM Class" )
     tempResultQuerySQL = from_db_cursor(cursor)
     tempResultQuerySQL.align = "l" 
     tempResultQuerySQL.header = False #Rimuove intestazione PRIMA RIGA
     dataTableClass = json.loads( tempResultQuerySQL.get_json_string() ) 
     js.tableClass.setData( to_js(dataTableClass) ); 
 
-    cursor.execute( "SELECT * FROM Studente" )
+    cursor.execute( "SELECT * FROM Student" )
     tempResultQuerySQL = from_db_cursor(cursor)
     tempResultQuerySQL.align = "l" 
     tempResultQuerySQL.header = False #Rimuove intestazione PRIMA RIGA
     dataTableStudent = json.loads( tempResultQuerySQL.get_json_string() )
     js.tableStudent.setData( to_js(dataTableStudent) ); 
 
+    #FINE CODICE RIPETUTO
+
     #connection.close()
-    print( "-- Fine valorizzazione Tabelle -- " )
+    print( "-- End Tables Definition -- " )
 
   except Exception as e:
-    print( f"Error detected: {str(e)}" );
+    print( f"Error detected: {str(e)}" ); 
 
 def executeQuerySQL( *args ):
   try: 
@@ -148,9 +152,26 @@ def executeQuerySQL( *args ):
 
       #connection.close()
     else: 
-      print( "Operazione eseguita; mancata restituzione di un Oggetto SQL (None / NoneType Python Object). " )
+      print( "Operation performed; absence of an SQL object (None / NoneType Python Object). " )
 
-    print( "-- Fine Esecuzione Query SQL -- " )
+    print( "-- End of SQL Query Execution -- " )
+
+    if "Update" in str( document.getElementById("txt_displayQuerySQLDbEs01").value ): 
+      #CODICE RIPETUTO
+      cursor.execute( "SELECT * FROM Class" )
+      tempResultQuerySQL = from_db_cursor(cursor)
+      tempResultQuerySQL.align = "l" 
+      tempResultQuerySQL.header = False #Rimuove intestazione PRIMA RIGA
+      dataTableClass = json.loads( tempResultQuerySQL.get_json_string() ) 
+      js.tableClass.setData( to_js(dataTableClass) ); 
+
+      cursor.execute( "SELECT * FROM Student" )
+      tempResultQuerySQL = from_db_cursor(cursor)
+      tempResultQuerySQL.align = "l" 
+      tempResultQuerySQL.header = False #Rimuove intestazione PRIMA RIGA
+      dataTableStudent = json.loads( tempResultQuerySQL.get_json_string() )
+      js.tableStudent.setData( to_js(dataTableStudent) );
+      #CODICE RIPETUTO
 
   except Exception as e:
     print( f"Error detected: {str(e)}" )

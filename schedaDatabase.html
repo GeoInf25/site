@@ -5,14 +5,14 @@
 	<link rel="stylesheet" href="https://pyscript.net/releases/2025.7.2/core.css" />
 	<script type="module" src="https://pyscript.net/releases/2025.7.2/core.js" ></script>
 
-	<link id="tabulator-theme" href="https://unpkg.com/tabulator-tables@6.3.1/dist/css/tabulator.min.css" rel="stylesheet">
+	<link id="tabulator-theme" href="https://unpkg.com/tabulator-tables@6.3.1/dist/css/tabulator_semanticui.min.css" rel="stylesheet">
  	<script type="text/javascript" src="https://unpkg.com/tabulator-tables@6.3.1/dist/js/tabulator.min.js"></script>
 
 	<link rel="stylesheet" href="styleGeoInf.css">
 
 	<style>
 
-		#querySQLResultDbEs01 {
+		#querySQLResultDbEs01 { 
 			width: 100%;
 			height: auto;
 		}
@@ -23,17 +23,14 @@
 		}
 
 		#select_listQuerySQLDb01{
-			font-family: "Trebuchet MS";
-			font-weight: bold;
 			/*font-style: italic;*/
 			width: 100%; 
 			height: 4vh; 
 		}
 
 		#txt_displayQuerySQLDbEs01 {
-			font-family: "Trebuchet MS";
 			width: 100%; 
-			height: 15vh; 
+			height: 20vh; 
 			resize: none; 
 			overflow-y: scroll; 
 			/*white-space: pre; */
@@ -74,12 +71,14 @@
 
 	</style>
 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" charset="utf-8" >
+
 </head>
 
 <body style = "overflow-y: scroll" class="popup" >
 
 	<!-- HEADER -->
-	<button id="tab_schedaDatabase" style="background-color: lightgray ; color: green; padding: 0vh 0vh; font-size: 1.75vh; font-weight: bold; font-style: italic; border-radius: 1vh; width: 100%; min-width: 16vh; height: 3.0vh; border-color: green; " disabled>- DATABASE -</button>	<!-- cursor: pointer; -->
+	<button id="tab_schedaDatabase" style="font-family: 'Trebuchet MS'; background-color: lightgray ; color: green; padding: 0vh 0vh; font-size: 1.75vh; font-weight: bold; font-style: italic; border-radius: 1vh; width: 100%; min-width: 16vh; height: 3.0vh; border-color: green; " disabled>- DATABASE -</button>	<!-- cursor: pointer; -->
 
 	<py-config>
     	#packages = ["sqlite3", "numpy",  "prettytable", "pandas", "tabulate" ]
@@ -93,7 +92,7 @@
 
 	<div id="tabellaDatabase" class="grid" style="height: 84vh; overflow-y: scroll; " >
 
-		<div id = "blocco01Db" class = "span4 roundBorder" >
+		<div id = "blocco01Db" class = "span4 roundBorder" > 
 			<b>• External links for databases (relational / non-relational)</b>
 			<br>
 			<br>
@@ -101,287 +100,313 @@
 			<br>
 			- Example queries for PostgreSQL, SQL Server, and MySQL: <a href="https://runsql.com/r">Run SQL</a>
 			<br>
-			- Example query for MongoDB:<a href=https://www.humongous.io/tools/playground/mongodb/new>MongoDB Query</a>
+			- Example query for MongoDB: <a href=https://mongoplayground.net/>Mongo Playground</a>
 		</div>
 
 		<div id = "blocco02Db" class = "span4 roundBorder"  >
-			<b>• SQLite Relational Database</b>
-			<br>
-			<br>
-			Definition of two tables: <i>Class</i>, <i>Student</i>; populating/updating the tables based on the selected ID numbers:
-			<br>
 
-			<div > <!-- posizione Popup -->
-				<table>
-					<tr><td>- Table Class ID No. (value between 1 and 25, default 15):</td> <td>
-						<input type="number" id="totIDTabClass" min="1" max="25" value="15" style="width: 10vh" ></td> <!-- No size -->
-					<tr>
-					<tr><td>- Student Table ID No. (value between 1 and 150, default 120):</td> <td>
-						<input type="number" id="totIDTabStudent" min="1" max="150" value="120" style="width: 10vh" ></td> <!-- No size -->
-					<tr>
-				</table>
-				<div class="popuptext" id="popupInputDb01" onclick=" this.style.visibility = 'hidden'; " > <!-- this.style.display = 'none';  -->
-					<!-- SPAN ... -->
-					<button >Test ... </button>
+			<div id="left" style="width: 59%; float:left;" >
+
+				<b>• SQLite Relational Database</b>
+				<br>
+				<br>
+				Definition of two tables: <i>Class</i>, <i>Student</i>; populating/updating the tables based on the selected ID numbers:
+				<br>
+
+				<div > <!-- posizione Popup -->
+					<table>
+						<tr><td>- Table Class ID No. (value between 1 and 25, default 15):</td> <td>
+							<input type="number" id="totIDTabClass" min="1" max="25" value="15" style="width: 10vh" ></td> <!-- No size -->
+						<tr>
+						<tr><td>- Student Table ID No. (value between 1 and 150, default 120):</td> <td>
+							<input type="number" id="totIDTabStudent" min="1" max="150" value="120" style="width: 10vh" ></td> <!-- No size -->
+						<tr>
+					</table>
+					<div class="popuptext" id="popupInputDb01" onclick=" this.style.visibility = 'hidden'; " > <!-- this.style.display = 'none';  -->
+						<!-- SPAN ... -->
+						<button >Test ... </button>
+					</div>
 				</div>
+
+				<br>
+				<button id="btn_tablePopulating" style="font-family: 'Trebuchet MS';" >Define Tables</button>
+				<br>
+				<br>
+
+				<div id="tableStudentContainer" style="width: 60%; float: left; " >
+					- Table "Student" -
+					<div id="tableStudent" ></div>
+				</div>
+				
+				<div id="tableClassContainer" style="width: 39%; float: right; " >
+					- Table "Class" -
+					<div id="tableClass" ></div>
+				</div>
+
+				<script>
+
+					dataTableClass = [
+						/*{
+							field: "", 
+							...
+						},*/
+					];
+
+					tableClass = new Tabulator( "#tableClass", {
+						data: dataTableClass, // Carica i dati 
+						//autoColumns: true, // Crea automaticamente le colonne in base alle chiavi 
+
+						layout: "fitColumns", 
+						//height: "100%", //Evitare per MANCANZA di SCROLLBAR verticale
+
+						columns: [
+							{title: "idClass", headerTooltip: true , field: "idClass", widthGrow: 3, formatter: "textarea", resizable: false},
+							{title: "areaSqMt", headerTooltip: true , field: "areaSqMt", widthGrow: 3, formatter: "textarea", resizable: false},
+							{title: "floor", headerTooltip: true , field: "floor", widthGrow: 3, formatter: "textarea", resizable: false},
+							{title: "kind", headerTooltip: true , field: "kind", widthGrow: 3, formatter: "textarea", resizable: false},
+						],
+
+					});
+
+					tableClass.element.style.fontSize = "1.3vh";
+
+					dataTableStudent = [
+						/*{
+							field: "", 
+							...
+						},*/
+					];
+
+					tableStudent = new Tabulator( "#tableStudent", {
+						data: dataTableStudent, // Carica i dati 
+						//autoColumns: true, // Crea automaticamente le colonne in base alle chiavi 
+
+						layout: "fitColumns", 
+						//height: "100%", //Evitare per MANCANZA di SCROLLBAR verticale
+
+						columns: [
+							{title: "idStud", headerTooltip: true , field: "idStud", widthGrow: 3, formatter: "textarea", resizable: false},
+							{title: "name", headerTooltip: true , field: "name", widthGrow: 3, formatter: "textarea", resizable: false},
+							{title: "surname", headerTooltip: true , field: "surname", widthGrow: 3, formatter: "textarea", resizable: false},
+							{title: "age", headerTooltip: true , field: "age", widthGrow: 3, formatter: "textarea", resizable: false},
+							{title: "birthPlace", headerTooltip: true , field: "birthPlace", widthGrow: 3, formatter: "textarea", resizable: false},
+							{title: "idClass", headerTooltip: true , field: "idClass", widthGrow: 3, formatter: "textarea", resizable: false},
+						],
+
+					});
+
+					tableStudent.element.style.fontSize = "1.3vh";
+
+					//ALTRI CAMPI
+
+					var totIDTabClass = { obj: document.getElementById( "totIDTabClass" ), limInf: 1,  limSup: 25, predef: 15 };
+					var totIDTabStudent = { obj: document.getElementById( "totIDTabStudent" ), limInf: 1,  limSup: 150, predef: 120 }; 
+
+					totIDTabClass.obj.addEventListener( "keydown", function(e) {
+						if( e.key == "Enter" ) {
+							contrIDTableDb01( totIDTabClass.obj, totIDTabClass.limInf, totIDTabClass.limSup, totIDTabClass.predef ); 
+						}
+					}); 
+					totIDTabClass.obj.addEventListener( "blur", function(e) {
+						contrIDTableDb01( totIDTabClass.obj, totIDTabClass.limInf, totIDTabClass.limSup, totIDTabClass.predef ); 
+					}); 
+
+					totIDTabStudent.obj.addEventListener( "keydown", function(e) {
+						if( e.key == "Enter" ) {
+							contrIDTableDb01( totIDTabStudent.obj, totIDTabStudent.limInf, totIDTabStudent.limSup, totIDTabStudent.predef ); 
+						}
+					}); 
+					totIDTabStudent.obj.addEventListener( "blur", function(e) {
+						contrIDTableDb01( totIDTabStudent.obj, totIDTabStudent.limInf, totIDTabStudent.limSup, totIDTabStudent.predef ); 
+					}); 
+					
+					function contrIDTableDb01( obj, min, max, predef ) {
+						//NON utilizzare Alert
+						//var tempTotIDTabClass = document.getElementById('totIDTabClass').value;
+						var popupInputDb01 = document.getElementById("popupInputDb01");
+						if( obj.value == "" || ( obj.value % 1 != 0 ) ) {
+							//popupInputDb01.innerHTML = "QQ"; //Inserisci un valore numerico intero <br>(Clicca qui per chiudere)
+							//popupInputDb01.style.display = "display";  
+							popupInputDb01.style.visibility = "visible";
+							//obj.value = predef;
+
+						} else if( obj.value < min || obj.value > max ) {
+							popupInputDb01.innerHTML = "Enter a numeric value between "+ min + " and " + max + " <br>(Click here to close)";
+							//popupInputDb01.style.display = "display";  
+							popupInputDb01.style.visibility = "visible";  
+							//obj.value = predef;
+
+						} else {
+							//tempTotIDTabClass = parseInt( tempTotIDTabClass );  
+							//Do nothing, value ok
+						}
+					}
+
+					var isDragging = false;
+					var offsetX = null; 
+					var offsetY = null; 
+
+					var popupInputDb01 = document.getElementById("popupInputDb01");
+
+					popupInputDb01.addEventListener("mousedown", (e) => {
+
+						isDragging = true;
+						
+						// Calculate the distance between the mouse pointer and the element's top-left corner
+						offsetX = e.clientX - popupInputDb01.offsetLeft;
+						offsetY = e.clientY - popupInputDb01.offsetTop;
+					});
+
+					document.addEventListener("mousemove", (e) => {
+
+						if (!isDragging) return; // Se non stai cliccando, non fare nulla
+						
+						//var popupInputDb01 = document.getElementById("popupInputDb01");
+
+						// Calculate new coordinates 
+						let newX = e.clientX - offsetX;
+						let newY = e.clientY - offsetY;
+
+						// Optional: Keep element inside viewport bounds
+						const minX = 0;
+						const maxX = window.innerWidth - popupInputDb01.offsetWidth;
+						const minY = 0;
+						const maxY = window.innerHeight - popupInputDb01.offsetHeight;
+
+						newX = Math.max(minX, Math.min(newX, maxX));
+						newY = Math.max(minY, Math.min(newY, maxY));
+
+						// Apply new position styles
+						popupInputDb01.style.left = `${newX}px`;
+						popupInputDb01.style.top = `${newY}px`;
+					});
+
+					// 3. RILASCIO (Mouseup): Ferma il trascinamento (registrato sul document)
+					document.addEventListener("mouseup", () => {
+						isDragging = false;
+					});
+
+				</script>
+
 			</div>
 
-			<br>
-			<button id="btn_tablePopulating" >Define Tables</button>
-			<br>
-			<br>
+			<div id="right" style="width: 40%; float:right; ">
 
-			<div id="tableClass"></div>
-			<br>
-			<div id="tableStudent"></div>
+				<div id="querySQLResultDbEs01" >
 
-			<script>
+					<div id="querySQLDbEs01" >
+						<br>
+						<b>• SQL Query</b> 
+						<br>
+						Choose one of the existing queries or write an SQL query directly:
+						<br>
+						<select id="select_listQuerySQLDb01"
+							style="font-family: 'Trebuchet MS'; font-weight: bold; font-size: 1.5vh; color: blue; "
+						>
+							<!-- <option value="query01">query01Text</option> -->
+						</select>
 
-				dataTableClass = [
-					/*{
-						field: "", 
-						...
-					},*/
-				];
+						<textarea id="txt_displayQuerySQLDbEs01" 
+							style="font-family: 'Trebuchet MS'; font-weight: bold; font-size: 1.5vh; color: blue; " 
+						></textarea> <!-- </textarea> input ... -->
 
-				tableClass = new Tabulator( "#tableClass", {
-					data: dataTableClass, // Carica i dati 
-					//autoColumns: true, // Crea automaticamente le colonne in base alle chiavi 
+						<script>
 
-					layout: "fitColumns", 
-					//height: "100%", //Evitare per MANCANZA di SCROLLBAR verticale
+							var select_listQuerySQLDb01 = document.getElementById("select_listQuerySQLDb01"); 
+							array_listQuerySQLDb01 = [
+								"select * from Class \n/* Descrizione delle Classi presenti */", 
+								"select * from Student \n/* Descrizione degli Studenti presenti */",  
+								"select * from Class where kind = 'Classroom' \n/* Descrizione del tipo 'Aula' */",
+								"select count(*) as num_stud from Student \n/* Numero totale di Studenti */", 
+								"select sum(areaSqMt) as totAreaSqMt from Class \n/* Superficie totale coperta */", 
+								"select distinct( kind ) as disKind from Class order by disKind asc \n/* Elenco delle tipologie di spazi */", 
+								"select count(idStud) as numStud, round( avg( age ) , 2 ) as averageAgeByClass, idClass from Student group by idClass \n/* Numero di Studenti ed Età media degli stessi per ciascuna Classe */",
+								"WITH const AS (SELECT max(age) as maxAge from Student) \nselect * from Student, const where age = const.maxAge \n/* Elenco degli Studenti più anziani - Common Table Expression (CTE) */",
+								"select * from Class where kind like '%Lab%' order by kind asc\n/* Elenco delle tipologie di 'Aula' */", 
+								"Update Student set birthPlace = 'Rome' where idStud = 6 \n/* Aggiornamento riga Database con condizioni relative */", 
+								"Update Student set birthPlace = 'Rome' \n/*Aggiornamento del Luogo di Nascita per ogni riga della Tabella 'Studente' */",
+								"select idStud, name, surname, age, birthPlace, C.idClass, areaSqMt, floor, kind from Student as S inner join Class as C on S.idClass = C.idClass \n/* Inner Join fra le due Tabelle dove NON risulta consentito il ripetersi di C.idClass, S.idClass */",
+								"select idStud, name, surname, age, birthPlace, C.idClass, areaSqMt, floor, kind from Student as S inner join Class as C \n" + 
+								"on S.idClass = C.idClass where floor = '1' \n/* Elenco degli Studenti presenti al Piano '1' */",
+							]; 
 
-					columns: [
-						{title: "idClass", headerTooltip: true , field: "idClass", widthGrow: 3, formatter: "textarea", resizable: false},
-						{title: "superficieMq", headerTooltip: true , field: "superficieMq", widthGrow: 3, formatter: "textarea", resizable: false},
-						{title: "piano", headerTooltip: true , field: "piano", widthGrow: 3, formatter: "textarea", resizable: false},
-						{title: "tipo", headerTooltip: true , field: "tipo", widthGrow: 3, formatter: "textarea", resizable: false},
-					],
+							var contListQuerySQLDb01 = 0; 
+							array_listQuerySQLDb01.forEach( function( query ) {
+								var tempOpt = document.createElement('option');
+								tempOpt.value = query;
+								var tempExpr = query.substring( 0 , query.indexOf("\n/*") ).toUpperCase();  
+								if( tempExpr.length <= 75 ) {
+									tempOpt.innerHTML = tempExpr; 
+								} else {
+									tempOpt.innerHTML = tempExpr.substring( 0 , 75 + 1 ) + "..."; 
+								} 
 
-				});
+								if( contListQuerySQLDb01 == 8 ) {
+									tempOpt.selected = "true"; //Opzione selezionata
+								}
+								select_listQuerySQLDb01.appendChild( tempOpt ); 
 
-				tableClass.element.style.fontSize = "1.3vh";
+								contListQuerySQLDb01++; 
+							}); 
 
-				dataTableStudent = [
-					/*{
-						field: "", 
-						...
-					},*/
-				];
+							select_listQuerySQLDb01.addEventListener( "change", function( e ) {
+								document.getElementById("txt_displayQuerySQLDbEs01").value = "" + select_listQuerySQLDb01.value; 
+							});
 
-				tableStudent = new Tabulator( "#tableStudent", {
-					data: dataTableStudent, // Carica i dati 
-					//autoColumns: true, // Crea automaticamente le colonne in base alle chiavi 
+							/*document.getElementById("txt_displayQuerySQLDbEs01").value = "Attendi ... "; */ /*innerHTML*/  
+						</script>
 
-					layout: "fitColumns", 
-					//height: "100%", //Evitare per MANCANZA di SCROLLBAR verticale
+					</div>
 
-					columns: [
-						{title: "idStud", headerTooltip: true , field: "idStud", widthGrow: 3, formatter: "textarea", resizable: false},
-						{title: "nome", headerTooltip: true , field: "nome", widthGrow: 3, formatter: "textarea", resizable: false},
-						{title: "cognome", headerTooltip: true , field: "cognome", widthGrow: 3, formatter: "textarea", resizable: false},
-						{title: "eta", headerTooltip: true , field: "eta", widthGrow: 3, formatter: "textarea", resizable: false},
-						{title: "luogoNascita", headerTooltip: true , field: "luogoNascita", widthGrow: 3, formatter: "textarea", resizable: false},
-						{title: "idClass", headerTooltip: true , field: "idClass", widthGrow: 3, formatter: "textarea", resizable: false},
-					],
+						<button id="btn_executeQuerySQL" style="font-family: 'Trebuchet MS';" >Execute SQL Query</button>
+					</div>
 
-				});
-
-				tableStudent.element.style.fontSize = "1.3vh";
-
-				//ALTRI CAMPI
-
-				var totIDTabClass = { obj: document.getElementById( "totIDTabClass" ), limInf: 1,  limSup: 25, predef: 15 };
-				var totIDTabStudent = { obj: document.getElementById( "totIDTabStudent" ), limInf: 1,  limSup: 150, predef: 120 }; 
-
-				totIDTabClass.obj.addEventListener( "keydown", function(e) {
-					if( e.key == "Enter" ) {
-						contrIDTableDb01( totIDTabClass.obj, totIDTabClass.limInf, totIDTabClass.limSup, totIDTabClass.predef ); 
-					}
-				}); 
-				totIDTabClass.obj.addEventListener( "blur", function(e) {
-					contrIDTableDb01( totIDTabClass.obj, totIDTabClass.limInf, totIDTabClass.limSup, totIDTabClass.predef ); 
-				}); 
-
-				totIDTabStudent.obj.addEventListener( "keydown", function(e) {
-					if( e.key == "Enter" ) {
-						contrIDTableDb01( totIDTabStudent.obj, totIDTabStudent.limInf, totIDTabStudent.limSup, totIDTabStudent.predef ); 
-					}
-				}); 
-				totIDTabStudent.obj.addEventListener( "blur", function(e) {
-					contrIDTableDb01( totIDTabStudent.obj, totIDTabStudent.limInf, totIDTabStudent.limSup, totIDTabStudent.predef ); 
-				}); 
-				
-				function contrIDTableDb01( obj, min, max, predef ) {
-					//NON utilizzare Alert
-					//var tempTotIDTabClass = document.getElementById('totIDTabClass').value;
-					var popupInputDb01 = document.getElementById("popupInputDb01");
-					if( obj.value == "" || ( obj.value % 1 != 0 ) ) {
-						//popupInputDb01.innerHTML = "QQ"; //Inserisci un valore numerico intero <br>(Clicca qui per chiudere)
-						//popupInputDb01.style.display = "display";  
-						popupInputDb01.style.visibility = "visible";
-						//obj.value = predef;
-
-					} else if( obj.value < min || obj.value > max ) {
-						popupInputDb01.innerHTML = "Enter a numeric value between "+ min + " and " + max + " <br>(Click here to close)";
-						//popupInputDb01.style.display = "display";  
-						popupInputDb01.style.visibility = "visible";  
-						//obj.value = predef;
-
-					} else {
-						//tempTotIDTabClass = parseInt( tempTotIDTabClass );  
-						//Do nothing, value ok
-					}
-				}
-
-				var isDragging = false;
-				var offsetX = null; 
-				var offsetY = null; 
-
-				var popupInputDb01 = document.getElementById("popupInputDb01");
-
-				popupInputDb01.addEventListener("mousedown", (e) => {
-
-					isDragging = true;
+					<br>
 					
-					// Calculate the distance between the mouse pointer and the element's top-left corner
-					offsetX = e.clientX - popupInputDb01.offsetLeft;
-					offsetY = e.clientY - popupInputDb01.offsetTop;
-				});
-
-				document.addEventListener("mousemove", (e) => {
-
-					if (!isDragging) return; // Se non stai cliccando, non fare nulla
-					
-					//var popupInputDb01 = document.getElementById("popupInputDb01");
-
-					// Calculate new coordinates 
-					let newX = e.clientX - offsetX;
-					let newY = e.clientY - offsetY;
-
-					// Optional: Keep element inside viewport bounds
-					const minX = 0;
-					const maxX = window.innerWidth - popupInputDb01.offsetWidth;
-					const minY = 0;
-					const maxY = window.innerHeight - popupInputDb01.offsetHeight;
-
-					newX = Math.max(minX, Math.min(newX, maxX));
-					newY = Math.max(minY, Math.min(newY, maxY));
-
-					// Apply new position styles
-					popupInputDb01.style.left = `${newX}px`;
-					popupInputDb01.style.top = `${newY}px`;
-				});
-
-				// 3. RILASCIO (Mouseup): Ferma il trascinamento (registrato sul document)
-				document.addEventListener("mouseup", () => {
-					isDragging = false;
-				});
-
-			</script>
-
-			<div id="querySQLResultDbEs01" >
-				<div id="querySQLDbEs01" >
+					<div id="tableResultContainer" style="width: 100%; " >
+						- Table "Result" -
+						<div id="tableResult" ></div>
+					</div>
 					<br>
-					<b>• SQL Query</b> 
-					<br>
-					Choose one of the existing queries or write an SQL query directly:
-					<br>
-					<select id="select_listQuerySQLDb01">
-						<!-- <option value="query01">query01Text</option> -->
-					</select>
-
-					<textarea id="txt_displayQuerySQLDbEs01" ></textarea> <!-- </textarea> input ... -->
 
 					<script>
 
-						var select_listQuerySQLDb01 = document.getElementById("select_listQuerySQLDb01"); 
-						array_listQuerySQLDb01 = [
-							"select * from Classe \n/* Descrizione delle Classi presenti */", 
-							"select * from Studente \n/* Descrizione degli Studenti presenti */",  
-							"select * from Classe where tipo = 'Aula' \n/* Descrizione del tipo 'Aula' */",
-							"select count(*) as num_stud from Studente \n/* Numero totale di Studenti */", 
-							"select sum(superficieMq) as totSuperficieMq from Classe \n/* Superficie totale coperta */", 
-							"select distinct( tipo ) as disTipo from Classe order by disTipo asc \n/* Elenco delle tipologie di spazi */", 
-							"select count(idStud) as numStud, round( avg( eta ) , 2 ) as etaMediaPerClasse, idClass from Studente group by idClass \n/* Numero di Studenti ed Età media degli stessi per ciascuna Classe */",
-							"WITH const AS (SELECT max(eta) as maxEta from Studente) \nselect * from Studente, const where eta = const.maxEta \n/* Elenco degli Studenti più anziani - Common Table Expression (CTE) */",
-							"select * from Classe where tipo like '%Aula%' order by tipo asc\n/* Elenco delle tipologie di 'Aula' */", 
-							"Update Studente set luogoNascita = 'Roma' where idStud = 6 \n/* Aggiornamento riga Database con condizioni relative */", 
-							"Update Studente set luogoNascita = 'Roma' \n/*Aggiornamento del Luogo di Nascita per ogni riga della Tabella 'Studente' */",
-							"select idStud, nome, cognome, eta, luogoNascita, C.idClass, superficieMq, piano, tipo from Studente as S inner join Classe as C on S.idClass = C.idClass \n/* Inner Join fra le due Tabelle dove NON risulta consentito il ripetersi di C.idClass, S.idClass */",
-							"select idStud, nome, cognome, eta, luogoNascita, C.idClass, superficieMq, piano, tipo from Studente as S inner join Classe as C \n" + 
-							"on S.idClass = C.idClass where piano = '1' \n/* Elenco degli Studenti presenti al Piano '1' */",
-						]; 
+						dataTableResult = [
+							/*{
+								field: "", 
+								...
+							},*/
+						];
 
-						var contListQuerySQLDb01 = 0; 
-						array_listQuerySQLDb01.forEach( function( query ) {
-							var tempOpt = document.createElement('option');
-							tempOpt.value = query;
-							var tempExpr = query.substring( 0 , query.indexOf("\n/*") ).toUpperCase();  
-							if( tempExpr.length <= 75 ) {
-								tempOpt.innerHTML = tempExpr; 
-							} else {
-								tempOpt.innerHTML = tempExpr.substring( 0 , 75 + 1 ) + "..."; 
-							} 
+						tableResult = new Tabulator( "#tableResult", {
+							data: dataTableResult, // Carica i dati 
+							//autoColumns: true, // Crea automaticamente le colonne in base alle chiavi 
 
-							if( contListQuerySQLDb01 == 8 ) {
-								tempOpt.selected = "true"; //Opzione selezionata
-							}
-							select_listQuerySQLDb01.appendChild( tempOpt ); 
+							autoColumns: true,     // Genera automaticamente le colonne in base alle chiavi
 
-							contListQuerySQLDb01++; 
-						}); 
+							layout: "fitColumns",  
+							//height: "100%", //Evitare per MANCANZA di SCROLLBAR verticale
 
-						select_listQuerySQLDb01.addEventListener( "change", function( e ) {
-							document.getElementById("txt_displayQuerySQLDbEs01").value = "" + select_listQuerySQLDb01.value; 
 						});
 
-						/*document.getElementById("txt_displayQuerySQLDbEs01").value = "Attendi ... "; */ /*innerHTML*/  
-					</script>
+						tableResult.element.style.fontSize = "1.3vh";
 
+					</script>
+				
+					<py-script>
+						
+						import js
+						from js import console, document, window
+
+						from db01 import *
+
+					</py-script>
+				
 				</div>
 
-				<button id="btn_executeQuerySQL" >Execute SQL Query</button>
 			</div>
 
-			<br>
-			<div id="tableResult"></div>
-			<br>
-
-			<script>
-
-				dataTableResult = [
-					/*{
-						field: "", 
-						...
-					},*/
-				];
-
-				tableResult = new Tabulator( "#tableResult", {
-					data: dataTableResult, // Carica i dati 
-					//autoColumns: true, // Crea automaticamente le colonne in base alle chiavi 
-
-					autoColumns: true,     // Genera automaticamente le colonne in base alle chiavi
-
-					layout: "fitColumns",  
-					//height: "100%", //Evitare per MANCANZA di SCROLLBAR verticale
-
-				});
-
-				tableResult.element.style.fontSize = "1.3vh";
-
-			</script>
-		
-			<py-script>
-				
-				import js
-				from js import console, document, window
-
-				from db01 import *
-
-			</py-script>
-		
-		</div>
+		</div>		
 
 	</div>
 
