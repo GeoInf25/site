@@ -25,9 +25,9 @@ if( window.parent.schedaDatabaseCliccata == True ):
     #document.getElementById("txt_displayTabStudentDbEs01").innerHTML = ""
 '''
 
-def controlConnection( *args ): 
+def controlConnection( *args ):  
   global connection 
-  document.getElementById("txt_displayQuerySQLDbEs01").value = "" + document.getElementById("select_listQuerySQLDb01").value; #innerHTML
+  #document.getElementById("txt_displayQuerySQLDbEs01").value = "" + document.getElementById("select_listQuerySQLDb01").value; #innerHTML
   connection = sqlite3.connect( ":memory:" ) #https://geoinf25.github.io/site/Database/dbSqliteEs01.db 
   tablePopulating()
   executeQuerySQL()

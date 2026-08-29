@@ -9,7 +9,6 @@
 	<link id="tabulator-theme" href="https://unpkg.com/tabulator-tables@6.3.1/dist/css/tabulator_semanticui.min.css" rel="stylesheet">
 	-->
 	<link id="tabulator-theme" href="https://unpkg.com/tabulator-tables@6.3.1/dist/css/tabulator_site.min.css" rel="stylesheet">
-	
  	<script type="text/javascript" src="https://unpkg.com/tabulator-tables@6.3.1/dist/js/tabulator.min.js"></script>
 
 	<link rel="stylesheet" href="styleGeoInf.css">
@@ -30,14 +29,6 @@
 			/*font-style: italic;*/
 			width: 100%; 
 			height: 4vh; 
-		}
-
-		#txt_displayQuerySQLDbEs01 {
-			width: 100%; 
-			height: 20vh; 
-			resize: none; 
-			overflow-y: scroll; 
-			/*white-space: pre; */
 		}
 
 		.popup {
@@ -294,12 +285,11 @@
 
 			</div>
 
-			<div id="right" style="width: 50%; float:right; ">
+			<div id="right" style="width: 50%; float:right; "> 
 
 				<div id="querySQLResultDbEs01" >
 
-					<div id="querySQLDbEs01" >
-						<br>
+					<div id="querySQLDbEs01" > 
 						<b>• SQL Query</b> 
 						<br>
 						Choose one of the existing queries or write an SQL query directly:
@@ -309,10 +299,6 @@
 						>
 							<!-- <option value="query01">query01Text</option> -->
 						</select>
-
-						<textarea id="txt_displayQuerySQLDbEs01" 
-							style="font-family: 'Trebuchet MS'; font-weight: bold; font-size: 1.5vh; color: blue; " 
-						></textarea> <!-- </textarea> input ... -->
 
 						<script>
 
@@ -347,6 +333,7 @@
 
 								if( contListQuerySQLDb01 == 8 ) {
 									tempOpt.selected = "true"; //Opzione selezionata
+									
 								}
 								select_listQuerySQLDb01.appendChild( tempOpt ); 
 
@@ -355,10 +342,149 @@
 
 							select_listQuerySQLDb01.addEventListener( "change", function( e ) {
 								document.getElementById("txt_displayQuerySQLDbEs01").value = "" + select_listQuerySQLDb01.value; 
+
+								//Aggiornamento Prism.js
+								updateCode(document.querySelector("#txt_displayQuerySQLDbEs01").value); 
+								syncScroll();
+
 							});
 
 							/*document.getElementById("txt_displayQuerySQLDbEs01").value = "Attendi ... "; */ /*innerHTML*/  
 						</script>
+
+						<!-- PRISM JS -->
+
+						<!-- style="font-family: 'Trebuchet MS'; font-weight: bold; font-size: 1.5vh; "color: blue; "  -->
+						<!-- id="txt_displayQuerySQLDbEs01" -->
+						<!-- 
+							#txt_displayQuerySQLDbEs01 {
+								width: 100%; 
+								height: 20vh; 
+								resize: none; 
+								overflow-y: scroll; 
+								/*white-space: pre; */
+							}
+						-->
+
+						<!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/themes/prism-dark.min.css" rel="stylesheet"> -->
+						<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+						<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/prism.min.js"></script>
+ 						<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/components/prism-sql.min.js"></script>
+						
+						<style>
+							/* Contenitore principale */
+							.container-editor { 
+								position: relative; 
+								width: 100%; 
+								height: 20vh; 
+							}
+
+							/* Reset globale identico per Textarea, Pre e Code (Risolve lo sfalsamento) */
+							#txt_displayQuerySQLDbEs01, 
+							#highlighting, 
+							#highlighting-content { 
+								margin: 0 !important;  
+								padding: 10px !important; /* Un minimo di padding evita che il testo tocchi i bordi, sovrascritto per highlighting-content */
+								border: 1px solid black; /* sovrascritto per highlighting-content */ 
+								font-family: 'Trebuchet MS' !important; /*monospace*/
+								font-size: 1.8vh !important; 
+								line-height: 2.2vh !important; /* Fondamentale: stessa identica altezza riga per non sfalsare */
+								box-sizing: border-box !important; 
+								white-space: pre !important;
+								letter-spacing: normal !important;
+								word-spacing: normal !important;
+
+								font-weight: bold; 
+
+								white-space: pre-wrap !important; 
+								word-wrap: break-word !important;
+								
+								overflow-y: auto !important;
+								overflow-x: hidden !important;
+
+							}
+
+							/* Proprietà di posizionamento dei due blocchi sovrapposti */
+							#txt_displayQuerySQLDbEs01, 
+							#highlighting {
+								position: absolute; 
+								top: 0; 
+								left: 0; 
+								width: 100%; 
+								height: 20vh; 
+								overflow: auto; 
+							}
+
+							/* La textarea sta sopra ed è completamente trasparente */
+							#txt_displayQuerySQLDbEs01 { 
+								z-index: 1; 
+								background: transparent !important; 
+								color: transparent !important; 
+								caret-color: red; 
+								resize: none; 
+							}
+
+							/* Il blocco sotto ha lo sfondo scuro nativo del tema prism-dark */
+							#highlighting { 
+								z-index: 0; 
+								background: #2d2d2d !important; /* Forza lo sfondo scuro del tema Prism all'avvio, #2d2d2d per DARK */
+								pointer-events: none; /* Impedisce di bloccare i click sulla textarea */
+							} 
+
+							/* Rimuove gli stili interni di Prism che rompevano l'allineamento */
+							#highlighting-content {
+								padding: 0 !important; /* mantenere */
+								border: none !important; /* mantenere */
+								background: transparent !important;
+							}
+						</style>
+
+						<div class="container-editor">
+							<!-- Il testo digitato diventa invisibile ma mantiene il cursore attivo -->
+							<textarea id="txt_displayQuerySQLDbEs01" oninput="updateCode(this.value);" onscroll="syncScroll();" spellcheck="false"></textarea>
+							<!-- Il blocco sottostante mostra la sintassi SQL evidenziata -->
+							<pre id="highlighting" aria-hidden="true"><code class="language-sql" id="highlighting-content"></code></pre>
+						</div>
+
+						<script>
+
+						function updateCode(text) { 
+							//console.log("Test ... ");
+
+							let resultElement = document.querySelector("#highlighting-content");
+							
+							// Gestisce i caratteri HTML speciali ed evita bug con l'invio a capo finale
+							if(text[text.length-1] == "\n" || text === "") { 
+								text += " "; 
+							}
+
+							resultElement.textContent = text;
+							
+							Prism.highlightElement(resultElement);
+						}
+
+						function syncScroll() {
+							let editing = document.querySelector("#txt_displayQuerySQLDbEs01");
+							let highlighting = document.querySelector("#highlighting");
+							highlighting.scrollTop = editing.scrollTop;
+							highlighting.scrollLeft = editing.scrollLeft;
+						}
+
+						//Avvia l'evidenziazione immediata al caricamento
+						//Esegue l'evidenziazione NON APPENA la pagina è completamente caricata
+						window.addEventListener('DOMContentLoaded', () => {
+
+							//Aggiornamento TextArea con Select 
+							document.getElementById("txt_displayQuerySQLDbEs01").value = "" + document.getElementById("select_listQuerySQLDb01").value;
+							
+							updateCode(document.querySelector("#txt_displayQuerySQLDbEs01").value);
+							syncScroll();
+
+						});
+
+						</script>
+
+						<!-- PRISM JS --> 
 
 					</div>
 
@@ -420,7 +546,7 @@
 		<div id="footer" class="span4 roundBorder" style="font-size: 1.5vh; " > <!-- font-weight: bold; font-style: italic; -->
 			<b>2026 - GEOINF - PLEASE NOTE: libraries, frameworks, databases and any other associated elements belong to their respective owners. </b>
 			<br>
-			Applications developed in <a href="https://pyscript.net/">Pyscript</a>, SQL, Javascript (Tabulator JS) through <a href="https://github.com/apps/desktop">GitHub Desktop</a> and <a href="https://code.visualstudio.com/">Visual Studio Code</a>, in particular for the <a href="https://sqlite.org/">Sqlite</a>/<a href="https://www.gaia-gis.it/fossil/libspatialite/index">Spatialite</a> Databases.
+			Applications developed in <a href="https://pyscript.net/">Pyscript</a>, SQL, Javascript (Tabulator JS), <a href="https://prismjs.com/">Prism JS</a> through <a href="https://github.com/apps/desktop">GitHub Desktop</a> and <a href="https://code.visualstudio.com/">Visual Studio Code</a>, in particular for the <a href="https://sqlite.org/">Sqlite</a>/<a href="https://www.gaia-gis.it/fossil/libspatialite/index">Spatialite</a> Databases.
 			<br>
 			<br>
 		</div>
