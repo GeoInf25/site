@@ -58,16 +58,16 @@ surname = [ "Smith", "Baker", "Miller", "Taylor", "Fisher", "Johnson", "Jackson"
 birthPlace = [ "London", "Paris", "Rome", "Berlin", "Madrid", "Amsterdam", "Vienna", "Athens", "New York", "Los Angeles", "Chicago", "Miami", "San Francisco", "Boston", "Seattle" ]
 areaSqMt = [ 25, 30, 35, 40, 45, 50, 70, 100 ]
 floor = [ -1, 0, 1, 2, 3, 4, 5 ]
-kind = [ "Classroom", "Physics lab", "Gym", "CAD Lab", "Computer Lab" ]
+kind = [ "Classroom", "Physics lab", "Gym", "CAD Lab", "Computer Lab" ] 
   
 def tablePopulating( *args ):
   try: 
     global connection
 
     totIDTabClass = int( document.getElementById( "totIDTabClass" ).value )
-    totIDTabStudent = int( document.getElementById( "totIDTabStudent" ).value )
+    totIDTabStudent = int( document.getElementById( "totIDTabStudent" ).value ) 
     #connection = sqlite3.connect( ":memory:" ) #https://geoinf25.github.io/site/Database/dbSqliteEs01.db
-    print("connection.total_changes: " + str( connection.total_changes ) )
+    document.getElementById("sqlErrors").value += "-- connection.total_changes: " + str( connection.total_changes ) + " -- ";
     cursor = connection.cursor()
 
     cursor.execute("DROP TABLE IF EXISTS Class")
@@ -122,10 +122,10 @@ def tablePopulating( *args ):
     #FINE CODICE RIPETUTO
 
     #connection.close()
-    print( "-- End Tables Definition -- " )
+    document.getElementById("sqlErrors").value += "-- End Tables Definition -- ";
 
   except Exception as e:
-    print( f"Error detected: {str(e)}" ); 
+    document.getElementById("sqlErrors").value += f"-- Error detected: {str(e)} -- "; 
 
 def executeQuerySQL( *args ):
   try: 
@@ -152,9 +152,9 @@ def executeQuerySQL( *args ):
 
       #connection.close()
     else: 
-      print( "Operation performed; absence of an SQL object (None / NoneType Python Object). " )
+      document.getElementById("sqlErrors").value += "-- Operation performed; absence of an SQL object (None / NoneType Python Object) -- ";
 
-    print( "-- End of SQL Query Execution -- " )
+    document.getElementById("sqlErrors").value += "-- End of SQL Query Execution -- ";
 
     if "Update" in str( document.getElementById("txt_displayQuerySQLDbEs01").value ): 
       #CODICE RIPETUTO
@@ -174,7 +174,7 @@ def executeQuerySQL( *args ):
       #CODICE RIPETUTO
 
   except Exception as e:
-    print( f"Error detected: {str(e)}" )
+    document.getElementById("sqlErrors").value += f"-- Error detected: {str(e)} -- ";
 
 
 add_event_listener( document.getElementById("btn_tablePopulating") , "click", tablePopulating)

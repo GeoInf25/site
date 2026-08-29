@@ -90,12 +90,7 @@
 		<div id = "blocco01Db" class = "span4 roundBorder" > 
 			<b>• External links for databases (relational / non-relational)</b>
 			<br>
-			<br>
-			- Example queries for MySQL: <a href="https://www.w3schools.com/MySQL/trymysql.asp?filename=trysql_select_all">W3School MySQL</a>
-			<br>
-			- Example queries for PostgreSQL, SQL Server, and MySQL: <a href="https://runsql.com/r">Run SQL</a>
-			<br>
-			- Example query for MongoDB: <a href=https://mongoplayground.net/>Mongo Playground</a>
+			Example queries for MySQL: <a href="https://www.w3schools.com/MySQL/trymysql.asp?filename=trysql_select_all">W3School MySQL</a> - Example queries for PostgreSQL, SQL Server, and MySQL: <a href="https://runsql.com/r">Run SQL</a> - Example query for MongoDB: <a href=https://mongoplayground.net/>Mongo Playground</a>
 		</div>
 
 		<div id = "blocco02Db" class = "span4 roundBorder"  >
@@ -376,7 +371,7 @@
 							.container-editor { 
 								position: relative; 
 								width: 100%; 
-								height: 20vh; 
+								height: 16vh; /* ripetuto */ 
 							}
 
 							/* Reset globale identico per Textarea, Pre e Code (Risolve lo sfalsamento) */
@@ -411,7 +406,7 @@
 								top: 0; 
 								left: 0; 
 								width: 100%; 
-								height: 20vh; 
+								height: 16vh; /* ripetuto */
 								overflow: auto; 
 							}
 
@@ -427,7 +422,7 @@
 							/* Il blocco sotto ha lo sfondo scuro nativo del tema prism-dark */
 							#highlighting { 
 								z-index: 0; 
-								background: #2d2d2d !important; /* Forza lo sfondo scuro del tema Prism all'avvio, #2d2d2d per DARK */
+								background: black !important; /* Forza lo sfondo scuro del tema Prism all'avvio, #2d2d2d per DARK */
 								pointer-events: none; /* Impedisce di bloccare i click sulla textarea */
 							} 
 
@@ -444,7 +439,7 @@
 							<textarea id="txt_displayQuerySQLDbEs01" oninput="updateCode(this.value);" onscroll="syncScroll();" spellcheck="false"></textarea>
 							<!-- Il blocco sottostante mostra la sintassi SQL evidenziata -->
 							<pre id="highlighting" aria-hidden="true"><code class="language-sql" id="highlighting-content"></code></pre>
-						</div>
+						</div> 
 
 						<script>
 
@@ -488,9 +483,19 @@
 
 					</div>
 
+					<div>
 						<button id="btn_executeQuerySQL" style="font-family: 'Trebuchet MS'; font-size: 1.6vh; " >Execute SQL Query</button>
 					</div>
 
+					<br>
+
+					<div>
+						❌ SQL Errors / Warnings / Messages
+						<textarea id="sqlErrors" 
+							style="width: 100%; height: 5vh; background-color: black; color: lightgray; resize: none; font-family: 'Trebuchet MS'; font-size: 1.8vh; " readonly 
+						></textarea>
+					</div>
+					
 					<br>
 					
 					<div id="tableResultContainer" style="width: 100%; " >
