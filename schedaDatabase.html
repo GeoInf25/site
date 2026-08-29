@@ -109,7 +109,7 @@
 
 		<div id = "blocco02Db" class = "span4 roundBorder"  >
 
-			<div id="left" style="width: 59%; float:left;" >
+			<div id="left" style="width: 49%; float:left;" >
 
 				<b>• SQLite Relational Database</b>
 				<br>
@@ -133,17 +133,17 @@
 				</div>
 
 				<br>
-				<button id="btn_tablePopulating" style="font-family: 'Trebuchet MS';" >Define Tables</button>
+				<button id="btn_tablePopulating" style="font-family: 'Trebuchet MS'; font-size: 1.6vh; " >Define Tables</button>
 				<br>
 				<br>
 
 				<div id="tableStudentContainer" style="width: 60%; float: left; " >
-					- Table "Student" -
+					🗃️ Table "Student"
 					<div id="tableStudent" ></div>
 				</div>
 				
 				<div id="tableClassContainer" style="width: 39%; float: right; " >
-					- Table "Class" -
+					🗃️ Table "Class"
 					<div id="tableClass" ></div>
 				</div>
 
@@ -294,7 +294,7 @@
 
 			</div>
 
-			<div id="right" style="width: 40%; float:right; ">
+			<div id="right" style="width: 50%; float:right; ">
 
 				<div id="querySQLResultDbEs01" >
 
@@ -318,20 +318,20 @@
 
 							var select_listQuerySQLDb01 = document.getElementById("select_listQuerySQLDb01"); 
 							array_listQuerySQLDb01 = [
-								"select * from Class \n/* Descrizione delle Classi presenti */", 
-								"select * from Student \n/* Descrizione degli Studenti presenti */",  
-								"select * from Class where kind = 'Classroom' \n/* Descrizione del tipo 'Aula' */",
-								"select count(*) as num_stud from Student \n/* Numero totale di Studenti */", 
-								"select sum(areaSqMt) as totAreaSqMt from Class \n/* Superficie totale coperta */", 
-								"select distinct( kind ) as disKind from Class order by disKind asc \n/* Elenco delle tipologie di spazi */", 
-								"select count(idStud) as numStud, round( avg( age ) , 2 ) as averageAgeByClass, idClass from Student group by idClass \n/* Numero di Studenti ed Età media degli stessi per ciascuna Classe */",
-								"WITH const AS (SELECT max(age) as maxAge from Student) \nselect * from Student, const where age = const.maxAge \n/* Elenco degli Studenti più anziani - Common Table Expression (CTE) */",
-								"select * from Class where kind like '%Lab%' order by kind asc\n/* Elenco delle tipologie di 'Aula' */", 
-								"Update Student set birthPlace = 'Rome' where idStud = 6 \n/* Aggiornamento riga Database con condizioni relative */", 
-								"Update Student set birthPlace = 'Rome' \n/*Aggiornamento del Luogo di Nascita per ogni riga della Tabella 'Studente' */",
-								"select idStud, name, surname, age, birthPlace, C.idClass, areaSqMt, floor, kind from Student as S inner join Class as C on S.idClass = C.idClass \n/* Inner Join fra le due Tabelle dove NON risulta consentito il ripetersi di C.idClass, S.idClass */",
+								"select * from Class \n/* Description of the available classes */", 
+								"select * from Student \n/* Description of available students */",  
+								"select * from Class where kind = 'Classroom' \n/* Description of the 'Classroom' type */",
+								"select count(*) as num_stud from Student \n/* Total number of students */", 
+								"select sum(areaSqMt) as totAreaSqMt from Class \n/* Total covered area */", 
+								"select distinct( kind ) as disKind from Class order by disKind asc \n/* List of space types */", 
+								"select count(idStud) as numStud, round( avg( age ) , 2 ) as averageAgeByClass, idClass from Student group by idClass \n/* Number of students and their average age for each class */",
+								"WITH const AS (SELECT max(age) as maxAge from Student) \nselect * from Student, const where age = const.maxAge \n/* List of oldest students - Common Table Expression (CTE) */",
+								"select * from Class where kind like '%Lab%' order by kind asc\n/* List of 'Classroom' types */", 
+								"Update Student set birthPlace = 'Rome' where idStud = 6 \n/* Database row update with related conditions */", 
+								"Update Student set birthPlace = 'Rome' \n/* Update the place of birth for each row in the 'Student' table */",
+								"select idStud, name, surname, age, birthPlace, C.idClass, areaSqMt, floor, kind from Student as S inner join Class as C on S.idClass = C.idClass \n/* Inner Join between the two tables where the repetition of C.idClass and S.idClass is not permitted */",
 								"select idStud, name, surname, age, birthPlace, C.idClass, areaSqMt, floor, kind from Student as S inner join Class as C \n" + 
-								"on S.idClass = C.idClass where floor = '1' \n/* Elenco degli Studenti presenti al Piano '1' */",
+								"on S.idClass = C.idClass where floor = '1' \n/* List of students present on Floor 1 */", 
 							]; 
 
 							var contListQuerySQLDb01 = 0; 
@@ -362,13 +362,13 @@
 
 					</div>
 
-						<button id="btn_executeQuerySQL" style="font-family: 'Trebuchet MS';" >Execute SQL Query</button>
+						<button id="btn_executeQuerySQL" style="font-family: 'Trebuchet MS'; font-size: 1.6vh; " >Execute SQL Query</button>
 					</div>
 
 					<br>
 					
 					<div id="tableResultContainer" style="width: 100%; " >
-						- Table "Result" -
+						🗃️ Table "Result"
 						<div id="tableResult" ></div>
 					</div>
 					<br>
