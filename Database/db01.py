@@ -67,7 +67,8 @@ def tablePopulating( *args ):
     totIDTabClass = int( document.getElementById( "totIDTabClass" ).value )
     totIDTabStudent = int( document.getElementById( "totIDTabStudent" ).value ) 
     #connection = sqlite3.connect( ":memory:" ) #https://geoinf25.github.io/site/Database/dbSqliteEs01.db
-    document.getElementById("sqlErrors").value += "-- connection.total_changes: " + str( connection.total_changes ) + " -- ";
+    document.getElementById("sqlErrors").value += "- connection.total_changes: " + str( connection.total_changes ) + "\n";
+    document.getElementById("sqlErrors").scrollTop = document.getElementById("sqlErrors").scrollHeight;
     cursor = connection.cursor()
 
     cursor.execute("DROP TABLE IF EXISTS Class")
@@ -122,10 +123,12 @@ def tablePopulating( *args ):
     #FINE CODICE RIPETUTO
 
     #connection.close()
-    document.getElementById("sqlErrors").value += "-- End Tables Definition -- ";
+    document.getElementById("sqlErrors").value += "- End Tables Definition\n";
+    document.getElementById("sqlErrors").scrollTop = document.getElementById("sqlErrors").scrollHeight;
 
   except Exception as e:
-    document.getElementById("sqlErrors").value += f"-- Error detected: {str(e)} -- "; 
+    document.getElementById("sqlErrors").value += f"- Error detected: {str(e)}\n"; 
+    document.getElementById("sqlErrors").scrollTop = document.getElementById("sqlErrors").scrollHeight;
 
 def executeQuerySQL( *args ):
   try: 
@@ -152,9 +155,11 @@ def executeQuerySQL( *args ):
 
       #connection.close()
     else: 
-      document.getElementById("sqlErrors").value += "-- Operation performed; absence of an SQL object (None / NoneType Python Object) -- ";
+      document.getElementById("sqlErrors").value += "- Operation performed; absence of an SQL object (None / NoneType Python Object)\n";
+      document.getElementById("sqlErrors").scrollTop = document.getElementById("sqlErrors").scrollHeight;
 
-    document.getElementById("sqlErrors").value += "-- End of SQL Query Execution -- ";
+    document.getElementById("sqlErrors").value += "- End of SQL Query Execution\n";
+    document.getElementById("sqlErrors").scrollTop = document.getElementById("sqlErrors").scrollHeight;
 
     if "Update" in str( document.getElementById("txt_displayQuerySQLDbEs01").value ): 
       #CODICE RIPETUTO
@@ -174,13 +179,14 @@ def executeQuerySQL( *args ):
       #CODICE RIPETUTO
 
   except Exception as e:
-    document.getElementById("sqlErrors").value += f"-- Error detected: {str(e)} -- ";
+    document.getElementById("sqlErrors").value += f"- Error detected: {str(e)}\n";
+    document.getElementById("sqlErrors").scrollTop = document.getElementById("sqlErrors").scrollHeight;
 
 
-add_event_listener( document.getElementById("btn_tablePopulating") , "click", tablePopulating)
+add_event_listener( document.getElementById("btn_tablePopulating") , "click", tablePopulating) 
 add_event_listener( document.getElementById("btn_executeQuerySQL") , "click", executeQuerySQL)	
 
-#*** AVVIO APPLICAZIONE ***
+#*** AVVIO APPLICAZIONE *** 
 controlConnection()
 
 '''

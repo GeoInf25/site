@@ -15,10 +15,12 @@
 
 	<style>
 
+/*
 		#querySQLResultDbEs01 { 
 			width: 100%;
 			height: auto;
 		}
+*/
 
 		#querySQLDbEs01 {
 			width: 100%; 
@@ -282,218 +284,226 @@
 
 			<div id="right" style="width: 50%; float:right; "> 
 
-				<div id="querySQLResultDbEs01" >
+				<div id="querySQLDbEs01" > 
+					<b>• SQL Query</b> 
+					<br>
+					Choose one of the existing queries or write an SQL query directly:
+					<br>
+					<select id="select_listQuerySQLDb01"
+						style="font-family: 'Trebuchet MS'; font-weight: bold; font-size: 1.5vh; color: blue; "
+					>
+						<!-- <option value="query01">query01Text</option> -->
+					</select>
 
-					<div id="querySQLDbEs01" > 
-						<b>• SQL Query</b> 
-						<br>
-						Choose one of the existing queries or write an SQL query directly:
-						<br>
-						<select id="select_listQuerySQLDb01"
-							style="font-family: 'Trebuchet MS'; font-weight: bold; font-size: 1.5vh; color: blue; "
-						>
-							<!-- <option value="query01">query01Text</option> -->
-						</select>
+					<script>
 
-						<script>
+						var select_listQuerySQLDb01 = document.getElementById("select_listQuerySQLDb01"); 
+						array_listQuerySQLDb01 = [
+							"select * from Class \n/* Description of the available classes */", 
+							"select * from Student \n/* Description of available students */",  
+							"select * from Class where kind = 'Classroom' \n/* Description of the 'Classroom' type */",
+							"select count(*) as num_stud from Student \n/* Total number of students */", 
+							"select sum(areaSqMt) as totAreaSqMt from Class \n/* Total covered area */", 
+							"select distinct( kind ) as disKind from Class order by disKind asc \n/* List of space types */", 
+							"select count(idStud) as numStud, round( avg( age ) , 2 ) as averageAgeByClass, idClass from Student group by idClass \n/* Number of students and their average age for each class */",
+							"WITH const AS (SELECT max(age) as maxAge from Student) \nselect * from Student, const where age = const.maxAge \n/* List of oldest students - Common Table Expression (CTE) */",
+							"select * from Class where kind like '%Lab%' order by kind asc\n/* List of 'Classroom' types */", 
+							"Update Student set birthPlace = 'Rome' where idStud = 6 \n/* Database row update with related conditions */", 
+							"Update Student set birthPlace = 'Rome' \n/* Update the place of birth for each row in the 'Student' table */",
+							"select idStud, name, surname, age, birthPlace, C.idClass, areaSqMt, floor, kind from Student as S inner join Class as C on S.idClass = C.idClass \n/* Inner Join between the two tables where the repetition of C.idClass and S.idClass is not permitted */",
+							"select idStud, name, surname, age, birthPlace, C.idClass, areaSqMt, floor, kind from Student as S inner join Class as C \n" + 
+							"on S.idClass = C.idClass where floor = '1' \n/* List of students present on Floor 1 */", 
+						]; 
 
-							var select_listQuerySQLDb01 = document.getElementById("select_listQuerySQLDb01"); 
-							array_listQuerySQLDb01 = [
-								"select * from Class \n/* Description of the available classes */", 
-								"select * from Student \n/* Description of available students */",  
-								"select * from Class where kind = 'Classroom' \n/* Description of the 'Classroom' type */",
-								"select count(*) as num_stud from Student \n/* Total number of students */", 
-								"select sum(areaSqMt) as totAreaSqMt from Class \n/* Total covered area */", 
-								"select distinct( kind ) as disKind from Class order by disKind asc \n/* List of space types */", 
-								"select count(idStud) as numStud, round( avg( age ) , 2 ) as averageAgeByClass, idClass from Student group by idClass \n/* Number of students and their average age for each class */",
-								"WITH const AS (SELECT max(age) as maxAge from Student) \nselect * from Student, const where age = const.maxAge \n/* List of oldest students - Common Table Expression (CTE) */",
-								"select * from Class where kind like '%Lab%' order by kind asc\n/* List of 'Classroom' types */", 
-								"Update Student set birthPlace = 'Rome' where idStud = 6 \n/* Database row update with related conditions */", 
-								"Update Student set birthPlace = 'Rome' \n/* Update the place of birth for each row in the 'Student' table */",
-								"select idStud, name, surname, age, birthPlace, C.idClass, areaSqMt, floor, kind from Student as S inner join Class as C on S.idClass = C.idClass \n/* Inner Join between the two tables where the repetition of C.idClass and S.idClass is not permitted */",
-								"select idStud, name, surname, age, birthPlace, C.idClass, areaSqMt, floor, kind from Student as S inner join Class as C \n" + 
-								"on S.idClass = C.idClass where floor = '1' \n/* List of students present on Floor 1 */", 
-							]; 
-
-							var contListQuerySQLDb01 = 0; 
-							array_listQuerySQLDb01.forEach( function( query ) {
-								var tempOpt = document.createElement('option');
-								tempOpt.value = query;
-								var tempExpr = query.substring( 0 , query.indexOf("\n/*") ).toUpperCase();  
-								if( tempExpr.length <= 75 ) {
-									tempOpt.innerHTML = tempExpr; 
-								} else {
-									tempOpt.innerHTML = tempExpr.substring( 0 , 75 + 1 ) + "..."; 
-								} 
-
-								if( contListQuerySQLDb01 == 8 ) {
-									tempOpt.selected = "true"; //Opzione selezionata
-									
-								}
-								select_listQuerySQLDb01.appendChild( tempOpt ); 
-
-								contListQuerySQLDb01++; 
-							}); 
-
-							select_listQuerySQLDb01.addEventListener( "change", function( e ) {
-								document.getElementById("txt_displayQuerySQLDbEs01").value = "" + select_listQuerySQLDb01.value; 
-
-								//Aggiornamento Prism.js
-								updateCode(document.querySelector("#txt_displayQuerySQLDbEs01").value); 
-								syncScroll();
-
-							});
-
-							/*document.getElementById("txt_displayQuerySQLDbEs01").value = "Attendi ... "; */ /*innerHTML*/  
-						</script>
-
-						<!-- PRISM JS -->
-
-						<!-- style="font-family: 'Trebuchet MS'; font-weight: bold; font-size: 1.5vh; "color: blue; "  -->
-						<!-- id="txt_displayQuerySQLDbEs01" -->
-						<!-- 
-							#txt_displayQuerySQLDbEs01 {
-								width: 100%; 
-								height: 20vh; 
-								resize: none; 
-								overflow-y: scroll; 
-								/*white-space: pre; */
-							}
-						-->
-
-						<!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/themes/prism-dark.min.css" rel="stylesheet"> -->
-						<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/themes/prism-tomorrow.min.css" rel="stylesheet">
-						<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/prism.min.js"></script>
- 						<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/components/prism-sql.min.js"></script>
-						
-						<style>
-							/* Contenitore principale */
-							.container-editor { 
-								position: relative; 
-								width: 100%; 
-								height: 16vh; /* ripetuto */ 
-							}
-
-							/* Reset globale identico per Textarea, Pre e Code (Risolve lo sfalsamento) */
-							#txt_displayQuerySQLDbEs01, 
-							#highlighting, 
-							#highlighting-content { 
-								margin: 0 !important;  
-								padding: 10px !important; /* Un minimo di padding evita che il testo tocchi i bordi, sovrascritto per highlighting-content */
-								border: 1px solid black; /* sovrascritto per highlighting-content */ 
-								font-family: 'Trebuchet MS' !important; /*monospace*/
-								font-size: 1.8vh !important; 
-								line-height: 2.2vh !important; /* Fondamentale: stessa identica altezza riga per non sfalsare */
-								box-sizing: border-box !important; 
-								white-space: pre !important;
-								letter-spacing: normal !important;
-								word-spacing: normal !important;
-
-								font-weight: bold; 
-
-								white-space: pre-wrap !important; 
-								word-wrap: break-word !important;
-								
-								overflow-y: auto !important;
-								overflow-x: hidden !important;
-
-							}
-
-							/* Proprietà di posizionamento dei due blocchi sovrapposti */
-							#txt_displayQuerySQLDbEs01, 
-							#highlighting {
-								position: absolute; 
-								top: 0; 
-								left: 0; 
-								width: 100%; 
-								height: 16vh; /* ripetuto */
-								overflow: auto; 
-							}
-
-							/* La textarea sta sopra ed è completamente trasparente */
-							#txt_displayQuerySQLDbEs01 { 
-								z-index: 1; 
-								background: transparent !important; 
-								color: transparent !important; 
-								caret-color: red; 
-								resize: none; 
-							}
-
-							/* Il blocco sotto ha lo sfondo scuro nativo del tema prism-dark */
-							#highlighting { 
-								z-index: 0; 
-								background: black !important; /* Forza lo sfondo scuro del tema Prism all'avvio, #2d2d2d per DARK */
-								pointer-events: none; /* Impedisce di bloccare i click sulla textarea */
+						var contListQuerySQLDb01 = 0; 
+						array_listQuerySQLDb01.forEach( function( query ) {
+							var tempOpt = document.createElement('option');
+							tempOpt.value = query;
+							var tempExpr = query.substring( 0 , query.indexOf("\n/*") ).toUpperCase();  
+							if( tempExpr.length <= 75 ) {
+								tempOpt.innerHTML = tempExpr; 
+							} else {
+								tempOpt.innerHTML = tempExpr.substring( 0 , 75 + 1 ) + "..."; 
 							} 
 
-							/* Rimuove gli stili interni di Prism che rompevano l'allineamento */
-							#highlighting-content {
-								padding: 0 !important; /* mantenere */
-								border: none !important; /* mantenere */
-								background: transparent !important;
+							if( contListQuerySQLDb01 == 8 ) {
+								tempOpt.selected = "true"; //Opzione selezionata
+								
 							}
-						</style>
+							select_listQuerySQLDb01.appendChild( tempOpt ); 
 
-						<div class="container-editor">
-							<!-- Il testo digitato diventa invisibile ma mantiene il cursore attivo -->
-							<textarea id="txt_displayQuerySQLDbEs01" oninput="updateCode(this.value);" onscroll="syncScroll();" spellcheck="false"></textarea>
-							<!-- Il blocco sottostante mostra la sintassi SQL evidenziata -->
-							<pre id="highlighting" aria-hidden="true"><code class="language-sql" id="highlighting-content"></code></pre>
-						</div> 
+							contListQuerySQLDb01++; 
+						}); 
 
-						<script>
+						select_listQuerySQLDb01.addEventListener( "change", function( e ) {
+							document.getElementById("txt_displayQuerySQLDbEs01").value = "" + select_listQuerySQLDb01.value; 
 
-						function updateCode(text) { 
-							//console.log("Test ... ");
-
-							let resultElement = document.querySelector("#highlighting-content");
-							
-							// Gestisce i caratteri HTML speciali ed evita bug con l'invio a capo finale
-							if(text[text.length-1] == "\n" || text === "") { 
-								text += " "; 
-							}
-
-							resultElement.textContent = text;
-							
-							Prism.highlightElement(resultElement);
-						}
-
-						function syncScroll() {
-							let editing = document.querySelector("#txt_displayQuerySQLDbEs01");
-							let highlighting = document.querySelector("#highlighting");
-							highlighting.scrollTop = editing.scrollTop;
-							highlighting.scrollLeft = editing.scrollLeft;
-						}
-
-						//Avvia l'evidenziazione immediata al caricamento
-						//Esegue l'evidenziazione NON APPENA la pagina è completamente caricata
-						window.addEventListener('DOMContentLoaded', () => {
-
-							//Aggiornamento TextArea con Select 
-							document.getElementById("txt_displayQuerySQLDbEs01").value = "" + document.getElementById("select_listQuerySQLDb01").value;
-							
-							updateCode(document.querySelector("#txt_displayQuerySQLDbEs01").value);
+							//Aggiornamento Prism.js
+							updateCode(document.querySelector("#txt_displayQuerySQLDbEs01").value); 
 							syncScroll();
 
 						});
 
-						</script>
+						/*document.getElementById("txt_displayQuerySQLDbEs01").value = "Attendi ... "; */ /*innerHTML*/  
+					</script>
 
-						<!-- PRISM JS --> 
+					<div style="width: 100%; height: auto; " >
+
+						<div style="width: 73%; height: 26vh; float: left;" > <!-- Blocco LEFT di RIGHT, height: 26vh -->
+
+							<!-- PRISM JS -->
+
+							<!-- style="font-family: 'Trebuchet MS'; font-weight: bold; font-size: 1.5vh; "color: blue; "  -->
+							<!-- id="txt_displayQuerySQLDbEs01" -->
+							<!-- 
+								#txt_displayQuerySQLDbEs01 {
+									width: 100%; 
+									height: 26vh; 
+									resize: none; 
+									overflow-y: scroll; 
+									/*white-space: pre; */
+								}
+							-->
+
+							<!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/themes/prism-dark.min.css" rel="stylesheet"> -->
+							<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+							<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/prism.min.js"></script>
+							<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/components/prism-sql.min.js"></script>
+							
+							<style>
+								/* Contenitore principale */
+								.container-editor { 
+									position: relative; 
+									width: 100%; 
+									height: 26vh; /* ripetuto */ 
+								}
+
+								/* Reset globale identico per Textarea, Pre e Code (Risolve lo sfalsamento) */
+								#txt_displayQuerySQLDbEs01, 
+								#highlighting, 
+								#highlighting-content { 
+									margin: 0 !important;  
+									padding: 10px !important; /* Un minimo di padding evita che il testo tocchi i bordi, sovrascritto per highlighting-content */
+									border: 1px solid black; /* sovrascritto per highlighting-content */ 
+									font-family: 'Trebuchet MS' !important; /*monospace*/
+									font-size: 1.8vh !important; 
+									line-height: 2.2vh !important; /* Fondamentale: stessa identica altezza riga per non sfalsare */
+									box-sizing: border-box !important; 
+									white-space: pre !important;
+									letter-spacing: normal !important;
+									word-spacing: normal !important;
+
+									font-weight: bold; 
+
+									white-space: pre-wrap !important; 
+									word-wrap: break-word !important;
+									
+									overflow-y: auto !important;
+									overflow-x: hidden !important;
+
+								}
+
+								/* Proprietà di posizionamento dei due blocchi sovrapposti */
+								#txt_displayQuerySQLDbEs01, 
+								#highlighting {
+									position: absolute; 
+									top: 0; 
+									left: 0; 
+									width: 100%; 
+									height: 26vh; /* ripetuto */
+									overflow: auto; 
+								}
+
+								/* La textarea sta sopra ed è completamente trasparente */
+								#txt_displayQuerySQLDbEs01 { 
+									z-index: 1; 
+									background: transparent !important; 
+									color: transparent !important; 
+									caret-color: red; 
+									resize: none; 
+								}
+
+								/* Il blocco sotto ha lo sfondo scuro nativo del tema prism-dark */
+								#highlighting { 
+									z-index: 0; 
+									background: black !important; /* Forza lo sfondo scuro del tema Prism all'avvio, #2d2d2d per DARK */
+									pointer-events: none; /* Impedisce di bloccare i click sulla textarea */
+								} 
+
+								/* Rimuove gli stili interni di Prism che rompevano l'allineamento */
+								#highlighting-content {
+									padding: 0 !important; /* mantenere */
+									border: none !important; /* mantenere */
+									background: transparent !important;
+								}
+							</style>
+
+							<div class="container-editor">
+								<!-- Il testo digitato diventa invisibile ma mantiene il cursore attivo -->
+								<textarea id="txt_displayQuerySQLDbEs01" oninput="updateCode(this.value);" onscroll="syncScroll();" spellcheck="false"></textarea>
+								<!-- Il blocco sottostante mostra la sintassi SQL evidenziata -->
+								<pre id="highlighting" aria-hidden="true"><code class="language-sql" id="highlighting-content"></code></pre>
+							</div> 
+
+							<script>
+
+							function updateCode(text) { 
+								//console.log("Test ... ");
+
+								let resultElement = document.querySelector("#highlighting-content");
+								
+								// Gestisce i caratteri HTML speciali ed evita bug con l'invio a capo finale
+								if(text[text.length-1] == "\n" || text === "") { 
+									text += " "; 
+								}
+
+								resultElement.textContent = text;
+								
+								Prism.highlightElement(resultElement);
+							}
+
+							function syncScroll() {
+								let editing = document.querySelector("#txt_displayQuerySQLDbEs01");
+								let highlighting = document.querySelector("#highlighting");
+								highlighting.scrollTop = editing.scrollTop;
+								highlighting.scrollLeft = editing.scrollLeft;
+							}
+
+							//Avvia l'evidenziazione immediata al caricamento
+							//Esegue l'evidenziazione NON APPENA la pagina è completamente caricata
+							window.addEventListener('DOMContentLoaded', () => {
+
+								//Aggiornamento TextArea con Select 
+								document.getElementById("txt_displayQuerySQLDbEs01").value = "" + document.getElementById("select_listQuerySQLDb01").value;
+								
+								updateCode(document.querySelector("#txt_displayQuerySQLDbEs01").value);
+								syncScroll();
+
+							}); 
+
+							</script>
+
+							<!-- PRISM JS --> 
+
+						</div> <!-- Fine blocco LEFT di RIGHT -->
+
+						<div style="width: 27%; height: 26vh; float: right;" > <!-- Blocco RIGHT di RIGHT,height: 26vh -->
+
+							<div>
+								<p style="height: 2.0vh; font-size: 1.3vh; margin: 0; padding: 0; background-color: black; color: white;" >
+									❌ SQL Errors-Warnings-Messages
+								</p>
+								<textarea id="sqlErrors" 
+									style="width: 100%; height: 24.0vh; background-color: black; color: lightgray; resize: none; font-family: 'Trebuchet MS'; font-size: 1.3vh; " disabled 
+								></textarea>
+							</div>
+
+						</div> <!-- Fine blocco RIGHT di RIGHT -->
 
 					</div>
 
 					<div>
 						<button id="btn_executeQuerySQL" style="font-family: 'Trebuchet MS'; font-size: 1.6vh; " >Execute SQL Query</button>
-					</div>
-
-					<br>
-
-					<div>
-						❌ SQL Errors / Warnings / Messages
-						<textarea id="sqlErrors" 
-							style="width: 100%; height: 5vh; background-color: black; color: lightgray; resize: none; font-family: 'Trebuchet MS'; font-size: 1.8vh; " readonly 
-						></textarea>
 					</div>
 					
 					<br>
