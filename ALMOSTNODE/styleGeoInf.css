@@ -1,0 +1,43 @@
+
+/*Riferito a tutti i "body", compresi i vari Iframe, per i quali però viene sovrascritta l'impostazione che segue: style = "overflow-y: scroll" */
+
+body { 
+	font-family: "Trebuchet MS";
+	font-size: 1.75vh;
+	/* font-size: 1 em rem ... 14 px ; */
+	overflow-y: hidden;
+}
+
+.justify {
+	text-align:justify;
+
+}
+
+.grid {
+  	display: grid;
+  	grid-template-columns: repeat(4, 1fr);
+}
+
+.span1 {
+	grid-column: span 1;
+}
+
+.span2 {
+	grid-column: span 2;
+}
+
+.span3 {
+	grid-column: span 3;
+}
+
+.span4 {
+	grid-column: span 4;
+}
+
+.roundBorder {
+	/*border: 1px solid red;*/
+	border-style: outset;
+	border-radius: 1vh;
+	padding: 1vh;
+	margin: 0vh;
+}

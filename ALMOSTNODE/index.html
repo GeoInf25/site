@@ -1,0 +1,174 @@
+
+<html> 
+<head> 
+
+    <script type="module" src="./main.js"></script> 
+
+    <link rel="stylesheet" href="styleGeoInf.css">
+
+    <style>
+        input[type="radio"] {
+            /* Rimuove la grafica predefinita del browser (incluso il cerchio) */
+            appearance: none;
+            -webkit-appearance: none; /* Per compatibilità con Safari */
+            
+            /* Imposta le nuove dimensioni (ingrandito) */
+            width: 2vh;
+            height: 2vh;
+            
+            /* Lo rende quadrato e aggiunge un bordo */
+            border-radius: 0; 
+            border: 2px solid black;
+
+        }
+
+        input[type="radio"]:checked {
+            background-color: orange; 
+            border-color: #007bff;
+        }
+
+        /*input[type="radio"]:checked::after {   
+
+        }*/
+
+
+
+    </style>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="utf-8" >
+
+</head> 
+<body> 
+
+    <!-- HEADER -->
+    <!-- font-style: italic; -->
+	<button id="tab_schedaJavascript" style="background-color: lightgray ; color: green; padding: 0vh 0vh; font-size: 1.75vh; font-weight: bold; border-radius: 1vh; width: 100%; min-width: 16vh; height: 3.0vh; border-color: green; " disabled>- ALMOSTNODE (Node.js in your Browser) -</button>	<!-- cursor: pointer; -->	
+
+	<!-- BODY -->
+	<div id="tabellaJs" class="grid" style="height: 84vh; overflow-y: scroll; " >
+
+		<div id="blocco01Js" class="span4 roundBorder" >
+            <p style="height: 4%; margin: 0; padding: 0; font-size: 2vh; " >
+                <b>📑 Available APIs </b>
+            </p>
+            <div id="left" style="width: 50%; height: 95.5%; float: left">  
+                <iframe id="preview" style="width: 100%; height: 100%;"></iframe> 
+
+            </div>
+            <div id="right" style="width: 49%; height: 95.5%; float: right">
+                <b><u>HTTPS Request</u></b> (choose one of the following options):
+                <br>
+                <br>
+                <!-- 
+                    I radio button con lo stesso attributo "name" formano un gruppo 
+                    Rendere la funzione 'aggiorna' pubblica
+                -->
+                <input type="radio" name="scelta" value="1" onclick="aggiorna( 1 )" > 
+                    <label >Making a GET request to <b>'/'</b> on port 3000 of the Node.js server</label>
+                </input>
+                <br>
+                <input type="radio" name="scelta" value="2" onclick="aggiorna( 2 )" > 
+                    <label >Making a GET request to <b>'/request/time'</b> on port 3000 of the Node.js server</label>
+                </input>
+                <br>
+                <input type="radio" name="scelta" value="3" onclick="aggiorna( 3 )" > 
+                    <label >Making a GET request to <b>'/request/day'</b> on port 3000 of the Node.js server</label>
+                </input>
+                <br>
+                <input type="radio" name="scelta" value="4" onclick="aggiorna( 4 )" > 
+                    <label>Making a GET request to <b>'/request/sum?value01=
+                        <input id="value01" type="number" max="100" style="width:6%" ></input>&value02=<input id="value02" type="number" max="100" style="width:6%" ></input></b> 
+                    on port 3000 of the Node.js server</label>
+                </input>
+                <br>
+                <input type="radio" name="scelta" value="100" onclick="aggiorna( 'clear' )" > 
+                    <label >Clear Screen</label>
+                </input>
+                <br>
+
+
+            </div>
+            
+            <br>
+            <br>
+            
+    
+        </div>
+
+    </div>
+
+    <script type="module">
+
+        import { bridge } from './main.js'; 
+
+        //console.log( bridge )
+
+        var o = null;
+
+        window.aggiorna = async ( scelta ) => { //Mantieni window
+
+            if( scelta == "clear" ) {
+                document.getElementById('preview').src = ""; 
+
+            } else {
+
+                if( scelta == 1 ) {
+
+                    o = await bridge.handleRequest(3000, "GET", "/", {
+                        host: "localhost",
+                        "user-agent": "almostnode-playground"
+                    });
+
+                } else if( scelta == 2 ) {
+
+                    o = await bridge.handleRequest(3000, "GET", "/request/time", {
+                        host: "localhost",
+                        "user-agent": "almostnode-playground"
+                    });
+
+                } else if( scelta == 3 ) {
+
+                    o = await bridge.handleRequest(3000, "GET", "/request/day", {
+                        host: "localhost",
+                        "user-agent": "almostnode-playground"
+                    });
+
+                } else if( scelta == 4 ) { 
+
+                    o = await bridge.handleRequest(3000, "GET", 
+                        "/request/sum?value01=" + document.getElementById("value01").value + "&value02="+ document.getElementById("value02").value
+                        , {
+                        host: "localhost",
+                        "user-agent": "almostnode-playground"
+                    });
+
+                }
+
+                // 5. Estrai il corpo della risposta (body) e convertilo in un Blob HTML
+                const blob = new Blob([o.body], { type: 'text/html' }); 
+
+                // 6. Crea un URL locale per il Blob e assegnalo all'iframe
+                document.getElementById('preview').src = URL.createObjectURL(blob); 
+
+            }
+
+        }
+
+    </script>
+
+	<!-- FOOTER -->
+	<div style="margin: 1vh; "></div>
+	<div style="height: 10vh; overflow-y: scroll; " >
+		<div id="footer" class="span4 roundBorder" style="font-size: 1.5vh; " > <!-- font-weight: bold; font-style: italic; -->
+			<b>2026 - GEOINF - PLEASE NOTE: libraries, frameworks, and any other associated elements belong to their respective owners. </b>
+			<br>
+			Applications developed in <a href="https://almostnode.dev/">Almostnode (Node JS)</a> through <a href="https://github.com/apps/desktop">GitHub Desktop</a> and <a href="https://code.visualstudio.com/">Visual Studio Code</a>. 
+			<br>
+            Use of HTTP Server, Express, and Next.js through examples of the AlmostNode Website. 
+		</div>
+	</div>
+    
+    
+</body> 
+
+</html>
