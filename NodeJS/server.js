@@ -48,6 +48,6 @@ const http = require('http');
   });
   
   server.listen(3000, () => {
-    console.log('Server virtuale in ascolto sulla porta 3000');
+    console.log('Virtual Server (inside the Browser) listening on port 3000');
   });
   
