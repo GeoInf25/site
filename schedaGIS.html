@@ -44,86 +44,27 @@
 </head>
 
 <body style = "overflow-y: scroll" >
-	
-	<div>
-		Cartografia in ambito Web-GIS, alcuni esempi. 
-		<br>
-		<br>
-		<b>
-			*** ATTENZIONE ***: gli elementi richiamati nel seguito appartengono ai rispettivi proprietari. 
-		</b>
-		<br>
-		<br>
-		
-	</div>
 
 	<div id="tabellaGIS" class="grid">
 
-		<div id = "blocco01GIS" class = "span4 roundBorder" >
+		<div id = "blocco01GIS" class = "span4 roundBorder" > 
 
-			<div id="totMap02" style ="width: 100%; ">  
-				<div id="titleDescrMap02" >
-					<br>
-					*** Nota: la variazione dell'anno di riferimento o l'esecuzione di una query SQL consentono l'aggiornamento degli avvistamenti ottenuti in mappa o nel seguito. 
-					<br>
-					*** Nota FLUTTER: flutter_map wants to help keep map data available for everyone; we use the OpenStreetMap public tile servers in our code examples & demo app, but they are NOT free to use by everyone;please review whether OSM's tile servers are appropriate and the best choice for your app; see: <a href="https://operations.osmfoundation.org/policies/tiles">OSM Tile Usage Policy</a>, <a href="https://docs.fleaflet.dev/osm-warn">OSM-WARN</a> for more information about this warning.
-					<br>
-					<br>
-					<b>
-					!!! *** ATTENZIONE: SITO IN MANUTENZIONE *** !!!
-					</b>
-					<br>
-					<br>
-				</div>
-
-				<div id="contMap02" style="float: left; width: 85%; "> <!-- overflow: hidden; height: 60vh -->
-					<div id="leafletMap02" style="height: 60vh; border: 2px solid " ></div> 
-				</div>
-
-				<div id="contControlMap02" style="float: right; width: 14%; height: 60vh; " > <!-- overflow-x: scroll; overflow-y: scroll; -->
-					<div id="contControlMap02ParteSup" >
-						<p class= "justify" >Informazioni sulla mappa lato Leaflet: </p> 
-						<table style="width: 100%;" >
-							<tr>
-								<td style="width: 35%; " ><input type="text" value="- Lat: " style="width: 100%; border: none; font-family: 'Trebuchet MS';" readonly></input></td>
-								<td style="width: 65%; " ><input id="txt_latMap02" type="text" style="width: 100%; font-family: 'Trebuchet MS';" value = "--" readonly></input></td>
-							</tr>
-							<tr>
-								<td style="width: 35%; " ><input type="text" value="- Lng: " style="width: 100%; border: none; font-family: 'Trebuchet MS';" readonly></input></td>
-								<td style="width: 65%; " ><input id="txt_lngMap02" type="text" style="width: 100%; font-family: 'Trebuchet MS';" value = "--" readonly></input></td>
-							</tr>
-							<tr>
-								<td style="width: 35%; " ><input type="text" value="- Zoom: " style="width: 100%; border: none; font-family: 'Trebuchet MS';" readonly></input></td>
-								<td style="width: 65%; " ><input id="txt_zoomMap02" type="text" style="width: 100%; font-family: 'Trebuchet MS';" value = "3.00" readonly></input></td>
-							</tr>
-						</table>
-
-						<hr/>
-
-						Avvistamenti UFO nell'anno <input id="txt_annoAvvistamentoUFO" type="text" min="1906" max="2014" value="1987" style="width: 6vh; font-family: 'Trebuchet MS'; font-weight:bold; " maxlength="4" onblur="if( isNaN( this.value ) ) { this.value = '1987' } else { eseguiQueryUfoDb( '' ); } " > 
-						<br>
-						<u>(la perdita del focus sul campo avvia la visualizzazione degli eventuali Marker sulla mappa)</u> <!-- type='number' -->
-						<br>
-						<hr/>
-
-						Console: 
-					</div>
-					<div id="contControlMap02ParteInf" >
-						<textarea id="consoleMap02" style="width: 100%; resize: none; overflow: scroll; font-family: 'Trebuchet MS';" readonly ></textarea>
-					</div>
-				</div>
-
+			<div>
+				Web-GIS cartography: some examples. 
+				<br>
+				<br>
+				<b>
+					*** ATTENTION ***: The items referred to below belong to their respective owners. 
+				</b>
+				<br>
+				<br>
+				*** Nota FLUTTER: flutter_map wants to help keep map data available for everyone; we use the OpenStreetMap public tile servers in our code examples & demo app, but they are NOT free to use by everyone;please review whether OSM's tile servers are appropriate and the best choice for your app; see: <a href="https://operations.osmfoundation.org/policies/tiles">OSM Tile Usage Policy</a>, <a href="https://docs.fleaflet.dev/osm-warn">OSM-WARN</a> for more information about this warning.
+				<br>
+		
 			</div>
 
 			<script>
-				//contFoliumMapOffsetHeight = document.getElementById( "contFoliumMap" ).offsetHeight;  
-				//offsetWidth_contFoliumMap = document.getElementById( "contFoliumMap" ).offsetWidth; 
-				
-				//var testArray = [ 1, 2, 3 ]
-
-				//consoleMap02
-				document.getElementById( "consoleMap02" ).style.height = document.getElementById( "contMap02" ).offsetHeight - document.getElementById("contControlMap02ParteSup" ).offsetHeight; 
-
+				/*
 				var map02 = L.map('leafletMap02' , { 
 					zoomSnap: 1 , //1
 					zoomDelta : 1, 
@@ -131,371 +72,15 @@
 
 				} ).setView([ 46.035235, 10.980633], 3);
 
-				var baseOSM = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-					maxZoom: 19,
-				}).addTo(map02);
-
-				/*
 				var baseCartoDarkMap = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
 					maxZoom: 19,
 				}).addTo(map02);
-				*/
-
-				var baseCyclOsmMap = L.tileLayer('https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png', {
-					maxZoom: 15,
-				}).addTo(map02);
-
-				var baseOpenTopoMap = L.tileLayer('https://tile.opentopomap.org/{z}/{x}/{y}.png', {
-					maxZoom: 16,
-				}).addTo(map02);
-
-				var baseGoogleHybrid = L.tileLayer('https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}', {
-					maxZoom: 19,
-				}).addTo(map02);
-
-				var baseGoogleSatellite = L.tileLayer('https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
-					maxZoom: 19,
-				}).addTo(map02);
-
-				var baseGoogleRoad = L.tileLayer('https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
-					maxZoom: 19,
-				}).addTo(map02);
-
-				/*
-				var baseStadiaMap = L.tileLayer('https://tiles.stadiamaps.com/tiles/stamen_toner/{z}/{x}/{y}{r}.png', {
-					maxZoom: 19,
-				}).addTo(map02);
-				*/
-
-				map02.addEventListener('mousemove', function( e ) {
-					//innerHTML textArea
-					document.getElementById( "txt_latMap02" ).value  = ( e.latlng.lat ).toFixed( 6 ); 
-					document.getElementById( "txt_lngMap02" ).value  = ( e.latlng.lng ).toFixed( 6 );
-				});
-
-				map02.addEventListener('zoomend', function( e ) {
-					//innerHTML textArea
-					document.getElementById( "txt_zoomMap02" ).value  = ( map02.getZoom() ).toFixed( 2 );
-				});
-
-				baseMaps = {
-					"OpenStreetMap": baseOSM,
-					//"CartoDarkMap": baseCartoDarkMap, 
-					"CyclOsmMap": baseCyclOsmMap,
-					"OpenTopoMap": baseOpenTopoMap,
-					"Google Hybrid": baseGoogleHybrid,
-					"Google Satellite": baseGoogleSatellite,
-					"Google Road": baseGoogleRoad,
-				}
-
-				//map02.addLayer( layerDrawItems );
-				/* OVERLAYDrawing */ 
-				var layerDrawItems = new L.FeatureGroup();
-				var layerMarkers = new L.FeatureGroup();
-				//overlayMaps[ "layerDrawItems" ] = layerDrawItems; 
-				//overlayMaps[ "layerMarkers" ] = layerMarkers;
-
-				var overlayMaps = {
-					//GeoJSON data initialization 
-					"layerDrawItems" : layerDrawItems, 
-					"layerMarkers" : layerMarkers,
-				};
-
-				var layerControl = L.control.layers(baseMaps, overlayMaps).addTo( map02 );
-
-				var layerMiniMap = L.tileLayer( 'https://tile.openstreetmap.org/{z}/{x}/{y}.png' ); 
-				var miniMap = new L.Control.MiniMap( layerMiniMap , { 
-					toggleDisplay : true , 
-					width: Math.round( window.screen.width /15 ), 
-					height: Math.round( window.screen.height /15 ) , 
-				} ).addTo(map02);
 				
-				//**//
-
-				//layerControl.remove( map02 );
-				//layerControl = L.control.layers(baseMaps, overlayMaps).addTo( map02 );
-
-				var drawControl = new L.Control.Draw({
-					edit: {
-						featureGroup: layerDrawItems,
-					},
-					draw: {
-						polyline: {	metric: 'metric' },
-						polygon : { metric: 'metric' },
-						rectangle: { metric: 'metric' },  
-						circle: { metric: 'metric' },
-						marker: { metric: 'metric' }, 
-						circlemarker: { metric: 'metric' }, 
-					},
-				});
-				
-				map02.addControl(drawControl);
-
-				map02.on( "draw:created" , function( e ) {
-					var type = e.layerType; 
-					var layer = e.layer; 
-
-					var popup = L.popup().setContent( "" + JSON.stringify( layer.toGeoJSON() ) );
-
-					layer.bindPopup( popup ); 
-					console.log( layer.toGeoJSON() );
-					document.getElementById( "consoleMap02" ).value += 
-						"- Type of Feature: " + type + "\n";
-					
-					layerDrawItems.addLayer( layer ); 
-				}); 
-
-				map02.on( "draw:edited" , function( e ) {
-					var type = e.layerType; 
-					var layer = e.layer; 
-					document.getElementById( "consoleMap02" ).value += "- draw : edited" + "\n";
-
-				}); 
-
-				//Mappe, Layer visibili
-				var click_elements = document.getElementsByClassName("leaflet-control-layers-selector");
-				//for( var i = 0; i < click_elements.length; i++ ) {
-					//console.log( click_elements[ i ] ); 
-				//}
-				//click_elements.length
-
-				click_elements[ 5 ].click(); //baseMaps
-
-				click_elements[ click_elements.length - 2 ].click(); //layerDrawItems
-				click_elements[ click_elements.length - 1 ].click(); //layerMarkers //Vedi funzione seguente
-
-				var measureControl = new L.Control.Measure( { primaryLengthUnit: "kilometers" , primaryAreaUnit: "sqmeters" } );
-
-				// Disable auto-pan by overriding the plugin’s internal method(s):
-				L.Control.Measure.include({
-					// Prevent auto-panning when the capture marker is placed
-					_setCaptureMarkerIcon: function () {
-						// Turn off autoPan
-						this._captureMarker.options.autoPanOnFocus = false;
-						// Call the original icon setup
-						this._captureMarker.setIcon(
-						L.divIcon({
-							iconSize: this._map.getSize().multiplyBy(2),
-						})
-						);
-					},
-
-					// Optionally, override _startMeasure or other private methods if needed
-					// _startMeasure: function () {
-						//   // Your custom override
-					// },
-					});
-
-				measureControl.addTo( map02 );
+				*/ 
 				
 			</script>
-
-			<!--
-			<py-script > 
-					
-					#output="foliumMap" in py-script tag
-
-					from gis01 import *
-
-					#js.barLoading.style.width = "100%"; 
-					#js.barLoading.innerHTML = "Loading ... 100%"; 
-
-			</py-script>
-			-->
-
-			<script>
-				//var mm = Object.values(window).find(obj => obj && obj._leaflet_id && obj.getContainer());
-				//var mm = Object.values(window).find(obj => obj && obj._leaflet_id && obj.getContainer() );
-
-				//console.log( Object.values(window) )
-				//console.log( mm )
-
-				//nameFoliumMap = ""; 
-
-
-			</script>
-
-
-			<div style=" clear: both">
-				<br>
-			</div>
-
-			<div id="totQueryUfoDb" style="width: 100%; height: auto; "> <!-- border-style: solid;  -->
-				<u>- Query SQL (Table 'Ufo') -</u>
-				<br>
-				<br>
-				Scrivi una Query SQL (Table name 'UfoDb'): 
-				<br>
-				<div>
-					<textarea id= "txt_queryUfoDb" style="width: 85%; height: 10vh; resize: none; float: left; font-family: 'Trebuchet MS'; font-weight:bold; font-size: 2.00vh; " >select * from UfoDb where year(date) = 1988 -- example</textarea>
-					<button id="btn_executeQueryUfoDb" style="width: 14%; height: 10vh; float: right; font-family: 'Trebuchet MS';" 
-						onclick="eseguiQueryUfoDb( '' + document.getElementById('txt_queryUfoDb').value )" >Esegui Query UfoDb</button> <!-- Accetta value NON innerHTML -->
-				</div>
-
-				<div style=" clear: both">
-					<br>
-				</div>
-
-				<u>- Risultato della Query SQL -</u>
-				<br>
-				<br>
-				<!-- <textarea id= "txt_resQueryUfoDb" style="width: 100%; height: 50vh; resize: none; overflow: scroll; white-space: pre; font-family: 'Trebuchet MS';" readonly ></textarea> -->
-				<div id="div_resQueryUfoDb" style="height: 50vh; font-size: 1.75vh; " ></div>
-				<button onclick="excelMap02()" style="margin-top: 0.5%; margin-left: 78.5%; width: 20%; ">Download Table Data (.xlsx)</button>
-				<br>
-
-			</div>
 
 		</div>
-
-		<script type="text/javascript">
-
-			ufoDb = null;
-			ufoDbResultQuery = null;
-
-			div_resQueryUfoDb = null; //Tabulator JS
-
-			/*
-			var redMarker = L.AwesomeMarkers.icon({
-				//icon: 'coffee',
-				markerColor: 'red'
-  			});
-			*/
-
-			var cluMarkers = L.markerClusterGroup();
-
-			(async () => {
-				await primoAvvio(); 
-				//in relazione al primo avvio 
-				await eseguiQueryUfoDb( "" ); //anno 1987 //arg vuoto
-			})()
-
-			async function primoAvvio() {
-
-				//SET AUTOCOMMIT ON
-
-				alasql.fn.myDate = function ( arg ) { //myfn
-					//return( arg.split( " " )[0] ); 
-					var arrDate = arg.split( " " )[ 0 ]; 
-					//var arrTime = arg.split( " " )[ 1 ]; 
-					var  tempSplitArrDate = arrDate.split( "/" ); 
-					var mm = tempSplitArrDate[ 0 ]; mm = ( "0" + mm).slice(-2); 
-					var dd = tempSplitArrDate[ 1 ]; dd = ( "0" + dd ).slice(-2); 
-					var yyyy = tempSplitArrDate[ 2 ];
-					var tempRes = yyyy + "/" + mm + "/" + dd;  
-					return tempRes;  
-				};
-
-				alasql.fn.myTime = function ( arg ) { //myfn
-					return( arg.split( " " )[ 1 ] );
-				}
-			
-				await alasql.promise([
-					'CREATE TABLE Tab (original_datetime string, city string, state string, country string, shape string, duration_seconds string, duration_text string, description string, report_date string, latitude string, longitude string) ',
-					'SELECT [0] as original_datetime, [1] as city, [2] as state, [3] as country, [4] as shape, [5] as duration_seconds, [6] as duration_text, [7] as description, [8] as report_date, [9] as latitude, [10] as longitude INTO Tab FROM CSV("https://geoinf25.github.io/site/GIS/UfoDataset.csv",{headers:false})',
-					'ALTER TABLE Tab ADD COLUMN date STRING',
-					'ALTER TABLE Tab ADD COLUMN time STRING',
-					'UPDATE Tab SET date = myDate( original_datetime ) ',
-					'UPDATE Tab SET time = myTime( original_datetime ) ',
-					//'SELECT * FROM Tab'
-					'SELECT date, time, original_datetime, city, state, country, shape, duration_seconds, duration_text, description, report_date, latitude, longitude FROM Tab'           
-					
-				]).then(function (res) {
-					ufoDb = res[6]; //JSON result
-				
-					console.log( ufoDb ); 
-					//document.getElementById( "txt_resQueryUfoDb" ).innerHTML = JSON.stringify( json , null , 11 ); 
-				}); 
-			
-			}
-			
-			async function eseguiQueryUfoDb( arg ) {
-				var query = "";  
-				if( arg === "" ) {
-					query = 'SELECT * FROM ? WHERE YEAR(date) = '+document.getElementById("txt_annoAvvistamentoUFO").value;
-				} else {
-					query = arg.replaceAll( "UfoDb" , "?" ); 
-				}
-				
-				try {
-					//await alasql.promise( "SELECT * FROM ? WHERE YEAR(date) = "+document.getElementById("txt_annoAvvistamentoUFO").value , [ ufoDb ])
-					await alasql.promise( query , [ ufoDb ])
-						.then( function( result ) {
-							//console.log( fin[0] ); 
-							//document.getElementById( "txt_resQueryUfoDb" ).innerHTML = "" + fin[0]["datetime"]; 
-							ufoDbResultQuery = result;
-							console.log( ufoDbResultQuery );
-
-							div_resQueryUfoDb = new Tabulator( "#div_resQueryUfoDb", {
-								data: ufoDbResultQuery, // Carica i dati JSON
-								autoColumns: true, // Crea automaticamente le colonne in base alle chiavi del JSON
-							});
-
-							//Aggiunta Marker sulla Mappa
-
-							if( ufoDbResultQuery.length == 0 || ufoDbResultQuery[ 0 ][ "latitude" ] == undefined || ufoDbResultQuery[ 0 ][ "longitude" ] == undefined ) {
-								document.getElementById( "consoleMap02" ).value += "- No Lat / Lng found ... see possible previous results on map ... \n";
-
-							} else {
-
-								document.getElementById( "consoleMap02" ).value += "- There are " + ufoDbResultQuery.length + " Markers on map for year " + document.getElementById("txt_annoAvvistamentoUFO").value + "... \n";
-
-								if( layerMarkers.hasLayer( cluMarkers ) ) {
-									layerMarkers.removeLayer( cluMarkers ); 
-								}
-								//cluMarkers = L.markerClusterGroup();
-								cluMarkers.clearLayers();
-
-								for( var i = 0;  i < ufoDbResultQuery.length; i++ ) {
-									//tempMarker = L.marker([ ufoDbResultQuery[ i ][ "latitude" ] , ufoDbResultQuery[ i ][ "longitude" ] ] , {icon: redMarker} ).bindPopup("MARKER!");
-									var tempTextPopup = `
-										<div>
-											<li><b>Datetime:</b> ${ufoDbResultQuery[ i ][ "date" ]} - ${ufoDbResultQuery[ i ][ "time" ]}</li>
-											<li><b>City:</b> ${ufoDbResultQuery[ i ][ "city" ]}</li>
-											<li><b>Shape:</b> ${ufoDbResultQuery[ i ][ "shape" ]}</li>
-											<li><b>Duration:</b> ${ufoDbResultQuery[ i ][ "duration_text" ]}</li>
-											<b>DESCRIPTION:</b> ${ufoDbResultQuery[ i ][ "description" ]}
-										</div>
-									`; 
-
-									var tempMarker = L.marker([ ufoDbResultQuery[ i ][ "latitude" ] , ufoDbResultQuery[ i ][ "longitude" ] ] ).bindPopup( tempTextPopup );
-									cluMarkers.addLayer( tempMarker );
-								}
-
-								layerMarkers.addLayer( cluMarkers ); 
-
-							}
-
-							//click_elements[ click_elements.length - 1 ].click(); //layerMarkers
-							//if( click_elements[ click_elements.length - 1 ].value == "on" ) {
-							//}
-
-						}); 
-
-				} catch( e ) {
-					document.getElementById( "txt_queryUfoDb" ).value += " " + ( "" + e ); //NON innerHTML
-				}
-
-			}
-
-			async function excelMap02() {
-				var copyUfoDbResultQuery = JSON.parse(JSON.stringify(ufoDbResultQuery)); //copy of JSON
-
-				copyUfoDbResultQuery.forEach(function(row) {
-    				for (var key in row) {
-        				// Sostituisce null/undefined con una stringa vuota 
-        				if (row[key] === null || row[key] === undefined) {
-            				row[key] = ""; 
-        				}
-						//Da verificare eventuali caratteri di controllo \u0000-\u0008\u000B- ... 
-					}
-				}); 
-
-				await alasql.promise( "SELECT * INTO XLSX( 'excelTableMap02.xlsx' , {headers:true} ) FROM ? " , [ copyUfoDbResultQuery ]); //Dati Tabella ottenuti dalla Query
-
-			}
-
-		</script>
 
 	</div>
 
@@ -506,11 +91,11 @@
 		<u>GeoJSON (CRS EPSG 3857 (Tile Layer) / 4326 (L.geoJSON) ) </u>
 		<br>
 		<br>
-		- Link di riferimento: <a href="https://ec.europa.eu/eurostat/web/gisco/geodata/administrative-units/countries">GISCO - GeoData - Countries (EPSG 4326)</a>, <a href="https://colorbrewer2.org/">Gradazione colori (Colorbrewer2)</a>, <a href="https://leafletjs.com/examples/choropleth/">Leafletjs choropleth</a>
+		- Reference link: <a href="https://ec.europa.eu/eurostat/web/gisco/geodata/administrative-units/countries">GISCO - GeoData - Countries (EPSG 4326)</a>, <a href="https://colorbrewer2.org/">Color gradation (Colorbrewer2)</a>, <a href="https://leafletjs.com/examples/choropleth/">Leafletjs choropleth</a>
 		<br>
-		- Mappa COROPLETICA legata all'estensione in Area dei vari Stati nazionali
+		- Choropleth Map based on the surface area of ​​the various nation-states.
 		<br>
-		*** Nota: i filtri consentono di ricercare i relativi nominativi, oppure le aree aventi valore <u>inferiore</u> a quanto indicato; il "click" sulla riga (in Tabella) consente di evidenziare la nazione coinvolta.
+		*** Note: The filters allow you to search for specific names or for areas with values ​​<u>lower</u> than the indicated amount; clicking on a row (in the table) highlights the country involved.
 		<br>
 		<br>
 		<div id="contMap03">
@@ -635,7 +220,7 @@
 					}).addTo(map03);
 
 				} catch (error) {
-					console.log("Errore nel caricamento del GeoJSON:", error);
+					console.log("Error loading GeoJSON:", error);
 				}
 			}
 
@@ -695,11 +280,11 @@
 		<u>Street View Map</u>
 		<br>
 		<br>
-		- Link di riferimento: <a href="https://kartaview.org/landing">Karta View</a>, <a href="https://kartaview.org/doc/photos">Karta View - Photos (API)</a>
+		- Reference link: <a href="https://kartaview.org/landing">Karta View</a>, <a href="https://kartaview.org/doc/photos">Karta View - Photos (API)</a>
 		<br>
-		- Mappa contenente Immagini stradali entro una BB (Bounding Box) di lato pari a (circa) 500 metri.
+		- Map containing street-level images within a bounding box with a side length of (approximately) 500 meters..
 		<br>
-		*** Nota: esegui una ricerca entro i limiti della BB (Bounding Box) centrata sulla mappa, clicca sui Marker per visualizzare le immagini recuperate dal Servizio Karta View (NON tutte le aree visualizzate in mappa potrebbero essere effettivamente coperte dal Servizio Karta View).
+		*** Note: Perform a search within the map-centered bounding box (BB) and click on the markers to view images retrieved from the Karta View Service (please note that not all areas shown on the map may actually be covered by the Karta View Service).
 		<br>
 		<br>
 		<div id="contMap04">
@@ -890,10 +475,10 @@
 	<br>
 
 	<div id = "blocco04GIS" class = "span4 roundBorder" >
-		<u>Mappe QGIS</u>
+		<u>QGIS Maps</u>
 		<br>
 		<br>
-		Link di riferimento: <a href="https://www.qgistutorials.com/en/docs/3/making_a_map.html">Spatial Thoughts - QGIS Tutorials</a>
+		Reference link: <a href="https://www.qgistutorials.com/en/docs/3/making_a_map.html">Spatial Thoughts - QGIS Tutorials</a>
 		<br>
 		<br>
 		<div id="blocco01Map" style="width: 98%; height: 70vh; " > <!-- span1 --> <!-- class="span4 roundBorder"  -->

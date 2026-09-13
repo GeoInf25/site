@@ -40,8 +40,8 @@
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.5/leaflet.awesome-markers.css" rel="stylesheet">
 	<!-- 2.05 -->
 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/alasql/4.6.6/alasql.min.js"></script> 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.core.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/alasql/4.19.1/alasql.min.js"></script> 
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.core.min.js"></script> 
 
 	<link id="tabulator-theme" href="https://unpkg.com/tabulator-tables@6.3.1/dist/css/tabulator_midnight.min.css" rel="stylesheet">
  	<script type="text/javascript" src="https://unpkg.com/tabulator-tables@6.3.1/dist/js/tabulator.min.js"></script>
@@ -697,7 +697,7 @@
 			} else {
 				tempObj = {
 					DateTime : getDateTime() , 
-					Event : "Unable to locate Marker ... ",
+					Event : "Unable to locate Marker",
 					Message_ConsoleApp : ( "Wrong Coordinates" ) , //+ ": " + lat + ", " + lng ), //lat, lng UNDEFINED 
 				}; 
 			
@@ -771,12 +771,20 @@
 
 			var div = L.DomUtil.create('div' ); //, CSS Style ...
 
+			var examplesTextArea = 
+				"/*NOTE: use 'latitude', 'longitude' to plot Markers on Map\n" + 
+				"EXAMPLES:\n" +
+				"select * from ?\n" +
+				"select shape, count(*) as tot from ? group by shape order by tot asc\n" +
+				"select description, latitude, longitude from ? */"; 
+
 			div.innerHTML = `
 				<div style="background: #ffffff; border: 2px solid #000000; border-radius: 5px; margin: 0px; padding: 5px;" > <!-- style -->
 					<div id="rifDivContenutoQuerySQL" style="display: flex; justify-content: center; width: 65vh; font-family: 'Trebuchet MS'; " >
 
 						<div style="width: 85%; " >
-							<textarea id="textQuerySQL" style="width: 100%; height: 10vh; font-family: 'Trebuchet MS'; font-size: 1.5vh; overflow-y: scroll; resize: none; " >select * from ?</textarea> 
+							<textarea id="textQuerySQL" style="width: 100%; height: 10vh; background-color: #333333; font-family: 'Trebuchet MS'; font-size: 1.5vh; color: #ffffff; overflow-y: scroll; resize: none; " 
+							>${examplesTextArea}</textarea> 
 						</div>
 
 						<div style="width: 15%; ">
@@ -791,7 +799,8 @@
 
 			`; 
 
-			L.DomEvent.disableClickPropagation(div);
+			L.DomEvent.disableClickPropagation(div); //Click
+			L.DomEvent.disableScrollPropagation(div); //Zoom
 
 			return div;
 		}
@@ -1207,7 +1216,11 @@
 					// Se carichi i dati dopo l'inizializzazione
 					ufoDataset.setData(dataQueryDataset).then(function(){
 						// Forza Tabulator a ricalcolare le posizioni del Virtual DOM
-						ufoDataset.setSort( queryDF.columns[ 0 ] , "asc"); //INDISPENSABILE PER VIRTUAL DOM (!!!) //Altri campi: datetime, ... 
+
+						//ORDER BY IN ALASQL (!)
+
+						//ufoDataset.setSort( queryDF.columns[ 0 ] , "asc"); //INDISPENSABILE PER VIRTUAL DOM (!!!) //Altri campi: datetime, ... 
+
 						//ufoDataset.redraw(true); 
 
 					});  
@@ -1291,3 +1304,47 @@
 
 
 </html>
+
+<!--
+
+async function primoAvvio() {
+
+	//SET AUTOCOMMIT ON
+
+	alasql.fn.myDate = function ( arg ) { //myfn
+		//return( arg.split( " " )[0] ); 
+		var arrDate = arg.split( " " )[ 0 ]; 
+		//var arrTime = arg.split( " " )[ 1 ]; 
+		var  tempSplitArrDate = arrDate.split( "/" ); 
+		var mm = tempSplitArrDate[ 0 ]; mm = ( "0" + mm).slice(-2); 
+		var dd = tempSplitArrDate[ 1 ]; dd = ( "0" + dd ).slice(-2); 
+		var yyyy = tempSplitArrDate[ 2 ];
+		var tempRes = yyyy + "/" + mm + "/" + dd;  
+		return tempRes;  
+	};
+
+	alasql.fn.myTime = function ( arg ) { //myfn
+		return( arg.split( " " )[ 1 ] );
+	}
+
+	await alasql.promise([
+		'CREATE TABLE Tab (original_datetime string, city string, state string, country string, shape string, duration_seconds string, duration_text string, description string, report_date string, latitude string, longitude string) ',
+		'SELECT [0] as original_datetime, [1] as city, [2] as state, [3] as country, [4] as shape, [5] as duration_seconds, [6] as duration_text, [7] as description, [8] as report_date, [9] as latitude, [10] as longitude INTO Tab FROM CSV("https://geoinf25.github.io/site/GIS/UfoDataset.csv",{headers:false})',
+		'ALTER TABLE Tab ADD COLUMN date STRING',
+		'ALTER TABLE Tab ADD COLUMN time STRING',
+		'UPDATE Tab SET date = myDate( original_datetime ) ',
+		'UPDATE Tab SET time = myTime( original_datetime ) ',
+		//'SELECT * FROM Tab'
+		'SELECT date, time, original_datetime, city, state, country, shape, duration_seconds, duration_text, description, report_date, latitude, longitude FROM Tab'           
+		
+	]).then(function (res) {
+		ufoDb = res[6]; //JSON result
+	
+		console.log( ufoDb ); 
+		//document.getElementById( "txt_resQueryUfoDb" ).innerHTML = JSON.stringify( json , null , 11 ); 
+	}); 
+
+}
+
+
+-->
