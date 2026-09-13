@@ -85,6 +85,8 @@
 
 	<script>
 
+		window.ufoDataset = null;  
+
 		//*** MAP01 ***//
 
 		map01 = L.map('leafletMap01' , { 
@@ -128,13 +130,13 @@
 		})//.addTo(map01);
 
 		baseMaps = {  
-			"<span style='font-family: Trebuchet MS; font-size: 1.75vh;'>OpenStreetMap</span>": baseOSM,
+			"<span style='font-family: Trebuchet MS; font-size: 1.5vh;'>OpenStreetMap</span>": baseOSM,
 			//"CartoDarkMap": baseCartoDarkMap, 
-			"<span style='font-family: Trebuchet MS; font-size: 1.75vh;'>CyclOsmMap</span>": baseCyclOsmMap,
-			"<span style='font-family: Trebuchet MS; font-size: 1.75vh;'>OpenTopoMap</span>": baseOpenTopoMap,
-			"<span style='font-family: Trebuchet MS; font-size: 1.75vh;'>Google Hybrid</span>": baseGoogleHybrid,
-			"<span style='font-family: Trebuchet MS; font-size: 1.75vh;'>Google Satellite</span>": baseGoogleSatellite,
-			"<span style='font-family: Trebuchet MS; font-size: 1.75vh;'>Google Road</span>": baseGoogleRoad,
+			"<span style='font-family: Trebuchet MS; font-size: 1.5vh;'>CyclOsmMap</span>": baseCyclOsmMap,
+			"<span style='font-family: Trebuchet MS; font-size: 1.5vh;'>OpenTopoMap</span>": baseOpenTopoMap,
+			"<span style='font-family: Trebuchet MS; font-size: 1.5vh;'>Google Hybrid</span>": baseGoogleHybrid,
+			"<span style='font-family: Trebuchet MS; font-size: 1.5vh;'>Google Satellite</span>": baseGoogleSatellite,
+			"<span style='font-family: Trebuchet MS; font-size: 1.5vh;'>Google Road</span>": baseGoogleRoad,
 		}
 
 		layerDrawItems = new L.FeatureGroup();
@@ -142,8 +144,8 @@
 
 		overlayMaps = {
 			//GeoJSON data initialization 
-			"<span style='font-family: Trebuchet MS; font-size: 1.75vh;'><u>Draw Items</u></span>" : layerDrawItems, 
-			"<span style='font-family: Trebuchet MS; font-size: 1.75vh;'><u>Markers</u></span>" : layerMarkers,
+			"<span style='font-family: Trebuchet MS; font-size: 1.5vh;'><u>Draw Items</u></span>" : layerDrawItems, 
+			"<span style='font-family: Trebuchet MS; font-size: 1.5vh;'><u>Markers</u></span>" : layerMarkers,
 		};
 
 		layerControl = L.control.layers(baseMaps, overlayMaps).addTo( map01 );
@@ -167,6 +169,22 @@
 		titleElement02.innerHTML = "<span style='font-family: Trebuchet MS; font-size: 1.75vh;'><b>Overlay Map: </b></span>";
 
 		overlayContainer.insertBefore(titleElement02, overlayContainer.firstChild);
+
+		//Disposizione in ORIZZONTALE per baseMaps, overlayMaps
+
+		document.head.insertAdjacentHTML('beforeend', `
+			<style>
+				/* Allinea le voci del pannello dei livelli in orizzontale */
+				.leaflet-control-layers-list label {
+				display: inline-block !important;
+				margin-right: 15px !important;
+				}
+				/* Opzionale: Allarga il pannello espanso per contenere le voci su un'unica riga */
+				.leaflet-control-layers-expanded {
+				width: 44vh !important; /* Regola questo valore in base alla lunghezza dei testi */
+				}
+			</style>
+		`);
 
 		//Link Button for SITE
 
@@ -279,7 +297,9 @@
 
 				dataConsoleApp.unshift( tempObj );
 
+				//consoleApp.on("tableBuilt", function(){
 				consoleApp.setData( dataConsoleApp );
+				//}); 
 				
 				layerDrawItems.addLayer( layer ); 
 		}); 
@@ -441,7 +461,111 @@
 		//consoleApp.element.style.fontFamily = "'Courier New', monospace";
 		consoleApp.element.style.fontSize = "1.3vh";
 
-		ufoDataset = new Tabulator( "#ufoDataset", {
+		var ufoDatasetColumns = [ 
+			{title: "ID", 
+				headerFilter: "input", headerFilterParams: { elementAttributes: { style: "font-size: 1.3vh; width: 100%; box-sizing: border-box;" } }, 
+				headerTooltip: true, field: "ID", widthGrow: 0.7, formatter: "textarea", resizable: false , 
+				contextMenu: menuDellaCella  
+			} ,
+			{title: "datetime", 
+				headerFilter: "input", headerFilterParams: { elementAttributes: { style: "font-size: 1.3vh; width: 100%; box-sizing: border-box;" } }, 
+				headerTooltip: true, field: "datetime", widthGrow: 1, formatter: "textarea", resizable: false , 
+				contextMenu: menuDellaCella  
+			} ,
+			{title: "city", 
+				headerFilter: "input", headerFilterParams: { elementAttributes: { style: "font-size: 1.3vh; width: 100%; box-sizing: border-box;" } },
+				headerTooltip: true, field: "city", widthGrow: 1, formatter: "textarea", resizable: false , 
+				contextMenu: menuDellaCella 
+			
+			} , 
+			{
+				title: "shape",
+				headerTooltip: true,  
+				field: "shape" , 
+				headerFilter: "list",  
+				//Questa configurazione permette di intercettare l'elemento HTML prima che venga mostrato
+				headerFilterParams: {
+					valuesLookup: true , // <--- Prende i valori presenti nella tabella
+					// Applica lo stile al campo di input visibile nell'header
+					elementAttributes: {
+						style: "font-size: 1.3vh; width: 100%; box-sizing: border-box;" // Inietta lo stile inline direttamente sull'input JS, attenzione alle dimensioni
+					} , 
+					// Applica lo stile ai singoli elementi della lista a discesa
+					itemFormatter: function(value, label, item, element) {
+						element.style.fontSize = "12px";
+						element.style.fontFamily = "'YourCustomFont', sans-serif";
+						return label; 
+					}
+				} ,
+				widthGrow: 1, formatter: "textarea", resizable: false , 
+				contextMenu: menuDellaCella 
+			} , 
+			{title: "duration_text", 
+				headerFilter: "input", headerFilterParams: { elementAttributes: { style: "font-size: 1.3vh; width: 100%; box-sizing: border-box;" } },
+				headerTooltip: true, field: "duration_text" , widthGrow: 1, formatter: "textarea", resizable: false , 
+				contextMenu: menuDellaCella  
+			} , 
+			{title: "description", 
+				headerFilter: "input", headerFilterParams: { elementAttributes: { style: "font-size: 1.3vh; width: 100%; box-sizing: border-box;" } },
+				headerTooltip: true, field: "description" , widthGrow: 4, formatter: "textarea", resizable: false , 
+				contextMenu: menuDellaCella 
+			} , 
+			{title: "duration_seconds", 
+				headerFilter: "input", headerFilterParams: { elementAttributes: { style: "font-size: 1.3vh; width: 100%; box-sizing: border-box;" } },
+				headerTooltip: true, field: "duration_seconds" , widthGrow: 1, formatter: "textarea", resizable: false , 
+				contextMenu: menuDellaCella 
+			} ,
+			{title: "report_date", 
+				headerFilter: "input", headerFilterParams: { elementAttributes: { style: "font-size: 1.3vh; width: 100%; box-sizing: border-box;" } },
+				headerTooltip: true, field: "report_date" , widthGrow: 1, formatter: "textarea", resizable: false ,
+				contextMenu: menuDellaCella 
+			
+			} , 
+			{title: "state", 
+				headerFilter: "input", headerFilterParams: { elementAttributes: { style: "font-size: 1.3vh; width: 100%; box-sizing: border-box;" } },
+				headerTooltip: true, field: "state" , widthGrow: 0.7, formatter: "textarea", resizable: false ,
+				contextMenu: menuDellaCella  
+			
+			} , 
+			{title: "country", 
+				headerFilter: "input", headerFilterParams: { elementAttributes: { style: "font-size: 1.3vh; width: 100%; box-sizing: border-box;" } },
+				headerTooltip: true, field: "country" , widthGrow: 0.7, formatter: "textarea", resizable: false ,
+				contextMenu: menuDellaCella 
+			
+			} , 
+			{title: "latitude", 
+				headerFilter: "input", headerFilterParams: { elementAttributes: { style: "font-size: 1.3vh; width: 100%; box-sizing: border-box;" } },
+				headerTooltip: true, field: "latitude" , widthGrow: 1, formatter: "textarea", resizable: false , 
+				contextMenu: menuDellaCella  
+			
+			} , 
+			{title: "longitude", 
+				headerFilter: "input", headerFilterParams: { elementAttributes: { style: "font-size: 1.3vh; width: 100%; box-sizing: border-box;" } },
+				headerTooltip: true, field: "longitude" , widthGrow: 1, formatter: "textarea", resizable: false ,
+				contextMenu: menuDellaCella 
+			
+			} 
+			
+			//headerFilter: "list", headerFilterParams: {valuesLookup: true}}, // Menu a tendina automatico
+		]; 
+
+		var ufoDatasetFooter = 
+			"<div style='height: 2vh'> " +
+			"<button style='font-family: Trebuchet MS; font-size: 1.3vh; font-style: italic; cursor: pointer; margin-right: 5px; '" +
+			"onclick='ufoDataset.download(\"xlsx\", \"UfoDataset.xlsx\", {sheetName: \"Sheet01\"});'>" +
+				"Export XLSX" + 
+			"</button>" + 
+			"<button style='font-family: Trebuchet MS; font-size: 1.3vh; font-style: italic; cursor: pointer; margin-right: 5px; '" +
+			"onclick='ufoDataset.download(\"csv\", \"UfoDataset.csv\");'>" +
+				"Export CSV" + 
+			"</button>" + 
+			"<button style='font-family: Trebuchet MS; font-size: 1.3vh; font-style: italic; cursor: pointer; margin-right: 5px; '" +
+			"onclick='ufoDataset.download(\"pdf\", \"UfoDataset.pdf\");'>" +
+				"Export PDF" + 
+			"</button>" + 
+        	"</div>"; 
+
+		var ufoDatasetObjReset = {
 			//data: null, //dataUfoDataset, // CARICAMENTO DATI ESEGUITO IN SEGUITO (!!!)
 
 			//height: "500px" ,   
@@ -453,123 +577,32 @@
 			
 			//autoColumns: true, // Crea automaticamente le colonne in base alle chiavi 
 			layout: "fitColumns",
-			columns: [ 
-				{title: "ID", 
-					headerFilter: "input", headerFilterParams: { elementAttributes: { style: "font-size: 1.3vh; width: 100%; box-sizing: border-box;" } }, 
-					headerTooltip: true, field: "ID", widthGrow: 0.7, formatter: "textarea", resizable: false , 
-					contextMenu: menuDellaCella  
-				} ,
-				{title: "Date-time", 
-					headerFilter: "input", headerFilterParams: { elementAttributes: { style: "font-size: 1.3vh; width: 100%; box-sizing: border-box;" } }, 
-					headerTooltip: true, field: "datetime", widthGrow: 1, formatter: "textarea", resizable: false , 
-					contextMenu: menuDellaCella  
-				} ,
-				{title: "City", 
-					headerFilter: "input", headerFilterParams: { elementAttributes: { style: "font-size: 1.3vh; width: 100%; box-sizing: border-box;" } },
-					headerTooltip: true, field: "city", widthGrow: 1, formatter: "textarea", resizable: false , 
-					contextMenu: menuDellaCella 
-				
-				} , 
-				{
-					title: "Shape",
-					headerTooltip: true,  
-					field: "shape" , 
-					headerFilter: "list",  
-					//Questa configurazione permette di intercettare l'elemento HTML prima che venga mostrato
-            		headerFilterParams: {
-						valuesLookup: true , // <--- Prende i valori presenti nella tabella
-						// Applica lo stile al campo di input visibile nell'header
-                		elementAttributes: {
-                    		style: "font-size: 1.3vh; width: 100%; box-sizing: border-box;" // Inietta lo stile inline direttamente sull'input JS, attenzione alle dimensioni
-                		} , 
-						// Applica lo stile ai singoli elementi della lista a discesa
-        				itemFormatter: function(value, label, item, element) {
-            				element.style.fontSize = "12px";
-            				element.style.fontFamily = "'YourCustomFont', sans-serif";
-							return label; 
-        				}
-            		} ,
-					widthGrow: 1, formatter: "textarea", resizable: false , 
-					contextMenu: menuDellaCella 
-				} , 
-				{title: "Duration_Text", 
-					headerFilter: "input", headerFilterParams: { elementAttributes: { style: "font-size: 1.3vh; width: 100%; box-sizing: border-box;" } },
-					headerTooltip: true, field: "duration_text" , widthGrow: 1, formatter: "textarea", resizable: false , 
-					contextMenu: menuDellaCella  
-				} , 
-				{title: "Description", 
-					headerFilter: "input", headerFilterParams: { elementAttributes: { style: "font-size: 1.3vh; width: 100%; box-sizing: border-box;" } },
-					headerTooltip: true, field: "description" , widthGrow: 4, formatter: "textarea", resizable: false , 
-					contextMenu: menuDellaCella 
-				} , 
-				{title: "Duration_Seconds", 
-					headerFilter: "input", headerFilterParams: { elementAttributes: { style: "font-size: 1.3vh; width: 100%; box-sizing: border-box;" } },
-					headerTooltip: true, field: "duration_seconds" , widthGrow: 1, formatter: "textarea", resizable: false , 
-					contextMenu: menuDellaCella 
-				} ,
-				{title: "Report_Date", 
-					headerFilter: "input", headerFilterParams: { elementAttributes: { style: "font-size: 1.3vh; width: 100%; box-sizing: border-box;" } },
-					headerTooltip: true, field: "report_date" , widthGrow: 1, formatter: "textarea", resizable: false ,
-					contextMenu: menuDellaCella 
-				
-				} , 
-				{title: "State", 
-					headerFilter: "input", headerFilterParams: { elementAttributes: { style: "font-size: 1.3vh; width: 100%; box-sizing: border-box;" } },
-					headerTooltip: true, field: "state" , widthGrow: 0.7, formatter: "textarea", resizable: false ,
-					contextMenu: menuDellaCella  
-				
-				} , 
-				{title: "Country", 
-					headerFilter: "input", headerFilterParams: { elementAttributes: { style: "font-size: 1.3vh; width: 100%; box-sizing: border-box;" } },
-					headerTooltip: true, field: "country" , widthGrow: 0.7, formatter: "textarea", resizable: false ,
-					contextMenu: menuDellaCella 
-				
-				} , 
-				{title: "Latitude", 
-					headerFilter: "input", headerFilterParams: { elementAttributes: { style: "font-size: 1.3vh; width: 100%; box-sizing: border-box;" } },
-					headerTooltip: true, field: "latitude" , widthGrow: 1, formatter: "textarea", resizable: false , 
-					contextMenu: menuDellaCella  
-				
-				} , 
-				{title: "Longitude", 
-					headerFilter: "input", headerFilterParams: { elementAttributes: { style: "font-size: 1.3vh; width: 100%; box-sizing: border-box;" } },
-					headerTooltip: true, field: "longitude" , widthGrow: 1, formatter: "textarea", resizable: false ,
-					contextMenu: menuDellaCella 
-				
-				} 
-				
-				//headerFilter: "list", headerFilterParams: {valuesLookup: true}}, // Menu a tendina automatico
-			], 
+			columns: ufoDatasetColumns , 
 
-			footerElement: 
-        		"<div style='height: 2vh'> " +
-					"<button style='font-family: Trebuchet MS; font-size: 1.3vh; font-style: italic; cursor: pointer; margin-right: 5px; '" +
-					"onclick='ufoDataset.download(\"xlsx\", \"UfoDataset.xlsx\", {sheetName: \"Sheet01\"});'>" +
-						"Export XLSX" + 
-					"</button>" + 
-					"<button style='font-family: Trebuchet MS; font-size: 1.3vh; font-style: italic; cursor: pointer; margin-right: 5px; '" +
-					"onclick='ufoDataset.download(\"csv\", \"UfoDataset.csv\");'>" +
-						"Export CSV" + 
-					"</button>" + 
-					"<button style='font-family: Trebuchet MS; font-size: 1.3vh; font-style: italic; cursor: pointer; margin-right: 5px; '" +
-					"onclick='ufoDataset.download(\"pdf\", \"UfoDataset.pdf\");'>" +
-						"Export PDF" + 
-					"</button>" + 
-        		"</div>" 
+			footerElement: ufoDatasetFooter , 
 
 			//selectableRows: "highlight",
 
-		});
+		}; 
+
+		//ufoDataset = new Tabulator( "#ufoDataset", ufoDatasetObjReset );
 
 		//ufoDataset.element.style.fontFamily = "'Courier New', monospace";
-		ufoDataset.element.style.fontSize = "1.3vh";
+		//ufoDataset.element.style.fontSize = "1.3vh";
 
 		// Bind the rowClick event
-		ufoDataset.on("rowClick", function(e, row){
 
-			const ID = row.getData()["ID"];
-			const lat = row.getData()["latitude"];
-			const lng = row.getData()["longitude"]; 
+		function ufoDatasetRowClick(e, row) {
+
+			var ID = null;  
+			if( !isNaN( row.getData()["ID"] ) ) {
+				ID = row.getData()["ID"];
+			} else {
+				ID = null; //getIndex(), getPosition() ... 
+			}
+
+			var lat = row.getData()["latitude"];
+			var lng = row.getData()["longitude"]; 
 
 			if( !isNaN(lat) && !isNaN(lng) ) { 
 				
@@ -599,9 +632,19 @@
 				var tempArr = cluMarkers.getLayers(); //markerClusterGroup -> array JS
 				//L'oridnamento NON e' quello di INSERIMENTO dei Markers
 
-				var markerSpecifico = tempArr.find(function(marker) {
-    				return marker.options.id === ID; 
-				});
+				if( ID != null ) { //Reset (con ID)
+
+					var markerSpecifico = tempArr.find(function(marker) {
+						return marker.options.id === ID; 
+					});
+
+				} else { //Query 
+
+					var markerSpecifico = tempArr.find(function(marker) {
+						return ( marker.options.lat === lat && marker.options.lon === lng  ); 
+					});
+
+				}
 
 				//Cambia l'icona al marker
 				//markerSpecifico.setIcon( tempIcon ); 
@@ -655,19 +698,22 @@
 				tempObj = {
 					DateTime : getDateTime() , 
 					Event : "Unable to locate Marker ... ",
-					Message_ConsoleApp : ( "Wrong Coordinates: " + lat + ", " + lng ),
+					Message_ConsoleApp : ( "Wrong Coordinates" ) , //+ ": " + lat + ", " + lng ), //lat, lng UNDEFINED 
 				}; 
 			
 				dataConsoleApp.unshift( tempObj ); //Inizio Array 
 
+				//consoleApp.on("tableBuilt", function(){
 				consoleApp.setData( dataConsoleApp );
+				//}); 
 
 			}
 
-		}); 
+		}; 
 
 		//Aggancia l'evento SUBITO DOPO l'inizializzazione
-		ufoDataset.on("rowMouseEnter", function(e, row){
+
+		function ufoDatasetRowMouseEnter(e, row) {
 			// 'e' è l'oggetto evento del mouse
 			// 'row' è il componente riga di Tabulator
 			//console.log("Il mouse è entrato sulla riga:", row.getData());
@@ -682,14 +728,16 @@
         	// Imposta il messaggio del tooltip usando l'attributo 'title' standard del browser
         	rowElement.title = "Click to display UFO / UAP SIGHTING on Map ...";
 
-		});
+		};
 
 		// Ricordati di ripristinare il colore quando il mouse esce!
-		ufoDataset.on("rowMouseLeave", function(e, row){
+
+		function ufoDatasetRowMouseLeave(e, row) {
 			row.getCells().forEach(cell => {
 				cell.getElement().style.backgroundColor = ""; 
 			});
-		});
+		};
+
 		/*
 		ufoDataset.on("scrollVertical", function(top){
 			//Ottieni l'elemento che contiene lo scroll (il viewport della tabella)
@@ -714,6 +762,43 @@
 			//console.log( "ufoDataset: tableBuilt (!)" );
 			 
 		//});
+
+		//*** DIV - QUERY SQL ***//
+
+		var divQuerySQL = L.control({ position: 'bottomright' });
+
+		divQuerySQL.onAdd = function (map01) {
+
+			var div = L.DomUtil.create('div' ); //, CSS Style ...
+
+			div.innerHTML = `
+				<div style="background: #ffffff; border: 2px solid #000000; border-radius: 5px; margin: 0px; padding: 5px;" > <!-- style -->
+					<div id="rifDivContenutoQuerySQL" style="display: flex; justify-content: center; width: 65vh; font-family: 'Trebuchet MS'; " >
+
+						<div style="width: 85%; " >
+							<textarea id="textQuerySQL" style="width: 100%; height: 10vh; font-family: 'Trebuchet MS'; font-size: 1.5vh; overflow-y: scroll; resize: none; " >select * from ?</textarea> 
+						</div>
+
+						<div style="width: 15%; ">
+							<button id="execQuerySQL" type="button" style="width: 100%; height: 50%; font-family: 'Trebuchet MS'; font-size: 1.5vh; font-style: italic; margin: 0; padding: 0; " onclick="drawMarkers('query'); " >▶️ EXECUTE (SQL QUERY)</button>
+							<br>
+							<button id="resetQuerySQL" type="button" style="width: 100%; height: 50%; font-family: 'Trebuchet MS'; font-size: 1.5vh; font-style: italic; margin: 0; padding: 0; " onclick="drawMarkers('reset'); " >🔄 RESET (VIEW)</button>
+						</div>
+
+					</div>
+
+				</div>
+
+			`; 
+
+			L.DomEvent.disableClickPropagation(div);
+
+			return div;
+		}
+
+		divQuerySQL.addTo(map01);
+
+		//*** DIV - REFERENCES ***//
 		
 		var divNote = L.control({ position: 'bottomright' });
 
@@ -802,14 +887,19 @@
 			dataLatLngZoom[0].Coordinates = "Latitude: " + ( e.latlng.lat ).toFixed( 6 ); 
 			dataLatLngZoom[1].Coordinates = "Longitude: " + ( e.latlng.lng ).toFixed( 6 );
 
-			latLngZoom.setData( dataLatLngZoom )
+			//latLngZoom.on("tableBuilt", function(){
+			latLngZoom.setData( dataLatLngZoom );
+			//});
 
 		});
 
 		map01.addEventListener('zoomend', function( e ) {
 			dataLatLngZoom[2].Coordinates  = "Zoom: " + ( map01.getZoom() ).toFixed( 2 );
 
-			latLngZoom.setData( dataLatLngZoom )
+			//latLngZoom.on("tableBuilt", function() { 
+			latLngZoom.setData( dataLatLngZoom );
+			//});
+
 		});
 
 		map01.on('click', function(e) {
@@ -822,131 +912,225 @@
 			
 			dataConsoleApp.unshift( tempObj ); //Inizio Array 
 
+			//consoleApp.on("tableBuilt", function() {
 			consoleApp.setData( dataConsoleApp );
-
+			//}); 
 		});
 
 		//*** DANFO JS ***//
 
 		const url = "https://geoinf25.github.io/site/GIS/UfoDataset.csv";
 
-		ufoDataset.on("tableBuilt", function()
-		{
-		console.log( "ufoDataset: tableBuilt (!)" );
-		//
+		var ufoDF = null; //Dataframe INIZIALE contenente TUTTE le righe del CSV UfoDataset con ADATTAMENTI 
+		var queryDF = null; //Dataframe relativo al risultato della Query SQL 
+
+		var arrInfo = null;  
+		var numbRows = null; 
+		//Metodo "shape" NON permesso in quanto esiste già un nome di Colonna 'SHAPE' (!)
+
+		var markersControl = null; 
+
+		var error = null; 
+
 		dfd.readCSV( url , { header: false } )
-			.then( ( df ) => {
-				//Header 0,1,2 ... NON rimovibile
+		.then( ( df ) => { 
+			const righe = Array.from({ length: df.shape[0] }, (_, i) => i ); //Parto da 0 ... 
+			df.addColumn("ID", righe, { inplace: true });
+			df = df.loc({ columns: ["ID", ...df.columns.filter(c => c !== "ID")] }); //ID = Numero Riga (Prima posizione)
 
-				const righe = Array.from({ length: df.shape[0] }, (_, i) => i ); //Parto da 0 ... 
-				df.addColumn("ID", righe, { inplace: true });
-				df = df.loc({ columns: ["ID", ...df.columns.filter(c => c !== "ID")] }); //ID = Numero Riga (Prima posizione)
+			const tempArr = df.values;
 
-				const tempArr = df.values;
+			ufoDF = new dfd.DataFrame( tempArr , { //Header 0,1,2 ... NON rimovibile
+				columns: ["ID" , "datetime", "city", "state", "country", "shape", "duration_seconds", "duration_text", "description", "report_date", "latitude", "longitude"]
+			});
+			//console.log( ndf )
+			//VEDI N (enne) DF ovvero ndf 
+			
+			drawMarkers( 'reset' ); 
 
-				let ndf = new dfd.DataFrame( tempArr , {
-					columns: ["ID" , "datetime", "city", "state", "country", "shape", "duration_seconds", "duration_text", "description", "report_date", "latitude", "longitude"]
-				});
-				//console.log( ndf )
+		}) //Eventuali ulteriori then ... 
+		.catch(err => {
+			console.log(err);
+		}); 
 
-				//VEDI N (enne) DF ovvero ndf 
+		async function drawMarkers( arg ) { //arg può essere 'query' (SQL) o 'reset' (PRIMO avvio o ripristino)
 
-				const info = ndf.loc({ //df ridotto
-					columns: [ "ID" , "latitude", "longitude" , "datetime", "city" , "shape" , "duration_text" , "description" ] 
-				})
+		//ufoDataset.on("tableBuilt", function()
+		//{
+		//console.log( "ufoDataset: tableBuilt (!)" );
+		//
 
-				if( layerMarkers.hasLayer( cluMarkers ) ) {
-					layerMarkers.removeLayer( cluMarkers ); 
+			if( arg == "reset" ) {
+				//Possiedo già il DataFrame "ufoDF" (ed eventualmente estrapolo il JSON se necessario)
+				error = false; 
+
+			} else if( arg == "query" ) { //PARTE ALASQL 
+				try {
+					jsonUfoDF = dfd.toJSON( ufoDF ); 
+					// Query SQL usando il punto di domanda (?) come segnaposto per la variabile JSON
+					//'SELECT nome, eta FROM ? WHERE citta = "Roma" AND eta > 28
+					var risp = await alasql( document.getElementById("textQuerySQL").value , [jsonUfoDF]);
+					//console.log(risp); //RISOSTA JSON 
+					queryDF = new dfd.DataFrame( risp );
+
+					console.log( "QueryDF" ); 
+					console.log(queryDF ); 
+
+					error = false; 
+
+				} catch(e) {
+
+					console.log( e );
+					var messageErrors = [
+						{
+							Errors: "" + e 
+						},
+					];
+					
+					if( window.ufoDataset != null ) {
+						window.ufoDataset.destroy(); 
+					}
+
+					var ufoDatasetObjError = { 
+						renderVertical: "virtual", // Forza il Virtual DOM verticale [2, 5]
+						virtualDom: true,
+						layout: "fitColumns", 
+						footerElement: ufoDatasetFooter ,
+						autoColumns: true , //<-- Impostato principalmente per 'query'
+					};
+
+					window.ufoDataset = new Tabulator( "#ufoDataset", ufoDatasetObjError );
+
+					window.ufoDataset.on("tableBuilt", function(){
+						ufoDataset.setData( messageErrors ); 
+					});  
+
+					error = true; 
+
 				}
-				cluMarkers.clearLayers();
 
-				//console.log( "isNaN: " + isNaN( '33q.200088' ) ); 
+			}
 
-				const arrInfo = info.values; 
-				const numbRowsArrInfo = arrInfo.length; 
-				//Metodo "shape" NON permesso in quanto esiste gia' un nome di Colonna 'SHAPE' (!)
+			if( error == false ) //***INIZIO PARTE ERROR ***//
+			{
 
-				arrInfo.map((ele, i) => { //df -> array 
-					const ID = ele[0]; 
-					const lat = ele[1];
-					const lon = ele[2];
-					/*
-					if( i == 0 ) {
-						console.log( "ID: " + ID + ", lat: " + lat + ", lon: " + lon);
-					}  
-					*/
-					var tempMarker = null; 
+			//*** INIZIO PARTE MARKERS SULLA MAPPA ***//
 
-					var tempIcon = L.divIcon({
-						html: 
-							`<div style="font-family: 'Trebuchet MS'; text-align: center; ">
-								<div>
-									<span style="font-size: 2.5vh; background: transparent; padding: 1px 3px; border-radius: 3px;"
-									>${ ( () => {
-											if( ele[5] == "cylinder" ) { return "🛢️"; }
-											else if( ele[5] == "light" ) { return "🌟"; }
-											else if( ele[5] == "circle" ) { return "⭕"; }
-											else if( ele[5] == "sphere" ) { return "🟠"; }
-											else if( ele[5] == "disk" ) { return "🛸"; }
-											else if( ele[5] == "fireball" ) { return "☄️"; }
-											else if( ele[5] == "unknown" ) { return "❓"; } 
-											else if( ele[5] == "oval" ) { return "🏉"; }
-											else if( ele[5] == "other" ) { return "🖖"; }
-											else if( ele[5] == "cigar" ) { return "🚬"; }
-											else if( ele[5] == "rectangle" ) { return "🔲"; }
-											else if( ele[5] == "chevron" ) { return "🔰"; }
-											else if( ele[5] == "triangle" ) { return "🔼"; }
-											else if( ele[5] == "formation" ) { return "🌌"; }
-											else if( ele[5] == "delta" ) { return "Δ"; }
-											else if( ele[5] == "changing" ) { return "✨"; }
-											else if( ele[5] == "egg" ) { return "🥚"; }
-											else if( ele[5] == "diamond" ) { return "💎"; }
-											else if( ele[5] == "flash" ) { return "⚡"; }
-											else if( ele[5] == "teardrop" ) { return "💧"; }
-											else if( ele[5] == "cone" ) { return "🔻"; }
-											else if( ele[5] == "cross" ) { return "➕"; }
-											else if( ele[5] == "pyramid" ) { return "𓉴"; }
-											else if( ele[5] == "round" ) { return "🔘"; }
-											else if( ele[5] == "crescent" ) { return "🌙"; }
-											else if( ele[5] == "flare" ) { return "🔆"; }
-											else if( ele[5] == "hexagon" ) { return "🛑"; }
-											else if( ele[5] == "dome" ) { return "🕍"; }
-											else if( ele[5] == "changed" ) { return "✨"; }
-											else if( ele[5] == "" ) { return "👽"; } 
-											else return "✖️";   
-											
-										})()
-										}</span>
-								</div>
-								<div>
-									<span style="font-size: 1.5vh; background: white; padding: 2px; border-radius: 3px;">${"•Nr_" + ( ("" + ID).padStart(5, '0') ) }</span>
-								</div>
-							</div>` ,
-						className: "", //'...', // Lasciando vuoto, Leaflet non applica i suoi stili di default //leaflet-div-icon
-						//iconSize: [30, 42],      // Dimensioni dell'icona [larghezza, altezza]
-						//iconAnchor: [15, 42],    // Punto dell'icona che si ancora alle coordinate (es. la punta in basso)
-						//popupAnchor: [0, -40]    // Punto da cui si apre il popup rispetto all'anchor
+			if( layerMarkers.hasLayer( cluMarkers ) ) {
+				layerMarkers.removeLayer( cluMarkers ); 
+			}
+			cluMarkers.clearLayers(); //clusterMarkers
+
+			//const info = ndf.loc({ //df ridotto per MARKER
+				//columns: [ "ID" , "latitude", "longitude" , "datetime", "city" , "shape" , "duration_text" , "description" ] 
+			//}) 
+
+			markersControl = false;
+
+			if( arg == "reset" ) {
+				//In ufoDF sono già presenti le colonne 'latitude' , 'longitude' 
+				markersControl = true;  
+
+			} else if( arg == "query" ) {
+				if( queryDF.columns.indexOf("latitude") >=0 && queryDF.columns.indexOf("longitude") >=0 ) {
+					markersControl = true;
+				}
+
+			}
+
+			if( markersControl == true ) { //SE PRESENTI colonne 'latitude' , 'longitude' 
+
+				if( arg == "reset" ) {
+					arrInfo = ufoDF.loc({ //df ridotto per MARKER
+						columns: [ "ID" , "latitude", "longitude" , "datetime", "city" , "shape" , "duration_text" , "description" ] 
+					}); 
+
+					numbRows = arrInfo.index.length; //EVITARE conflitto NOMI con colonna 'shape'   
+
+				} else if( arg == "query" ) {
+					//arrInfo = queryDF;
+					//lat, lon
+
+					numbRows = queryDF.index.length; //EVITARE conflitto NOMI con colonna 'shape' 
+				}
+
+				if( arg == "reset" ) {
+					//console.log("RESET: " + arrInfo );  
+					arrInfo.values.map((ele, i) => { //df -> array 
+						const ID = ele[0]; 
+						const lat = ele[1];
+						const lon = ele[2];
+						/*
+						if( i == 0 ) {
+							console.log( "ID: " + ID + ", lat: " + lat + ", lon: " + lon);
+						}  
+						*/
+						var tempMarker = null; 
+
+						var tempIcon = iconMarker( ele[5] , ID ); 
+
+						//console.log( "isNaN: " + isNaN( '33q.200088' ) );
+						if( !isNaN(lat) && !isNaN(lon) ) {
+							//console.log( lat, lon , i )
+							//lat, lon nelle OPTIONS NON UTILIZZATI (uso ID)
+							tempMarker = L.marker([lat, lon] , { id: ID, lat: lat, lon: lon , icon: tempIcon } ).bindPopup(`
+								<b>🛸UFO / UAP SIGHTING:</b><br>
+								<b>* ID:</b> ${ID} di ${numbRows};<br> 
+								<b>* Latitude, Longitude:</b> ${lat}, ${lon};<br> 
+								<b>* Date-time:</b> ${ele[3]};<br>
+								<b>* City:</b> ${ele[4]};<br>
+								<b>* Shape:</b> ${ele[5]};<br>
+								<b>* Duration:</b> ${ele[6]};<br>
+								<b>* Description:</b> <i>${ele[7]}</i>.
+								`
+							);
+						}
+						if( tempMarker != null ) {
+							cluMarkers.addLayer( tempMarker );
+						}
 					});
 
-					if( !isNaN(lat) && !isNaN(lon) ) {
-						//console.log( lat, lon , i )
-						tempMarker = L.marker([lat, lon] , { id: ID , icon: tempIcon } ).bindPopup(`
-							<b>🛸UFO / UAP SIGHTING:</b><br>
-							<b>* ID:</b> ${ID} di ${numbRowsArrInfo};<br> 
-							<b>* Latitude, Longitude:</b> ${lat}, ${lon};<br> 
-							<b>* Date-time:</b> ${ele[3]};<br>
-							<b>* City:</b> ${ele[4]};<br>
-							<b>* Shape:</b> ${ele[5]};<br>
-							<b>* Duration:</b> ${ele[6]};<br>
-							<b>* Description:</b> <i>${ele[7]}</i>.
-							`
-						);
-					}
-					if( tempMarker != null ) {
-						cluMarkers.addLayer( tempMarker );
-					}
-				});
+				} else if( arg == "query" ) { 
 
+					var indexID = queryDF.columns.indexOf( "ID" ); 
+					var indexLat = queryDF.columns.indexOf( "latitude" ); 
+					var indexLon = queryDF.columns.indexOf( "longitude" ); 
+
+					queryDF.values.map((ele, i) => { //df -> array 
+
+						const ID = ( indexID != -1 ? ele[ indexID ] : i ); //CONDIZIONE, ID o RIGA di INDICE "i" (RIGA DELLA TABELLA RELATIVA AL DATAFRAME queryDF)
+						const lat = ele[ indexLat ]; //SEMPRE PRESENTE PER CONDIZIONE VERIFICATA
+						const lon = ele[ indexLon ]; //SEMPRE PRESENTE PER CONDIZIONE VERIFICATA
+
+						var tempMarker = null; 
+						var tempIcon = iconMarker( "" , ID ); 
+
+						var textBindPopup = `
+							<b>🛸UFO / UAP SIGHTING:</b><br> 
+							<b>* Row (INDEX from Array/Dataframe):</b> ${i} di ${numbRows};<br>
+						`;  
+
+						for( var pos = 0; pos < ele.length; pos++ ) {
+							textBindPopup += `<b>* ${queryDF.columns[ pos ]}:</b> ${ ele[pos] };<br>`;  
+						}
+
+						//console.log( "isNaN: " + isNaN( '33q.200088' ) );
+						if( !isNaN(lat) && !isNaN(lon) ) {
+							//console.log( lat, lon , i )
+							//RIGA INDICE "i" UGUALE A ID NON SEMPRE RECUPERABILE (USO QUINDI lat, lon (o "lng") presenti nelle Options, vedi 'RowClick') 
+							tempMarker = L.marker([lat, lon] , { id: ID, lat: lat, lon: lon , icon: tempIcon } ).bindPopup(
+								textBindPopup
+							);
+						}
+
+						//console.log( tempMarker );
+
+						if( tempMarker != null ) {
+							cluMarkers.addLayer( tempMarker );
+						}
+					});  
+
+				}
 
 				layerMarkers.addLayer( cluMarkers ); 
 				//map01.addLayer(cluMarkers);
@@ -958,26 +1142,146 @@
 				ad albero (basata su griglie e coordinate) per ottimizzare le prestazioni di clustering.
 				*/
 
-				dataUfoDataset = dfd.toJSON( ndf )
+			} 
+			//FINE PARTE MARKERS SULLA MAPPA
 
-				//ufoDataset.on("tableBuilt", function(){ 
-					//ufoDataset.setData( dataUfoDataset )
-				//});
-	
-				// Se carichi i dati dopo l'inizializzazione
-				ufoDataset.setData(dataUfoDataset).then(function(){
-					// Forza Tabulator a ricalcolare le posizioni del Virtual DOM
-					ufoDataset.setSort("ID", "asc"); //INDISPENSABILE PER VIRTUAL DOM (!!!) //Altri campi: datetime, ... 
-					//ufoDataset.redraw(true); 
+			//*** GESTIONE JSON SEMPRE PRESENTE (ESCLUDENDO ERRORI) ***//
 
-				});  
-			}) //Eventuali ulteriori then ... 
-			.catch(err => {
-				console.log(err);
-			}); 
+			if( arg == "reset" ) {
+				dataUfoDataset = dfd.toJSON( ufoDF );
+
+				if( window.ufoDataset != null ) {
+					window.ufoDataset.destroy();
+				}
+
+				window.ufoDataset = new Tabulator( "#ufoDataset", ufoDatasetObjReset ); 
+
+				window.ufoDataset.on("rowClick", function( e , row ) { ufoDatasetRowClick( e, row ) } ); 
+				window.ufoDataset.on("rowMouseEnter", function( e , row ) { ufoDatasetRowMouseEnter( e , row ) } ); 
+				window.ufoDataset.on("rowMouseLeave", function( e , row ) { ufoDatasetRowMouseLeave( e , row ) } ); 
+				
+				//ufoDataset.element.style.fontFamily = "'Courier New', monospace";
+				window.ufoDataset.element.style.fontSize = "1.3vh";
+
+			} else if( arg == "query" ) {
+				dataQueryDataset = dfd.toJSON( queryDF ); 
+
+				var ufoDatasetObjQuery = {
+					renderVertical: "virtual", // Forza il Virtual DOM verticale [2, 5]
+					virtualDom: true,
+					layout: "fitColumns", 
+					footerElement: ufoDatasetFooter ,
+					autoColumns: true , //<-- Impostato principalmente per 'query'
+				}; 
+
+				if( window.ufoDataset != null ) {
+					window.ufoDataset.destroy();
+				}
+
+				window.ufoDataset = new Tabulator( "#ufoDataset", ufoDatasetObjQuery );
+
+				window.ufoDataset.on("rowClick", function( e , row ) { ufoDatasetRowClick( e, row ) } ); 
+				window.ufoDataset.on("rowMouseEnter", function( e , row ) { ufoDatasetRowMouseEnter( e , row ) } ); 
+				window.ufoDataset.on("rowMouseLeave", function( e , row ) { ufoDatasetRowMouseLeave( e , row ) } ); 
+
+				//ufoDataset.element.style.fontFamily = "'Courier New', monospace";
+				window.ufoDataset.element.style.fontSize = "1.3vh";
 
 			}
-			) //TableBuilt ... 
+
+			//ufoDataset.on("tableBuilt", function(){ 
+				//ufoDataset.setData( dataUfoDataset )
+			//});
+
+			window.ufoDataset.on("tableBuilt", function(){
+				if( arg == "reset" ) {
+					// Se carichi i dati dopo l'inizializzazione
+					ufoDataset.setData(dataUfoDataset).then(function(){
+						// Forza Tabulator a ricalcolare le posizioni del Virtual DOM
+						ufoDataset.setSort("ID", "asc"); //INDISPENSABILE PER VIRTUAL DOM (!!!) //Altri campi: datetime, ... 
+						//ufoDataset.redraw(true); 
+
+					});  
+					
+				} else if( arg == "query" ) { 
+					// Se carichi i dati dopo l'inizializzazione
+					ufoDataset.setData(dataQueryDataset).then(function(){
+						// Forza Tabulator a ricalcolare le posizioni del Virtual DOM
+						ufoDataset.setSort( queryDF.columns[ 0 ] , "asc"); //INDISPENSABILE PER VIRTUAL DOM (!!!) //Altri campi: datetime, ... 
+						//ufoDataset.redraw(true); 
+
+					});  
+				}
+			});
+
+			} //*** FINE PARTE ERROR ***//
+
+		
+
+		//}
+		//) //TableBuilt ... 
+
+		}; 
+
+		//*** ICON MARKER ***//
+
+		function iconMarker( expr , Id ) { //ele[5] , ID 
+			var icon = L.divIcon({ 
+				html: 
+					`<div style="font-family: 'Trebuchet MS'; text-align: center; ">
+						<div>
+							<span style="font-size: 2.5vh; background: transparent; padding: 1px 3px; border-radius: 3px;"
+							>${ ( () => {
+									if( expr == "cylinder" ) { return "🛢️"; }
+									else if( expr == "light" ) { return "🌟"; }
+									else if( expr == "circle" ) { return "⭕"; }
+									else if( expr == "sphere" ) { return "🟠"; }
+									else if( expr == "disk" ) { return "🛸"; }
+									else if( expr == "fireball" ) { return "☄️"; }
+									else if( expr == "unknown" ) { return "❓"; } 
+									else if( expr == "oval" ) { return "🏉"; }
+									else if( expr == "other" ) { return "🖖"; }
+									else if( expr == "cigar" ) { return "🚬"; }
+									else if( expr == "rectangle" ) { return "🔲"; }
+									else if( expr == "chevron" ) { return "🔰"; }
+									else if( expr == "triangle" ) { return "🔼"; }
+									else if( expr == "formation" ) { return "🌌"; }
+									else if( expr == "delta" ) { return "Δ"; }
+									else if( expr == "changing" ) { return "✨"; }
+									else if( expr == "egg" ) { return "🥚"; }
+									else if( expr == "diamond" ) { return "💎"; }
+									else if( expr == "flash" ) { return "⚡"; }
+									else if( expr == "teardrop" ) { return "💧"; }
+									else if( expr == "cone" ) { return "🔻"; }
+									else if( expr == "cross" ) { return "➕"; }
+									else if( expr == "pyramid" ) { return "𓉴"; }
+									else if( expr == "round" ) { return "🔘"; }
+									else if( expr == "crescent" ) { return "🌙"; }
+									else if( expr == "flare" ) { return "🔆"; }
+									else if( expr == "hexagon" ) { return "🛑"; }
+									else if( expr == "dome" ) { return "🕍"; }
+									else if( expr == "changed" ) { return "✨"; }
+									//else if( expr == "" ) { return "👽"; } 
+									else if( expr == "" ) { return "📌"; } 
+									else return "✖️";   
+									
+								})()
+								}</span>
+						</div>`
+						+(Id != null ? 
+							`<div>
+								<span style="font-size: 1.5vh; background: white; padding: 2px; border-radius: 3px;">${"•Nr_" + ( ("" + Id).padStart(5, '0') ) }</span>
+							</div>`
+						: ``) +
+					`</div>` ,
+				className: "", //'...', // Lasciando vuoto, Leaflet non applica i suoi stili di default //leaflet-div-icon
+				//iconSize: [30, 42],      // Dimensioni dell'icona [larghezza, altezza]
+				//iconAnchor: [15, 42],    // Punto dell'icona che si ancora alle coordinate (es. la punta in basso)
+				//popupAnchor: [0, -40]    // Punto da cui si apre il popup rispetto all'anchor
+			});
+
+			return icon;
+		}
 		
 
 	</script>
