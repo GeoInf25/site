@@ -45,7 +45,12 @@
 
 <body style = "overflow-y: scroll" >
 
-	<div id="tabellaGIS" class="grid">
+	<!-- HEADER -->
+	<!-- font-style: italic; -->
+	<button id="tab_schedaJavascript" style="background-color: lightgray ; color: green; padding: 0vh 0vh; font-size: 1.75vh; font-weight: bold;  border-radius: 1vh; width: 100%; min-width: 16vh; height: 3.0vh; border-color: green; " disabled>- GIS -</button>	<!-- cursor: pointer; -->
+
+	<!-- BODY -->
+	<div id="tabellaGIS" class="grid" style="height: 84vh; overflow-y: scroll; " >
 
 		<div id = "blocco01GIS" class = "span4 roundBorder" > 
 
@@ -82,409 +87,412 @@
 
 		</div>
 
-	</div>
+		<div id = "blocco02GIS" class = "span4 roundBorder" >
+			<u>GeoJSON (CRS EPSG 3857 (Tile Layer) / 4326 (L.geoJSON) ) </u>
+			<br>
+			<br>
+			- Reference link: <a href="https://ec.europa.eu/eurostat/web/gisco/geodata/administrative-units/countries">GISCO - GeoData - Countries (EPSG 4326)</a>, <a href="https://colorbrewer2.org/">Color gradation (Colorbrewer2)</a>, <a href="https://leafletjs.com/examples/choropleth/">Leafletjs choropleth</a>
+			<br>
+			- Choropleth Map based on the surface area of ​​the various nation-states.
+			<br>
+			*** Note: The filters allow you to search for specific names or for areas with values ​​<u>lower</u> than the indicated amount; clicking on a row (in the table) highlights the country involved.
+			<br>
+			<br>
+			<div id="contMap03">
+				<div id="leafletMap03" style="float: left; height: 60vh; width: 52%; border: 2px solid " ></div> 
+				<div id="div_dataCountr" style="float: left; margin-left: 0.5%; height: 60vh; width: 46%; font-size: 1.50vh; " ></div>
+				<button onclick="excelMap03()" style="margin-top: 0.5%; margin-left: 78.5%; width: 20%; ">Download Table Data (.xlsx)</button>
 
-	<br>
-	<br>
+				<!-- 
+					<div style=" clear: both">
+						<br>
+					</div>
+				-->
 
-	<div id = "blocco02GIS" class = "span4 roundBorder" >
-		<u>GeoJSON (CRS EPSG 3857 (Tile Layer) / 4326 (L.geoJSON) ) </u>
-		<br>
-		<br>
-		- Reference link: <a href="https://ec.europa.eu/eurostat/web/gisco/geodata/administrative-units/countries">GISCO - GeoData - Countries (EPSG 4326)</a>, <a href="https://colorbrewer2.org/">Color gradation (Colorbrewer2)</a>, <a href="https://leafletjs.com/examples/choropleth/">Leafletjs choropleth</a>
-		<br>
-		- Choropleth Map based on the surface area of ​​the various nation-states.
-		<br>
-		*** Note: The filters allow you to search for specific names or for areas with values ​​<u>lower</u> than the indicated amount; clicking on a row (in the table) highlights the country involved.
-		<br>
-		<br>
-		<div id="contMap03">
-			<div id="leafletMap03" style="float: left; height: 60vh; width: 52%; border: 2px solid " ></div> 
-			<div id="div_dataCountr" style="float: left; margin-left: 0.5%; height: 60vh; width: 46%; font-size: 1.50vh; " ></div>
-			<button onclick="excelMap03()" style="margin-top: 0.5%; margin-left: 78.5%; width: 20%; ">Download Table Data (.xlsx)</button>
+			</div>
 
-			<!-- 
+			<script>
+
+				var dataCountrTable = [ ]; 
+				var countrData = null; 
+				var layerCountr = null; 
+
+				var map03 = L.map('leafletMap03' , { 
+					zoomSnap: 1 , //1
+					zoomDelta : 1, 
+					wheelPxPerZoomLevel: 90, //60 
+
+				} ).setView([ 46.035235, 10.980633], 1);
+
+				var baseOSMMap03 = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+					maxZoom: 19,
+				}).addTo(map03);
+
+				function getColor( area ) {
+					//var rifArea = 2442857;
+					
+					if( area > (10000000) ) {
+						return "#ffffd9"; 
+					} else if( area > (5000000) ) { 
+						return "#edf8b1"; 
+					} else if( area > (1000000) ) {
+						return "#c7e9b4"; 
+					} else if( area > (100000) ) {
+						return "#7fcdbb";
+					} else if( area > (10000) ) {
+						return "#41b6c4";
+					} else if( area > (1000) ) {
+						return "#1d91c0";
+					} else if( area > (100) ) {
+						return "#225ea8"; 
+					} else {
+						return "#0c2c84"; 
+					}
+				}
+
+				function fooStyle(feature) { 
+					return {
+						fillColor: getColor( turf.area(feature) / 1000000 ), //mq -> Km^2
+						fillOpacity: 0.7, 
+					}
+				}
+
+				var legend = L.control({position: 'bottomright'});
+
+				legend.onAdd = function (map03) {
+					var div = L.DomUtil.create( "div" , "" ); //div , class ... 
+					div.style.background = "white"; 
+					div.style.border = "solid 1px"; 
+					div.style.fontFamily = "trebuchet ms"; 
+					div.innerHTML = "<b>Area (Km^2)</b><br>";
+					div.innerHTML += "<i style='background: #ffffd9'>&nbsp&nbsp</i> >10'000'000<br>";
+					div.innerHTML += "<i style='background: #edf8b1'>&nbsp&nbsp</i> 5'000'000-10'000'000<br>";
+					div.innerHTML += "<i style='background: #c7e9b4'>&nbsp&nbsp</i> 1'000'000-5'000'000<br>";
+					div.innerHTML += "<i style='background: #7fcdbb'>&nbsp&nbsp</i> 100'000-1'000'000<br>";
+					div.innerHTML += "<i style='background: #41b6c4'>&nbsp&nbsp</i> 10'000-100'000<br>";
+					div.innerHTML += "<i style='background: #1d91c0'>&nbsp&nbsp</i> 1'000-10'000<br>";
+					div.innerHTML += "<i style='background: #225ea8'>&nbsp&nbsp</i> 100-1'000<br>";
+					div.innerHTML += "<i style='background: #0c2c84'>&nbsp&nbsp</i> 0-100<br>";
+					return div;
+				};
+
+				legend.addTo(map03);
+
+				async function avvioMap03() {
+					try {
+						const response = await fetch( "./GIS/Map03_CNTR_RG_20M_2024_4326.geojson" );
+						countrData = await response.json(); 
+
+						console.log( "Map03 CRS: " + map03.options.crs.code ); 
+						//L.geoJSON in EPSG:4326 - WGS84 (si presume conversione automatica su Tile Layer EPSG 3857)
+						//Turf.js in EPSG:4326 - WGS84
+						//console.log( "Data GeoJSON 3857: " + countrData ); 
+						console.log(  "Tot features in GeoJson: " + countrData.features.length);
+
+						const swissFormatter = new Intl.NumberFormat('de-CH');
+
+						layerCountr = L.geoJSON( countrData , {
+							//coordsToLatLng: function (coords) {
+								// Converte le coordinate proiettate [x, y] in [lat, lng]
+								//return L.CRS.EPSG3857.unproject(L.point(coords));
+							//},
+							onEachFeature: function (feature, layer) {
+								var areaCountr = parseFloat( ( turf.area(feature) / 1000000 ).toFixed(2) );
+								dataCountrTable.push( 
+									{ 
+										"Name": feature.properties.NAME_ENGL, 
+										"Sovereignty": feature.properties.SVRG_UN, 
+										"Capital": feature.properties.CAPT, 
+										"Area (Km^2)": areaCountr, 
+									}
+								); 
+								layer.bindPopup(`
+									<div>
+										<li><b>NAME_ENGL -</b> ${feature.properties.NAME_ENGL}</li>
+										<li><b>SVRG_UN -</b> ${feature.properties.SVRG_UN}</li>
+										<li><b>CAPT -</b> ${feature.properties.CAPT}</li>
+										<li><b>AREA (calculated sq.km) -</b> ${ swissFormatter.format( areaCountr ) }</li>
+									</div>
+								`)
+							}, 
+							style: fooStyle,
+
+						}).addTo(map03);
+
+					} catch (error) {
+						console.log("Error loading GeoJSON:", error);
+					}
+				}
+
+				//Avvio map03
+				(async () => {
+					await avvioMap03(); 
+
+					//Elaborazione dataCountrTable ...
+
+					div_dataCountr = new Tabulator( "#div_dataCountr", {
+						data: dataCountrTable, // Carica i dati JSON
+						//autoColumns: true, // Crea automaticamente le colonne in base alle chiavi del JSON
+						columns: [
+							{title: "Name", field: "Name", headerFilter: "input", headerFilterParams: { elementAttributes: { style: "width: 100%; font-size: 1.5vh;" } } },
+							{title: "Sovereignty", field: "Sovereignty", headerFilter: "input", headerFilterParams: { elementAttributes: { style: "width: 100%; font-size: 1.5vh;" } } },
+							{title: "Capital", field: "Capital", headerFilter: "input", headerFilterParams: { elementAttributes: { style: "width: 100%; font-size: 1.5vh;" } } }, 
+							{title: "Area (Km^2)", field: "Area (Km^2)", headerFilter: "number", headerFilterFunc: "<=", headerFilterParams: { elementAttributes: { style: "width: 100%; font-size: 1.5vh;" } } }, 
+						]
+					});
+
+					//countrData
+					div_dataCountr.on("rowClick", function(e, row) {
+						layerCountr.eachLayer(function ( singleCountr ) { //gruppo di Layer -> singolo Layer
+							if ( singleCountr.feature.properties.NAME_ENGL === row.getData().Name ) {
+								// Zoom to that layer.
+								map03.fitBounds( singleCountr.getBounds());
+							}
+						});
+					});
+
+				})(); 
+
+				async function excelMap03() {
+					var copyDataCountrTable = JSON.parse(JSON.stringify(dataCountrTable)); //copy of JSON
+
+					copyDataCountrTable.forEach(function(row) {
+						for (var key in row) {
+							// Sostituisce null/undefined con una stringa vuota 
+							if (row[key] === null || row[key] === undefined) {
+								row[key] = ""; 
+							}
+							//Da verificare eventuali caratteri di controllo \u0000-\u0008\u000B- ... 
+						}
+					}); 
+
+					await alasql.promise( "SELECT * INTO XLSX( 'excelTableMap03.xlsx' , {headers:true} ) FROM ? " , [ copyDataCountrTable ]); //Dati Tabella; countrData -> Dati GeoJSON
+
+				}
+
+			</script>
+		</div>
+
+		<div id = "blocco03GIS" class = "span4 roundBorder" >
+			<u>Street View Map</u>
+			<br>
+			<br>
+			- Reference link: <a href="https://kartaview.org/landing">Karta View</a>, <a href="https://kartaview.org/doc/photos">Karta View - Photos (API)</a>
+			<br>
+			- Map containing street-level images within a bounding box with a side length of (approximately) 500 meters..
+			<br>
+			*** Note: Perform a search within the map-centered bounding box (BB) and click on the markers to view images retrieved from the Karta View Service (please note that not all areas shown on the map may actually be covered by the Karta View Service).
+			<br>
+			<br>
+			<div id="contMap04">
+				<div style="float: left; width: 55%;" >
+					<div id="leafletMap04" style="height: 70vh; border: 2px solid; " ></div> 
+					<button type="button" id="button_searchPhotosMap04" style="height: 3vh; width: 100%; " onclick = "searchPhotosMap04()" ><b>Search Photos on Karta View</b></button>
+				</div>
+				<div id="contImageMarkerMap04" style="float: right; height: 73vh; width: 44%; display: flex; align-items: center; border: 2px solid; ">
+					<img id="imageMarkerMap04" src="" alt= "" style="width: 100%; height: auto; " >
+				</div>
 				<div style=" clear: both">
 					<br>
 				</div>
-			-->
-
-		</div>
-
-		<script>
-
-			var dataCountrTable = [ ]; 
-			var countrData = null; 
-			var layerCountr = null; 
-
-			var map03 = L.map('leafletMap03' , { 
-				zoomSnap: 1 , //1
-				zoomDelta : 1, 
-				wheelPxPerZoomLevel: 90, //60 
-
-			} ).setView([ 46.035235, 10.980633], 1);
-
-			var baseOSMMap03 = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-				maxZoom: 19,
-			}).addTo(map03);
-
-			function getColor( area ) {
-				//var rifArea = 2442857;
-				
-				if( area > (10000000) ) {
-					return "#ffffd9"; 
-				} else if( area > (5000000) ) { 
-					return "#edf8b1"; 
-				} else if( area > (1000000) ) {
-					return "#c7e9b4"; 
-				} else if( area > (100000) ) {
-					return "#7fcdbb";
-				} else if( area > (10000) ) {
-					return "#41b6c4";
-				} else if( area > (1000) ) {
-					return "#1d91c0";
-				} else if( area > (100) ) {
-					return "#225ea8"; 
-				} else {
-					return "#0c2c84"; 
-				}
-			}
-
-			function fooStyle(feature) { 
-				return {
-					fillColor: getColor( turf.area(feature) / 1000000 ), //mq -> Km^2
-					fillOpacity: 0.7, 
-				}
-			}
-
-			var legend = L.control({position: 'bottomright'});
-
-			legend.onAdd = function (map03) {
-				var div = L.DomUtil.create( "div" , "" ); //div , class ... 
-				div.style.background = "white"; 
-				div.style.border = "solid 1px"; 
-				div.style.fontFamily = "trebuchet ms"; 
-				div.innerHTML = "<b>Area (Km^2)</b><br>";
-				div.innerHTML += "<i style='background: #ffffd9'>&nbsp&nbsp</i> >10'000'000<br>";
-				div.innerHTML += "<i style='background: #edf8b1'>&nbsp&nbsp</i> 5'000'000-10'000'000<br>";
-				div.innerHTML += "<i style='background: #c7e9b4'>&nbsp&nbsp</i> 1'000'000-5'000'000<br>";
-				div.innerHTML += "<i style='background: #7fcdbb'>&nbsp&nbsp</i> 100'000-1'000'000<br>";
-				div.innerHTML += "<i style='background: #41b6c4'>&nbsp&nbsp</i> 10'000-100'000<br>";
-				div.innerHTML += "<i style='background: #1d91c0'>&nbsp&nbsp</i> 1'000-10'000<br>";
-				div.innerHTML += "<i style='background: #225ea8'>&nbsp&nbsp</i> 100-1'000<br>";
-				div.innerHTML += "<i style='background: #0c2c84'>&nbsp&nbsp</i> 0-100<br>";
-				return div;
-			};
-
-			legend.addTo(map03);
-
-			async function avvioMap03() {
-				try {
-					const response = await fetch( "./GIS/Map03_CNTR_RG_20M_2024_4326.geojson" );
-					countrData = await response.json(); 
-
-					console.log( "Map03 CRS: " + map03.options.crs.code ); 
-					//L.geoJSON in EPSG:4326 - WGS84 (si presume conversione automatica su Tile Layer EPSG 3857)
-					//Turf.js in EPSG:4326 - WGS84
-					//console.log( "Data GeoJSON 3857: " + countrData ); 
-					console.log(  "Tot features in GeoJson: " + countrData.features.length);
-
-					const swissFormatter = new Intl.NumberFormat('de-CH');
-
-					layerCountr = L.geoJSON( countrData , {
-						//coordsToLatLng: function (coords) {
-							// Converte le coordinate proiettate [x, y] in [lat, lng]
-							//return L.CRS.EPSG3857.unproject(L.point(coords));
-						//},
-						onEachFeature: function (feature, layer) {
-							var areaCountr = parseFloat( ( turf.area(feature) / 1000000 ).toFixed(2) );
-							dataCountrTable.push( 
-								{ 
-									"Name": feature.properties.NAME_ENGL, 
-									"Sovereignty": feature.properties.SVRG_UN, 
-									"Capital": feature.properties.CAPT, 
-									"Area (Km^2)": areaCountr, 
-								}
-							); 
-							layer.bindPopup(`
-								<div>
-									<li><b>NAME_ENGL -</b> ${feature.properties.NAME_ENGL}</li>
-									<li><b>SVRG_UN -</b> ${feature.properties.SVRG_UN}</li>
-									<li><b>CAPT -</b> ${feature.properties.CAPT}</li>
-									<li><b>AREA (calculated sq.km) -</b> ${ swissFormatter.format( areaCountr ) }</li>
-								</div>
-							`)
-						}, 
-						style: fooStyle,
-
-					}).addTo(map03);
-
-				} catch (error) {
-					console.log("Error loading GeoJSON:", error);
-				}
-			}
-
-			//Avvio map03
-			(async () => {
-				await avvioMap03(); 
-
-				//Elaborazione dataCountrTable ...
-
-				div_dataCountr = new Tabulator( "#div_dataCountr", {
-					data: dataCountrTable, // Carica i dati JSON
-					//autoColumns: true, // Crea automaticamente le colonne in base alle chiavi del JSON
-					columns: [
-       					{title: "Name", field: "Name", headerFilter: "input", headerFilterParams: { elementAttributes: { style: "width: 100%; font-size: 1.5vh;" } } },
-       					{title: "Sovereignty", field: "Sovereignty", headerFilter: "input", headerFilterParams: { elementAttributes: { style: "width: 100%; font-size: 1.5vh;" } } },
-        				{title: "Capital", field: "Capital", headerFilter: "input", headerFilterParams: { elementAttributes: { style: "width: 100%; font-size: 1.5vh;" } } }, 
-						{title: "Area (Km^2)", field: "Area (Km^2)", headerFilter: "number", headerFilterFunc: "<=", headerFilterParams: { elementAttributes: { style: "width: 100%; font-size: 1.5vh;" } } }, 
-    				]
-				});
-
-				//countrData
-				div_dataCountr.on("rowClick", function(e, row) {
-					layerCountr.eachLayer(function ( singleCountr ) { //gruppo di Layer -> singolo Layer
-  						if ( singleCountr.feature.properties.NAME_ENGL === row.getData().Name ) {
-							// Zoom to that layer.
-							map03.fitBounds( singleCountr.getBounds());
-  						}
-					});
-				});
-
-			})(); 
-
-			async function excelMap03() {
-				var copyDataCountrTable = JSON.parse(JSON.stringify(dataCountrTable)); //copy of JSON
-
-				copyDataCountrTable.forEach(function(row) {
-    				for (var key in row) {
-        				// Sostituisce null/undefined con una stringa vuota 
-        				if (row[key] === null || row[key] === undefined) {
-            				row[key] = ""; 
-        				}
-						//Da verificare eventuali caratteri di controllo \u0000-\u0008\u000B- ... 
-					}
-				}); 
-
-				await alasql.promise( "SELECT * INTO XLSX( 'excelTableMap03.xlsx' , {headers:true} ) FROM ? " , [ copyDataCountrTable ]); //Dati Tabella; countrData -> Dati GeoJSON
-
-			}
-
-		</script>
-	</div>
-
-	<br>
-	<br>
-
-	<div id = "blocco03GIS" class = "span4 roundBorder" >
-		<u>Street View Map</u>
-		<br>
-		<br>
-		- Reference link: <a href="https://kartaview.org/landing">Karta View</a>, <a href="https://kartaview.org/doc/photos">Karta View - Photos (API)</a>
-		<br>
-		- Map containing street-level images within a bounding box with a side length of (approximately) 500 meters..
-		<br>
-		*** Note: Perform a search within the map-centered bounding box (BB) and click on the markers to view images retrieved from the Karta View Service (please note that not all areas shown on the map may actually be covered by the Karta View Service).
-		<br>
-		<br>
-		<div id="contMap04">
-			<div style="float: left; width: 55%;" >
-				<div id="leafletMap04" style="height: 70vh; border: 2px solid; " ></div> 
-				<button type="button" id="button_searchPhotosMap04" style="height: 3vh; width: 100%; " onclick = "searchPhotosMap04()" ><b>Search Photos on Karta View</b></button>
 			</div>
-			<div id="contImageMarkerMap04" style="float: right; height: 73vh; width: 44%; display: flex; align-items: center; border: 2px solid; ">
-				<img id="imageMarkerMap04" src="" alt= "" style="width: 100%; height: auto; " >
-			</div>
-			<div style=" clear: both">
-				<br>
-			</div>
-		</div>
 
-		<script>
-			var map04 = L.map('leafletMap04' , { 
-				zoomSnap: 1 , //1
-				zoomDelta : 1, 
-				wheelPxPerZoomLevel: 90, //60 
+			<script>
+				var map04 = L.map('leafletMap04' , { 
+					zoomSnap: 1 , //1
+					zoomDelta : 1, 
+					wheelPxPerZoomLevel: 90, //60 
 
-			} ).setView([ 45.870770, 10.876221 ], 16 );
+				} ).setView([ 45.870770, 10.876221 ], 16 );
 
-			var baseOSMMap04 = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-				maxZoom: 19,
-			}).addTo(map04);
+				var baseOSMMap04 = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+					maxZoom: 19,
+				}).addTo(map04);
 
-			var centerMap04 = null;  
-			var bboxTurf = null; 
-			var bboxMap04 = null; 
-			var arrMarkerMap04 = []; 
+				var centerMap04 = null;  
+				var bboxTurf = null; 
+				var bboxMap04 = null; 
+				var arrMarkerMap04 = []; 
 
-			function addBBoxMap04( ) {
+				function addBBoxMap04( ) {
 
-				return new Promise((resolve, reject) => 
-				{
+					return new Promise((resolve, reject) => 
+					{
 
-				centerMap04 = map04.getCenter();
-				var centerMap04Lat = centerMap04.lat;
-				var centerMap04Lng = centerMap04.lng;
+					centerMap04 = map04.getCenter();
+					var centerMap04Lat = centerMap04.lat;
+					var centerMap04Lng = centerMap04.lng;
 
-				var centerTurf = [ centerMap04Lng , centerMap04Lat ]; // [lng, lat]
-				var pointCenterTurf = turf.point( centerTurf );
-				//Crea un buffer di 250 metri (per avere un lato totale di 500 metri )
-				//Usiamo 'steps: 4' per approssimare un quadrato orientato
-				var bufferedTurf = turf.buffer( pointCenterTurf , 0.25, { units: 'kilometers' , steps: 4 } );
-				bboxTurf = turf.bbox( bufferedTurf ); // Restituisce [minX, minY, maxX, maxY]
+					var centerTurf = [ centerMap04Lng , centerMap04Lat ]; // [lng, lat]
+					var pointCenterTurf = turf.point( centerTurf );
+					//Crea un buffer di 250 metri (per avere un lato totale di 500 metri )
+					//Usiamo 'steps: 4' per approssimare un quadrato orientato
+					var bufferedTurf = turf.buffer( pointCenterTurf , 0.25, { units: 'kilometers' , steps: 4 } );
+					bboxTurf = turf.bbox( bufferedTurf ); // Restituisce [minX, minY, maxX, maxY]
 
-				//Ulteriore BBox / poligono GeoJSON per Leaflet
-				var bboxPolyTurf = turf.bboxPolygon( bboxTurf );
+					//Ulteriore BBox / poligono GeoJSON per Leaflet
+					var bboxPolyTurf = turf.bboxPolygon( bboxTurf );
 
-				//Raffigurazione sulla mappa (Leaflet)
-				bboxMap04 = L.geoJSON( bboxPolyTurf , {
-    				style: {
-        				color: "#ff7800",
-        				weight: 2,
-        				fillOpacity: 0.2
-    				}
-				}); 
+					//Raffigurazione sulla mappa (Leaflet)
+					bboxMap04 = L.geoJSON( bboxPolyTurf , {
+						style: {
+							color: "#ff7800",
+							weight: 2,
+							fillOpacity: 0.2
+						}
+					}); 
 
-				bboxMap04.addTo(map04); 
+					bboxMap04.addTo(map04); 
 
-				console.log( "End addBBoxMap04" );
+					console.log( "End addBBoxMap04" );
 
-				resolve("End addBBoxMap04"); 
+					resolve("End addBBoxMap04"); 
 
-				}); 
+					}); 
 
-			}
+				}
 
-			async function getPhotosBBoxMap04() {
+				async function getPhotosBBoxMap04() {
 
-				return new Promise( async (resolve, reject) => 
-				{
+					return new Promise( async (resolve, reject) => 
+					{
 
-				try {
-					//radius NON utilizzato in API version 2.0
+					try {
+						//radius NON utilizzato in API version 2.0
 
-					//const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+						//const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
 
-					const baseUrlMap04 = 'https://api.openstreetcam.org/2.0/photo/';
+						const baseUrlMap04 = 'https://api.openstreetcam.org/2.0/photo/';
 
-					const paramsMap04 = new URLSearchParams({
-  						nwLat: bboxTurf[3], //nwLat , nwLng //maxLat, minLng
-  						nwLng: bboxTurf[0],
-  						seLat: bboxTurf[1], //seLat, seLng //minLat, maxLng
-  						seLng: bboxTurf[2],
-						page: 2, //Page number for pagination (default: 1).
-  						ipp: 150, //Number of items per page (default: 50, max: 150).
-					});
+						const paramsMap04 = new URLSearchParams({
+							nwLat: bboxTurf[3], //nwLat , nwLng //maxLat, minLng
+							nwLng: bboxTurf[0],
+							seLat: bboxTurf[1], //seLat, seLng //minLat, maxLng
+							seLng: bboxTurf[2],
+							page: 2, //Page number for pagination (default: 1).
+							ipp: 150, //Number of items per page (default: 50, max: 150).
+						});
 
-					//const responseOSCMap04 = await fetch(`${proxyUrl}${baseUrlMap04}?${paramsMap04}`, {
-					const responseOSCMap04 = await fetch(`${baseUrlMap04}?${paramsMap04}`, { 
-						//method: 'GET', 
-						//headers: {
-        					// Questo header è fondamentale per soddisfare la richiesta del proxy
-        					//'X-Requested-With': 'XMLHttpRequest'
-    					//},
-      					signal: AbortSignal.timeout(7000) // Timeout di 7 secondi
-    				});
+						//const responseOSCMap04 = await fetch(`${proxyUrl}${baseUrlMap04}?${paramsMap04}`, {
+						const responseOSCMap04 = await fetch(`${baseUrlMap04}?${paramsMap04}`, { 
+							//method: 'GET', 
+							//headers: {
+								// Questo header è fondamentale per soddisfare la richiesta del proxy
+								//'X-Requested-With': 'XMLHttpRequest'
+							//},
+							signal: AbortSignal.timeout(7000) // Timeout di 7 secondi
+						});
 
-					jsonPhotosMap04 = await responseOSCMap04.json(); 
-					console.log( jsonPhotosMap04 ); 
+						jsonPhotosMap04 = await responseOSCMap04.json(); 
+						console.log( jsonPhotosMap04 ); 
 
-					if( jsonPhotosMap04 != null && jsonPhotosMap04.result?.data != undefined ) { //Attenzione "?"
-						jsonPhotosMap04.result.data.forEach( (ele, index) => { //result.data[0]. ... 
-							arrMarkerMap04[ index ] = L.marker([ ele.lat , ele.lng ] , { //options
-								imageUrl : ele.fileurlLTh,  
-							});
-							arrMarkerMap04[ index ].bindPopup(`
-								<div style="text-align: center;">
-								<img src="${ele.fileurlLTh}" alt="OpenStreetCam Image ${index}" style="width: 30vh; height: auto; border: 2px solid;">
-								<p>
-									<b>Coordinates (lat/lng)</b>: ${ele.lat} :: ${ele.lng}
-									<br>
-									<b>Datetime</b>: ${ele.dateAdded}
-									<br>
-									<b>Marker index</b>: ${index}
-								</p>
-								</div>
-							`);
-							arrMarkerMap04[ index ].on('click', function( e ) {
-								document.getElementById( "imageMarkerMap04" ).src = this.options.imageUrl;  
+						if( jsonPhotosMap04 != null && jsonPhotosMap04.result?.data != undefined ) { //Attenzione "?"
+							jsonPhotosMap04.result.data.forEach( (ele, index) => { //result.data[0]. ... 
+								arrMarkerMap04[ index ] = L.marker([ ele.lat , ele.lng ] , { //options
+									imageUrl : ele.fileurlLTh,  
+								});
+								arrMarkerMap04[ index ].bindPopup(`
+									<div style="text-align: center;">
+									<img src="${ele.fileurlLTh}" alt="OpenStreetCam Image ${index}" style="width: 30vh; height: auto; border: 2px solid;">
+									<p>
+										<b>Coordinates (lat/lng)</b>: ${ele.lat} :: ${ele.lng}
+										<br>
+										<b>Datetime</b>: ${ele.dateAdded}
+										<br>
+										<b>Marker index</b>: ${index}
+									</p>
+									</div>
+								`);
+								arrMarkerMap04[ index ].on('click', function( e ) {
+									document.getElementById( "imageMarkerMap04" ).src = this.options.imageUrl;  
+								}); 
+								//Evitare arrMarkerMap04.push( ... ) per problemi di riferimento 
+								//arrMarkerMap04.push( L.marker(tempMarker.getLatLng(), tempMarker.options).bindPopup( tempMarker.getPopup().getContent(), tempMarker.getPopup().options) ); ... //tempMarker
 							}); 
-							//Evitare arrMarkerMap04.push( ... ) per problemi di riferimento 
+							arrMarkerMap04.forEach( (ele, index) => { 
+								ele.addTo( map04 );  
+							});  
+						} else {
+							arrMarkerMap04[ 0 ] = L.marker([ centerMap04.lat, centerMap04.lng ] );
+							arrMarkerMap04[ 0 ].bindPopup(`
+								<div style="text-align: center;">
+									No photos found!
+								</div>
+								`
+							); 
 							//arrMarkerMap04.push( L.marker(tempMarker.getLatLng(), tempMarker.options).bindPopup( tempMarker.getPopup().getContent(), tempMarker.getPopup().options) ); ... //tempMarker
-						}); 
-						arrMarkerMap04.forEach( (ele, index) => { 
-							ele.addTo( map04 );  
-						});  
-					} else {
-						arrMarkerMap04[ 0 ] = L.marker([ centerMap04.lat, centerMap04.lng ] );
-						arrMarkerMap04[ 0 ].bindPopup(`
-							<div style="text-align: center;">
-								No photos found!
-							</div>
-							`
-						); 
-						//arrMarkerMap04.push( L.marker(tempMarker.getLatLng(), tempMarker.options).bindPopup( tempMarker.getPopup().getContent(), tempMarker.getPopup().options) ); ... //tempMarker
-						arrMarkerMap04[ 0 ].addTo( map04 ); 
+							arrMarkerMap04[ 0 ].addTo( map04 ); 
+						}
+
+					} catch( e ) {
+						console.log( e );  
 					}
 
-				} catch( e ) {
-					console.log( e );  
+					console.log( "End getPhotosBBoxMap04" ); 
+
+					resolve("End getPhotosBBoxMap04"); 
+
+					}); 
 				}
 
-				console.log( "End getPhotosBBoxMap04" ); 
+				( async () => { 
+					await  addBBoxMap04();
+					await getPhotosBBoxMap04(); 
+					console.log( "Verifica Marker iniziale (Map04): " + arrMarkerMap04[ 0 ]  ); 
+					arrMarkerMap04[ 0 ].fire('click');
+				})();
+				
+				function searchPhotosMap04() { //map04.on('dragend', function(e) { //moveend
+					console.log("Nuovo centro:", map04.getCenter());
 
-				resolve("End getPhotosBBoxMap04"); 
+					if( bboxTurf != null ) {
+						bboxTurf = null;  
+					}
+					if( bboxMap04 != null ) {
+						map04.removeLayer( bboxMap04 );  
+						bboxMap04 = null; 
+					}
+					addBBoxMap04(); 
 
-				}); 
-			}
+					if( arrMarkerMap04.length > 0 ) {
+						arrMarkerMap04.forEach( (ele, index) => { 
+							map04.removeLayer( ele );  
+						});  
+						arrMarkerMap04 = [ ];
+					}
+					getPhotosBBoxMap04();
 
-			( async () => { 
-				await  addBBoxMap04();
-				await getPhotosBBoxMap04(); 
-				console.log( "Verifica Marker iniziale (Map04): " + arrMarkerMap04[ 0 ]  ); 
-				arrMarkerMap04[ 0 ].fire('click');
-			})();
+				};
+
+			</script>
 			
-			function searchPhotosMap04() { //map04.on('dragend', function(e) { //moveend
-    			console.log("Nuovo centro:", map04.getCenter());
+		</div>
 
-				if( bboxTurf != null ) {
-					bboxTurf = null;  
-				}
-				if( bboxMap04 != null ) {
-					map04.removeLayer( bboxMap04 );  
-					bboxMap04 = null; 
-				}
-				addBBoxMap04(); 
+		<div id = "blocco04GIS" class = "span4 roundBorder" >
+			<u>QGIS Maps</u>
+			<br>
+			<br>
+			Reference link: <a href="https://www.qgistutorials.com/en/docs/3/making_a_map.html">Spatial Thoughts - QGIS Tutorials</a>
+			<br>
+			<br>
+			<div id="blocco01Map" style="width: 98%; height: 70vh; " > <!-- span1 --> <!-- class="span4 roundBorder"  -->
+				<iframe src="https://geoinf25.github.io/site/GIS/MapQGIS01.pdf#view=fit" type="application/pdf" allow="fullscreen" width="100%" height="100%" ></iframe>
+			</div>
+			<br>
+		</div>
 
-				if( arrMarkerMap04.length > 0 ) {
-					arrMarkerMap04.forEach( (ele, index) => { 
-						map04.removeLayer( ele );  
-					});  
-					arrMarkerMap04 = [ ];
-				}
-				getPhotosBBoxMap04();
-
-			};
-
-		</script>
-		
 	</div>
 
-	<br>
-	<br>
-
-	<div id = "blocco04GIS" class = "span4 roundBorder" >
-		<u>QGIS Maps</u>
-		<br>
-		<br>
-		Reference link: <a href="https://www.qgistutorials.com/en/docs/3/making_a_map.html">Spatial Thoughts - QGIS Tutorials</a>
-		<br>
-		<br>
-		<div id="blocco01Map" style="width: 98%; height: 70vh; " > <!-- span1 --> <!-- class="span4 roundBorder"  -->
-			<iframe src="https://geoinf25.github.io/site/GIS/MapQGIS01.pdf#view=fit" type="application/pdf" allow="fullscreen" width="100%" height="100%" ></iframe>
+	<!-- FOOTER -->
+	<div style="margin: 1vh; "></div>
+	<div style="height: 10vh; overflow-y: scroll; " >
+		<div id="footer" class="span4 roundBorder" style="font-size: 1.5vh; " > <!-- font-weight: bold; font-style: italic; -->
+			<b>2026 - GEOINF - PLEASE NOTE: libraries, frameworks, and any other associated elements belong to their respective owners. </b>
+			<br>
+			Applications developed in Javascript through <a href="https://github.com/apps/desktop">GitHub Desktop</a> and <a href="https://code.visualstudio.com/">Visual Studio Code</a>. 
+			<br>
+			Use of: see Libraries / References above. 
 		</div>
-		<br>
 	</div>
 
 </body>
