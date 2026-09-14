@@ -72,7 +72,7 @@
 
 </head>
 
-<body style = "overflow-y: scroll" class="popup" >
+<body style = "overflow-y: none" class="popup" > <!-- overflow-y: scroll; -->
 
 	<!-- HEADER -->
 	<!-- font-style: italic; -->
@@ -88,7 +88,7 @@
 
 	</py-config>
 
-	<div id="tabellaDatabase" class="grid" style="height: 84vh; overflow-y: scroll; " >
+	<div id="tabellaDatabase" class="grid" style="height: 84vh; overflow-y: scroll; " > <!-- overflow-y: none; -->
 
 		<div id = "blocco01Db" class = "span4 roundBorder" > 
 			<b>• External links for databases (relational / non-relational)</b>
@@ -128,12 +128,12 @@
 
 				<div id="tableStudentContainer" style="width: 60%; float: left; " >
 					🗃️ Table "Student"
-					<div id="tableStudent" ></div>
+					<div id="tableStudent" style="height: 50vh; " ></div> <!-- overflow-y: scroll;  -->
 				</div>
 				
 				<div id="tableClassContainer" style="width: 39%; float: right; " >
 					🗃️ Table "Class"
-					<div id="tableClass" ></div>
+					<div id="tableClass" style="height: 50vh; " ></div> <!-- overflow-y: auto;  -->
 				</div>
 
 				<script>
@@ -511,7 +511,7 @@
 					
 					<div id="tableResultContainer" style="width: 100%; " >
 						🗃️ Table "Result"
-						<div id="tableResult" ></div>
+						<div id="tableResult" style="height: 30.2vh; " ></div> <!-- overflow-y: auto;  -->
 					</div>
 					<br>
 
