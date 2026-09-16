@@ -1,0 +1,65 @@
+
+<!DOCTYPE html>
+
+<head>
+
+    <script src="./wabt-normal.js"></script>
+    
+</head>
+
+<body>
+    <script>
+        WebAssembly.instantiateStreaming(fetch('./build/release.wasm'), { env: { abort: () => {} } })
+            .then(obj => {
+                const { add } = obj.instance.exports;
+                console.log(add(5, 7)); // Stampa 12 in console
+            });
+
+        window.WabtModule().then(async (wabt) => {
+            try {
+                // 1. Scarica il file .wasm come arrayBuffer dal tuo server locale
+                const response = await fetch('./build/release.wasm');
+                const buffer = await response.arrayBuffer();
+                
+                // 2. Convertilo in un Uint8Array (il formato richiesto da WABT)
+                const wasmBinary = new Uint8Array(buffer);
+                
+                // 3. Usa readWasm per caricare il modulo nel toolkit
+                const myModule = wabt.readWasm(wasmBinary, { readDebugNames: true });
+                
+                console.log("File WASM letto correttamente con WABT!");
+
+                // --- COSA PUOI FARCI ORA? ---
+                
+                // Esempio A: Convertirlo nel formato testuale .wat (Decompilazione / wasm2wat)
+                myModule.applyNames(); 
+                const watText = myModule.toText({ foldExprs: false, inlineExport: false });
+                console.log("Codice WAT generato:\n", watText);
+                
+                // Esempio B: Validare il file per scovare errori interni
+                myModule.validate();
+                console.log("Il modulo è valido!");
+
+                // Libera sempre la memoria allocata internamente da C++ prima di chiudere
+                myModule.destroy();
+
+            } catch (error) {
+                console.error("Errore durante l'elaborazione del file WASM:", error);
+            }
+            });
+
+    </script>
+</body>
+
+<!--
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script type="module">
+import { add } from "./build/release.js";
+document.body.innerText = add(1, 2);
+</script>
+</head>
+<body></body>
+</html>
+-->
