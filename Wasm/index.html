@@ -4,51 +4,138 @@
 <head>
 
     <script src="./wabt-normal.js"></script>
+
+    <link rel="stylesheet" href="styleGeoInf.css">
     
 </head>
 
 <body>
-    <script>
-        WebAssembly.instantiateStreaming(fetch('./build/release.wasm'), { env: { abort: () => {} } })
-            .then(obj => {
-                const { add } = obj.instance.exports;
-                console.log(add(5, 7)); // Stampa 12 in console
-            });
 
-        window.WabtModule().then(async (wabt) => {
-            try {
-                // 1. Scarica il file .wasm come arrayBuffer dal tuo server locale
-                const response = await fetch('./build/release.wasm');
-                const buffer = await response.arrayBuffer();
-                
-                // 2. Convertilo in un Uint8Array (il formato richiesto da WABT)
-                const wasmBinary = new Uint8Array(buffer);
-                
-                // 3. Usa readWasm per caricare il modulo nel toolkit
-                const myModule = wabt.readWasm(wasmBinary, { readDebugNames: true });
-                
-                console.log("File WASM letto correttamente con WABT!");
+    <button id="tab_schedaJavascript" style="background-color: lightgray ; color: green; padding: 0vh 0vh; font-size: 1.75vh; font-weight: bold; border-radius: 1vh; width: 100%; min-width: 16vh; height: 3.0vh; border-color: green; " disabled>- WASM (Web Assembly) -</button>	<!-- cursor: pointer; -->
 
-                // --- COSA PUOI FARCI ORA? ---
-                
-                // Esempio A: Convertirlo nel formato testuale .wat (Decompilazione / wasm2wat)
-                myModule.applyNames(); 
-                const watText = myModule.toText({ foldExprs: false, inlineExport: false });
-                console.log("Codice WAT generato:\n", watText);
-                
-                // Esempio B: Validare il file per scovare errori interni
-                myModule.validate();
-                console.log("Il modulo è valido!");
+    <!-- BODY -->
+	<div id="tabellaWasm" class="grid" style="height: 84vh; overflow-y: scroll; " >
 
-                // Libera sempre la memoria allocata internamente da C++ prima di chiudere
-                myModule.destroy();
+		<div id="blocco01Wasm" class="span4 roundBorder" >
 
-            } catch (error) {
-                console.error("Errore durante l'elaborazione del file WASM:", error);
-            }
-            });
+            <div id="riga00" style="display: flex; width: 100%; padding: 0; margin: 0; gap: 5px; ">
 
-    </script>
+                <!-- float: left, float: left , ... per ogni div ... -->
+
+                <div id="parte00" style="width: 25%; height: 20vh; ">
+                    <span style="display: inline-block; margin-bottom: 10px; " >
+                        <b>WAT (WebAssembly Text Format)</b>:
+                    </span>
+                    <textarea id="parte00Riga00" style="width: 100%; height: 100%; border: 2px solid blue; border-radius: 5px; background-color: lightskyblue; overflow-x: hidden; overflow-y: hidden; resize: none; padding: 0; margin: 0; font-family: 'Trebuchet MS'; font-size: 1.75vh; " readonly></textarea>
+
+                </div>
+
+                <div id="parte01" style="width: 25%; height: 20vh; ">
+                    <span style="display: inline-block; margin-bottom: 10px; " >
+                        <b>AssemblyScript (TypeScript-like language)</b>:
+                    </span>
+                    <textarea id="parte01Riga00" style="width: 100%; height: 100%; border: 2px solid red; border-radius: 5px; background-color: lightcoral; overflow-x: hidden; overflow-y: hidden; resize: none; padding: 0; margin: 0; font-family: 'Trebuchet MS'; font-size: 1.75vh; " readonly></textarea>
+
+                </div>
+
+                <div id="parte02" style=" width: 25%; height: 20vh; ">
+                    <span style="display: inline-block; margin-bottom: 10px; " >
+                        <b>Results of function</b>:
+                    </span>
+                    <textarea id="parte02Riga00" style="width: 100%; height: 100%; border: 2px solid green; border-radius: 5px; background-color: lightgreen; overflow-x: hidden; overflow-y: hidden; resize: none; padding: 0; margin: 0; font-family: 'Trebuchet MS'; font-size: 1.75vh; " readonly></textarea>
+
+                </div>
+
+                <div id="parte03" style="width: 24%; height: 20vh; ">
+                    <span style="display: inline-block; margin-bottom: 10px; " >
+                        <b>Description</b>:
+                    </span>
+                    <div id="parte03Riga00" style="width: 100%; height: 100%; border: 2px solid gray; border-radius: 5px; resize: none; padding: 0; margin: 0; " readonly>
+                        <p style="display: block; padding-left: 20px; text-indent: -15px; margin: 0 5px 0 0;">
+                            • <a href="./build/release.wasm">WebAssembly binary file (example 00)</a>;
+                        </p>
+                        <p style="display: block; padding-left: 20px; text-indent: -15px; margin: 0 5px 0 0;">
+                            • First example of an "add" function (sum of two numbers) expressed in the various languages listed on the side.
+                        </p> 
+                    </div>
+
+                </div>
+            
+            </div> 
+
+            <script>
+                WebAssembly.instantiateStreaming(fetch('./build/release.wasm'), { env: { abort: () => {} } })
+                    .then(obj => {
+                        const { add } = obj.instance.exports;
+
+                        console.log(add(5, 7)); // Stampa 12 in console
+                        document.getElementById("parte02Riga00").value=
+                            "add(5, 7) -> " + add(5, 7); 
+                    });
+
+                window.WabtModule().then(async (wabt) => {
+                    try {
+                        // 1. Scarica il file .wasm come arrayBuffer dal tuo server locale
+                        const response = await fetch('./build/release.wasm');
+                        const buffer = await response.arrayBuffer();
+                        
+                        // 2. Convertilo in un Uint8Array (il formato richiesto da WABT)
+                        const wasmBinary = new Uint8Array(buffer);
+                        
+                        // 3. Usa readWasm per caricare il modulo nel toolkit
+                        const myModule = wabt.readWasm(wasmBinary, { readDebugNames: true });
+                        
+                        console.log("File WASM letto correttamente con WABT!");
+
+                        // --- COSA PUOI FARCI ORA? ---
+                        
+                        // Esempio A: Convertirlo nel formato testuale .wat (Decompilazione / wasm2wat)
+                        myModule.applyNames(); 
+                        const watText = myModule.toText({ foldExprs: false, inlineExport: false });
+                        
+                        console.log("Codice WAT generato:\n", watText);
+                        document.getElementById("parte00Riga00").value= 
+                            watText; 
+
+                        const codeTS = await fetch('./assembly/index.ts');
+                        document.getElementById("parte01Riga00").value= 
+                            await codeTS.text(); 
+
+                        document.getElementById("parte03Riga00").value= `
+
+                        `;  
+                        
+                        // Esempio B: Validare il file per scovare errori interni
+                        myModule.validate();
+                        console.log("Il modulo è valido!");
+
+                        // Libera sempre la memoria allocata internamente da WebAssembly (C++) prima di chiudere
+                        myModule.destroy();
+
+                    } catch (error) {
+                        console.error("Errore durante l'elaborazione del file WASM:", error);
+                    }
+                    });
+
+            </script>
+
+        </div>
+
+    </div>
+
+    <!-- FOOTER -->
+	<div style="margin: 1vh; "></div>
+	<div style="height: 10vh; overflow-y: scroll; " >
+		<div id="footer" class="span4 roundBorder" style="font-size: 1.5vh; " > <!-- font-weight: bold; font-style: italic; -->
+			<b>2026 - GEOINF - PLEASE NOTE: libraries, frameworks, and any other associated elements belong to their respective owners. </b>
+			<br>
+			Applications developed in <a href="https://www.assemblyscript.org/">AssemblyScript</a> (<a href="https://www.typescriptlang.org/">TypeScript</a>-like language for <a href="https://webassembly.org/">WebAssembly</a>) through <a href="https://github.com/apps/desktop">GitHub Desktop</a> and <a href="https://code.visualstudio.com/">Visual Studio Code</a>. 
+			<br>
+			Use of: <a href="https://www.npmjs.com/package/wabt">wabt (npm)</a>, <a href="https://www.npmjs.com/package/esbuild">esbuild (npm)</a>. 
+		</div>
+	</div>
+
+
 </body>
 
 <!--
