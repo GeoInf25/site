@@ -886,7 +886,8 @@
         		}
     		});
 			
-			L.DomEvent.disableClickPropagation(div);
+			L.DomEvent.disableClickPropagation(div); //Click
+			L.DomEvent.disableScrollPropagation(div); //Zoom
 
 			return div;
 
