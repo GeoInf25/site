@@ -108,6 +108,10 @@
 			maxZoom: 19,
 		}).addTo(map01);
 		*/
+		
+		baseStadiaMap = L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}.png', {
+			maxZoom: 19,
+		})//.addTo(map01);
 
 		baseCyclOsmMap = L.tileLayer('https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png', {
 			maxZoom: 19,
@@ -132,6 +136,7 @@
 		baseMaps = {  
 			"<span style='font-family: Trebuchet MS; font-size: 1.5vh;'>OpenStreetMap</span>": baseOSM,
 			//"CartoDarkMap": baseCartoDarkMap, 
+			"<span style='font-family: Trebuchet MS; font-size: 1.5vh;'>StadiaMap</span>": baseStadiaMap,
 			"<span style='font-family: Trebuchet MS; font-size: 1.5vh;'>CyclOsmMap</span>": baseCyclOsmMap,
 			"<span style='font-family: Trebuchet MS; font-size: 1.5vh;'>OpenTopoMap</span>": baseOpenTopoMap,
 			"<span style='font-family: Trebuchet MS; font-size: 1.5vh;'>Google Hybrid</span>": baseGoogleHybrid,
@@ -311,7 +316,7 @@
 		//Mappe, Layer visibili
 		var click_elements = document.getElementsByClassName("leaflet-control-layers-selector");
 
-		click_elements[ 5 ].click(); //baseMaps
+		click_elements[ 1 ].click(); //baseMaps
 
 		click_elements[ click_elements.length - 2 ].click(); //layerDrawItems
 		click_elements[ click_elements.length - 1 ].click(); //layerMarkers //Vedi funzione seguente
