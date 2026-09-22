@@ -53,6 +53,13 @@
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.20/jspdf.plugin.autotable.min.js"></script>
 
+	<!-- Maplibre GL -->
+	<link href="https://unpkg.com/maplibre-gl@5/dist/maplibre-gl.css" rel="stylesheet" />
+	<script src="https://unpkg.com/maplibre-gl@5/dist/maplibre-gl.js"></script>
+
+	<!-- Maplibre GL Leaflet  -->
+	<script src="https://unpkg.com/@maplibre/maplibre-gl-leaflet/leaflet-maplibre-gl.js"></script>
+
 	<link rel="stylesheet" href="styleGeoInf.css">
 
 	<style>
@@ -97,6 +104,9 @@
 			zoomDelta : 1, 
 			wheelPxPerZoomLevel: 70, //60 
 
+			//openFreeMap (necessario)
+			maxZoom: 19,
+
 		} ).setView([ 46.035235, 10.980633], 3.0 );
 
 		baseOSM = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -109,9 +119,10 @@
 		}).addTo(map01);
 		*/
 		
-		baseStadiaMap = L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}.png', {
-			maxZoom: 19,
-		})//.addTo(map01);
+		openFreeMap = L.maplibreGL({
+			style: 'https://tiles.openfreemap.org/styles/positron',
+			//maxZoom: 19,
+        })//.addTo(map01);
 
 		baseCyclOsmMap = L.tileLayer('https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png', {
 			maxZoom: 19,
@@ -136,7 +147,7 @@
 		baseMaps = {  
 			"<span style='font-family: Trebuchet MS; font-size: 1.5vh;'>OpenStreetMap</span>": baseOSM,
 			//"CartoDarkMap": baseCartoDarkMap, 
-			"<span style='font-family: Trebuchet MS; font-size: 1.5vh;'>StadiaMap</span>": baseStadiaMap,
+			"<span style='font-family: Trebuchet MS; font-size: 1.5vh;'>OpenFreeMap</span>": openFreeMap,
 			"<span style='font-family: Trebuchet MS; font-size: 1.5vh;'>CyclOsmMap</span>": baseCyclOsmMap,
 			"<span style='font-family: Trebuchet MS; font-size: 1.5vh;'>OpenTopoMap</span>": baseOpenTopoMap,
 			"<span style='font-family: Trebuchet MS; font-size: 1.5vh;'>Google Hybrid</span>": baseGoogleHybrid,
