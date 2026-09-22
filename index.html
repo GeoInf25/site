@@ -797,7 +797,8 @@
 				"SQL QUERY EXAMPLES:\n" +
 				"select * from ?\n" +
 				"select shape, count(*) as tot from ? group by shape order by tot asc\n" +
-				"select description, latitude, longitude from ? */"; 
+				"select description, latitude, longitude from ?\n" +  
+				"select * from ? where datetime like '%1959%' */"; 
 
 			div.innerHTML = `
 				<div style="background: #ffffff; border: 2px solid #000000; border-radius: 5px; margin: 0px; padding: 5px;" > <!-- style -->
