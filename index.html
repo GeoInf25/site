@@ -111,7 +111,7 @@
 
 		baseOSM = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 			maxZoom: 19,
-		}).addTo(map01);
+		}).addTo(map01); 
 
 		/*
 		baseCartoDarkMap = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
@@ -119,10 +119,10 @@
 		}).addTo(map01);
 		*/
 		
-		openFreeMap = L.maplibreGL({
-			style: 'https://tiles.openfreemap.org/styles/positron',
-			//maxZoom: 19,
-        })//.addTo(map01);
+		openFreeMap = L.maplibreGL({ 
+			style: "https://tiles.openfreemap.org/styles/liberty", //<-- Elemento option "selected"
+			// maxZoom: 19,
+		})//.addTo(map01);
 
 		baseCyclOsmMap = L.tileLayer('https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png', {
 			maxZoom: 19,
@@ -147,15 +147,23 @@
 		baseMaps = {  
 			"<span style='display: inline-block; width: 11vh; font-family: Trebuchet MS; font-size: 1.5vh; margin:0; padding: 0; '>OpenStreetMap</span>": baseOSM,
 			//"CartoDarkMap": baseCartoDarkMap, 
-			"<span style='display: inline-block; width: 11vh; font-family: Trebuchet MS; font-size: 1.5vh; margin:0; padding: 0; '>OpenFreeMap</span>": openFreeMap,
 			"<span style='display: inline-block; width: 11vh; font-family: Trebuchet MS; font-size: 1.5vh; margin:0; padding: 0; '>CyclOsmMap</span>": baseCyclOsmMap,
 			"<span style='display: inline-block; width: 11vh; font-family: Trebuchet MS; font-size: 1.5vh; margin:0; padding: 0; '>OpenTopoMap</span>": baseOpenTopoMap,
 			"<span style='display: inline-block; width: 11vh; font-family: Trebuchet MS; font-size: 1.5vh; margin:0; padding: 0; '>Google Hybrid</span>": baseGoogleHybrid,
 			"<span style='display: inline-block; width: 11vh; font-family: Trebuchet MS; font-size: 1.5vh; margin:0; padding: 0; '>Google Satellite</span>": baseGoogleSatellite,
 			"<span style='display: inline-block; width: 11vh; font-family: Trebuchet MS; font-size: 1.5vh; margin:0; padding: 0; '>Google Road</span>": baseGoogleRoad,
+
+			//"<span style='display: inline-block; width: 11vh; font-family: Trebuchet MS; font-size: 1.5vh; margin:0; padding: 0; '>OpenFreeMap</span>": openFreeMap,
+			[`<select name='optionsOpenFreeMap' id='optionsOpenFreeMap' style='width: 19vh; font-family: Trebuchet MS; font-size: 1.5vh; margin:0; padding: 0; ' >
+				<option value='positron' >OpenFreeMap Positron</option>
+				<option value='bright' >OpenFreeMap Bright</option>
+				<option value='liberty' selected >OpenFreeMap Liberty</option>
+				<option value='dark' >OpenFreeMap Dark</option>
+				<option value='fiord' >OpenFreeMap Fiord</option>
+			</select>`]: openFreeMap, 
 		}
 
-		layerDrawItems = new L.FeatureGroup();
+		layerDrawItems = new L.FeatureGroup(); 
 		layerMarkers = new L.FeatureGroup();
 
 		overlayMaps = {
@@ -166,6 +174,30 @@
 
 		layerControl = L.control.layers(baseMaps, overlayMaps).addTo( map01 );
 
+		//Aggiunta controllo OpenFreeMap DOPO inserimento Controllo sulla Mappa  
+
+		document.getElementById('optionsOpenFreeMap').addEventListener('change', function(e) {
+            const maplibreInstance = openFreeMap.getMaplibreMap(); 
+			if (maplibreInstance) { //Attesa e verifica
+            	maplibreInstance.setStyle(`https://tiles.openfreemap.org/styles/${e.target.value}`);
+       		}
+		});  
+
+		//Aggiunta controllo per DISABILITARE Drop Down List 
+
+		// Intercetti il cambio della mappa base
+		map01.on('baselayerchange', function(e) { 
+			// e.name è il nome testuale che hai dato al layer (es. "OpenFreeMap", "OpenStreetMap")
+    		// e.layer è l'istanza effettiva del layer che è stata appena attivata
+			//console.log("Nuova mappa base selezionata:", e.name); //<span ... 
+			if( e.layer != openFreeMap ) {
+				document.getElementById('optionsOpenFreeMap').disabled = true;
+			} else {
+				document.getElementById('optionsOpenFreeMap').disabled = false;
+			}
+
+		});
+
 		//Aggiunta Titolo BASE MAP DOPO inserimento Controllo sulla Mappa
 
 		baseLayersContainer = document.querySelector('.leaflet-control-layers-base');
@@ -175,8 +207,6 @@
 
 		baseLayersContainer.insertBefore(titleElement01, baseLayersContainer.firstChild);
 
-		//
-
 		//Aggiunta Titolo OVERLAY MAP DOPO inserimento Controllo sulla Mappa 
 
 		var overlayContainer = document.querySelector('.leaflet-control-layers-overlays');
@@ -184,7 +214,7 @@
 		titleElement02 = document.createElement('div');
 		titleElement02.innerHTML = "<span style='font-family: Trebuchet MS; font-size: 1.75vh;'><b>Overlay Map: </b></span>";
 
-		overlayContainer.insertBefore(titleElement02, overlayContainer.firstChild);
+		overlayContainer.insertBefore(titleElement02, overlayContainer.firstChild); 
 
 		//Disposizione in ORIZZONTALE per baseMaps, overlayMaps
 
@@ -250,7 +280,7 @@
 					</div>
 
 					<button id="rif_LINK_Button" type="button" style="font-family: 'Trebuchet MS'; font-size: 1.5vh; font-style: italic; " >
-						🔄 Show / Hide<br>BUTTONS
+						🔄<br>Show/Hide<br>BUTTONS
 					</button>
 				</div>				
 			`;
@@ -1111,7 +1141,7 @@
 								<b>* Latitude, Longitude:</b> ${lat}, ${lon};<br> 
 								<b>* Date-time:</b> ${ele[3]};<br>
 								<b>* City:</b> ${ele[4]};<br>
-								<b>* Shape:</b> ${ele[5]};<br>
+								<b>* Shape:</b> <i><u>${ele[5]}</u></i>;<br>
 								<b>* Duration:</b> ${ele[6]};<br>
 								<b>* Description:</b> <i>${ele[7]}</i>.
 								`
