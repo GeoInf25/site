@@ -60,6 +60,10 @@
 	<!-- Maplibre GL Leaflet  -->
 	<script src="https://unpkg.com/@maplibre/maplibre-gl-leaflet/leaflet-maplibre-gl.js"></script>
 
+	<!-- GeoCoder -->
+	 <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+	<script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+
 	<link rel="stylesheet" href="styleGeoInf.css">
 
 	<style>
@@ -358,7 +362,7 @@
 		//Mappe, Layer visibili
 		var click_elements = document.getElementsByClassName("leaflet-control-layers-selector");
 
-		click_elements[ 1 ].click(); //baseMaps
+		click_elements[ 6 ].click(); //baseMaps
 
 		click_elements[ click_elements.length - 2 ].click(); //layerDrawItems
 		click_elements[ click_elements.length - 1 ].click(); //layerMarkers //Vedi funzione seguente
@@ -401,6 +405,59 @@
 			});
 
 		measureControl.addTo( map01 );
+
+		//GeoSearch Leaflet 
+
+		var geocoder = L.Control.geocoder({
+			position: 'bottomleft', // Sposta la barra di ricerca in basso a sinistra
+			defaultMarkGeocode: false , 
+			//geocoder: L.Control.Geocoder.nominatim(),
+			// Sostituisce il default Nominatim con Photon
+			geocoder: L.Control.Geocoder.photon() , //... gratuito ... 
+			queryMinLength: 3 ,     // Avvia la ricerca solo dopo 3 caratteri digitati
+  			suggestMinLength: 3 ,   // Avvia i suggerimenti automatici dopo 3 caratteri
+  			suggestTimeout: 400 ,    // Attende 400 millisecondi di inattività prima di inviare la richiesta
+			placeholder: "Enter Address or Location ... (GeoCoder 'Photon')" , // Sostituisce il testo di default "Search..."
+			collapsed: false // Forza la barra a rimanere aperta
+		})
+		.on('markgeocode', function(e) {
+			var bbox = e.geocode.bbox;
+			var poly = L.polygon([
+				bbox.getSouthEast(),
+				bbox.getNorthEast(),
+				bbox.getNorthWest(),
+				bbox.getSouthWest()
+			]);
+			map01.fitBounds(poly.getBounds());
+			
+			// Aggiungi un marker personalizzato
+			L.marker(e.geocode.center)
+				.addTo(map01)
+				.bindPopup(e.geocode.name)
+				.openPopup(); 
+		})
+		.addTo(map01);
+
+		// Seleziona GeoCoder, cambia il font ed altri elementi ... 
+
+		var geocoderContainer = document.querySelector('.leaflet-control-geocoder');
+		if (geocoderContainer) {
+			geocoderContainer.style.width = '50vh';
+		}
+
+		var geocoderInput = document.querySelector('.leaflet-control-geocoder input');
+		if (geocoderInput) {
+			geocoderInput.style.fontFamily = "Trebuchet MS ";
+			//geocoderInput.style.fontSize = '15px';
+			geocoderInput.style.width = '45vh';
+		}
+
+		var geocoderAlternatives = document.querySelector('.leaflet-control-geocoder-alternatives');
+		if (geocoderAlternatives) {
+			geocoderAlternatives.style.fontFamily = "Trebuchet MS ";
+			//geocoderAlternatives.style.fontSize = '15px';
+			geocoderAlternatives.style.width = '50vh';
+		}
 
 		//*** TABULATOR JS ***// 
 
@@ -1141,7 +1198,7 @@
 								<b>* Latitude, Longitude:</b> ${lat}, ${lon};<br> 
 								<b>* Date-time:</b> ${ele[3]};<br>
 								<b>* City:</b> ${ele[4]};<br>
-								<b>* Shape:</b> <i><u>${ele[5]}</u></i>;<br>
+								<b>* Shape:</b> <b><span style="color: #C76E00;">${ele[5]}</span></b>;<br>
 								<b>* Duration:</b> ${ele[6]};<br>
 								<b>* Description:</b> <i>${ele[7]}</i>.
 								`
