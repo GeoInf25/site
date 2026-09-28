@@ -168,12 +168,14 @@
 		}
 
 		layerDrawItems = new L.FeatureGroup(); 
-		layerMarkers = new L.FeatureGroup();
+		layerUAPMarkers = new L.FeatureGroup();
+		layerGeoCoderMarkers = new L.FeatureGroup();
 
 		overlayMaps = {
 			//GeoJSON data initialization 
 			"<span style='font-family: Trebuchet MS; font-size: 1.5vh;'><u>Draw Items</u></span>" : layerDrawItems, 
-			"<span style='font-family: Trebuchet MS; font-size: 1.5vh;'><u>Markers</u></span>" : layerMarkers,
+			"<span style='font-family: Trebuchet MS; font-size: 1.5vh;'><u>UAP Markers</u></span>" : layerUAPMarkers,
+			"<span style='font-family: Trebuchet MS; font-size: 1.5vh;'><u>GeoCoder Markers</u></span>" : layerGeoCoderMarkers,
 		};
 
 		layerControl = L.control.layers(baseMaps, overlayMaps).addTo( map01 );
@@ -364,8 +366,9 @@
 
 		click_elements[ 6 ].click(); //baseMaps
 
-		click_elements[ click_elements.length - 2 ].click(); //layerDrawItems
-		click_elements[ click_elements.length - 1 ].click(); //layerMarkers //Vedi funzione seguente
+		click_elements[ click_elements.length - 3 ].click(); //layerDrawItems
+		click_elements[ click_elements.length - 2 ].click(); //layerUAPMarkers //Vedi funzione seguente
+		click_elements[ click_elements.length - 1 ].click(); //layerGeoCoderMarkers 
 
 		//markerClusterGroup
 		var cluMarkers = L.markerClusterGroup( { spiderfyDistanceMultiplier : 3.00 } );
@@ -431,10 +434,12 @@
 			map01.fitBounds(poly.getBounds());
 			
 			// Aggiungi un marker personalizzato
-			L.marker(e.geocode.center)
-				.addTo(map01)
+			var tempMarker = L.marker(e.geocode.center)
+				//.addTo(map01)
 				.bindPopup(e.geocode.name)
 				.openPopup(); 
+
+			layerGeoCoderMarkers.addLayer( tempMarker );  
 		})
 		.addTo(map01);
 
@@ -1135,8 +1140,8 @@
 
 			//*** INIZIO PARTE MARKERS SULLA MAPPA ***//
 
-			if( layerMarkers.hasLayer( cluMarkers ) ) {
-				layerMarkers.removeLayer( cluMarkers ); 
+			if( layerUAPMarkers.hasLayer( cluMarkers ) ) {
+				layerUAPMarkers.removeLayer( cluMarkers ); 
 			}
 			cluMarkers.clearLayers(); //clusterMarkers
 
@@ -1200,7 +1205,7 @@
 								<b>* City:</b> ${ele[4]};<br>
 								<b>* Shape:</b> <b><span style="color: #C76E00;">${ele[5]}</span></b>;<br>
 								<b>* Duration:</b> ${ele[6]};<br>
-								<b>* Description:</b> <i>${ele[7]}</i>.
+								<b>* Description:</b> <i><span style="color: green;">${ele[7]}</span></i>.
 								`
 							);
 						}
@@ -1251,7 +1256,7 @@
 
 				}
 
-				layerMarkers.addLayer( cluMarkers ); 
+				layerUAPMarkers.addLayer( cluMarkers ); 
 				//map01.addLayer(cluMarkers);
 
 				//Estrazione Marker da MarkerCluster: 
