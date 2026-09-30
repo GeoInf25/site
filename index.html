@@ -297,7 +297,8 @@
 			btn_LINK.addEventListener('click', function() {
         		if (contenuto_LINK.style.display === 'none') {
             		contenuto_LINK.style.display = 'block';
-            		btn_LINK.textContent = '❌<br>Hide<br>BUTTONS';
+					btn_LINK.style.whiteSpace = 'pre-line';
+            		btn_LINK.textContent = '❌\nHide\nBUTTONS';
         		} else {
             		contenuto_LINK.style.display = 'none';
             		btn_LINK.textContent = '🔄 Show / Hide BUTTONS';
