@@ -38,6 +38,13 @@
 	<link rel="stylesheet" href="styleGeoInf.css">
 
 	<style>
+		.kartaview-thick-lines {
+			filter: 
+				drop-shadow(1px 1px 0px #FF6600) /*  Sposta l'ombra in basso a destra  */
+				drop-shadow(-1px -1px 0px #FF6600) /* Sposta l'ombra in alto a sinistra */ 
+				drop-shadow(1px -1px 0px #FF6600) /* Sposta l'ombra in alto a destra */
+				drop-shadow(-1px 1px 0px #FF6600); /* Sposta l'ombra in basso a sinistra */
+		}
 
 	</style>
 
@@ -279,9 +286,9 @@
 			<br>
 			- Reference link: <a href="https://kartaview.org/landing">Karta View</a>, <a href="https://kartaview.org/doc/photos">Karta View - Photos (API)</a>
 			<br>
-			- Map containing street-level images within a bounding box with a side length of (approximately) 500 meters..
+			- Map containing street-level images within a bounding box with a side length of (approximately) 500 meters.
 			<br>
-			*** Note: Perform a search within the map-centered bounding box (BB) and click on the markers to view images retrieved from the Karta View Service (please note that not all areas shown on the map may actually be covered by the Karta View Service).
+			*** Note: Perform a search within the map-centered bounding box (BB) and click on the markers to view images retrieved from the Karta View Service (please note that not all areas shown on the map may actually be covered by the Karta View service, so follow the routes highlighted on the map).
 			<br>
 			<br>
 			<div id="contMap04">
@@ -309,6 +316,38 @@
 					maxZoom: 19,
 				}).addTo(map04);
 
+				// *** LAYER KARTA VIEW
+
+				L.tileLayer('https://api.openstreetcam.org/2.0/sequence/tiles/{x}/{y}/{z}.png', { 
+					maxZoom: 19,
+					className: 'kartaview-thick-lines', // <--- Assegna una classe CSS personalizzata
+					attribution: '&copy; <a href="https://kartaview.org/">KartaView</a> contributors'
+				}).addTo(map04);
+
+				//Variabile globale Bbox KartaView
+				var bbox2Map04 = null;  
+
+				map04.on( "moveend" , function( e ) {
+
+					if( bbox2Map04 != null ) {
+						map04.removeLayer( bbox2Map04 );  
+						bbox2Map04 = null; 
+					}
+
+					var bboxPolyTurf2 = turf.bboxPolygon( turf.bbox( turf.buffer(  turf.point( [ map04.getCenter().lng , map04.getCenter().lat ] ) , 0.25, { units: 'kilometers' , steps: 4 } ) ) );
+
+					bbox2Map04 = L.geoJSON( bboxPolyTurf2 , {
+						style: {
+							color: "#FF0000", //red
+							weight: 2,
+							fillOpacity: 0.2
+						}
+					}).bindPopup("Photo Search Area!").addTo(map04); 
+
+				})
+
+				// *** FINE LAYER KARTA VIEW
+
 				var centerMap04 = null;  
 				var bboxTurf = null; 
 				var bboxMap04 = null; 
@@ -328,7 +367,7 @@
 					//Crea un buffer di 250 metri (per avere un lato totale di 500 metri )
 					//Usiamo 'steps: 4' per approssimare un quadrato orientato
 					var bufferedTurf = turf.buffer( pointCenterTurf , 0.25, { units: 'kilometers' , steps: 4 } );
-					bboxTurf = turf.bbox( bufferedTurf ); // Restituisce [minX, minY, maxX, maxY]
+					bboxTurf = turf.bbox( bufferedTurf ); // Restituisce [minX, minY, maxX, maxY] ovvero [minLng, minLat, maxLng, maxLat]
 
 					//Ulteriore BBox / poligono GeoJSON per Leaflet
 					var bboxPolyTurf = turf.bboxPolygon( bboxTurf );
@@ -365,10 +404,10 @@
 						const baseUrlMap04 = 'https://api.openstreetcam.org/2.0/photo/';
 
 						const paramsMap04 = new URLSearchParams({
-							nwLat: bboxTurf[3], //nwLat , nwLng //maxLat, minLng
-							nwLng: bboxTurf[0],
-							seLat: bboxTurf[1], //seLat, seLng //minLat, maxLng
-							seLng: bboxTurf[2],
+							nwLat: bboxTurf[3], // maxLat (Nord)
+							nwLng: bboxTurf[0], // minLng (Ovest)
+							seLat: bboxTurf[1], // minLat (Sud)
+							seLng: bboxTurf[2], // maxLng (Est)
 							page: 2, //Page number for pagination (default: 1).
 							ipp: 150, //Number of items per page (default: 50, max: 150).
 						});
@@ -387,6 +426,7 @@
 						console.log( jsonPhotosMap04 ); 
 
 						if( jsonPhotosMap04 != null && jsonPhotosMap04.result?.data != undefined ) { //Attenzione "?"
+							console.log( "Numero ELEMENTI / foto individuati da Risultati KartaView: " + jsonPhotosMap04.result.data.length ); //<-- Console ... 
 							jsonPhotosMap04.result.data.forEach( (ele, index) => { //result.data[0]. ... 
 								arrMarkerMap04[ index ] = L.marker([ ele.lat , ele.lng ] , { //options
 									imageUrl : ele.fileurlLTh,  
@@ -409,9 +449,12 @@
 								//Evitare arrMarkerMap04.push( ... ) per problemi di riferimento 
 								//arrMarkerMap04.push( L.marker(tempMarker.getLatLng(), tempMarker.options).bindPopup( tempMarker.getPopup().getContent(), tempMarker.getPopup().options) ); ... //tempMarker
 							}); 
+
+							console.log( "Numero MARKER / foto individuati da Risultati memorizzati: " + arrMarkerMap04.length ); //<-- Console
 							arrMarkerMap04.forEach( (ele, index) => { 
 								ele.addTo( map04 );  
 							});  
+
 						} else {
 							arrMarkerMap04[ 0 ] = L.marker([ centerMap04.lat, centerMap04.lng ] );
 							arrMarkerMap04[ 0 ].bindPopup(`
@@ -455,6 +498,7 @@
 					addBBoxMap04(); 
 
 					if( arrMarkerMap04.length > 0 ) {
+						//Console ... fase di RIMOZIONE Marker ...  
 						arrMarkerMap04.forEach( (ele, index) => { 
 							map04.removeLayer( ele );  
 						});  
