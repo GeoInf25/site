@@ -294,7 +294,12 @@
 			<div id="contMap04">
 				<div style="float: left; width: 55%;" >
 					<div id="leafletMap04" style="height: 71vh; border: 2px solid; " ></div> 
-					<button type="button" id="button_searchPhotosMap04" style="height: 4vh; width: 100%; color: white; background-color: orange; margin: 0; padding: 0; font-size: 1.8vh; " onclick = "searchPhotosMap04()" ><b>SEARCH PHOTOS ON KARTA VIEW</b></button>
+
+					<div style="display: flex; " >
+						<button type="button" id="button_searchPhotosMap04Mode01" style="height: 4vh; width: 50%; color: white; background-color: orange; margin: 0; padding: 0; font-size: 1.8vh; " onclick = "searchPhotosMap04( 'mode01' )" ><b>Search Photos (BoundingBox)</b></button>
+						<button type="button" id="button_searchPhotosMap04Mode02" style="height: 4vh; width: 50%; color: white; background-color: orange; margin: 0; padding: 0; font-size: 1.8vh; " onclick = "searchPhotosMap04( 'mode02' )" ><b>Search Photos (Circle / Radius)</b></button>
+					</div>
+
 				</div>
 				<div id="contImageMarkerMap04" style="float: right; height: 75vh; width: 44%; display: flex; align-items: center; border: 2px solid; ">
 					<img id="imageMarkerMap04" src="" alt= "" style="width: 100%; height: auto; " >
@@ -312,7 +317,7 @@
 
 				} ).setView([ 45.907085, 10.867645 ], 13 ); 
 
-				var baseOSMMap04 = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+				var baseOSMMap04 = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { 
 					maxZoom: 19,
 				}).addTo(map04);
 
@@ -391,7 +396,7 @@
 
 				}
 
-				async function getPhotosBBoxMap04() {
+				async function getPhotosBBoxMap04( mode ) {
 
 					return new Promise( async (resolve, reject) => 
 					{
@@ -401,26 +406,46 @@
 
 						//const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
 
-						const baseUrlMap04 = 'https://api.openstreetcam.org/2.0/photo/';
+						const baseUrlMap04 = 'https://api.openstreetcam.org/2.0/photo/'; 
 
-						const paramsMap04 = new URLSearchParams({
-							nwLat: bboxTurf[3], // maxLat (Nord)
-							nwLng: bboxTurf[0], // minLng (Ovest)
-							seLat: bboxTurf[1], // minLat (Sud)
-							seLng: bboxTurf[2], // maxLng (Est)
-							page: 2, //Page number for pagination (default: 1).
-							ipp: 150, //Number of items per page (default: 50, max: 150).
-						});
+						var responseOSCMap04 = null; 
+						var paramsMap04 = null; 
+						
+						if( mode === "mode01" ) { //GET
 
-						//const responseOSCMap04 = await fetch(`${proxyUrl}${baseUrlMap04}?${paramsMap04}`, {
-						const responseOSCMap04 = await fetch(`${baseUrlMap04}?${paramsMap04}`, { 
-							//method: 'GET', 
-							//headers: {
-								// Questo header è fondamentale per soddisfare la richiesta del proxy
-								//'X-Requested-With': 'XMLHttpRequest'
-							//},
-							signal: AbortSignal.timeout(7000) // Timeout di 7 secondi
-						});
+							paramsMap04 = new URLSearchParams({
+								nwLat: bboxTurf[3], // maxLat (Nord)
+								nwLng: bboxTurf[0], // minLng (Ovest)
+								seLat: bboxTurf[1], // minLat (Sud)
+								seLng: bboxTurf[2], // maxLng (Est)
+								page: 2, //Page number for pagination (default: 1).
+								ipp: 150, //Number of items per page (default: 50, max: 150).
+							});
+
+							//const responseOSCMap04 = await fetch(`${proxyUrl}${baseUrlMap04}?${paramsMap04}`, {
+							responseOSCMap04 = await fetch(`${baseUrlMap04}?${paramsMap04}`, { 
+								//method: 'GET', 
+								//headers: {
+									// Questo header è fondamentale per soddisfare la richiesta del proxy
+									//'X-Requested-With': 'XMLHttpRequest'
+								//},
+								signal: AbortSignal.timeout(7000) // Timeout di 7 secondi
+							});
+
+						} else if( mode === "mode02" ) { //GET 
+
+							paramsMap04 = new URLSearchParams({
+								'lat': map04.getCenter().lat ,
+								'lng': map04.getCenter().lng ,
+								'zoomLevel' : map04.getZoom() , //formalmente Required (default: 18)
+								'radius': 500 , //formalmente 250 metri (come raggio) 
+							});
+
+							responseOSCMap04 = await fetch(`${baseUrlMap04}?${paramsMap04}`, { 
+								signal: AbortSignal.timeout(7000) // Timeout di 7 secondi
+							});
+
+						}
 
 						jsonPhotosMap04 = await responseOSCMap04.json(); 
 						console.log( jsonPhotosMap04 ); 
@@ -480,12 +505,12 @@
 
 				( async () => { 
 					await  addBBoxMap04();
-					await getPhotosBBoxMap04(); 
+					await getPhotosBBoxMap04( "mode01" ); //mode: mode01 , mode02 
 					console.log( "Verifica Marker iniziale (Map04): " + arrMarkerMap04[ 0 ]  ); 
 					arrMarkerMap04[ 0 ].fire('click');
 				})();
 				
-				function searchPhotosMap04() { //map04.on('dragend', function(e) { //moveend
+				function searchPhotosMap04( mode ) { //map04.on('dragend', function(e) { //moveend
 					console.log("Nuovo centro:", map04.getCenter());
 
 					if( bboxTurf != null ) {
@@ -504,7 +529,7 @@
 						});  
 						arrMarkerMap04 = [ ];
 					}
-					getPhotosBBoxMap04();
+					getPhotosBBoxMap04( mode );
 
 				};
 
