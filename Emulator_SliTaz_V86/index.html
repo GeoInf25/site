@@ -1,0 +1,177 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Browser OS</title>
+    <script src="./libv86.js"></script> 
+
+    <style>
+        #screen_container {
+            /*width: 100%; */
+            /*height: 100%; */
+
+            width: 1310px; /* 1280 */
+            height: 800px; /* 768 */
+
+            margin: 0; 
+            padding: 0; 
+
+            overflow: scroll;
+
+            white-space: pre-wrap; /* Preserve terminal formatting */
+            font-family: 'Courier New', Courier, monospace;
+
+            image-rendering: pixelated; 
+
+            cursor: none;
+
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="screen_container" >
+    </div>
+
+    <script>
+
+        /*
+        //const fileParti = [ // partiDisco
+        const fileParti = [
+            "./partDiskSliTaz_small_mod02_aa",
+            "./partDiskSliTaz_small_mod02_ab",
+            "./partDiskSliTaz_small_mod02_ac",
+            "./partDiskSliTaz_small_mod02_ad"
+        ];
+        */
+
+        var emulator = null;  
+
+        async function avviaVirtualMachine() {
+
+            try {
+
+                /*
+                console.log("Scaricamento delle parti del disco in corso...");
+
+                // 1. Scarica tutte le parti contemporaneamente
+                const downloadPromises = partiDisco.map(url => 
+                    fetch(url).then(res => {
+                        if (!res.ok) throw new Error(`Errore scaricamento: ${url}`);
+                        return res.arrayBuffer();
+                    })
+                );
+
+                const buffers = await Promise.all(downloadPromises);
+
+                // 2. Calcola la dimensione totale del disco unito
+                const dimensioneTotale = buffers.reduce((acc, buf) => acc + buf.byteLength, 0);
+                
+                // 3. Crea un unico grande array in memoria (Uint8Array)
+                const discoCompleto = new Uint8Array(dimensioneTotale);
+                
+                // 4. Copia i segmenti nell'array principale uno dopo l'altro
+                let offset = 0;
+                for (const buf of buffers) {
+                    discoCompleto.set(new Uint8Array(buf), offset);
+                    offset += buf.byteLength;
+                }
+
+                console.log("Disco ricomposto con successo. Avvio di v86...");
+                */
+
+                /*
+                console.log("Inizio download delle parti...");
+
+                // 2. Scarica i file in parallelo. 
+                // L'array risultante (arrayDiParti) conterrà i 4 ArrayBuffer ordinati.
+                const arrayDiParti = await Promise.all(
+                    fileParti.map(async (url) => {
+                        const risposta = await fetch(url);
+                        if (!risposta.ok) {
+                            throw new Error(`Impossibile scaricare la parte: ${url}`);
+                        }
+                        // Estraiamo i dati binari grezzi (ArrayBuffer)
+                        return await risposta.arrayBuffer();
+                    })
+                );
+
+                console.log("Tutte le parti scaricate. Creazione del Blob unico...");
+
+                // 3. Unisci gli ArrayBuffer nativamente dentro un Blob
+                const blobCompleto = new Blob(arrayDiParti, { type: "application/octet-stream" });
+
+                // 4. Crea un URL virtuale locale che punta al Blob unito
+                const blobUrl = URL.createObjectURL(blobCompleto);
+
+                console.log("Disco pronto in memoria. Avvio di v86...");
+
+                //window.onload = function() { ...
+                */
+
+                emulator = new V86({ //NON V86Starter o simili
+
+                    filesystem: {
+                        //baseurl: "" //dal Web Server alla Macchina Virtuale
+                    }, 
+
+                    acpi: true, // Enable experimental ACPI
+
+                    wasm_path: "./v86.wasm", 
+                    memory_size: 2048 * 1024 * 1024, // 4GB RAM //256 MB - 256 * 1024 * 1024 //VEDI kali.iso CON 2048 MB
+                    vga_memory_size: 256 * 1024 * 1024, //8 * 1024 * 1024
+                    screen_container: document.getElementById("screen_container"),
+                    bios: { url: "./bios/seabios.bin" },
+                    vga_bios: { url: "./bios/vgabios.bin" },
+
+                    bzimage: { url: "./vmlinuz-3.16.55-slitaz" }, 
+                    //initrd: { url: "./rootfs.gz" }, //NON ESISTE IN DISCO INSTALLATO SLITAZ
+
+                    //hda: { url: "./diskSliTaz_small_mod02.img" }, 
+
+                    //Usiamo l'URL del Blob ricomposto
+                    //hda: { url: blobUrl }, 
+
+                    // Passiamo l'oggetto Uint8Array direttamente in memoria
+                    //hda: { buffer: discoCompleto.buffer }, 
+
+                    hda: {
+                        url: "Chunks/chunk.zst",               // Indica il prefisso e l'estensione corretta //NON USARE ./
+                        async: true,
+                        use_parts: true,                        // Dice a v86 di usare la modalità a pezzi
+                        fixed_chunk_size: 77856768,     // Deve corrispondere esattamente al partsize (128k)
+                        size: 311427071     // La dimensione totale originaria del disco in byte
+                    } , 
+
+                    cmdline: "root=/dev/sda1 rw rootdelay=1",
+
+                    network_relay_url: "wss://relay.widgetry.org/", // Un relay pubblico comune
+
+                    virtio_console: true ,
+
+                    //Set boot order: 0x213 indica 
+                    // 2 - CD 
+                    // 1 - Hard Disk 
+                    // 3 - Floppy
+                    boot_order: "0x213", 
+
+                    //fda: { url: "./FD14BOOT.img" },
+
+                    autostart: true, 
+
+                });
+
+            } catch (errore) {
+                console.error("Errore durante il caricamento o l'avvio:", errore);
+            }
+        }
+
+        // Lancia il caricamento
+        avviaVirtualMachine();
+
+    </script>
+
+</body>
+</html>
