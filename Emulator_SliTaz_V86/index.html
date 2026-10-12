@@ -6,9 +6,20 @@
     <title>My Browser OS</title>
     <script src="./libv86.js"></script> 
 
-    <link rel="stylesheet" href="styleGeoInf.css">
+    <link rel="stylesheet" href="styleGeoInf.css"> 
 
     <style>
+
+        p {
+            text-indent: -1.5vh;    /* Sposta indietro la prima riga di un valore negativo */
+            padding-left: 3.0vh;    /* Sposta in avanti tutto il blocco del corrispondente valore positivo */
+
+            padding-right: 0; 
+            padding-top: 0; 
+            padding-bottom: 0.75vh;
+            margin: 0;  
+        }
+
         #screen_container {
             /*width: 100%; */
             /*height: 100%; */
@@ -46,7 +57,7 @@
 
 		<div id="blocco01Linux" class="span4 roundBorder" >
 
-            <div id="left" style="float: left; width: 80%; overflow: auto; ">
+            <div id="left" style="float: left; width: 70%; overflow: auto; ">
 
                 <div id="screen_container" >
                 </div>
@@ -127,35 +138,60 @@
 
             </div>
 
-            <div id="right" style="float: right; width: 19%; overflow-y: auto; font-size: 1.5vh; ">
-                <i>
+            <div id="right" style="float: right; width: 27%; overflow-y: auto; font-size: 1.5vh; margin-right: 3vh; ">
+                <!-- <i> -->
                 <br>
                 <br>
                 <br>
-                <b>Some notes</b>:
+                <b>📘 SOME NOTES</b>:
                 <br>
+                <p >
                 • Disk installation of SliTaz 5.0 i486 (32-bit) via QEMU, with the management of the related partition using GParted;
-                <br>
-                • Setup of the v86 Emulator, bypassing the Grub Bootloader; splitting the created .img Disk into "Chunks" using v86's own Python script <a href="https://github.com/copy/v86/blob/master/tools/split-image.py">split-image.py</a>;
-                <br>
+                </p>
+                <!-- <br> -->
+                <p >
+                • Setup of the v86 Emulator, bypassing the <a href="https://en.wikipedia.org/wiki/GNU_GRUB">Grub Bootloader</a>; splitting the created .img Disk into "Chunks" (compressed in .zst format) using v86's own Python script <a href="https://github.com/copy/v86/blob/master/tools/split-image.py">split-image.py</a>;
+                </p >
+                <!-- <br> -->
+                <p >
                 • Added <b>"Nasm"</b> and <b>"Tcc"</b> packages for managing Assembly Scripts (launch "run_result00.sh" on Desktop);
-                <br>
+                </p >
+                <!-- <br> -->
+                <p >
+                • Ability to change the keyboard layout using the "tazkeymap" command;
+                </p>
+                <!-- <br> -->
+                <p >
+                • Possibility to add additional Fonts using the commands "tazpkg get-install get-msttcorefonts", "get-msttcorefonts";
+                </p>
+                <!-- <br> -->
+                <p >
                 • Ability to test the "SliTaz" Environment / Operating System, with particular reference to the Xterm Terminal.
+                </p>
                 <br>
+                <b>📘 ADDITIONAL NOTES</b>:
                 <br>
-                <b>Additional notes</b>:
+                <p >
+                • <span style="color: green; "><u>Tests and changes carried out take place within the Browser and the Client's own RAM (normally without saves)</u></span>;
+                </p >
+                <!-- <br> -->
+                <p >
+                • Click inside the Canvas (SliTaz Desktop image) to "capture" the mouse cursor (press Esc to exit). 
+                </p >
                 <br>
-                • Tests and changes carried out take place within the Browser and the Client's own RAM;
+                <b>📘 EXAMPLE OF LINUX TERMINAL COMMANDS</b>: 
                 <br>
-                • Click inside the Canvas (SliTaz Desktop image) to "capture" the mouse cursor (press Esc to exit).
+                <p >
+                • echo "Hello World" | date | time | pwd | touch | su | cd | ls | ps | pstree | df -h | ping (ping -c 1 8.8.8.8) | mkdir | cp | mv | rm | cat | grep | chmod | ... 
+                </p>
                 <br>
+                <b>📘 OPERATING SYSTEMS TESTED IN THE V86 EMULATOR</b>: 
                 <br>
-                <b>Examples of Linux terminal commands</b>: 
+                <p >
+                • <a href="https://alpinelinux.org/downloads/">Alpine Linux</a>, <a href="https://en.wikipedia.org/wiki/Tiny_Core_Linux">Tiny Core Linux</a>, <a href="https://en.wikipedia.org/wiki/Damn_Small_Linux">Damn Small Linux</a>. 
+                </p>
                 <br>
-                • echo "Hello", date, time, pwd, su, cd, ls, df -h, ping -c 1 8.8.8.8, ... 
-                <br>
-                <br>
-                </i>
+                <!-- </i> -->
 
             </div>
 
@@ -171,7 +207,7 @@
 			<br>
 			Applications developed in Javascript through <a href="https://github.com/apps/desktop">GitHub Desktop</a> and <a href="https://code.visualstudio.com/">Visual Studio Code</a>. 
 			<br>
-			Use of: *** <a href="https://www.qemu.org/">QEMU</a>; *** <a href="https://github.com/copy/v86">v86 Emulator</a>; *** <a href="https://www.slitaz.org/en/"> Slitaz Linux OS (vers. 5.0, i486, 32 bit)</a>; *** <a href="https://www.nasm.us/">NASM (x86, 32 bit)</a>; *** <a href="https://bellard.org/tcc/">Tiny C Compiler (32 bit)</a>.
+			Use of: *** <a href="https://www.qemu.org/">QEMU Emulator</a>; *** <a href="https://github.com/copy/v86">v86 Emulator</a>; *** <a href="https://www.slitaz.org/en/"> Slitaz Linux OS (vers. 5.0, i486, 32 bit)</a>; *** <a href="https://www.nasm.us/">NASM (x86, 32 bit)</a>; *** <a href="https://bellard.org/tcc/">Tiny C Compiler (32 bit)</a>.
 		</div>
 	</div>
 
