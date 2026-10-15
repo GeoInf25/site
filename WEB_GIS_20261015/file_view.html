@@ -1,0 +1,700 @@
+
+<html>
+
+<head>
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css" integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14=" crossorigin="" />
+	<script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js" integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg=" crossorigin=""></script>
+	
+	<!-- Marker -->
+	<link rel="stylesheet" href="lib/leaflet.awesome-markers.css">
+	<script src="lib/leaflet.awesome-markers.js"></script>
+	
+	<!-- Turf.js -->
+	<script src='https://unpkg.com/@turf/turf@6/turf.min.js'></script>
+	
+	<script type="text/javascript" src="./file_funzioniDiSupporto.js"></script> <!--not type = "module" for CORS Policy -->
+	<script type="text/javascript" src="./file_variabili.js"></script> 
+	
+	<script type="text/javascript" src="./file_mostraVariabili.js"></script>
+	<script type="text/javascript" src="./file_eventiSullaMappa.js"></script>
+	<script type="text/javascript" src="./file_elaboraFlussiPendolarismo.js"></script>
+	<script type="text/javascript" src="./file_trovaMarkerSullaMappa.js"></script>
+	<script type="text/javascript" src="./file_calcolaCostoMinimoPerCombinazioniMarkerPOIAttivi.js"></script>
+	<script type="text/javascript" src="./file_calcolaCostoMinimoSimplePlantLocation.js"></script>
+	<script type="text/javascript" src="./file_calcolaCostoMinimoDuAloc.js"></script>
+	<script type="text/javascript" src="./file_cercaPercorsoOSRMSullaMappa.js"></script>
+	<script type="text/javascript" src="./file_elaboraMatriceAHP.js"></script>
+	<script type="text/javascript" src="./file_calcolaCostoMinimoGreedy.js"></script>
+	<script type="text/javascript" src="./file_calcolaCostoMinimoCombinazioniAssegnate.js"></script>
+	<script type="text/javascript" src="./file_metodologiaAHP.js"></script>
+
+	<style>
+		body {
+			font-family:Tahoma; 
+			font-size:14px; 
+		}
+		
+		#parteSinistra { 
+			width: 60%; 
+			height: 100%; 
+			float: left;
+		}
+		#mappa { 
+			width: 100%; 
+			height: 70%; 
+		}
+		#coordinateValoriImpostazioni { 
+			width: 100%; 
+			height: 8%; 
+		}
+		
+		#coordinateValori { 
+			width: 100%; 
+			height: 50%; 
+		}
+		#coordinate { 
+			width: 40%; 
+			height: 100%; 
+			float: left;
+		}
+		#valori { 
+			width: 60%; 
+			height: 100%; 
+			float: right; 
+		}
+		#label_coordinate {
+			margin-top: 10px; 		
+		}
+		#impostazioni { 
+			width: 100%; 
+			height: 50%; 
+		}
+		#console { 
+			width: 100%; 
+			height: 22%; 
+		}
+		
+		#parteDestra { 
+			width: 39%; 
+			height: 100%; 
+			float: right;
+			/* margin: 5px 5px 5px 5px; */
+		}
+		#textArea {
+			resize: none;
+			overflow-y:scroll;
+			width: 100%;
+			
+		}
+		#textAreaAHP {
+			resize: none;
+			overflow-y:scroll;
+			width: 100%; 
+			
+		}
+		#textAreaAlgoritmi {
+			resize: none;
+			overflow-y:scroll;
+			width: 100%; 
+			
+		}
+		#textAreaPercorso {
+			resize: none;
+			overflow-y:scroll;
+			width: 100%; 
+			
+		}
+		button{
+			margin: 1px;
+			font-family:Tahoma; 
+			font-size:14px; 
+			font-style: italic; 
+
+		}
+		label{
+			display: block;
+			margin: 5px; 
+		}
+		#label_inputFile{
+			margin: 0px;
+			
+		}
+		#label_titoloRicercaColonnine {
+			font-style: italic;
+			font-weight: bold;
+			text-align: center;
+		}
+		#label_titoloRicercaPercorso {
+			font-style: italic;
+			font-weight: bold;
+			text-align: center;
+		}
+		
+		input {
+			border: none;
+			background: transparent;
+			font-family:Tahoma; 
+			font-size:14px; 
+		}
+		select{
+			margin: 1px;
+			font-family:Tahoma; 
+			font-size:14px; 
+			font-style: italic; 
+			font-weight : bold;
+
+		}
+		.inputEditabile {
+			font-style: italic;
+			font-weight: bold;
+			background: transparent;
+		}
+		
+		.leaflet-div-icon { 
+			background-color: transparent;
+			text-align: center;			
+		}
+		
+		.custom .leaflet-popup-tip,
+		.custom .leaflet-popup-content-wrapper {
+			//background:rgb(255, 255, 255, 0.90);
+			//color: red;
+			font-family: Consolas;
+			//font-style: italic;
+			font-size:12px;
+			padding: 1 1 1 1;
+			
+
+		}
+		
+		.tab {
+  			overflow: hidden;
+  			//border: 1px solid #ccc;
+  			//background-color: #f1f1f1;
+		}
+		.tabSingolo {
+			  //background-color: inherit;
+			  //float: left;
+			  font-style: italic;
+			  font-weight: bold;
+			  border: none;
+			 // outline: none;
+			  //cursor: pointer;
+			  //padding: 14px 16px;
+			  /transition: 0.3s;
+		}
+		
+		.matriceAHP td {
+			font-family:Tahoma; 
+			font-style: italic;
+			font-size:14px; 
+  			border: 1px solid #dddddd;
+ 			text-align: left;
+  			//padding: 8px;
+  			width: 60px;
+		}
+		
+		.legendaMatriceAHP td {
+			font-family:Tahoma; 
+			font-size:14px; 
+		}
+		
+	</style>
+	
+</head>
+
+<body>
+
+	
+	
+	<div id = "parteSinistra" >
+	
+		<div id = "mappa" >
+		</div>
+		
+		<div id = "coordinateValoriImpostazioni" >
+		
+			<div id = "coordinateValori" >
+			
+				<div id = "coordinate" >
+				<hr/>
+				<label id="label_coordinate">Latitude, longitude, zoom:</label>
+				</div>
+				
+				<div id = "valori" >
+				<hr/>
+				<button type="button" onclick="mostraVariabili()" id="button_mostraVariabili">VARIABLES</button> - 
+				<button type="button" onclick="calcolaDistanzaSullaMappa()" id="button_calcolaDistanzaSullaMappa">DISTANCE</button>
+				<button type="button" onclick="rimuoviCalcolaDistanzaSullaMappa()" id="button_rimuoviCalcolaDistanzaSullaMappa">Remove</button> - 
+				<button type="button" onclick="calcolaAreaSullaMappa()" id="button_calcolaAreaSullaMappa">AREA</button>
+				<button type="button" onclick="rimuoviCalcolaAreaSullaMappa()" id="button_rimuoviCalcolaAreaSullaMappa">Remove</button>
+				</div>
+			
+			</div>
+			
+			<div id = "impostazioni" >
+			
+				<hr/>
+				<label id="label_mappaDiBaseTipoDistanza">Base map (tileLayer):
+				<input type="radio" id="mappaDiBase01" value="mappaDiBase01" name="mappaDiBase" onchange="cambiaMappaDiBase()" style="height:15px; width:15px;" checked="checked" />OpenStreetMap
+				<input type="radio" id="mappaDiBase02" value="mappaDiBase02" name="mappaDiBase" onchange="cambiaMappaDiBase()" style="height:15px; width:15px;" />CyclOSM
+				<input type="radio" id="mappaDiBase03" value="mappaDiBase03" name="mappaDiBase" onchange="cambiaMappaDiBase()" style="height:15px; width:15px;" />WorldTopoMap
+				<input type="radio" id="mappaDiBase04" value="mappaDiBase04" name="mappaDiBase" onchange="cambiaMappaDiBase()" style="height:15px; width:15px;" />WorldImagery
+				
+				- Type of distance:
+				<input type="radio" id="tipoDistanza01" value="tipoDistanza01" name="tipoDistanza" onchange=" tipoDistanza = 'Euclidea'; calcolaMatriciDiCosti(); " style="height:15px; width:15px;" checked="checked" />Euclidean
+				<input type="radio" id="tipoDistanza02" value="tipoDistanza02" name="tipoDistanza" onchange=" tipoDistanza = 'Manhattan'; calcolaMatriciDiCosti(); " style="height:15px; width:15px;" />Manhattan
+				</label>
+			
+			</div>
+		
+		</div>
+		
+		<div id="console" >
+		<hr/>
+		<!-- <label id="label_console"></label> -->
+		<button type="button" onclick="clearConsole1()" id="btn_clearConsole1">Clear Console</button>
+		<textarea readonly rows="11" id="textArea" ></textarea>
+		
+		</div>
+	
+	</div>
+	
+	<div id = "parteDestra" style="overflow-y: scroll;" > 
+	
+		<div class="tab">
+	  		<button id="button_schedaInput" class="tabSingolo" onclick="gestioneSchede( 'schedaInput' )">INITIAL DATA</button>
+	  		<button id="button_schedaColonnine" class="tabSingolo" onclick="gestioneSchede( 'schedaColonnine' )">CHARGE COLUMNS LOCALIZATION</button>
+	  		<button id="button_schedaPercorso"  class="tabSingolo" onclick="gestioneSchede( 'schedaPercorso' )">ROUTE SEARCH</button>
+		</div>
+	
+		<hr/>
+		
+		<div id="schedaInput">
+		
+		<label id="label_titoloRicercaPercorso">::: INITIAL DATA :::</label>
+		<br/>
+		
+		<label id="label_trovaMarkerSullaMappa">Search on map, through Overpass Turbo query, of potential Customers and possible locations of charging stations, the latter called Plant or POI (Points Of Interest, i.e. markets, existing charging stations, car parks):</label>
+		<button type="button" onclick="trovaMarkerSullaMappa();">Marker Search on map</button>
+		<button type="button" onclick="rimuoviMarkerSullaMappa()">
+			Removing of Customer and Plant / POI Markers
+		</button>
+		<br/>
+		
+		<hr/>
+		<label id="label_flussiPendolarismo">Processing of commuting flows:
+			<button type="button"><label for="input_file" id="label_inputFile" ><input type="file" id="input_file" style="display:none" onchange="loadFile(this.files[0])" />Select a *.csv file</label></button>
+			<button type="button" onclick="ripristinoFattorePendolarismo()" id="button_ripristinoFattorePendolarismo">Default Commuting Factor</button>
+		</label>
+		
+		<hr/>
+		
+		<label id="label_DatiRisultati">Data used:</label>
+		
+		<label id="label_numeroClientiPerComunita">- Number of customers per community or per individual Customer Marker [customers]: 
+			<input class="inputEditabile" type="text" onblur="if( isNaN( this.value ) ) { this.value = 3500; } else { numeroClientiPerComunita= parseFloat(this.value, 10); calcolaMatriciDiCosti(); } " 
+				id="numeroClientiPerComunita" size="10" />
+		</label>
+		
+		<label id="label_euroSpesiPerChilometroAutoElettrica">- Cost per km for electric car / Euro spent per kilometer (electric car) [�/Km]: 
+			<input class="inputEditabile" type="text" onblur="if( isNaN( this.value ) ) { this.value = 0.50; } else { euroSpesiPerChilometroAutoElettrica= parseFloat(this.value, 10); calcolaMatriciDiCosti(); }" 
+				id="euroSpesiPerChilometroAutoElettrica" size="10"  />
+		</label>
+		
+		<label id="label_costoAttivazioneManutenzioneImpianto1">- Cost of activation and maintenance of existing station [�]: 
+			<input class="inputEditabile" type="text" onblur="if( isNaN( this.value ) ) { this.value = 120.00; } else { costoAttivazioneManutenzioneImpianto1= parseFloat(this.value, 10); calcolaMatriciDiCosti(); }" 
+				id="costoAttivazioneManutenzioneImpianto1" size="10" />
+		</label>
+		
+		<label id="label_costoAttivazioneManutenzioneImpianto2">- Cost of activation and maintenance of newly - built station [�]: 
+			<input class="inputEditabile" type="text" onblur="if( isNaN( this.value ) ) { this.value = 1200.00; } else { costoAttivazioneManutenzioneImpianto2= parseFloat(this.value, 10); calcolaMatriciDiCosti(); }" 
+				id="costoAttivazioneManutenzioneImpianto2" size="10"  />
+		</label>
+		
+		<label id="label_fattoreImpianto">- Plant Factor
+			��* marketsPOI: 
+			<input class="inputEditabile" type="text" onblur="if( isNaN( this.value ) ) { this.value = 0.40; } else { fattoreImpiantoMercatiPOI= parseFloat(this.value, 10); aggiornaArrayMarkerPOI(); calcolaMatriciDiCosti(); }" 
+				id="fattoreImpiantoMercatiPOI" size="2"  />
+			* existingChargingStationsPOI:
+			<input class="inputEditabile" type="text" onblur="if( isNaN( this.value ) ) { this.value = 1.00; } else { fattoreImpiantostazioniEsistentiPOI= parseFloat(this.value, 10); aggiornaArrayMarkerPOI(); calcolaMatriciDiCosti(); }" 
+				id="fattoreImpiantostazioniEsistentiPOI" size="2"  />
+			* parkingAreasPOI: 
+			<input class="inputEditabile" type="text" onblur="if( isNaN( this.value ) ) { this.value = 0.50; } else { fattoreImpiantoParcheggiPOI= parseFloat(this.value, 10); aggiornaArrayMarkerPOI(); calcolaMatriciDiCosti(); }" 
+				id="fattoreImpiantoParcheggiPOI" size="2"  />
+		</label>
+		
+		<label id="label_areaInMappa">- Area [Km^2]: <input readonly type="text" onclick="" id="areaInMappa" size="20" /></label>
+		<label id="label_densitaAbitativa">- Housing density [inhabitants / km^2]: <input readonly type="text" onclick="" id="densitaAbitativa" size="40" /></label>
+		
+		<hr/>
+		
+		<label id="label_metodologiaAHP" >AHP (Analytic Hierarchy Process) Methodology: </label>
+		<label id="label_matriceConfrontiAHP" >- Comparison Matrix between Criteria, where, among the POI Markers, I consider: </label>
+		
+		<table class = "legendaMatriceAHP">
+		<tr>
+			<td >* Dist: shortest distance;  </td><td >* Catt: lowest activation / maintenance cost; </td>
+		</tr>
+		<tr>
+			<td >* Ctot: lowest total cost;  </td><td >* ImpIct: lowest implant / plant factor. </td>
+		</tr>
+		</table>
+		
+		<table class = "matriceAHP" >
+		<tr >
+			<td ></td>
+			<td >Dist</td >
+			<td >Catt</td >
+			<td >Ctot</td >
+			<td >ImpIct</td >
+		</tr>
+		
+		<tr >
+			<td >Dist</td >
+			<td > <input readonly class="inputEditabile" type="number" min="1.0" max="9.0" 
+					onblur="" 
+					value = "1" id="punteggioAHP00" style="width: 60px"  /> 
+			</td >
+			<td > 
+				<select class="inputEditabile"  
+				onchange = "array_punteggioAHP[0][1]=parseFloat( eval( this.value ), 10); document.getElementById( 'punteggioAHP10' ).value = 
+					( this.value == '1' ? '1' : ( array_punteggioAHP[0][1] > 1.0 ?  '1/' + this.value : this.value[ this.value.length - 1 ] ) );
+					array_punteggioAHP[1][0]=parseFloat( eval( document.getElementById( 'punteggioAHP10' ).value ), 10); " 
+				id="punteggioAHP01" style="width: 60px" /> 
+	  				<option value="1" selected="selected" >1</option>
+	  				<option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option>
+	  				<option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option>
+	  				<option value="1/2">1/2</option><option value="1/3">1/3</option><option value="1/4">1/4</option><option value="1/5">1/5</option>
+	  				<option value="1/6">1/6</option><option value="1/7">1/7</option><option value="1/8">1/8</option><option value="1/9">1/9</option>
+				</select> 
+			</td >
+			<td > 
+				<select class="inputEditabile"  
+				onchange = "array_punteggioAHP[0][2]=parseFloat( eval( this.value ),  10); document.getElementById( 'punteggioAHP20' ).value = 
+					( this.value == '1' ? '1' : ( array_punteggioAHP[0][2] > 1.0 ?  '1/' + this.value : this.value[ this.value.length - 1 ] ) );
+					array_punteggioAHP[2][0]=parseFloat( eval( document.getElementById( 'punteggioAHP20' ).value ), 10); " 
+				id="punteggioAHP02" style="width: 60px" /> 
+	  				<option value="1" selected="selected" >1</option>
+	  				<option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option>
+	  				<option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option>
+	  				<option value="1/2">1/2</option><option value="1/3">1/3</option><option value="1/4">1/4</option><option value="1/5">1/5</option>
+	  				<option value="1/6">1/6</option><option value="1/7">1/7</option><option value="1/8">1/8</option><option value="1/9">1/9</option>
+				</select>  
+			</td >
+			<td > 
+				<select class="inputEditabile"  
+				onchange = "array_punteggioAHP[0][3]=parseFloat( eval( this.value ), 10); document.getElementById( 'punteggioAHP30' ).value = 
+					( this.value == '1' ? '1' : ( array_punteggioAHP[0][3] > 1.0 ?  '1/' + this.value : this.value[ this.value.length - 1 ] ) ); 
+					array_punteggioAHP[3][0]=parseFloat( eval( document.getElementById( 'punteggioAHP30' ).value ), 10); "
+				id="punteggioAHP03" style="width: 60px" /> 
+	  				<option value="1" selected="selected" >1</option>
+	  				<option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option>
+	  				<option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option>
+	  				<option value="1/2">1/2</option><option value="1/3">1/3</option><option value="1/4">1/4</option><option value="1/5">1/5</option>
+	  				<option value="1/6">1/6</option><option value="1/7">1/7</option><option value="1/8">1/8</option><option value="1/9">1/9</option>
+				</select>  
+			</td >
+		</tr>
+		<tr >
+			<td >Catt</td >
+			<td > 
+			<select class="inputEditabile"  
+				onchange = "array_punteggioAHP[1][0]=parseFloat( eval( this.value ), 10); document.getElementById( 'punteggioAHP01' ).value = 
+					( this.value == '1' ? '1' : ( array_punteggioAHP[1][0] > 1.0 ?  '1/' + this.value : this.value[ this.value.length - 1 ] ) ); 
+					array_punteggioAHP[0][1]=parseFloat( eval( document.getElementById( 'punteggioAHP01' ).value ), 10); " 
+				id="punteggioAHP10" style="width: 60px" /> 
+	  				<option value="1" selected="selected" >1</option>
+	  				<option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option>
+	  				<option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option>
+	  				<option value="1/2">1/2</option><option value="1/3">1/3</option><option value="1/4">1/4</option><option value="1/5">1/5</option>
+	  				<option value="1/6">1/6</option><option value="1/7">1/7</option><option value="1/8">1/8</option><option value="1/9">1/9</option>
+			</select> 
+			</td >
+			<td > <input readonly class="inputEditabile" type="number" min="1.0" max="9.0" 
+					onblur="" 
+					value = "1" id="punteggioAHP11" style="width: 60px"  /> 
+			</td >
+			<td > 
+				<select class="inputEditabile"  
+				onchange = "array_punteggioAHP[1][2]=parseFloat( eval( this.value ), 10); document.getElementById( 'punteggioAHP21' ).value = 
+					( this.value == '1' ? '1' : ( array_punteggioAHP[1][2] > 1.0 ?  '1/' + this.value : this.value[ this.value.length - 1 ] ) ); 
+					array_punteggioAHP[2][1]=parseFloat( eval( document.getElementById( 'punteggioAHP21' ).value ), 10); " 
+				id="punteggioAHP12" style="width: 60px" /> 
+	  				<option value="1" selected="selected" >1</option>
+	  				<option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option>
+	  				<option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option>
+	  				<option value="1/2">1/2</option><option value="1/3">1/3</option><option value="1/4">1/4</option><option value="1/5">1/5</option>
+	  				<option value="1/6">1/6</option><option value="1/7">1/7</option><option value="1/8">1/8</option><option value="1/9">1/9</option>
+				</select>  
+			</td >
+			<td > 
+				<select class="inputEditabile"  
+				onchange = "array_punteggioAHP[1][3]=parseFloat( eval( this.value ), 10); document.getElementById( 'punteggioAHP31' ).value = 
+					( this.value == '1' ? '1' : ( array_punteggioAHP[1][3] > 1.0 ?  '1/' + this.value : this.value[ this.value.length - 1 ] ) ); 
+					array_punteggioAHP[3][1]=parseFloat( eval( document.getElementById( 'punteggioAHP31' ).value ), 10); "
+				id="punteggioAHP13" style="width: 60px" /> 
+	  				<option value="1" selected="selected" >1</option>
+	  				<option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option>
+	  				<option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option>
+	  				<option value="1/2">1/2</option><option value="1/3">1/3</option><option value="1/4">1/4</option><option value="1/5">1/5</option>
+	  				<option value="1/6">1/6</option><option value="1/7">1/7</option><option value="1/8">1/8</option><option value="1/9">1/9</option>
+				</select>  
+			</td >
+		</tr>
+		<tr >
+			<td >Ctot</td >
+			<td > 
+				<select class="inputEditabile"  
+				onchange = "array_punteggioAHP[2][0]=parseFloat( eval( this.value ), 10); document.getElementById( 'punteggioAHP02' ).value = 
+					( this.value == '1' ? '1' : ( array_punteggioAHP[2][0] > 1.0 ?  '1/' + this.value : this.value[ this.value.length - 1 ] ) );
+					array_punteggioAHP[0][2]=parseFloat( eval( document.getElementById( 'punteggioAHP02' ).value ), 10); " 
+				id="punteggioAHP20" style="width: 60px" /> 
+	  				<option value="1" selected="selected" >1</option>
+	  				<option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option>
+	  				<option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option>
+	  				<option value="1/2">1/2</option><option value="1/3">1/3</option><option value="1/4">1/4</option><option value="1/5">1/5</option>
+	  				<option value="1/6">1/6</option><option value="1/7">1/7</option><option value="1/8">1/8</option><option value="1/9">1/9</option>
+				</select>  
+			</td >
+			<td > 
+				<select class="inputEditabile"  
+				onchange = "array_punteggioAHP[2][1]=parseFloat( eval( this.value ), 10); document.getElementById( 'punteggioAHP12' ).value = 
+					( this.value == '1' ? '1' : ( array_punteggioAHP[2][1] > 1.0 ?  '1/' + this.value : this.value[ this.value.length - 1 ] ) ); 
+					array_punteggioAHP[1][2]=parseFloat( eval( document.getElementById( 'punteggioAHP12' ).value ), 10); " 
+				id="punteggioAHP21" style="width: 60px" /> 
+	  				<option value="1" selected="selected" >1</option>
+	  				<option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option>
+	  				<option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option>
+	  				<option value="1/2">1/2</option><option value="1/3">1/3</option><option value="1/4">1/4</option><option value="1/5">1/5</option>
+	  				<option value="1/6">1/6</option><option value="1/7">1/7</option><option value="1/8">1/8</option><option value="1/9">1/9</option>
+				</select>  
+			</td >
+			<td > <input readonly class="inputEditabile" type="number" min="1.0" max="9.0" 
+					onblur="" 
+					value = "1" id="punteggioAHP22" style="width: 60px"  /> 
+			</td >
+			<td > 
+				<select class="inputEditabile"  
+				onchange = "array_punteggioAHP[2][3]=parseFloat( eval( this.value ), 10); document.getElementById( 'punteggioAHP32' ).value = 
+					( this.value == '1' ? '1' : ( array_punteggioAHP[2][3] > 1.0 ?  '1/' + this.value : this.value[ this.value.length - 1 ] ) ); 
+					array_punteggioAHP[3][2]=parseFloat( eval( document.getElementById( 'punteggioAHP32' ).value ), 10); " 
+				id="punteggioAHP23" style="width: 60px" /> 
+	  				<option value="1" selected="selected" >1</option>
+	  				<option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option>
+	  				<option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option>
+	  				<option value="1/2">1/2</option><option value="1/3">1/3</option><option value="1/4">1/4</option><option value="1/5">1/5</option>
+	  				<option value="1/6">1/6</option><option value="1/7">1/7</option><option value="1/8">1/8</option><option value="1/9">1/9</option>
+				</select>  
+			</td >
+		</tr>
+		<tr>
+		<td >ImpIct</td >
+			<td > 
+				<select class="inputEditabile"  
+				onchange = "array_punteggioAHP[3][0]=parseFloat( eval( this.value ), 10); document.getElementById( 'punteggioAHP03' ).value = 
+					( this.value == '1' ? '1' : ( array_punteggioAHP[3][0] > 1.0 ?  '1/' + this.value : this.value[ this.value.length - 1 ] ) ); 
+					array_punteggioAHP[0][3]=parseFloat( eval( document.getElementById( 'punteggioAHP03' ).value ), 10); " 
+				id="punteggioAHP30" style="width: 60px" /> 
+	  				<option value="1" selected="selected" >1</option>
+	  				<option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option>
+	  				<option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option>
+	  				<option value="1/2">1/2</option><option value="1/3">1/3</option><option value="1/4">1/4</option><option value="1/5">1/5</option>
+	  				<option value="1/6">1/6</option><option value="1/7">1/7</option><option value="1/8">1/8</option><option value="1/9">1/9</option>
+				</select>  
+			</td >
+			<td > 
+				<select class="inputEditabile"  
+				onchange = "array_punteggioAHP[3][1]=parseFloat( eval( this.value ), 10); document.getElementById( 'punteggioAHP13' ).value = 
+					( this.value == '1' ? '1' : ( array_punteggioAHP[3][1] > 1.0 ?  '1/' + this.value : this.value[ this.value.length - 1 ] ) ); 
+					array_punteggioAHP[1][3]=parseFloat( eval( document.getElementById( 'punteggioAHP13' ).value ), 10); " 
+				id="punteggioAHP31" style="width: 60px" /> 
+	  				<option value="1" selected="selected" >1</option>
+	  				<option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option>
+	  				<option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option>
+	  				<option value="1/2">1/2</option><option value="1/3">1/3</option><option value="1/4">1/4</option><option value="1/5">1/5</option>
+	  				<option value="1/6">1/6</option><option value="1/7">1/7</option><option value="1/8">1/8</option><option value="1/9">1/9</option>
+				</select>  
+			</td >
+			<td > 
+				<select class="inputEditabile"  
+				onchange = "array_punteggioAHP[3][2]=parseFloat( eval( this.value ), 10); document.getElementById( 'punteggioAHP23' ).value = 
+					( this.value == '1' ? '1' : ( array_punteggioAHP[3][2] > 1.0 ?  '1/' + this.value : this.value[ this.value.length - 1 ] ) ); 
+					array_punteggioAHP[2][3]=parseFloat( eval( document.getElementById( 'punteggioAHP23' ).value ), 10); " 
+				id="punteggioAHP32" style="width: 60px" /> 
+	  				<option value="1" selected="selected" >1</option>
+	  				<option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option>
+	  				<option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option>
+	  				<option value="1/2">1/2</option><option value="1/3">1/3</option><option value="1/4">1/4</option><option value="1/5">1/5</option>
+	  				<option value="1/6">1/6</option><option value="1/7">1/7</option><option value="1/8">1/8</option><option value="1/9">1/9</option>
+				</select>  
+			</td >
+			<td > <input readonly class="inputEditabile" type="number" min="1.0" max="9.0" 
+					onblur="" 
+					value = "1" id="punteggioAHP33" style="width: 60px"  /> 
+			</td >
+		
+		</tr>		
+		</table>
+		
+		<label id="label_mediaMatriceAHP">- type of mean adopted: 
+			<select class="inputEditabile"  
+				onchange = "( this.value == 'aritmetica' ? tipologiaMediaMatriceAHP = 'aritmetica' : tipologiaMediaMatriceAHP = 'geometrica' )" 
+				id="select_mediaMatriceAHP" style="width: 120px" /> 
+		  			<option value="aritmetica" selected="selected" >Arithmetic</option>
+		  			<option value="geometrica">Geometric</option>
+			</select>  
+		</label>
+		
+		<label id="label_variazioneTurfDistanzaMarkerClienti">- expected distance from Customer Markers (or community):<input readonly type="text" onclick="" id="variazioneTurfDistanzaMarkerClienti" value="0.000" style="width:50px" />Km
+			<input type="range" min="0" max="10000" value="0" id="range_variazioneTurfDistanzaMarkerClienti" 
+				oninput = "variazioneTurfDistanzaMarkerClienti()" 
+				onchange = "if( array_markerClienti.length == 0 ) { print2( 'No Customer Markers identified on map; operation interrupted. '); }"
+				style="width:100%" /> 
+		</label>
+		
+		<br/>
+		<button type="button" onclick="clearConsole2()" id="btn_clearConsole2">Clear Console</button> 
+		<button type="button" onclick="elaboraMatriceAHP()" id="button_elaboraMatriceAHP">Matrix Processing</button>
+		<button type="button" onclick="ripristinaMatriceAHP()" id="button_ripristinaMatriceAHP">Default Matrix</button>
+		
+		<br/>
+		
+		<textarea readonly rows="12" id="textAreaAHP" ></textarea>
+		
+		</div>
+		
+		<div id="schedaColonnine">
+		
+		<label id="label_titoloRicercaColonnine">::: ELECTRIC CHARGE COLUMNS LOCALIZATION :::</label>
+		<br/>
+		
+		<label id="label_costoMinimoPerCombinazioni">Calculation of the minimum cost evaluating the following alternatives: </label>
+		
+		<button type="button" onclick="calcolaCostoMinimoDuAloc()" id="button_costoMinimoLowerBound" style="width:49%" >
+		- Lower Bound verification using Du-Aloc Algorithm </button>
+
+		<button type="button" onclick="calcolaCostoMinimoSimplePlantLocation()" id="button_costoMinimoSimplePlantLocation"  style="width:49%" >
+		- Simple Plant Location algorithm</button>
+		
+		<hr/>
+		
+		<select class="inputEditabile" id="select_varianteGreedy" 
+			onchange = 
+				"if( this.value == 'combinazioneMarker' ) { 
+					varianteGreedy = 'combinazioneMarker'; 
+				} else if( this.value == 'markerAttivi' ) { 
+					varianteGreedy = 'markerAttivi'; 
+				} else {
+					varianteGreedy = '';
+				}"; 
+			style="width:49%;" >
+			<option value="-1" selected="selected" >Greedy option related to the studying ...</option>
+			<option value="combinazioneMarker" >- of Markers combinations</option>
+			<option value="markerAttivi" >- of potentially active Markers</option>
+		</select>
+
+		<button type="button" onclick="calcolaCostoMinimoPerGreedy()" id="button_costoMinimoPerGreedy"  style="width:49%" >
+		- Greedy algorithm </button>
+		
+		<hr/>
+
+		<button type="button" onclick="calcolaCostoMinimoPerCombinazioni()" id="button_costoMinimoPerCombinazioni"  style="width:49%" >
+		- Combination of assigned POI Marker Number </button>
+
+		<button type="button" onclick="calcolaCostoMinimoPerCombinazioniMarkerPOIAttivi()" id="button_costoMinimoPerCombinazioniBinarie"  style="width:49%" >
+		- Combination of Active/Inactive POI Marker </button>
+		
+		<hr/>
+		
+		<button type="button" 
+			onclick="stato_calcoloCostoMinimo = true; calcolaMetodologiaAHP(); stato_calcoloCostoMinimo = false; " 
+			id="button_calcolaMetodologiaAHP"  style="width:49%" >
+		- AHP Methodology</button>
+		
+		<select class="inputEditabile" id="select_risultatiMarkerClienteAHP" 
+			onchange = "risultatiCalcolaMetodologiaAHP()"
+			style="width:49%; overflow-y: scroll; " >
+			<option value="-1" selected="selected" >Results obtained from ...</option>
+		</select>
+		
+		<hr/>
+		
+		<button type="button" onclick="rimuoviCostoMinimoAlgoritmi( true, false )" id="button_rimuoviCostoMinimoAlgoritmi" style="width:49%"  >Removing elements associated with cost calculation </button>
+		
+		<button type="button" onclick="if( stato_calcoloCostoMinimo == 1 ) { terminaOperazione = true; } else { print3('Operation not interrupted'); } " id="button_terminaOperazione"style="width:49%" >End task</button>
+		
+		<button type="button" onclick="selezionaRipristinaMarkerPOISiaAttiviSiaStazioniEsistenti()" id="button_selezionaRipristinaMarkerPOISiaAttiviSiaStazioniEsistenti" style="width:99%"  >
+			Shows only newly activated POI Markers and existing charging stations / Restore the initial display of POI Markers identified on map
+		</button>
+		
+		<hr/>
+		
+		<label id="label_progressBarCombinazioni" for="progressBarCombinazioni">��
+		Progress status - Iterations:  <input readonly type="text" onclick="" id="avanzamento" size="35" /> 
+		<progress id="progressBarCombinazioni" value="0" max="100" style="width:100%" ></progress>
+		
+		</label>
+		
+		<button type="button" onclick="clearConsole3()" id="btn_clearConsole3">Clear Console</button>
+		<textarea readonly rows="36" id="textAreaAlgoritmi" ></textarea>
+		
+		</div>
+		
+		<div id="schedaPercorso">
+		
+		<label id="label_titoloRicercaPercorso">::: SEARCH FOR A POSSIBLE ROUTE ON MAP :::</label>
+		<br/>
+		
+		<label id="label_livelloCarica">- Battery charge level:
+			<input class="inputEditabile" type="number" min="1" max="100" onblur="livelloCarica= parseFloat( this.value , 10 )" id="livelloCarica" style="width: 50px"  />%
+		</label>
+		
+		<label id="label_autonomiaMacchina">- Autonomy / Km range generally expected from the vehicle / device used: <input readonly type="text" onclick= "" id="autonomiaMacchina" value="100.000" style="width: 55px" /> Km 
+			<input 
+				type="range" min="0" max="300" value="100" id="range_autonomiaMacchina" 
+				oninput = "autonomiaMacchina = parseFloat( this.value , 10 ); document.getElementById('autonomiaMacchina').value = autonomiaMacchina.toFixed(3)" 
+				style="width: 100%" 
+			/>
+		</label>
+		
+		<label id="label_variazioneTurfDistanzaMarkerPOI">- Expected distance from charging stations:<input readonly type="text" onclick="" id="variazioneTurfDistanzaMarkerPOI" value="0.200" style="width:50px" />Km
+			<input type="range" min="0" max="10000" value="200" id="range_variazioneTurfDistanzaMarkerPOI" oninput = "variazioneTurfDistanzaMarkerPOI()" onchange="variazioneTurfIntersezioni();" style="width:100%" /> 
+		</label> 
+		
+		<label id="label_tipoLocomozione" >- Mean of locomotion / transport used: car</label>
+		<!--
+		<select id="select_tipoLocomozione" style="width: 250px" selected = "car" onchange = "profileOSRM=this.value" >
+			<option value="car">Automobile elettrica</option>
+			<option value="bike">Biciclo elettrico</option>
+			<option value="foot">A piedi / Monopattino elettrico</option>
+		</select>
+		-->
+		
+		<label id="label_trovaPercorsoSullaMappa">Find a possible route between two chosen points on map:</label>
+		<button type="button" onclick="trovaPercorsoSullaMappa()" id="button_trovaPercorsoSullaMappa">Find an itinerary or route</button>
+		<button type="button" onclick="rimuoviTrovaPercorsoSullaMappa()" id="button_rimuoviTrovaPercorsoSullaMappa">Remove the identified route or itinerary</button>
+		<br/>
+		
+		<br/>
+		
+		<button type="button" onclick="clearConsole4()" id="btn_clearConsole4">Clear Console</button>
+		<textarea readonly rows="43" id="textAreaPercorso" ></textarea>
+		
+		</div>
+		
+	</div>
+	
+	<script>
+	
+	primoAvvio(); 
+		
+	eventiSullaMappa(); 
+	
+	gestioneSchede( "schedaInput" ); 
+	
+	</script>
+	
+</body>
+
+</html>
