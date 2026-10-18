@@ -1,57 +1,72 @@
 <html>
 
-<head>  
+<head>
 
 	<title>GEOINF25</title>
 
-	<link rel="icon" type="image/png" href="favicon.png" /> <!-- location_map_pin_mark_icon_148685 - Location map pin mark - Free Icon in PNG and SVG By IconMarket -->
+	<link rel="icon" type="image/png" href="favicon.png" />
+	<!-- location_map_pin_mark_icon_148685 - Location map pin mark - Free Icon in PNG and SVG By IconMarket -->
 
-	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+		integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
 	<!-- Make sure you put this AFTER Leaflet's CSS -->
- 	<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+	<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+		integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-minimap/3.6.1/Control.MiniMap.js" integrity="sha512-ceQPs2CHke3gSINLt/JV37W1rfJOM64yuH999hnRhTP7tNtcSBp5hlTKhn8CEIhsFweSBrZMPVotAKjoyxGWNg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-minimap/3.6.1/Control.MiniMap.js"
+		integrity="sha512-ceQPs2CHke3gSINLt/JV37W1rfJOM64yuH999hnRhTP7tNtcSBp5hlTKhn8CEIhsFweSBrZMPVotAKjoyxGWNg=="
+		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-minimap/3.6.1/Control.MiniMap.css" integrity="sha512-efbAfGnrnjA+hLwOLu91W034fBGPsMwZMVCTwLUI2PDX/m7rOiuhYZ+D2mZ8rKcpC/I/7pdgoL8T4eYvMHNoQg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-minimap/3.6.1/Control.MiniMap.css"
+		integrity="sha512-efbAfGnrnjA+hLwOLu91W034fBGPsMwZMVCTwLUI2PDX/m7rOiuhYZ+D2mZ8rKcpC/I/7pdgoL8T4eYvMHNoQg=="
+		crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js" integrity="sha512-ozq8xQKq6urvuU6jNgkfqAmT7jKN2XumbrX1JiB3TnF7tI48DPI4Gy1GXKD/V3EExgAs1V+pRO7vwtS1LHg0Gw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"
+		integrity="sha512-ozq8xQKq6urvuU6jNgkfqAmT7jKN2XumbrX1JiB3TnF7tI48DPI4Gy1GXKD/V3EExgAs1V+pRO7vwtS1LHg0Gw=="
+		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css" integrity="sha512-gc3xjCmIy673V6MyOAZhIW93xhM9ei1I+gLbmFjUHIjocENRsLX/QUE1htk5q1XV2D/iie/VQ8DXI6Vu8bexvQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css"
+		integrity="sha512-gc3xjCmIy673V6MyOAZhIW93xhM9ei1I+gLbmFjUHIjocENRsLX/QUE1htk5q1XV2D/iie/VQ8DXI6Vu8bexvQ=="
+		crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 	<script src="https://cdn.jsdelivr.net/npm/leaflet-measure@3.1.0/dist/leaflet-measure.min.js"></script>
 	<link href="https://cdn.jsdelivr.net/npm/leaflet-measure@3.1.0/dist/leaflet-measure.min.css" rel="stylesheet">
 
 	<!-- MANTENERE PER COLORI MARKER CLUSTER -->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/MarkerCluster.css" />
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.0/MarkerCluster.Default.min.css" />
+	<link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/MarkerCluster.css" />
+	<link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.0/MarkerCluster.Default.min.css" />
 	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/leaflet.markercluster.js"></script> -->
 
 	<script src="https://cdn.jsdelivr.net/npm/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.min.js"></script>
 	<link href="https://cdn.jsdelivr.net/npm/leaflet.markercluster@1.5.3/dist/MarkerCluster.min.css" rel="stylesheet">
 
-	<script src=
-		"https://cdn.jsdelivr.net/npm/leaflet.awesome-markers@2.0.5/dist/leaflet.awesome-markers.min.js">
+	<script src="https://cdn.jsdelivr.net/npm/leaflet.awesome-markers@2.0.5/dist/leaflet.awesome-markers.min.js">
 	</script>
-	<link href=
-		"https://cdn.jsdelivr.net/npm/leaflet.awesome-markers@2.0.5/dist/leaflet.awesome-markers.min.css" 
-	rel="stylesheet">
+	<link href="https://cdn.jsdelivr.net/npm/leaflet.awesome-markers@2.0.5/dist/leaflet.awesome-markers.min.css"
+		rel="stylesheet">
 	<!-- <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/1.5.2/css/ionicons.min.css"> -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.5/leaflet.awesome-markers.js"></script>
-	<link href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.5/leaflet.awesome-markers.css" rel="stylesheet">
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.5/leaflet.awesome-markers.js"></script>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.5/leaflet.awesome-markers.css"
+		rel="stylesheet">
 	<!-- 2.05 -->
 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/alasql/4.19.1/alasql.min.js"></script> 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.core.min.js"></script> 
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/alasql/4.19.1/alasql.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.core.min.js"></script>
 
-	<link id="tabulator-theme" href="https://unpkg.com/tabulator-tables@6.3.1/dist/css/tabulator_midnight.min.css" rel="stylesheet">
- 	<script type="text/javascript" src="https://unpkg.com/tabulator-tables@6.3.1/dist/js/tabulator.min.js"></script>
+	<link id="tabulator-theme" href="https://unpkg.com/tabulator-tables@6.3.1/dist/css/tabulator_midnight.min.css"
+		rel="stylesheet">
+	<script type="text/javascript" src="https://unpkg.com/tabulator-tables@6.3.1/dist/js/tabulator.min.js"></script>
 
 	<script src="https://cdn.jsdelivr.net/npm/@turf/turf@7/turf.min.js"></script>
 
 	<script src="https://cdn.jsdelivr.net/npm/danfojs@1.2.0/lib/bundle.min.js"></script>
 
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.20/jspdf.plugin.autotable.min.js"></script>
+	<script type="text/javascript"
+		src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.20/jspdf.plugin.autotable.min.js"></script>
 
 	<!-- Maplibre GL -->
 	<link href="https://unpkg.com/maplibre-gl@5/dist/maplibre-gl.css" rel="stylesheet" />
@@ -61,7 +76,7 @@
 	<script src="https://unpkg.com/@maplibre/maplibre-gl-leaflet/leaflet-maplibre-gl.js"></script>
 
 	<!-- GeoCoder -->
-	 <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+	<link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
 	<script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
 
 	<link rel="stylesheet" href="styleGeoInf.css">
@@ -70,23 +85,29 @@
 
 	</style>
 
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" charset="utf-8" >
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" charset="utf-8">
 
 </head>
 
 
-<body style = "overflow-y: scroll" >
+<body style="overflow-y: scroll">
 
 	<div id="tabellaGIS" class="grid">
 
-		<div id = "blocco01GIS" class = "span4 roundBorder" >
+		<div id="blocco01GIS" class="span4 roundBorder">
 
 			<div id="contMap01" style="width: 100%;"> <!-- overflow: hidden; height: 60vh -->
-				<div id="leafletMap01" style="height: 70vh; border: 0px solid " ></div> <!-- height: 55vh -->
-				<div style="width: 100%; display: flex; " > <!-- Disposizione ORRIZONALE: flex -->
-					<div id="latLngZoom" style="width: 5%; max-width: 5%; height: 25vh; max-height: 25vh; float: left; margin: 0; padding: 0; " ></div> <!-- 1.75vh style='float: left; ' width: 100%; -->
-					<div id="consoleApp" style="width: 17%; max-width: 17%; height: 25vh; max-height: 25vh; float: left; margin: 0; padding: 0; " ></div> <!-- height: 20vh -->
-					<div id="ufoDataset" style="width: 77.5%; max-width: 77.5%; height: 25vh; max-height: 25vh; float: left; margin: 0; padding: 0; " ></div>
+				<div id="leafletMap01" style="height: 70vh; border: 0px solid "></div> <!-- height: 55vh -->
+				<div style="width: 100%; display: flex; "> <!-- Disposizione ORRIZONALE: flex -->
+					<div id="latLngZoom"
+						style="width: 5%; max-width: 5%; height: 25vh; max-height: 25vh; float: left; margin: 0; padding: 0; ">
+					</div> <!-- 1.75vh style='float: left; ' width: 100%; -->
+					<div id="consoleApp"
+						style="width: 17%; max-width: 17%; height: 25vh; max-height: 25vh; float: left; margin: 0; padding: 0; ">
+					</div> <!-- height: 20vh -->
+					<div id="ufoDataset"
+						style="width: 77.5%; max-width: 77.5%; height: 25vh; max-height: 25vh; float: left; margin: 0; padding: 0; ">
+					</div>
 				</div>
 			</div>
 
@@ -96,34 +117,34 @@
 
 	<script>
 
-		window.ufoDataset = null;  
+		window.ufoDataset = null;
 
 		//*** MAP01 ***//
 
-		map01 = L.map('leafletMap01' , { 
+		map01 = L.map('leafletMap01', {
 
-			zoomControl: false , // Lo disabilitiamo per controllare l'ordine di inserimento
+			zoomControl: false, // Lo disabilitiamo per controllare l'ordine di inserimento
 
-			zoomSnap: 1 , //1
-			zoomDelta : 1, 
+			zoomSnap: 1, //1
+			zoomDelta: 1,
 			wheelPxPerZoomLevel: 70, //60 
 
 			//openFreeMap (necessario)
 			maxZoom: 19,
 
-		} ).setView([ 46.035235, 10.980633], 3.0 );
+		}).setView([46.035235, 10.980633], 3.0);
 
 		baseOSM = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 			maxZoom: 19,
-		}).addTo(map01); 
+		}).addTo(map01);
 
 		/*
 		baseCartoDarkMap = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
 			maxZoom: 19,
 		}).addTo(map01);
 		*/
-		
-		openFreeMap = L.maplibreGL({ 
+
+		openFreeMap = L.maplibreGL({
 			style: "https://tiles.openfreemap.org/styles/liberty", //<-- Elemento option "selected"
 			// maxZoom: 19,
 		})//.addTo(map01);
@@ -148,7 +169,7 @@
 			maxZoom: 19,
 		})//.addTo(map01);
 
-		baseMaps = {  
+		baseMaps = {
 			"<span style='display: inline-block; width: 11vh; font-family: Trebuchet MS; font-size: 1.5vh; margin:0; padding: 0; '>OpenStreetMap</span>": baseOSM,
 			//"CartoDarkMap": baseCartoDarkMap, 
 			"<span style='display: inline-block; width: 11vh; font-family: Trebuchet MS; font-size: 1.5vh; margin:0; padding: 0; '>CyclOsmMap</span>": baseCyclOsmMap,
@@ -164,39 +185,39 @@
 				<option value='liberty' selected >OpenFreeMap Liberty</option>
 				<option value='dark' >OpenFreeMap Dark</option>
 				<option value='fiord' >OpenFreeMap Fiord</option>
-			</select>`]: openFreeMap, 
+			</select>`]: openFreeMap,
 		}
 
-		layerDrawItems = new L.FeatureGroup(); 
+		layerDrawItems = new L.FeatureGroup();
 		layerUAPMarkers = new L.FeatureGroup();
 		layerGeoCoderMarkers = new L.FeatureGroup();
 
 		overlayMaps = {
 			//GeoJSON data initialization 
-			"<span style='font-family: Trebuchet MS; font-size: 1.5vh;'><u>Draw Items</u></span>" : layerDrawItems, 
-			"<span style='font-family: Trebuchet MS; font-size: 1.5vh;'><u>UAP Markers</u></span>" : layerUAPMarkers,
-			"<span style='font-family: Trebuchet MS; font-size: 1.5vh;'><u>GeoCoder Markers</u></span>" : layerGeoCoderMarkers,
+			"<span style='font-family: Trebuchet MS; font-size: 1.5vh;'><u>Draw Items</u></span>": layerDrawItems,
+			"<span style='font-family: Trebuchet MS; font-size: 1.5vh;'><u>UAP Markers</u></span>": layerUAPMarkers,
+			"<span style='font-family: Trebuchet MS; font-size: 1.5vh;'><u>GeoCoder Markers</u></span>": layerGeoCoderMarkers,
 		};
 
-		layerControl = L.control.layers(baseMaps, overlayMaps).addTo( map01 );
+		layerControl = L.control.layers(baseMaps, overlayMaps).addTo(map01);
 
 		//Aggiunta controllo OpenFreeMap DOPO inserimento Controllo sulla Mappa  
 
-		document.getElementById('optionsOpenFreeMap').addEventListener('change', function(e) {
-            const maplibreInstance = openFreeMap.getMaplibreMap(); 
+		document.getElementById('optionsOpenFreeMap').addEventListener('change', function (e) {
+			const maplibreInstance = openFreeMap.getMaplibreMap();
 			if (maplibreInstance) { //Attesa e verifica
-            	maplibreInstance.setStyle(`https://tiles.openfreemap.org/styles/${e.target.value}`);
-       		}
-		});  
+				maplibreInstance.setStyle(`https://tiles.openfreemap.org/styles/${e.target.value}`);
+			}
+		});
 
 		//Aggiunta controllo per DISABILITARE Drop Down List 
 
 		// Intercetti il cambio della mappa base
-		map01.on('baselayerchange', function(e) { 
+		map01.on('baselayerchange', function (e) {
 			// e.name è il nome testuale che hai dato al layer (es. "OpenFreeMap", "OpenStreetMap")
-    		// e.layer è l'istanza effettiva del layer che è stata appena attivata
+			// e.layer è l'istanza effettiva del layer che è stata appena attivata
 			//console.log("Nuova mappa base selezionata:", e.name); //<span ... 
-			if( e.layer != openFreeMap ) {
+			if (e.layer != openFreeMap) {
 				document.getElementById('optionsOpenFreeMap').disabled = true;
 			} else {
 				document.getElementById('optionsOpenFreeMap').disabled = false;
@@ -220,7 +241,7 @@
 		titleElement02 = document.createElement('div');
 		titleElement02.innerHTML = "<span style='font-family: Trebuchet MS; font-size: 1.75vh;'><b>Overlay Map: </b></span>";
 
-		overlayContainer.insertBefore(titleElement02, overlayContainer.firstChild); 
+		overlayContainer.insertBefore(titleElement02, overlayContainer.firstChild);
 
 		//Disposizione in ORIZZONTALE per baseMaps, overlayMaps
 
@@ -244,7 +265,7 @@
 		var divLink = L.control({ position: 'topleft' });
 
 		divLink.onAdd = function (map01) {
-			var div = L.DomUtil.create('div' ); //, CSS Style ...
+			var div = L.DomUtil.create('div'); //, CSS Style ...
 
 			var btnStyle = "background-color: lightgray ; color: green; padding: 0vh 0vh; font-size: 1.5vh; font-weight: bold; font-style: italic; border-radius: 1vh; min-width: 14vh; height: 3.0vh; border-color: green; cursor: pointer; text-align: center; ";
 			/*var btnStyle = "background-color: white ; color: green; padding: 0vh 0vh; font-size: 1.8vh; font-weight: bold; border-radius: 1vh; min-width: 15vh; height: 3.5vh; border-color: green;";*/
@@ -295,18 +316,18 @@
 			`;
 
 			const btn_LINK = div.querySelector('#rif_LINK_Button');
-    		const contenuto_LINK = div.querySelector('#rif_LINK_Contenuto');
-			
-			btn_LINK.addEventListener('click', function() {
-        		if (contenuto_LINK.style.display === 'none') {
-            		contenuto_LINK.style.display = 'block';
+			const contenuto_LINK = div.querySelector('#rif_LINK_Contenuto');
+
+			btn_LINK.addEventListener('click', function () {
+				if (contenuto_LINK.style.display === 'none') {
+					contenuto_LINK.style.display = 'block';
 					btn_LINK.style.whiteSpace = 'pre-line';
-            		btn_LINK.textContent = '❌\nHide\nBUTTONS';
-        		} else {
-            		contenuto_LINK.style.display = 'none';
-            		btn_LINK.textContent = '🔄 Show / Hide BUTTONS';
-        		}
-    		});
+					btn_LINK.textContent = '❌\nHide\nBUTTONS';
+				} else {
+					contenuto_LINK.style.display = 'none';
+					btn_LINK.textContent = '🔄 Show / Hide BUTTONS';
+				}
+			});
 
 			L.DomEvent.disableClickPropagation(div);
 
@@ -327,69 +348,69 @@
 				featureGroup: layerDrawItems,
 			},
 			draw: {
-				polyline: {	metric: 'metric' },
-				polygon : { metric: 'metric' },
-				rectangle: { metric: 'metric' },  
+				polyline: { metric: 'metric' },
+				polygon: { metric: 'metric' },
+				rectangle: { metric: 'metric' },
 				circle: { metric: 'metric' },
-				marker: { metric: 'metric' }, 
-				circlemarker: { metric: 'metric' }, 
+				marker: { metric: 'metric' },
+				circlemarker: { metric: 'metric' },
 			},
 		});
-				
+
 		map01.addControl(drawControl);
 
-		map01.on( "draw:created" , function( e ) {
-				type = e.layerType; 
-				layer = e.layer;
-				
-				jsonFeature = "" + JSON.stringify( layer.toGeoJSON() )
+		map01.on("draw:created", function (e) {
+			type = e.layerType;
+			layer = e.layer;
 
-				popup = L.popup().setContent( jsonFeature );
+			jsonFeature = "" + JSON.stringify(layer.toGeoJSON())
 
-				layer.bindPopup( popup ); 
-				console.log( layer.toGeoJSON() );
+			popup = L.popup().setContent(jsonFeature);
 
-				tempObj = {
-					DateTime : getDateTime() , 
-					Event : "Plot Feature on Map",
-					Message_ConsoleApp : "- Type of Feature: " + type + "\n" + 
-						jsonFeature
-				};
+			layer.bindPopup(popup);
+			console.log(layer.toGeoJSON());
 
-				dataConsoleApp.unshift( tempObj );
+			tempObj = {
+				DateTime: getDateTime(),
+				Event: "Plot Feature on Map",
+				Message_ConsoleApp: "- Type of Feature: " + type + "\n" +
+					jsonFeature
+			};
 
-				//consoleApp.on("tableBuilt", function(){
-				consoleApp.setData( dataConsoleApp );
-				//}); 
-				
-				layerDrawItems.addLayer( layer ); 
-		}); 
+			dataConsoleApp.unshift(tempObj);
+
+			//consoleApp.on("tableBuilt", function(){
+			consoleApp.setData(dataConsoleApp);
+			//}); 
+
+			layerDrawItems.addLayer(layer);
+		});
 
 		//Mappe, Layer visibili
 		var click_elements = document.getElementsByClassName("leaflet-control-layers-selector");
 
-		click_elements[ 6 ].click(); //baseMaps
+		click_elements[6].click(); //baseMaps
 
-		click_elements[ click_elements.length - 3 ].click(); //layerDrawItems
-		click_elements[ click_elements.length - 2 ].click(); //layerUAPMarkers //Vedi funzione seguente
-		click_elements[ click_elements.length - 1 ].click(); //layerGeoCoderMarkers 
+		click_elements[click_elements.length - 3].click(); //layerDrawItems
+		click_elements[click_elements.length - 2].click(); //layerUAPMarkers //Vedi funzione seguente
+		click_elements[click_elements.length - 1].click(); //layerGeoCoderMarkers 
 
 		//markerClusterGroup
-		var cluMarkers = L.markerClusterGroup( { spiderfyDistanceMultiplier : 3.00 } );
+		var cluMarkers = L.markerClusterGroup({ spiderfyDistanceMultiplier: 3.00 });
 
 		//minimap 
-		
-		layerMiniMap = L.tileLayer( 'https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}' ); 
-		miniMap = new L.Control.MiniMap( layerMiniMap , { 
-				toggleDisplay : true , 
-				zoomLevelOffset: -16, 
-				width: Math.round( window.screen.width /10.0 ), 
-				height: Math.round( window.screen.height /10.0 ) , 
-		} ).addTo(map01);
 
-		miniMap.setPosition('topright'); 
+		layerMiniMap = L.tileLayer('https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}');
+		miniMap = new L.Control.MiniMap(layerMiniMap, {
+			toggleDisplay: true,
+			zoomLevelOffset: -16,
+			width: Math.round(window.screen.width / 10.0),
+			height: Math.round(window.screen.height / 10.0),
+		}).addTo(map01);
 
-		var measureControl = new L.Control.Measure( { primaryLengthUnit: "kilometers" , primaryAreaUnit: "sqmeters" } );
+		miniMap.setPosition('topright');
+
+		var measureControl = new L.Control.Measure({ primaryLengthUnit: "kilometers", primaryAreaUnit: "sqmeters" });
 
 		// Disable auto-pan by overriding the plugin’s internal method(s):
 		L.Control.Measure.include({
@@ -399,53 +420,53 @@
 				this._captureMarker.options.autoPanOnFocus = false;
 				// Call the original icon setup
 				this._captureMarker.setIcon(
-				L.divIcon({
-					iconSize: this._map.getSize().multiplyBy(2),
-				})
+					L.divIcon({
+						iconSize: this._map.getSize().multiplyBy(2),
+					})
 				);
 			},
 
 			// Optionally, override _startMeasure or other private methods if needed
 			// _startMeasure: function () {
-				//   // Your custom override
+			//   // Your custom override
 			// },
-			});
+		});
 
-		measureControl.addTo( map01 );
+		measureControl.addTo(map01);
 
 		//GeoSearch Leaflet 
 
 		var geocoder = L.Control.geocoder({
 			position: 'bottomleft', // Sposta la barra di ricerca in basso a sinistra
-			defaultMarkGeocode: false , 
+			defaultMarkGeocode: false,
 			//geocoder: L.Control.Geocoder.nominatim(),
 			// Sostituisce il default Nominatim con Photon
-			geocoder: L.Control.Geocoder.photon() , //... gratuito ... 
-			queryMinLength: 3 ,     // Avvia la ricerca solo dopo 3 caratteri digitati
-  			suggestMinLength: 3 ,   // Avvia i suggerimenti automatici dopo 3 caratteri
-  			suggestTimeout: 400 ,    // Attende 400 millisecondi di inattività prima di inviare la richiesta
-			placeholder: "Enter Address or Location ... (GeoCoder 'Photon')" , // Sostituisce il testo di default "Search..."
+			geocoder: L.Control.Geocoder.photon(), //... gratuito ... 
+			queryMinLength: 3,     // Avvia la ricerca solo dopo 3 caratteri digitati
+			suggestMinLength: 3,   // Avvia i suggerimenti automatici dopo 3 caratteri
+			suggestTimeout: 400,    // Attende 400 millisecondi di inattività prima di inviare la richiesta
+			placeholder: "Enter Address or Location ... (GeoCoder 'Photon')", // Sostituisce il testo di default "Search..."
 			collapsed: false // Forza la barra a rimanere aperta
 		})
-		.on('markgeocode', function(e) {
-			var bbox = e.geocode.bbox;
-			var poly = L.polygon([
-				bbox.getSouthEast(),
-				bbox.getNorthEast(),
-				bbox.getNorthWest(),
-				bbox.getSouthWest()
-			]);
-			map01.fitBounds(poly.getBounds());
-			
-			// Aggiungi un marker personalizzato
-			var tempMarker = L.marker(e.geocode.center)
-				//.addTo(map01)
-				.bindPopup(e.geocode.name)
-				.openPopup(); 
+			.on('markgeocode', function (e) {
+				var bbox = e.geocode.bbox;
+				var poly = L.polygon([
+					bbox.getSouthEast(),
+					bbox.getNorthEast(),
+					bbox.getNorthWest(),
+					bbox.getSouthWest()
+				]);
+				map01.fitBounds(poly.getBounds());
 
-			layerGeoCoderMarkers.addLayer( tempMarker );  
-		})
-		.addTo(map01);
+				// Aggiungi un marker personalizzato
+				var tempMarker = L.marker(e.geocode.center)
+					//.addTo(map01)
+					.bindPopup(e.geocode.name)
+					.openPopup();
+
+				layerGeoCoderMarkers.addLayer(tempMarker);
+			})
+			.addTo(map01);
 
 		// Seleziona GeoCoder, cambia il font ed altri elementi ... 
 
@@ -471,23 +492,23 @@
 		//*** TABULATOR JS ***// 
 
 		getDateTime = () => {
-			tempDateTime = new Date(); 
-			dd = ( "" + tempDateTime.getDate() ).padStart(2, '0');
-			mm = ("" + (tempDateTime.getMonth() + 1) ).padStart(2, '0'); // Nota: i mesi in JS partono da 0 (0 = Gennaio)
+			tempDateTime = new Date();
+			dd = ("" + tempDateTime.getDate()).padStart(2, '0');
+			mm = ("" + (tempDateTime.getMonth() + 1)).padStart(2, '0'); // Nota: i mesi in JS partono da 0 (0 = Gennaio)
 			yyyy = "" + tempDateTime.getFullYear();
-			h = ( "" + tempDateTime.getHours()).padStart(2, '0');
-			m = ( "" + tempDateTime.getMinutes()).padStart(2, '0');
-			s = ( "" + tempDateTime.getSeconds()).padStart(2, '0');
-			return "" + dd + "/" + mm + "/" + yyyy + " " + h + ":" + m + ":" + s; 
+			h = ("" + tempDateTime.getHours()).padStart(2, '0');
+			m = ("" + tempDateTime.getMinutes()).padStart(2, '0');
+			s = ("" + tempDateTime.getSeconds()).padStart(2, '0');
+			return "" + dd + "/" + mm + "/" + yyyy + " " + h + ":" + m + ":" + s;
 		};
 
 		var menuDellaCella = [
 			{
 				label: "<span style='font-size: 1.3vh; font-weight: bold; color: #28a745;'>📋 Copia Cella</span>",
-				action: function(e, cell) {
+				action: function (e, cell) {
 					// Il parametro 'cell' è il componente cella di Tabulator
 					const valore = cell.getValue();
-					
+
 					navigator.clipboard.writeText(valore)
 						.then(() => console.log("Copiato: " + valore))
 				}
@@ -496,13 +517,13 @@
 
 		dataLatLngZoom = [
 			{
-				Coordinates: "Latitude: --" 
+				Coordinates: "Latitude: --"
 			},
 			{
-				Coordinates: "Longitude: --" 
+				Coordinates: "Longitude: --"
 			},
 			{
-				Coordinates: "Zoom: 3.00" 
+				Coordinates: "Zoom: 3.00"
 			},
 		];
 
@@ -522,165 +543,176 @@
 			},*/
 		];
 
-		latLngZoom = new Tabulator( "#latLngZoom", {
+		latLngZoom = new Tabulator("#latLngZoom", {
 			data: dataLatLngZoom, // Carica i dati 
-			layout: "fitColumns", 
+			layout: "fitColumns",
 			//height: "100%", //Evitare per MANCANZA di SCROLLBAR verticale
-			
+
 			//autoColumns: true, // Crea automaticamente le colonne in base alle chiavi 
 			columns: [
-				{title: "Coordinates", headerTooltip: true , field: "Coordinates", widthGrow: 1, formatter: "textarea", resizable: false},
+				{ title: "Coordinates", headerTooltip: true, field: "Coordinates", widthGrow: 1, formatter: "textarea", resizable: false },
 			],
 
 
-			footerElement: 
-        		"<div style='height: 2vh'>" +
-					"<br>" + 
+			footerElement:
+				"<div style='height: 2vh'>" +
+				"<br>" +
 				"</div>"
 		});
 
 		//latLngZoom.element.style.fontFamily = "'Courier New', monospace";
 		latLngZoom.element.style.fontSize = "1.3vh";
 
-		consoleApp = new Tabulator( "#consoleApp", {
+		consoleApp = new Tabulator("#consoleApp", {
 			data: dataConsoleApp, // Carica i dati 
 			//autoColumns: true, // Crea automaticamente le colonne in base alle chiavi 
 
-			layout: "fitColumns", 
+			layout: "fitColumns",
 			//height: "100%", //Evitare per MANCANZA di SCROLLBAR verticale
 
 			columns: [
-				{title: "DateTime", headerTooltip: true , field: "DateTime", widthGrow: 3, formatter: "textarea", resizable: false},
-    			{title: "Event", headerTooltip: true , field: "Event", widthGrow: 3, formatter: "textarea", resizable: false},
-    			{title: "Message_Console", headerTooltip: true , field: "Message_ConsoleApp", widthGrow: 6, formatter: "textarea", resizable: false},
+				{ title: "DateTime", headerTooltip: true, field: "DateTime", widthGrow: 3, formatter: "textarea", resizable: false },
+				{ title: "Event", headerTooltip: true, field: "Event", widthGrow: 3, formatter: "textarea", resizable: false },
+				{ title: "Message_Console", headerTooltip: true, field: "Message_ConsoleApp", widthGrow: 6, formatter: "textarea", resizable: false },
 
-				
+
 			],
 
-			footerElement: 
-        		"<div style='height: 2vh'> " +
-					"<button style='font-family: Trebuchet MS; font-size: 1.3vh; font-style: italic; cursor: pointer; margin-right: 5px; '" +
-					"onclick='consoleApp.download(\"xlsx\", \"Message_Console.xlsx\", {sheetName: \"Sheet01\"});'>" +
-						"Export XLSX" + 
-					"</button>" + 
-					"<button style='font-family: Trebuchet MS; font-size: 1.3vh; font-style: italic; cursor: pointer; margin-right: 5px; '" +
-					"onclick='consoleApp.download(\"csv\", \"Message_Console.csv\");'>" +
-						"Export CSV" + 
-					"</button>" + 
-					"<button style='font-family: Trebuchet MS; font-size: 1.3vh; font-style: italic; cursor: pointer; margin-right: 5px; '" +
-					"onclick='consoleApp.download(\"pdf\", \"Message_Console.pdf\");'>" +
-						"Export PDF" + 
-					"</button>" + 
-        		"</div>" 
+			footerElement:
+				"<div style='height: 2vh'> " +
+				"<button style='font-family: Trebuchet MS; font-size: 1.3vh; font-style: italic; cursor: pointer; margin-right: 5px; '" +
+				"onclick='consoleApp.download(\"xlsx\", \"Message_Console.xlsx\", {sheetName: \"Sheet01\"});'>" +
+				"Export XLSX" +
+				"</button>" +
+				"<button style='font-family: Trebuchet MS; font-size: 1.3vh; font-style: italic; cursor: pointer; margin-right: 5px; '" +
+				"onclick='consoleApp.download(\"csv\", \"Message_Console.csv\");'>" +
+				"Export CSV" +
+				"</button>" +
+				"<button style='font-family: Trebuchet MS; font-size: 1.3vh; font-style: italic; cursor: pointer; margin-right: 5px; '" +
+				"onclick='consoleApp.download(\"pdf\", \"Message_Console.pdf\");'>" +
+				"Export PDF" +
+				"</button>" +
+				"</div>"
 
 		});
 
 		//consoleApp.element.style.fontFamily = "'Courier New', monospace";
 		consoleApp.element.style.fontSize = "1.3vh";
 
-		var ufoDatasetColumns = [ 
-			{title: "ID", 
-				headerFilter: "input", headerFilterParams: { elementAttributes: { style: "font-size: 1.3vh; width: 100%; box-sizing: border-box;" } }, 
-				headerTooltip: true, field: "ID", widthGrow: 0.7, formatter: "textarea", resizable: false , 
-				contextMenu: menuDellaCella  
-			} ,
-			{title: "datetime", 
-				headerFilter: "input", headerFilterParams: { elementAttributes: { style: "font-size: 1.3vh; width: 100%; box-sizing: border-box;" } }, 
-				headerTooltip: true, field: "datetime", widthGrow: 1, formatter: "textarea", resizable: false , 
-				contextMenu: menuDellaCella  
-			} ,
-			{title: "city", 
+		var ufoDatasetColumns = [
+			{
+				title: "ID",
 				headerFilter: "input", headerFilterParams: { elementAttributes: { style: "font-size: 1.3vh; width: 100%; box-sizing: border-box;" } },
-				headerTooltip: true, field: "city", widthGrow: 1, formatter: "textarea", resizable: false , 
-				contextMenu: menuDellaCella 
-			
-			} , 
+				headerTooltip: true, field: "ID", widthGrow: 0.7, formatter: "textarea", resizable: false,
+				contextMenu: menuDellaCella
+			},
+			{
+				title: "datetime",
+				headerFilter: "input", headerFilterParams: { elementAttributes: { style: "font-size: 1.3vh; width: 100%; box-sizing: border-box;" } },
+				headerTooltip: true, field: "datetime", widthGrow: 1, formatter: "textarea", resizable: false,
+				contextMenu: menuDellaCella
+			},
+			{
+				title: "city",
+				headerFilter: "input", headerFilterParams: { elementAttributes: { style: "font-size: 1.3vh; width: 100%; box-sizing: border-box;" } },
+				headerTooltip: true, field: "city", widthGrow: 1, formatter: "textarea", resizable: false,
+				contextMenu: menuDellaCella
+
+			},
 			{
 				title: "shape",
-				headerTooltip: true,  
-				field: "shape" , 
-				headerFilter: "list",  
+				headerTooltip: true,
+				field: "shape",
+				headerFilter: "list",
 				//Questa configurazione permette di intercettare l'elemento HTML prima che venga mostrato
 				headerFilterParams: {
-					valuesLookup: true , // <--- Prende i valori presenti nella tabella
+					valuesLookup: true, // <--- Prende i valori presenti nella tabella
 					// Applica lo stile al campo di input visibile nell'header
 					elementAttributes: {
 						style: "font-size: 1.3vh; width: 100%; box-sizing: border-box;" // Inietta lo stile inline direttamente sull'input JS, attenzione alle dimensioni
-					} , 
+					},
 					// Applica lo stile ai singoli elementi della lista a discesa
-					itemFormatter: function(value, label, item, element) {
+					itemFormatter: function (value, label, item, element) {
 						element.style.fontSize = "12px";
 						element.style.fontFamily = "'YourCustomFont', sans-serif";
-						return label; 
+						return label;
 					}
-				} ,
-				widthGrow: 1, formatter: "textarea", resizable: false , 
-				contextMenu: menuDellaCella 
-			} , 
-			{title: "duration_text", 
+				},
+				widthGrow: 1, formatter: "textarea", resizable: false,
+				contextMenu: menuDellaCella
+			},
+			{
+				title: "duration_text",
 				headerFilter: "input", headerFilterParams: { elementAttributes: { style: "font-size: 1.3vh; width: 100%; box-sizing: border-box;" } },
-				headerTooltip: true, field: "duration_text" , widthGrow: 1, formatter: "textarea", resizable: false , 
-				contextMenu: menuDellaCella  
-			} , 
-			{title: "description", 
+				headerTooltip: true, field: "duration_text", widthGrow: 1, formatter: "textarea", resizable: false,
+				contextMenu: menuDellaCella
+			},
+			{
+				title: "description",
 				headerFilter: "input", headerFilterParams: { elementAttributes: { style: "font-size: 1.3vh; width: 100%; box-sizing: border-box;" } },
-				headerTooltip: true, field: "description" , widthGrow: 4, formatter: "textarea", resizable: false , 
-				contextMenu: menuDellaCella 
-			} , 
-			{title: "duration_seconds", 
+				headerTooltip: true, field: "description", widthGrow: 4, formatter: "textarea", resizable: false,
+				contextMenu: menuDellaCella
+			},
+			{
+				title: "duration_seconds",
 				headerFilter: "input", headerFilterParams: { elementAttributes: { style: "font-size: 1.3vh; width: 100%; box-sizing: border-box;" } },
-				headerTooltip: true, field: "duration_seconds" , widthGrow: 1, formatter: "textarea", resizable: false , 
-				contextMenu: menuDellaCella 
-			} ,
-			{title: "report_date", 
+				headerTooltip: true, field: "duration_seconds", widthGrow: 1, formatter: "textarea", resizable: false,
+				contextMenu: menuDellaCella
+			},
+			{
+				title: "report_date",
 				headerFilter: "input", headerFilterParams: { elementAttributes: { style: "font-size: 1.3vh; width: 100%; box-sizing: border-box;" } },
-				headerTooltip: true, field: "report_date" , widthGrow: 1, formatter: "textarea", resizable: false ,
-				contextMenu: menuDellaCella 
-			
-			} , 
-			{title: "state", 
-				headerFilter: "input", headerFilterParams: { elementAttributes: { style: "font-size: 1.3vh; width: 100%; box-sizing: border-box;" } },
-				headerTooltip: true, field: "state" , widthGrow: 0.7, formatter: "textarea", resizable: false ,
-				contextMenu: menuDellaCella  
-			
-			} , 
-			{title: "country", 
-				headerFilter: "input", headerFilterParams: { elementAttributes: { style: "font-size: 1.3vh; width: 100%; box-sizing: border-box;" } },
-				headerTooltip: true, field: "country" , widthGrow: 0.7, formatter: "textarea", resizable: false ,
-				contextMenu: menuDellaCella 
-			
-			} , 
-			{title: "latitude", 
-				headerFilter: "input", headerFilterParams: { elementAttributes: { style: "font-size: 1.3vh; width: 100%; box-sizing: border-box;" } },
-				headerTooltip: true, field: "latitude" , widthGrow: 1, formatter: "textarea", resizable: false , 
-				contextMenu: menuDellaCella  
-			
-			} , 
-			{title: "longitude", 
-				headerFilter: "input", headerFilterParams: { elementAttributes: { style: "font-size: 1.3vh; width: 100%; box-sizing: border-box;" } },
-				headerTooltip: true, field: "longitude" , widthGrow: 1, formatter: "textarea", resizable: false ,
-				contextMenu: menuDellaCella 
-			
-			} 
-			
-			//headerFilter: "list", headerFilterParams: {valuesLookup: true}}, // Menu a tendina automatico
-		]; 
+				headerTooltip: true, field: "report_date", widthGrow: 1, formatter: "textarea", resizable: false,
+				contextMenu: menuDellaCella
 
-		var ufoDatasetFooter = 
+			},
+			{
+				title: "state",
+				headerFilter: "input", headerFilterParams: { elementAttributes: { style: "font-size: 1.3vh; width: 100%; box-sizing: border-box;" } },
+				headerTooltip: true, field: "state", widthGrow: 0.7, formatter: "textarea", resizable: false,
+				contextMenu: menuDellaCella
+
+			},
+			{
+				title: "country",
+				headerFilter: "input", headerFilterParams: { elementAttributes: { style: "font-size: 1.3vh; width: 100%; box-sizing: border-box;" } },
+				headerTooltip: true, field: "country", widthGrow: 0.7, formatter: "textarea", resizable: false,
+				contextMenu: menuDellaCella
+
+			},
+			{
+				title: "latitude",
+				headerFilter: "input", headerFilterParams: { elementAttributes: { style: "font-size: 1.3vh; width: 100%; box-sizing: border-box;" } },
+				headerTooltip: true, field: "latitude", widthGrow: 1, formatter: "textarea", resizable: false,
+				contextMenu: menuDellaCella
+
+			},
+			{
+				title: "longitude",
+				headerFilter: "input", headerFilterParams: { elementAttributes: { style: "font-size: 1.3vh; width: 100%; box-sizing: border-box;" } },
+				headerTooltip: true, field: "longitude", widthGrow: 1, formatter: "textarea", resizable: false,
+				contextMenu: menuDellaCella
+
+			}
+
+			//headerFilter: "list", headerFilterParams: {valuesLookup: true}}, // Menu a tendina automatico
+		];
+
+		var ufoDatasetFooter =
 			"<div style='height: 2vh'> " +
 			"<button style='font-family: Trebuchet MS; font-size: 1.3vh; font-style: italic; cursor: pointer; margin-right: 5px; '" +
 			"onclick='ufoDataset.download(\"xlsx\", \"UfoDataset.xlsx\", {sheetName: \"Sheet01\"});'>" +
-				"Export XLSX" + 
-			"</button>" + 
+			"Export XLSX" +
+			"</button>" +
 			"<button style='font-family: Trebuchet MS; font-size: 1.3vh; font-style: italic; cursor: pointer; margin-right: 5px; '" +
 			"onclick='ufoDataset.download(\"csv\", \"UfoDataset.csv\");'>" +
-				"Export CSV" + 
-			"</button>" + 
+			"Export CSV" +
+			"</button>" +
 			"<button style='font-family: Trebuchet MS; font-size: 1.3vh; font-style: italic; cursor: pointer; margin-right: 5px; '" +
 			"onclick='ufoDataset.download(\"pdf\", \"UfoDataset.pdf\");'>" +
-				"Export PDF" + 
-			"</button>" + 
-        	"</div>"; 
+			"Export PDF" +
+			"</button>" +
+			"</div>";
 
 		var ufoDatasetObjReset = {
 			//data: null, //dataUfoDataset, // CARICAMENTO DATI ESEGUITO IN SEGUITO (!!!)
@@ -691,16 +723,16 @@
 			virtualDom: true,
 			//layout: "fitData", // Evita continui ricalcoli delle colonne [6] 
 			//virtualDomBuffer: 300,
-			
+
 			//autoColumns: true, // Crea automaticamente le colonne in base alle chiavi 
 			layout: "fitColumns",
-			columns: ufoDatasetColumns , 
+			columns: ufoDatasetColumns,
 
-			footerElement: ufoDatasetFooter , 
+			footerElement: ufoDatasetFooter,
 
 			//selectableRows: "highlight",
 
-		}; 
+		};
 
 		//ufoDataset = new Tabulator( "#ufoDataset", ufoDatasetObjReset );
 
@@ -711,36 +743,36 @@
 
 		function ufoDatasetRowClick(e, row) {
 
-			var ID = null;  
-			if( !isNaN( row.getData()["ID"] ) ) {
+			var ID = null;
+			if (!isNaN(row.getData()["ID"])) {
 				ID = row.getData()["ID"];
 			} else {
 				ID = null; //getIndex(), getPosition() ... 
 			}
 
 			var lat = row.getData()["latitude"];
-			var lng = row.getData()["longitude"]; 
+			var lng = row.getData()["longitude"];
 
-			if( !isNaN(lat) && !isNaN(lng) ) { 
-				
+			if (!isNaN(lat) && !isNaN(lng)) {
+
 				/*var tempIcon = L.AwesomeMarkers.icon({ //red, blue, green, purple, orange, yellow, black, grey
 					icon: 'coffee',
-    				markerColor: 'red' , 
-    				className: 'awesome-marker awesome-marker-square'
+					markerColor: 'red' , 
+					className: 'awesome-marker awesome-marker-square'
 					*/
-					/*
-					icon: 'star',          // Nome dell'icona (es. senza il prefisso 'fa-')
-					markerColor: 'orange',   // Colore del marker di sfondo
-					prefix: 'fa',            // Libreria di origine ('fa' per Font Awesome)
-					iconColor: 'white'       // Colore del simbolo interno
-					
-				});*/
+				/*
+				icon: 'star',          // Nome dell'icona (es. senza il prefisso 'fa-')
+				markerColor: 'orange',   // Colore del marker di sfondo
+				prefix: 'fa',            // Libreria di origine ('fa' per Font Awesome)
+				iconColor: 'white'       // Colore del simbolo interno
 				
+			});*/
+
 				/*
 				const tempIcon = L.divIcon({
-    				html: '<span style="font-size: 40px;">🛸</span>',
+					html: '<span style="font-size: 40px;">🛸</span>',
 					className: '', // Rimuove lo sfondo bianco di default
-    				//iconSize:,
+					//iconSize:,
 					iconAnchor: [40, 40]  
 				});
 				*/
@@ -749,16 +781,16 @@
 				var tempArr = cluMarkers.getLayers(); //markerClusterGroup -> array JS
 				//L'oridnamento NON e' quello di INSERIMENTO dei Markers
 
-				if( ID != null ) { //Reset (con ID)
+				if (ID != null) { //Reset (con ID)
 
-					var markerSpecifico = tempArr.find(function(marker) {
-						return marker.options.id === ID; 
+					var markerSpecifico = tempArr.find(function (marker) {
+						return marker.options.id === ID;
 					});
 
 				} else { //Query 
 
-					var markerSpecifico = tempArr.find(function(marker) {
-						return ( marker.options.lat === lat && marker.options.lon === lng  ); 
+					var markerSpecifico = tempArr.find(function (marker) {
+						return (marker.options.lat === lat && marker.options.lon === lng);
 					});
 
 				}
@@ -767,7 +799,7 @@
 				//markerSpecifico.setIcon( tempIcon ); 
 
 				//console.log( markerSpecifico.options.icon.options.html );
-				
+
 				// Prendi la stringa HTML dall'icona
 				var stringaHtml = markerSpecifico.options.icon.options.html;
 
@@ -783,18 +815,18 @@
 				if (loSpan) {
 					// LEGGERNE IL CONTENUTO:
 					//console.log("Contenuto attuale dello span:", loSpan[0].innerHTML);
-					
+
 					// PRIMO SPAN
 					// MODIFICARNE IL CONTENUTO (Opzionale):
 					loSpan[0].innerHTML = "✅";
 
 					// MODIFICA IL FONT SIZE (puoi usare vh, px, em, ecc.)
-    				loSpan[0].style.fontSize = "3.5vh"; 
+					loSpan[0].style.fontSize = "3.5vh";
 
 					// SECONDO SPAN
-					loSpan[1].style.background = "green"; 
+					loSpan[1].style.background = "green";
 					loSpan[1].style.color = "white";
-					
+
 					// Salva le modifiche riportando tutto a stringa e aggiorna il marker
 					markerSpecifico.options.icon.options.html = doc.body.innerHTML;
 					markerSpecifico.setIcon(markerSpecifico.options.icon);
@@ -805,28 +837,28 @@
 
 				/* 
 				tempArr.find(function(m) { //m -> marker
-        			return m.options.id === idCercato;
-    			});
+					return m.options.id === idCercato;
+				});
 				*/
 
-				map01.setView( [ lat, lng ], 19);
+				map01.setView([lat, lng], 19);
 
 			} else {
 				tempObj = {
-					DateTime : getDateTime() , 
-					Event : "Unable to locate Marker",
-					Message_ConsoleApp : ( "Wrong Coordinates" ) , //+ ": " + lat + ", " + lng ), //lat, lng UNDEFINED 
-				}; 
-			
-				dataConsoleApp.unshift( tempObj ); //Inizio Array 
+					DateTime: getDateTime(),
+					Event: "Unable to locate Marker",
+					Message_ConsoleApp: ("Wrong Coordinates"), //+ ": " + lat + ", " + lng ), //lat, lng UNDEFINED 
+				};
+
+				dataConsoleApp.unshift(tempObj); //Inizio Array 
 
 				//consoleApp.on("tableBuilt", function(){
-				consoleApp.setData( dataConsoleApp );
+				consoleApp.setData(dataConsoleApp);
 				//}); 
 
 			}
 
-		}; 
+		};
 
 		//Aggancia l'evento SUBITO DOPO l'inizializzazione
 
@@ -834,7 +866,7 @@
 			// 'e' è l'oggetto evento del mouse
 			// 'row' è il componente riga di Tabulator
 			//console.log("Il mouse è entrato sulla riga:", row.getData());
-			
+
 			// Esempio: cambia lo sfondo delle celle di questa riga
 			row.getCells().forEach(cell => {
 				cell.getElement().style.backgroundColor = "#fbc02d"; //#ffeb3b (Giallo chiaro)
@@ -842,8 +874,8 @@
 
 			//TOOLTIP ROW
 			var rowElement = row.getElement(); // Prendi l'elemento HTML della riga
-        	// Imposta il messaggio del tooltip usando l'attributo 'title' standard del browser
-        	rowElement.title = "Click to display UFO / UAP SIGHTING on Map ...";
+			// Imposta il messaggio del tooltip usando l'attributo 'title' standard del browser
+			rowElement.title = "Click to display UFO / UAP SIGHTING on Map ...";
 
 		};
 
@@ -851,7 +883,7 @@
 
 		function ufoDatasetRowMouseLeave(e, row) {
 			row.getCells().forEach(cell => {
-				cell.getElement().style.backgroundColor = ""; 
+				cell.getElement().style.backgroundColor = "";
 			});
 		};
 
@@ -873,11 +905,11 @@
 		*/
 
 		//ufoDataset.on("tableBuilt", function(){
-    		// Esempio: esegui un'azione sicura qui, come impostare un ordinamento iniziale
-			//ufoDataset.setData( dataUfoDataset )
-    		//ufoDataset.redraw(true); 
-			//console.log( "ufoDataset: tableBuilt (!)" );
-			 
+		// Esempio: esegui un'azione sicura qui, come impostare un ordinamento iniziale
+		//ufoDataset.setData( dataUfoDataset )
+		//ufoDataset.redraw(true); 
+		//console.log( "ufoDataset: tableBuilt (!)" );
+
 		//});
 
 		//*** DIV - QUERY SQL ***//
@@ -886,15 +918,15 @@
 
 		divQuerySQL.onAdd = function (map01) {
 
-			var div = L.DomUtil.create('div' ); //, CSS Style ...
+			var div = L.DomUtil.create('div'); //, CSS Style ...
 
-			var examplesTextArea = 
-				"/*NOTE: use 'latitude', 'longitude' to plot Markers on Map\n" + 
+			var examplesTextArea =
+				"/*NOTE: use 'latitude', 'longitude' to plot Markers on Map\n" +
 				"SQL QUERY EXAMPLES:\n" +
 				"select * from ?\n" +
 				"select shape, count(*) as tot from ? group by shape order by tot asc\n" +
-				"select description, latitude, longitude from ?\n" +  
-				"select * from ? where datetime like '%1959%' */"; 
+				"select description, latitude, longitude from ?\n" +
+				"select * from ? where datetime like '%1959%' */";
 
 			div.innerHTML = `
 				<div style="background: #ffffff; border: 2px solid #000000; border-radius: 5px; margin: 0px; padding: 5px;" > <!-- style -->
@@ -915,7 +947,7 @@
 
 				</div>
 
-			`; 
+			`;
 
 			L.DomEvent.disableClickPropagation(div); //Click
 			L.DomEvent.disableScrollPropagation(div); //Zoom
@@ -926,12 +958,12 @@
 		divQuerySQL.addTo(map01);
 
 		//*** DIV - REFERENCES ***//
-		
+
 		var divNote = L.control({ position: 'bottomright' });
 
 		divNote.onAdd = function (map01) {
 
-			var div = L.DomUtil.create('div' ); //, CSS Style ...
+			var div = L.DomUtil.create('div'); //, CSS Style ...
 
 			div.innerHTML = `
 				<div style="background: #ffffff; border: 2px solid #000000; border-radius: 5px; margin: 0px; padding: 5px;" > <!-- style -->
@@ -979,27 +1011,27 @@
 			`;
 
 			const bottone = div.querySelector('#rifDivButton');
-    		const contenuto = div.querySelector('#rifDivContenuto');
+			const contenuto = div.querySelector('#rifDivContenuto');
 
-			div.querySelector('#theme-select').addEventListener("change", function() {
+			div.querySelector('#theme-select').addEventListener("change", function () {
 				const selectedTheme = this.value;
 				// Costruiamo la URL dinamica usando la CDN unpkg
 				const newThemeUrl = `https://unpkg.com/tabulator-tables@6.3.1/dist/css/${selectedTheme}.min.css`;
-				
+
 				// Aggiorniamo l'attributo href del tag <link>
 				document.getElementById("tabulator-theme").href = newThemeUrl;
-        	});
-			
-			bottone.addEventListener('click', function() {
-        		if (contenuto.style.display === 'none') {
-            		contenuto.style.display = 'block';
-            		bottone.textContent = '❌ Hide REFERENCES';
-        		} else {
-            		contenuto.style.display = 'none';
-            		bottone.textContent = '🗺️ Show / Hide REFERENCES';
-        		}
-    		});
-			
+			});
+
+			bottone.addEventListener('click', function () {
+				if (contenuto.style.display === 'none') {
+					contenuto.style.display = 'block';
+					bottone.textContent = '❌ Hide REFERENCES';
+				} else {
+					contenuto.style.display = 'none';
+					bottone.textContent = '🗺️ Show / Hide REFERENCES';
+				}
+			});
+
 			L.DomEvent.disableClickPropagation(div); //Click
 			L.DomEvent.disableScrollPropagation(div); //Zoom
 
@@ -1011,37 +1043,37 @@
 
 		//*** EVENTS ***//
 
-		map01.addEventListener('mousemove', function( e ) {
-			dataLatLngZoom[0].Coordinates = "Latitude: " + ( e.latlng.lat ).toFixed( 6 ); 
-			dataLatLngZoom[1].Coordinates = "Longitude: " + ( e.latlng.lng ).toFixed( 6 );
+		map01.addEventListener('mousemove', function (e) {
+			dataLatLngZoom[0].Coordinates = "Latitude: " + (e.latlng.lat).toFixed(6);
+			dataLatLngZoom[1].Coordinates = "Longitude: " + (e.latlng.lng).toFixed(6);
 
 			//latLngZoom.on("tableBuilt", function(){
-			latLngZoom.setData( dataLatLngZoom );
+			latLngZoom.setData(dataLatLngZoom);
 			//});
 
 		});
 
-		map01.addEventListener('zoomend', function( e ) {
-			dataLatLngZoom[2].Coordinates  = "Zoom: " + ( map01.getZoom() ).toFixed( 2 );
+		map01.addEventListener('zoomend', function (e) {
+			dataLatLngZoom[2].Coordinates = "Zoom: " + (map01.getZoom()).toFixed(2);
 
 			//latLngZoom.on("tableBuilt", function() { 
-			latLngZoom.setData( dataLatLngZoom );
+			latLngZoom.setData(dataLatLngZoom);
 			//});
 
 		});
 
-		map01.on('click', function(e) {
-			
+		map01.on('click', function (e) {
+
 			tempObj = {
-				DateTime : getDateTime() , 
-				Event : "Click on Map",
-    			Message_ConsoleApp : ( "Map clicked at: " + e.latlng.lat.toFixed( 6 ) + ", " + e.latlng.lng.toFixed( 6 ) ),
-			}; 
-			
-			dataConsoleApp.unshift( tempObj ); //Inizio Array 
+				DateTime: getDateTime(),
+				Event: "Click on Map",
+				Message_ConsoleApp: ("Map clicked at: " + e.latlng.lat.toFixed(6) + ", " + e.latlng.lng.toFixed(6)),
+			};
+
+			dataConsoleApp.unshift(tempObj); //Inizio Array 
 
 			//consoleApp.on("tableBuilt", function() {
-			consoleApp.setData( dataConsoleApp );
+			consoleApp.setData(dataConsoleApp);
 			//}); 
 		});
 
@@ -1052,156 +1084,156 @@
 		var ufoDF = null; //Dataframe INIZIALE contenente TUTTE le righe del CSV UfoDataset con ADATTAMENTI 
 		var queryDF = null; //Dataframe relativo al risultato della Query SQL 
 
-		var arrInfo = null;  
-		var numbRows = null; 
+		var arrInfo = null;
+		var numbRows = null;
 		//Metodo "shape" NON permesso in quanto esiste già un nome di Colonna 'SHAPE' (!)
 
-		var markersControl = null; 
+		var markersControl = null;
 
-		var error = null; 
+		var error = null;
 
-		dfd.readCSV( url , { header: false } )
-		.then( ( df ) => { 
-			const righe = Array.from({ length: df.shape[0] }, (_, i) => i ); //Parto da 0 ... 
-			df.addColumn("ID", righe, { inplace: true });
-			df = df.loc({ columns: ["ID", ...df.columns.filter(c => c !== "ID")] }); //ID = Numero Riga (Prima posizione)
+		dfd.readCSV(url, { header: false })
+			.then((df) => {
+				const righe = Array.from({ length: df.shape[0] }, (_, i) => i); //Parto da 0 ... 
+				df.addColumn("ID", righe, { inplace: true });
+				df = df.loc({ columns: ["ID", ...df.columns.filter(c => c !== "ID")] }); //ID = Numero Riga (Prima posizione)
 
-			const tempArr = df.values;
+				const tempArr = df.values;
 
-			ufoDF = new dfd.DataFrame( tempArr , { //Header 0,1,2 ... NON rimovibile
-				columns: ["ID" , "datetime", "city", "state", "country", "shape", "duration_seconds", "duration_text", "description", "report_date", "latitude", "longitude"]
+				ufoDF = new dfd.DataFrame(tempArr, { //Header 0,1,2 ... NON rimovibile
+					columns: ["ID", "datetime", "city", "state", "country", "shape", "duration_seconds", "duration_text", "description", "report_date", "latitude", "longitude"]
+				});
+				//console.log( ndf )
+				//VEDI N (enne) DF ovvero ndf 
+
+				drawMarkers('reset');
+
+			}) //Eventuali ulteriori then ... 
+			.catch(err => {
+				console.log(err);
 			});
-			//console.log( ndf )
-			//VEDI N (enne) DF ovvero ndf 
-			
-			drawMarkers( 'reset' ); 
 
-		}) //Eventuali ulteriori then ... 
-		.catch(err => {
-			console.log(err);
-		}); 
+		async function drawMarkers(arg) { //arg può essere 'query' (SQL) o 'reset' (PRIMO avvio o ripristino)
 
-		async function drawMarkers( arg ) { //arg può essere 'query' (SQL) o 'reset' (PRIMO avvio o ripristino)
+			//ufoDataset.on("tableBuilt", function()
+			//{
+			//console.log( "ufoDataset: tableBuilt (!)" );
+			//
 
-		//ufoDataset.on("tableBuilt", function()
-		//{
-		//console.log( "ufoDataset: tableBuilt (!)" );
-		//
-
-			if( arg == "reset" ) {
+			if (arg == "reset") {
 				//Possiedo già il DataFrame "ufoDF" (ed eventualmente estrapolo il JSON se necessario)
-				error = false; 
+				error = false;
 
-			} else if( arg == "query" ) { //PARTE ALASQL 
+			} else if (arg == "query") { //PARTE ALASQL 
 				try {
-					jsonUfoDF = dfd.toJSON( ufoDF ); 
+					jsonUfoDF = dfd.toJSON(ufoDF);
 					// Query SQL usando il punto di domanda (?) come segnaposto per la variabile JSON
 					//'SELECT nome, eta FROM ? WHERE citta = "Roma" AND eta > 28
-					var risp = await alasql( document.getElementById("textQuerySQL").value , [jsonUfoDF]);
+					var risp = await alasql(document.getElementById("textQuerySQL").value, [jsonUfoDF]);
 					//console.log(risp); //RISOSTA JSON 
-					queryDF = new dfd.DataFrame( risp );
+					queryDF = new dfd.DataFrame(risp);
 
-					console.log( "QueryDF" ); 
-					console.log(queryDF ); 
+					console.log("QueryDF");
+					console.log(queryDF);
 
-					error = false; 
+					error = false;
 
-				} catch(e) {
+				} catch (e) {
 
-					console.log( e );
+					console.log(e);
 					var messageErrors = [
 						{
-							Errors: "" + e 
+							Errors: "" + e
 						},
 					];
-					
-					if( window.ufoDataset != null ) {
-						window.ufoDataset.destroy(); 
+
+					if (window.ufoDataset != null) {
+						window.ufoDataset.destroy();
 					}
 
-					var ufoDatasetObjError = { 
+					var ufoDatasetObjError = {
 						renderVertical: "virtual", // Forza il Virtual DOM verticale [2, 5]
 						virtualDom: true,
-						layout: "fitColumns", 
-						footerElement: ufoDatasetFooter ,
-						autoColumns: true , //<-- Impostato principalmente per 'query'
+						layout: "fitColumns",
+						footerElement: ufoDatasetFooter,
+						autoColumns: true, //<-- Impostato principalmente per 'query'
 					};
 
-					window.ufoDataset = new Tabulator( "#ufoDataset", ufoDatasetObjError );
+					window.ufoDataset = new Tabulator("#ufoDataset", ufoDatasetObjError);
 
-					window.ufoDataset.on("tableBuilt", function(){
-						ufoDataset.setData( messageErrors ); 
-					});  
+					window.ufoDataset.on("tableBuilt", function () {
+						ufoDataset.setData(messageErrors);
+					});
 
-					error = true; 
+					error = true;
 
 				}
 
 			}
 
-			if( error == false ) //***INIZIO PARTE ERROR ***//
+			if (error == false) //***INIZIO PARTE ERROR ***//
 			{
 
-			//*** INIZIO PARTE MARKERS SULLA MAPPA ***//
+				//*** INIZIO PARTE MARKERS SULLA MAPPA ***//
 
-			if( layerUAPMarkers.hasLayer( cluMarkers ) ) {
-				layerUAPMarkers.removeLayer( cluMarkers ); 
-			}
-			cluMarkers.clearLayers(); //clusterMarkers
+				if (layerUAPMarkers.hasLayer(cluMarkers)) {
+					layerUAPMarkers.removeLayer(cluMarkers);
+				}
+				cluMarkers.clearLayers(); //clusterMarkers
 
-			//const info = ndf.loc({ //df ridotto per MARKER
+				//const info = ndf.loc({ //df ridotto per MARKER
 				//columns: [ "ID" , "latitude", "longitude" , "datetime", "city" , "shape" , "duration_text" , "description" ] 
-			//}) 
+				//}) 
 
-			markersControl = false;
+				markersControl = false;
 
-			if( arg == "reset" ) {
-				//In ufoDF sono già presenti le colonne 'latitude' , 'longitude' 
-				markersControl = true;  
-
-			} else if( arg == "query" ) {
-				if( queryDF.columns.indexOf("latitude") >=0 && queryDF.columns.indexOf("longitude") >=0 ) {
+				if (arg == "reset") {
+					//In ufoDF sono già presenti le colonne 'latitude' , 'longitude' 
 					markersControl = true;
+
+				} else if (arg == "query") {
+					if (queryDF.columns.indexOf("latitude") >= 0 && queryDF.columns.indexOf("longitude") >= 0) {
+						markersControl = true;
+					}
+
 				}
 
-			}
+				if (markersControl == true) { //SE PRESENTI colonne 'latitude' , 'longitude' 
 
-			if( markersControl == true ) { //SE PRESENTI colonne 'latitude' , 'longitude' 
+					if (arg == "reset") {
+						arrInfo = ufoDF.loc({ //df ridotto per MARKER
+							columns: ["ID", "latitude", "longitude", "datetime", "city", "shape", "duration_text", "description"]
+						});
 
-				if( arg == "reset" ) {
-					arrInfo = ufoDF.loc({ //df ridotto per MARKER
-						columns: [ "ID" , "latitude", "longitude" , "datetime", "city" , "shape" , "duration_text" , "description" ] 
-					}); 
+						numbRows = arrInfo.index.length; //EVITARE conflitto NOMI con colonna 'shape'   
 
-					numbRows = arrInfo.index.length; //EVITARE conflitto NOMI con colonna 'shape'   
+					} else if (arg == "query") {
+						//arrInfo = queryDF;
+						//lat, lon
 
-				} else if( arg == "query" ) {
-					//arrInfo = queryDF;
-					//lat, lon
+						numbRows = queryDF.index.length; //EVITARE conflitto NOMI con colonna 'shape' 
+					}
 
-					numbRows = queryDF.index.length; //EVITARE conflitto NOMI con colonna 'shape' 
-				}
+					if (arg == "reset") {
+						//console.log("RESET: " + arrInfo );  
+						arrInfo.values.map((ele, i) => { //df -> array 
+							const ID = ele[0];
+							const lat = ele[1];
+							const lon = ele[2];
+							/*
+							if( i == 0 ) {
+								console.log( "ID: " + ID + ", lat: " + lat + ", lon: " + lon);
+							}  
+							*/
+							var tempMarker = null;
 
-				if( arg == "reset" ) {
-					//console.log("RESET: " + arrInfo );  
-					arrInfo.values.map((ele, i) => { //df -> array 
-						const ID = ele[0]; 
-						const lat = ele[1];
-						const lon = ele[2];
-						/*
-						if( i == 0 ) {
-							console.log( "ID: " + ID + ", lat: " + lat + ", lon: " + lon);
-						}  
-						*/
-						var tempMarker = null; 
+							var tempIcon = iconMarker(ele[5], ID);
 
-						var tempIcon = iconMarker( ele[5] , ID ); 
-
-						//console.log( "isNaN: " + isNaN( '33q.200088' ) );
-						if( !isNaN(lat) && !isNaN(lon) ) {
-							//console.log( lat, lon , i )
-							//lat, lon nelle OPTIONS NON UTILIZZATI (uso ID)
-							tempMarker = L.marker([lat, lon] , { id: ID, lat: lat, lon: lon , icon: tempIcon } ).bindPopup(`
+							//console.log( "isNaN: " + isNaN( '33q.200088' ) );
+							if (!isNaN(lat) && !isNaN(lon)) {
+								//console.log( lat, lon , i )
+								//lat, lon nelle OPTIONS NON UTILIZZATI (uso ID)
+								tempMarker = L.marker([lat, lon], { id: ID, lat: lat, lon: lon, icon: tempIcon }).bindPopup(`
 								<b>🛸UFO / UAP SIGHTING:</b><br>
 								<b>* ID:</b> ${ID} di ${numbRows};<br> 
 								<b>* Latitude, Longitude:</b> ${lat}, ${lon};<br> 
@@ -1211,201 +1243,201 @@
 								<b>* Duration:</b> ${ele[6]};<br>
 								<b>* Description:</b> <i><span style="color: green;">${ele[7]}</span></i>.
 								`
-							);
-						}
-						if( tempMarker != null ) {
-							cluMarkers.addLayer( tempMarker );
-						}
-					});
+								);
+							}
+							if (tempMarker != null) {
+								cluMarkers.addLayer(tempMarker);
+							}
+						});
 
-				} else if( arg == "query" ) { 
+					} else if (arg == "query") {
 
-					var indexID = queryDF.columns.indexOf( "ID" ); 
-					var indexLat = queryDF.columns.indexOf( "latitude" ); 
-					var indexLon = queryDF.columns.indexOf( "longitude" ); 
+						var indexID = queryDF.columns.indexOf("ID");
+						var indexLat = queryDF.columns.indexOf("latitude");
+						var indexLon = queryDF.columns.indexOf("longitude");
 
-					queryDF.values.map((ele, i) => { //df -> array 
+						queryDF.values.map((ele, i) => { //df -> array 
 
-						const ID = ( indexID != -1 ? ele[ indexID ] : i ); //CONDIZIONE, ID o RIGA di INDICE "i" (RIGA DELLA TABELLA RELATIVA AL DATAFRAME queryDF)
-						const lat = ele[ indexLat ]; //SEMPRE PRESENTE PER CONDIZIONE VERIFICATA
-						const lon = ele[ indexLon ]; //SEMPRE PRESENTE PER CONDIZIONE VERIFICATA
+							const ID = (indexID != -1 ? ele[indexID] : i); //CONDIZIONE, ID o RIGA di INDICE "i" (RIGA DELLA TABELLA RELATIVA AL DATAFRAME queryDF)
+							const lat = ele[indexLat]; //SEMPRE PRESENTE PER CONDIZIONE VERIFICATA
+							const lon = ele[indexLon]; //SEMPRE PRESENTE PER CONDIZIONE VERIFICATA
 
-						var tempMarker = null; 
-						var tempIcon = iconMarker( "" , ID ); 
+							var tempMarker = null;
+							var tempIcon = iconMarker("", ID);
 
-						var textBindPopup = `
+							var textBindPopup = `
 							<b>🛸UFO / UAP SIGHTING:</b><br> 
 							<b>* Row (INDEX from Array/Dataframe):</b> ${i} di ${numbRows};<br>
-						`;  
+						`;
 
-						for( var pos = 0; pos < ele.length; pos++ ) {
-							textBindPopup += `<b>* ${queryDF.columns[ pos ]}:</b> ${ ele[pos] };<br>`;  
-						}
+							for (var pos = 0; pos < ele.length; pos++) {
+								textBindPopup += `<b>* ${queryDF.columns[pos]}:</b> ${ele[pos]};<br>`;
+							}
 
-						//console.log( "isNaN: " + isNaN( '33q.200088' ) );
-						if( !isNaN(lat) && !isNaN(lon) ) {
-							//console.log( lat, lon , i )
-							//RIGA INDICE "i" UGUALE A ID NON SEMPRE RECUPERABILE (USO QUINDI lat, lon (o "lng") presenti nelle Options, vedi 'RowClick') 
-							tempMarker = L.marker([lat, lon] , { id: ID, lat: lat, lon: lon , icon: tempIcon } ).bindPopup(
-								textBindPopup
-							);
-						}
+							//console.log( "isNaN: " + isNaN( '33q.200088' ) );
+							if (!isNaN(lat) && !isNaN(lon)) {
+								//console.log( lat, lon , i )
+								//RIGA INDICE "i" UGUALE A ID NON SEMPRE RECUPERABILE (USO QUINDI lat, lon (o "lng") presenti nelle Options, vedi 'RowClick') 
+								tempMarker = L.marker([lat, lon], { id: ID, lat: lat, lon: lon, icon: tempIcon }).bindPopup(
+									textBindPopup
+								);
+							}
 
-						//console.log( tempMarker );
+							//console.log( tempMarker );
 
-						if( tempMarker != null ) {
-							cluMarkers.addLayer( tempMarker );
-						}
-					});  
+							if (tempMarker != null) {
+								cluMarkers.addLayer(tempMarker);
+							}
+						});
+
+					}
+
+					layerUAPMarkers.addLayer(cluMarkers);
+					//map01.addLayer(cluMarkers);
+
+					//Estrazione Marker da MarkerCluster: 
+					/*
+					In Leaflet.markercluster, il metodo nativo getLayers() non garantisce la restituzione dei marker secondo l'ordine cronologico 
+					di inserimento precedente. Questo accade perche' la libreria indicizza e riorganizza internamente gli elementi in una struttura 
+					ad albero (basata su griglie e coordinate) per ottimizzare le prestazioni di clustering.
+					*/
+
+				}
+				//FINE PARTE MARKERS SULLA MAPPA
+
+				//*** GESTIONE JSON SEMPRE PRESENTE (ESCLUDENDO ERRORI) ***//
+
+				if (arg == "reset") {
+					dataUfoDataset = dfd.toJSON(ufoDF);
+
+					if (window.ufoDataset != null) {
+						window.ufoDataset.destroy();
+					}
+
+					window.ufoDataset = new Tabulator("#ufoDataset", ufoDatasetObjReset);
+
+					window.ufoDataset.on("rowClick", function (e, row) { ufoDatasetRowClick(e, row) });
+					window.ufoDataset.on("rowMouseEnter", function (e, row) { ufoDatasetRowMouseEnter(e, row) });
+					window.ufoDataset.on("rowMouseLeave", function (e, row) { ufoDatasetRowMouseLeave(e, row) });
+
+					//ufoDataset.element.style.fontFamily = "'Courier New', monospace";
+					window.ufoDataset.element.style.fontSize = "1.3vh";
+
+				} else if (arg == "query") {
+					dataQueryDataset = dfd.toJSON(queryDF);
+
+					var ufoDatasetObjQuery = {
+						renderVertical: "virtual", // Forza il Virtual DOM verticale [2, 5]
+						virtualDom: true,
+						layout: "fitColumns",
+						footerElement: ufoDatasetFooter,
+						autoColumns: true, //<-- Impostato principalmente per 'query'
+					};
+
+					if (window.ufoDataset != null) {
+						window.ufoDataset.destroy();
+					}
+
+					window.ufoDataset = new Tabulator("#ufoDataset", ufoDatasetObjQuery);
+
+					window.ufoDataset.on("rowClick", function (e, row) { ufoDatasetRowClick(e, row) });
+					window.ufoDataset.on("rowMouseEnter", function (e, row) { ufoDatasetRowMouseEnter(e, row) });
+					window.ufoDataset.on("rowMouseLeave", function (e, row) { ufoDatasetRowMouseLeave(e, row) });
+
+					//ufoDataset.element.style.fontFamily = "'Courier New', monospace";
+					window.ufoDataset.element.style.fontSize = "1.3vh";
 
 				}
 
-				layerUAPMarkers.addLayer( cluMarkers ); 
-				//map01.addLayer(cluMarkers);
-
-				//Estrazione Marker da MarkerCluster: 
-				/*
-				In Leaflet.markercluster, il metodo nativo getLayers() non garantisce la restituzione dei marker secondo l'ordine cronologico 
-				di inserimento precedente. Questo accade perche' la libreria indicizza e riorganizza internamente gli elementi in una struttura 
-				ad albero (basata su griglie e coordinate) per ottimizzare le prestazioni di clustering.
-				*/
-
-			} 
-			//FINE PARTE MARKERS SULLA MAPPA
-
-			//*** GESTIONE JSON SEMPRE PRESENTE (ESCLUDENDO ERRORI) ***//
-
-			if( arg == "reset" ) {
-				dataUfoDataset = dfd.toJSON( ufoDF );
-
-				if( window.ufoDataset != null ) {
-					window.ufoDataset.destroy();
-				}
-
-				window.ufoDataset = new Tabulator( "#ufoDataset", ufoDatasetObjReset ); 
-
-				window.ufoDataset.on("rowClick", function( e , row ) { ufoDatasetRowClick( e, row ) } ); 
-				window.ufoDataset.on("rowMouseEnter", function( e , row ) { ufoDatasetRowMouseEnter( e , row ) } ); 
-				window.ufoDataset.on("rowMouseLeave", function( e , row ) { ufoDatasetRowMouseLeave( e , row ) } ); 
-				
-				//ufoDataset.element.style.fontFamily = "'Courier New', monospace";
-				window.ufoDataset.element.style.fontSize = "1.3vh";
-
-			} else if( arg == "query" ) {
-				dataQueryDataset = dfd.toJSON( queryDF ); 
-
-				var ufoDatasetObjQuery = {
-					renderVertical: "virtual", // Forza il Virtual DOM verticale [2, 5]
-					virtualDom: true,
-					layout: "fitColumns", 
-					footerElement: ufoDatasetFooter ,
-					autoColumns: true , //<-- Impostato principalmente per 'query'
-				}; 
-
-				if( window.ufoDataset != null ) {
-					window.ufoDataset.destroy();
-				}
-
-				window.ufoDataset = new Tabulator( "#ufoDataset", ufoDatasetObjQuery );
-
-				window.ufoDataset.on("rowClick", function( e , row ) { ufoDatasetRowClick( e, row ) } ); 
-				window.ufoDataset.on("rowMouseEnter", function( e , row ) { ufoDatasetRowMouseEnter( e , row ) } ); 
-				window.ufoDataset.on("rowMouseLeave", function( e , row ) { ufoDatasetRowMouseLeave( e , row ) } ); 
-
-				//ufoDataset.element.style.fontFamily = "'Courier New', monospace";
-				window.ufoDataset.element.style.fontSize = "1.3vh";
-
-			}
-
-			//ufoDataset.on("tableBuilt", function(){ 
+				//ufoDataset.on("tableBuilt", function(){ 
 				//ufoDataset.setData( dataUfoDataset )
-			//});
+				//});
 
-			window.ufoDataset.on("tableBuilt", function(){
-				if( arg == "reset" ) {
-					// Se carichi i dati dopo l'inizializzazione
-					ufoDataset.setData(dataUfoDataset).then(function(){
-						// Forza Tabulator a ricalcolare le posizioni del Virtual DOM
-						ufoDataset.setSort("ID", "asc"); //INDISPENSABILE PER VIRTUAL DOM (!!!) //Altri campi: datetime, ... 
-						//ufoDataset.redraw(true); 
+				window.ufoDataset.on("tableBuilt", function () {
+					if (arg == "reset") {
+						// Se carichi i dati dopo l'inizializzazione
+						ufoDataset.setData(dataUfoDataset).then(function () {
+							// Forza Tabulator a ricalcolare le posizioni del Virtual DOM
+							ufoDataset.setSort("ID", "asc"); //INDISPENSABILE PER VIRTUAL DOM (!!!) //Altri campi: datetime, ... 
+							//ufoDataset.redraw(true); 
 
-					});  
-					
-				} else if( arg == "query" ) { 
-					// Se carichi i dati dopo l'inizializzazione
-					ufoDataset.setData(dataQueryDataset).then(function(){
-						// Forza Tabulator a ricalcolare le posizioni del Virtual DOM
+						});
 
-						//ORDER BY IN ALASQL (!)
+					} else if (arg == "query") {
+						// Se carichi i dati dopo l'inizializzazione
+						ufoDataset.setData(dataQueryDataset).then(function () {
+							// Forza Tabulator a ricalcolare le posizioni del Virtual DOM
 
-						//ufoDataset.setSort( queryDF.columns[ 0 ] , "asc"); //INDISPENSABILE PER VIRTUAL DOM (!!!) //Altri campi: datetime, ... 
+							//ORDER BY IN ALASQL (!)
 
-						//ufoDataset.redraw(true); 
+							//ufoDataset.setSort( queryDF.columns[ 0 ] , "asc"); //INDISPENSABILE PER VIRTUAL DOM (!!!) //Altri campi: datetime, ... 
 
-					});  
-				}
-			});
+							//ufoDataset.redraw(true); 
+
+						});
+					}
+				});
 
 			} //*** FINE PARTE ERROR ***//
 
-		
 
-		//}
-		//) //TableBuilt ... 
 
-		}; 
+			//}
+			//) //TableBuilt ... 
+
+		};
 
 		//*** ICON MARKER ***//
 
-		function iconMarker( expr , Id ) { //ele[5] , ID 
-			var icon = L.divIcon({ 
-				html: 
+		function iconMarker(expr, Id) { //ele[5] , ID 
+			var icon = L.divIcon({
+				html:
 					`<div style="font-family: 'Trebuchet MS'; text-align: center; ">
 						<div>
 							<span style="font-size: 2.5vh; background: transparent; padding: 1px 3px; border-radius: 3px;"
-							>${ ( () => {
-									if( expr == "cylinder" ) { return "🛢️"; }
-									else if( expr == "light" ) { return "🌟"; }
-									else if( expr == "circle" ) { return "⭕"; }
-									else if( expr == "sphere" ) { return "🟠"; }
-									else if( expr == "disk" ) { return "🛸"; }
-									else if( expr == "fireball" ) { return "☄️"; }
-									else if( expr == "unknown" ) { return "❓"; } 
-									else if( expr == "oval" ) { return "🏉"; }
-									else if( expr == "other" ) { return "🖖"; }
-									else if( expr == "cigar" ) { return "🚬"; }
-									else if( expr == "rectangle" ) { return "🔲"; }
-									else if( expr == "chevron" ) { return "🔰"; }
-									else if( expr == "triangle" ) { return "🔼"; }
-									else if( expr == "formation" ) { return "🌌"; }
-									else if( expr == "delta" ) { return "Δ"; }
-									else if( expr == "changing" ) { return "✨"; }
-									else if( expr == "egg" ) { return "🥚"; }
-									else if( expr == "diamond" ) { return "💎"; }
-									else if( expr == "flash" ) { return "⚡"; }
-									else if( expr == "teardrop" ) { return "💧"; }
-									else if( expr == "cone" ) { return "🔻"; }
-									else if( expr == "cross" ) { return "➕"; }
-									else if( expr == "pyramid" ) { return "𓉴"; }
-									else if( expr == "round" ) { return "🔘"; }
-									else if( expr == "crescent" ) { return "🌙"; }
-									else if( expr == "flare" ) { return "🔆"; }
-									else if( expr == "hexagon" ) { return "🛑"; }
-									else if( expr == "dome" ) { return "🕍"; }
-									else if( expr == "changed" ) { return "✨"; }
-									//else if( expr == "" ) { return "👽"; } 
-									else if( expr == "" ) { return "📌"; } 
-									else return "✖️";   
-									
-								})()
-								}</span>
+							>${(() => {
+						if (expr == "cylinder") { return "🛢️"; }
+						else if (expr == "light") { return "🌟"; }
+						else if (expr == "circle") { return "⭕"; }
+						else if (expr == "sphere") { return "🟠"; }
+						else if (expr == "disk") { return "🛸"; }
+						else if (expr == "fireball") { return "☄️"; }
+						else if (expr == "unknown") { return "❓"; }
+						else if (expr == "oval") { return "🏉"; }
+						else if (expr == "other") { return "🖖"; }
+						else if (expr == "cigar") { return "🚬"; }
+						else if (expr == "rectangle") { return "🔲"; }
+						else if (expr == "chevron") { return "🔰"; }
+						else if (expr == "triangle") { return "🔼"; }
+						else if (expr == "formation") { return "🌌"; }
+						else if (expr == "delta") { return "Δ"; }
+						else if (expr == "changing") { return "✨"; }
+						else if (expr == "egg") { return "🥚"; }
+						else if (expr == "diamond") { return "💎"; }
+						else if (expr == "flash") { return "⚡"; }
+						else if (expr == "teardrop") { return "💧"; }
+						else if (expr == "cone") { return "🔻"; }
+						else if (expr == "cross") { return "➕"; }
+						else if (expr == "pyramid") { return "𓉴"; }
+						else if (expr == "round") { return "🔘"; }
+						else if (expr == "crescent") { return "🌙"; }
+						else if (expr == "flare") { return "🔆"; }
+						else if (expr == "hexagon") { return "🛑"; }
+						else if (expr == "dome") { return "🕍"; }
+						else if (expr == "changed") { return "✨"; }
+						//else if( expr == "" ) { return "👽"; } 
+						else if (expr == "") { return "📌"; }
+						else return "✖️";
+
+					})()
+					}</span>
 						</div>`
-						+(Id != null ? 
-							`<div>
-								<span style="font-size: 1.5vh; background: white; padding: 2px; border-radius: 3px;">${"•Nr_" + ( ("" + Id).padStart(5, '0') ) }</span>
+					+ (Id != null ?
+						`<div>
+								<span style="font-size: 1.5vh; background: white; padding: 2px; border-radius: 3px;">${"•Nr_" + (("" + Id).padStart(5, '0'))}</span>
 							</div>`
 						: ``) +
-					`</div>` ,
+					`</div>`,
 				className: "", //'...', // Lasciando vuoto, Leaflet non applica i suoi stili di default //leaflet-div-icon
 				//iconSize: [30, 42],      // Dimensioni dell'icona [larghezza, altezza]
 				//iconAnchor: [15, 42],    // Punto dell'icona che si ancora alle coordinate (es. la punta in basso)
@@ -1414,7 +1446,24 @@
 
 			return icon;
 		}
-		
+
+
+	</script>
+
+	<!-- <p>Visite totali: <span id="contatore">...</span></p> -->
+
+	<script>
+		// Incolla qui l'URL della tua Web App di Google
+		const URL_GOOGLE = "https://script.google.com/macros/s/AKfycbwl-JvCapWoVpQa2TSvF7A7AvuQMFIqYi6uhbkjwVFSxWxCRkJYhFEqaUuedep0H_7U/exec";
+
+		fetch(URL_GOOGLE)
+			.then(res => res.json())
+			.then(data => {
+				//document.getElementById("contatore").innerText = data.views;
+			})
+			.catch(() => {
+				//document.getElementById("contatore").innerText = "N/D";
+			});
 
 	</script>
 
