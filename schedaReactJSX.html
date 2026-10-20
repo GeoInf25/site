@@ -1,0 +1,68 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>JSX direttamente in HTML</title>
+
+    <!-- 1. Carichiamo React e React DOM -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <!-- 2. Carichiamo Babel per far capire il JSX al browser -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/8.0.4/babel.min.js"></script>
+
+</head>
+
+<body>
+
+    <div id="divRangeC"></div>
+    <br>
+    <div id="divRangeF"></div>
+
+    <script type="text/babel">
+        // 1. Canale globale
+        const TempContext = React.createContext();
+
+        // 4. L'App fa da "Provider" dello stato e teletrasporta i componenti nei rispettivi div
+        function App() {
+            const [c, setC] = React.useState("50");
+            const [f, setF] = React.useState("122");
+
+            return (
+                <TempContext.Provider value={{ c, f, setC, setF }}>
+                    {ReactDOM.createPortal(<TempC />, document.getElementById('divRangeC'))}
+                    {ReactDOM.createPortal(<TempF />, document.getElementById('divRangeF'))}
+                </TempContext.Provider>
+            );
+        }
+
+        // 2. Componente Celsius
+        function TempC() {
+            const { c, setC, setF } = React.useContext(TempContext);
+            return (
+                <>
+                    °C: <span>{c}</span><br />
+                    <input type="range" min="-100" max="100" value={c}
+                        onChange={e => { setC(e.target.value); setF((e.target.value * 9 / 5 + 32).toFixed(2)); }} />
+                </>
+            );
+        }
+
+        // 3. Componente Fahrenheit
+        function TempF() {
+            const { f, setC, setF } = React.useContext(TempContext);
+            return (
+                <>
+                    °F: <span>{f}</span><br />
+                    <input type="range" min="-148" max="212" value={f}
+                        onChange={e => { setF(e.target.value); setC(((e.target.value - 32) * 5 / 9).toFixed(2)); }} />
+                </>
+            );
+        }
+
+        // Avvio dell'app in un punto qualsiasi (l'albero reale si sposterà grazie ai Portali)
+        ReactDOM.createRoot(document.createElement('div')).render(<App />);
+    </script>
+</body>
+
+</html>
