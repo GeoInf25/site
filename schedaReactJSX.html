@@ -2,7 +2,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>JSX direttamente in HTML</title>
+    <title>JSX directly in HTML</title>
 
     <!-- 1. Carichiamo React e React DOM -->
     <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
@@ -13,8 +13,10 @@
 
 </head>
 
-<body>
+<body style="font-family: 'Trebuchet MS'; ">
 
+    <p><b>📚 JSX (JavaScript XML) and Babel directly in HTML</b>:</p>
+    <p>- Temperature scales -</p>
     <div id="divRangeC"></div>
     <br>
     <div id="divRangeF"></div>
@@ -25,14 +27,16 @@
 
         // 4. L'App fa da "Provider" dello stato e teletrasporta i componenti nei rispettivi div
         function App() {
-            const [c, setC] = React.useState("50");
-            const [f, setF] = React.useState("122");
+            const [c, setC] = React.useState("50.00");
+            const [f, setF] = React.useState("122.00");
 
             return (
-                <TempContext.Provider value={{ c, f, setC, setF }}>
-                    {ReactDOM.createPortal(<TempC />, document.getElementById('divRangeC'))}
-                    {ReactDOM.createPortal(<TempF />, document.getElementById('divRangeF'))}
-                </TempContext.Provider>
+                <>
+                    <TempContext.Provider value={{ c, f, setC, setF }}>
+                        {ReactDOM.createPortal(<TempC />, document.getElementById('divRangeC'))}
+                        {ReactDOM.createPortal(<TempF />, document.getElementById('divRangeF'))}
+                    </TempContext.Provider>
+                </>
             );
         }
 
@@ -41,9 +45,9 @@
             const { c, setC, setF } = React.useContext(TempContext);
             return (
                 <>
-                    °C: <span>{c}</span><br />
-                    <input type="range" min="-100" max="100" value={c}
-                        onChange={e => { setC(e.target.value); setF((e.target.value * 9 / 5 + 32).toFixed(2)); }} />
+                    - Celsius (°C): <span>{c}</span><br />
+                    <input type="range" min="-100.00" max="100.00" value={c} step="0.01"
+                        onChange={e => { const valFixed = Number(e.target.value).toFixed(2); setC(valFixed); setF((e.target.value * 9 / 5 + 32).toFixed(2)); }} />
                 </>
             );
         }
@@ -53,9 +57,9 @@
             const { f, setC, setF } = React.useContext(TempContext);
             return (
                 <>
-                    °F: <span>{f}</span><br />
-                    <input type="range" min="-148" max="212" value={f}
-                        onChange={e => { setF(e.target.value); setC(((e.target.value - 32) * 5 / 9).toFixed(2)); }} />
+                    - Fahrenheit (°F): <span>{f}</span><br />
+                    <input type="range" min="-148.00" max="212.00" value={f} step="0.01"
+                        onChange={e => { const valFixed = Number(e.target.value).toFixed(2); setF(valFixed); setC(((e.target.value - 32) * 5 / 9).toFixed(2)); }} />
                 </>
             );
         }
