@@ -64,37 +64,6 @@
 
                 <script>
 
-                    /* ************** */
-                    // 1. Mappa dei chunk generati matematicamente da v86 associati ai rispettivi ID di Google Drive
-                    const chunkDriveMap = {
-                    "Chunks/chunk.zst-0-77856768": "1FWQ5Ar-BpiNmVfKiXzM-fEg7sZDZO0Gg",
-                    "Chunks/chunk.zst-77856768-155713536": "1Xc0aTMBvwyteNQdoKpZlAzAyaqXInxeD",
-                    "Chunks/chunk.zst-155713536-233570304": "165nzh6wFQr-a-RyG5xbV0D4SZrv_CqK2",
-                    "Chunks/chunk.zst-233570304-311427071": "1izjX7i_Ig7-OkIe-KIlfTa7KrJoUui7F"
-                    };
-
-                    // 2. Intercettatore globale XMLHttpRequest per deviare il traffico su Google Drive
-                    const originalOpen = XMLHttpRequest.prototype.open;
-
-                    XMLHttpRequest.prototype.open = function(method, url, ...args) {
-                        // Controlla se l'URL inizia con la stringa desiderata
-                        if (typeof url === 'string' && url.startsWith("Chunks/chunk.zst")) {
-                            
-                            // Se l'URL specifico esiste nella mappa, applica la deviazione
-                            if (chunkDriveMap[url]) {
-                                const fileId = chunkDriveMap[url];
-                                // Sostituisce la richiesta locale con il link di download diretto di Drive
-                                url = `https://drive.google.com/file/d/${fileId}/view?usp=sharing`;
-                            }
-                        
-                        }
-
-                        // Se non inizia con "Chunks/chunk.zst" o non è nella mappa, 
-                        // prosegue normalmente con il metodo originale
-                        return originalOpen.apply(this, [method, url, ...args]);
-                    };
-                    /* ************** */
-
                     var emulator = null;  
 
                     async function avviaVirtualMachine() {
