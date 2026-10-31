@@ -66,6 +66,87 @@
 
                     var emulator = null;  
 
+                    var zst = null;  //" ... /exec"
+
+                    (function() {
+                        const originalOpen = XMLHttpRequest.prototype.open;
+                        const originalSend = XMLHttpRequest.prototype.send;
+
+                        XMLHttpRequest.prototype.open = function(method, url, async, user, password) {
+                            // Memorizziamo l'URL nell'istanza per controllarlo successivamente nel 'send'
+                            this._interceptedUrl = url;
+                            return originalOpen.apply(this, arguments); 
+                        };
+
+                        XMLHttpRequest.prototype.send = function(body) {
+                            const url = this._interceptedUrl; //URL INVARIATO
+                            console.log("Intercettato url v86: " + url);
+
+                            if (typeof url === 'string' && url.includes("Chunks/chunk")) { //CHUNKS
+
+                                // 1. Crea il tuo ByteArray (es. 512 byte di zeri, o i tuoi dati reali)
+                                //const mioByteArray = new Uint8Array(512); 
+                                // Inserisci qui i tuoi dati, ad esempio: mioByteArray[0] = 0xEB;
+
+                                if( url == "Chunks/chunk-0-50331648.zst" ) {
+                                    zst = "https://script.google.com/macros/s/AKfycbzNlq92kF0KIUsZ0y1A9hG_vYunyq2Bz5dyI9E2RMZzzR0qPu2b5vvCRviN8oGKXmGZ/exec";
+                                } else if( url == "Chunks/chunk-50331648-100663296.zst" ) {
+                                    zst = "https://script.google.com/macros/s/AKfycbwxQYaz74EnBVm6xi5DWO32DllRdp5C5ZumvrPc0Hpq-H3xpm2eN7oOMNkZwVKAmcKs/exec";
+                                } else if( url == "Chunks/chunk-100663296-150994944.zst" ) {
+                                    zst = "https://script.google.com/macros/s/AKfycbwMDK84pZhoLXOZX2auq5WQNYp3WTfPI1ntg1HkMgtD56lcBzw3lbgwF5pNrKFx-tNRzA/exec";
+                                } else if( url == "Chunks/chunk-150994944-201326592.zst" ) { 
+                                    zst = "https://script.google.com/macros/s/AKfycbxsRGNP8jKeKAgdmZaFhr72NKACbLzJuGmHEr79hiVdXWcpcJbyoJ_9uHxZ9zSYJx1i/exec";
+                                } else if( url == "Chunks/chunk-201326592-251658240.zst" ) { 
+                                    zst = "https://script.google.com/macros/s/AKfycbzM4HTtot9-yyrHyeAPAOA3VrLwIe63D0dN8Ww8dZXuIhS1ljY57E_0SlTJFl5loua6/exec";
+                                } else if( url == "Chunks/chunk-251658240-301989888.zst" ) {  
+                                    zst = "https://script.google.com/macros/s/AKfycbwM86z2VomEHrr-Nqw7KW7dwP4Bb3LOcvvgRxHIFELczfrh-TWyb6qQGsDlRuN7ILlY/exec";
+                                }
+
+                                fetch( zst )
+                                    .then(response => response.json())
+                                    .then(json => {
+                                        if (json.error) {
+                                            console.error("Errore da Google App Script:", json.error);
+                                            return;
+                                        }
+
+                                        // Converte i dati ricevuti in Base64 nuovamente in un file binario (Blob)
+                                        const byteCharacters = atob(json.data);
+                                        const byteNumbers = new Array(byteCharacters.length);
+                                        for (let i = 0; i < byteCharacters.length; i++) {
+                                            byteNumbers[i] = byteCharacters.charCodeAt(i);
+                                        }
+                                        const byteArray = new Uint8Array(byteNumbers);
+                                        
+                                        //const blob = new Blob([byteArray], { type: json.mimeType });
+
+                                        // 2. Simula la risposta di rete mockando le proprietà di XMLHttpRequest
+                                        Object.defineProperty(this, 'readyState', { writable: true, value: 4 });
+                                        Object.defineProperty(this, 'status', { writable: true, value: 200 });
+                                        Object.defineProperty(this, 'statusText', { writable: true, value: 'OK' });
+                                        
+                                        // v86 legge i chunk impostando responseType = 'arraybuffer'
+                                        Object.defineProperty(this, 'response', { writable: true, value: byteArray.buffer });
+                                        Object.defineProperty(this, 'responseText', { writable: true, value: '' });
+
+                                        // 3. Scatena l'evento che v86 sta ascoltando per fargli capire che il file è pronto
+                                        if (typeof this.onreadystatechange === 'function') {
+                                            this.onreadystatechange();
+                                        }
+                                        this.dispatchEvent(new Event('readystatechange'));
+                                        this.dispatchEvent(new Event('load'));
+                                
+                                        // Ritorniamo presto senza chiamare il send originale (bloccando la richiesta HTTP reale)
+                                        return; 
+                                    })
+                                //Senza parentesi 
+                            } else {
+                                // Se non è il chunk che cerchiamo, esegui la richiesta normalmente
+                                return originalSend.apply(this, arguments); //In caso "Open":  return originalOpen.apply(this, arguments);
+                            }
+                        }
+                    })(); // () --> Esecuzione immediata
+
                     async function avviaVirtualMachine() {
 
                         try {
@@ -94,8 +175,8 @@
                                     url: "Chunks/chunk.zst",               // Indica il prefisso e l'estensione corretta //NON USARE ./
                                     async: true,
                                     use_parts: true,                        // Dice a v86 di usare la modalità a pezzi
-                                    fixed_chunk_size: 77856768,     // Deve corrispondere esattamente al partsize (128k) //77856768 
-                                    size: 311427071     // La dimensione totale originaria del disco in byte //311427071
+                                    fixed_chunk_size: 50331648,     // Deve corrispondere esattamente al partsize (128k) //77856768 
+                                    size: 301989887     // La dimensione totale originaria del disco in byte //311427071 // -1 rispetto all'ultimo Chunk
                                 } , 
 
                                 cmdline: "root=/dev/sda1 rw rootdelay=1",
