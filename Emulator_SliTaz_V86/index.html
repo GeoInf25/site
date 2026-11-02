@@ -6,7 +6,7 @@
     <title>My Browser OS</title>
     <script src="./libv86.js"></script> 
 
-    <link rel="stylesheet" href="styleGeoInf.css"> 
+    <link rel="stylesheet" href="styleGeoInf.css">  
 
     <style>
 
@@ -68,7 +68,8 @@
 
                     var zst = null;  //" ... /exec"
 
-                    (function() {
+                    //(function() {
+                    async function predisponiChunk() {
                         const originalOpen = XMLHttpRequest.prototype.open;
                         const originalSend = XMLHttpRequest.prototype.send;
 
@@ -80,7 +81,8 @@
 
                         XMLHttpRequest.prototype.send = function(body) {
                             const url = this._interceptedUrl; //URL INVARIATO
-                            console.log("Intercettato url v86: " + url);
+                            console.log("Intercepted v86 URL: " + url);
+                            document.getElementById("console").value += "Loading " + url + ( url.includes("Chunks/chunk") ? ", waiting for another WebService ..." : "" ) + "\n"; 
 
                             if (typeof url === 'string' && url.includes("Chunks/chunk")) { //CHUNKS
 
@@ -106,7 +108,8 @@
                                     .then(response => response.json())
                                     .then(json => {
                                         if (json.error) {
-                                            console.error("Errore da Google App Script:", json.error);
+                                            console.error("Error from Google App Script:", json.error);
+                                            document.getElementById("console").value += "" + json.error + "\n"; 
                                             return;
                                         }
 
@@ -145,7 +148,8 @@
                                 return originalSend.apply(this, arguments); //In caso "Open":  return originalOpen.apply(this, arguments);
                             }
                         }
-                    })(); // () --> Esecuzione immediata
+                    }; 
+                    //})(); --> Esecuzione immediata
 
                     async function avviaVirtualMachine() {
 
@@ -185,13 +189,13 @@
 
                                 virtio_console: true ,
 
-                                //Set boot order: 0x213 indica 
+                                //Set boot order: 0x213 indica  
                                 // 2 - CD 
                                 // 1 - Hard Disk 
                                 // 3 - Floppy
                                 boot_order: "0x213", 
 
-                                //fda: { url: "./FD14BOOT.img" },
+                                //fda: { url: "./FD14BOOT.img" }, 
 
                                 autostart: true, 
 
@@ -212,9 +216,6 @@
                         }
                     });
 
-                    // Lancia il caricamento
-                    avviaVirtualMachine();
-
                 </script>
 
             </div>
@@ -223,6 +224,12 @@
                 <!-- <i> -->
                 <br>
                 <br>
+                <br>
+                <b>📘 CONSOLE MESSAGE</b>:
+                <br>
+                <textarea id="console" 
+                    style=" width: 92.5%; height: 30vh; margin-left: 2.75vh; overflow-y: scroll; border: 1px solid; resize: none; color: white; background-color: black; font-family: 'Trebuchet MS'; font-size: 1.5vh; " 
+                readonly></textarea>
                 <br>
                 <b>📘 SOME NOTES</b>:
                 <br>
@@ -264,6 +271,12 @@
                 • Click inside the Canvas (SliTaz Desktop image) to "capture" the mouse cursor (press Esc to exit). 
                 </p >
                 <br>
+                
+                <!-- </i> -->
+
+            </div>
+
+            <div id="center" style="float: left; width: 100%; overflow: auto; font-size: 1.5vh; ">
                 <b>📘 EXAMPLE OF LINUX TERMINAL COMMANDS</b>: 
                 <br>
                 <p >
@@ -276,9 +289,7 @@
                 • <a href="https://alpinelinux.org/downloads/">Alpine Linux</a>, <a href="https://en.wikipedia.org/wiki/Tiny_Core_Linux">Tiny Core Linux</a>, <a href="https://en.wikipedia.org/wiki/Damn_Small_Linux">Damn Small Linux</a>. 
                 </p>
                 <br>
-                <!-- </i> -->
-
-            </div>
+            </div> 
 
         </div>
 
@@ -296,5 +307,14 @@
 		</div>
 	</div>
 
+    <script>
+
+        predisponiChunk();  
+
+        // Lancia il caricamento
+        avviaVirtualMachine();
+
+    </script>
+
 </body>
-</html>
+</html> 
