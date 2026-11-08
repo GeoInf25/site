@@ -1,0 +1,122 @@
+
+
+<html>
+
+<head>
+
+    <link id="tabulator-theme" href="https://unpkg.com/tabulator-tables@6.3.1/dist/css/tabulator_midnight.min.css"
+		rel="stylesheet">
+	<script type="text/javascript" src="https://unpkg.com/tabulator-tables@6.3.1/dist/js/tabulator.min.js"></script>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+		integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+	<!-- Make sure you put this AFTER Leaflet's CSS -->
+	<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+		integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/split.js/1.6.0/split.min.js"></script>
+
+    <script src="./lib_varGlob.js"></script>
+
+    <style>
+    .container {  
+        display: flex;
+        flex-direction: row; /* Cambia in 'column' per lo split verticale */
+        height: 100%;       /* Altezza del contenitore */ /* 100vh */
+    }
+
+    /* Stile per la barra di trascinamento creata da Split.js */
+    .gutter {
+        background-color: #eee;
+        background-repeat: no-repeat;
+        background-position: 50%;
+        cursor: col-resize; /* Usa 'row-resize' se lo split è verticale */
+    }
+
+    .hDelimiter {
+        width: 100%;          /* Occupa tutto lo spazio orizzontale disponibile */
+        height: 2px;         /* Spessore di 10 pixel */
+        background-color: #eee; /* Colore grigio (puoi usare anche #ccc o #333) */
+        border: none;         /* Rimuove il bordo predefinito del browser */
+        /*margin: 15px 0; */      /* Spazio sopra e sotto la linea (opzionale) */
+    }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container"> <!-- MANTENERE DIV PER SPLIT.JS -->
+        <div id="left" class="split" > 
+            <div id="comp_Map"></div>
+            <div class="hDelimiter"></div>
+            <div>
+                <div id="comp_LatLngZoom"></div>
+                <div id="comp_MapButtons"></div>
+                <div id="comp_BaseMap"></div>
+            </div>
+            
+
+        </div>
+
+        <div id="right" class="split" >
+
+        </div>
+    </div>
+
+    <script>
+
+        // Inizializzazione base
+        Split(['#left', '#right'], {
+            sizes: [ 65 , 35 ],       // Percentuali iniziali dei div (es. 50% e 50%)
+            minSize: 100,         // Dimensione minima in pixel per ogni div
+            gutterSize: 10,       // Spessore della barra di trascinamento in pixel
+            direction: 'horizontal', // 'horizontal' o 'vertical'
+
+            // La funzione viene eseguita SOLO QUANDO rilasci la barra
+            onDragEnd: function(sizes) { 
+                glob_map.invalidateSize();
+
+            }
+        }); 
+
+        async function Imp( fileName ) { 
+                try 
+                {
+                var response = await fetch("./" + fileName + ".html")
+                var data = await response.text(); 
+
+                const parser = new DOMParser();
+                const htmlDoc = parser.parseFromString(data, 'text/html');
+
+                document.getElementById( "" + fileName ).innerHTML = htmlDoc.querySelector("div").innerHTML;
+
+                var script = document.createElement('script'); 
+                script.textContent = htmlDoc.querySelector("script").textContent; //querySelectorAll
+                document.body.appendChild(script);  
+
+                } catch( error ) {
+                    console.error('Errore nel caricamento del file:', error) 
+                };
+
+        }
+
+        ( async () => { //Mantenere Async per chiamate ... 
+                await Imp("comp_Map");
+                await Imp("comp_LatLngZoom");
+                await Imp("comp_MapButtons");
+                await Imp("comp_BaseMap");
+                // altri COMP ... 
+                console.log("Testo di esempio ... "); 
+                
+                //Ulteriori funzioni ... 
+        })(); 
+
+
+    </script>
+
+
+
+</body>
+
+<html>

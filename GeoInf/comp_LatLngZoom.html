@@ -1,0 +1,72 @@
+
+<div>
+      <style>
+            /*#btn {
+                  background-color: red;
+            }*/
+      </style>
+
+      <!--
+      <button id="btn" onclick=" foo();" style="font-family: 'Times'; ">
+            Cliccami
+      </button>
+      -->
+      <div>
+
+            <div id="latLngZoom"
+			style="width: 13%; max-width: 13%; height: 15vh; max-height: 15vh; float: left; margin: 0; padding: 0; ">
+		</div> <!-- 1.75vh style='float: left; ' width: 100%; -->
+      </div>
+
+</div>
+
+<script>
+
+      latLngZoom = new Tabulator("#latLngZoom", {
+            data: glob_dataLatLngZoom, // Carica i dati 
+            layout: "fitColumns", 
+            //height: "100%", //Evitare per MANCANZA di SCROLLBAR verticale
+
+            //autoColumns: true, // Crea automaticamente le colonne in base alle chiavi 
+            columns: [
+                  { title: "Coordinates", headerTooltip: true, field: "Coordinates", widthGrow: 1, formatter: "textarea", resizable: false },
+            ],
+
+
+            footerElement:
+                  "<div style='height: 2vh'>" +
+                  "<br>" +
+                  "</div>"
+      });
+
+      //CSS via JS
+      document.getElementById("latLngZoom").style.fontFamily = glob_font;
+
+      //latLngZoom.element.style.fontFamily = "'Courier New', monospace";
+	latLngZoom.element.style.fontSize = "1.3vh";
+
+      glob_map.addEventListener('zoomend', function (e) {
+            glob_zoom = (glob_map.getZoom()).toFixed(2); 
+            glob_dataLatLngZoom[2].Coordinates = (glob_lang == "eng" ? "Zoom: " : "Zoom: " ) + glob_zoom;
+
+            //latLngZoom.on("tableBuilt", function() { 
+            latLngZoom.setData(glob_dataLatLngZoom);
+            //});
+
+      });
+
+      //*** EVENTS ***//
+
+      glob_map.addEventListener('mousemove', function (e) {
+            glob_lat = (e.latlng.lat).toFixed(6); 
+            glob_long = (e.latlng.lng).toFixed(6); 
+            glob_dataLatLngZoom[0].Coordinates = (glob_lang == "eng" ? "Latitude: " : "Latitudine: " ) + glob_lat;
+            glob_dataLatLngZoom[1].Coordinates = (glob_lang == "eng" ? "Longitude: " : "Longitudine: " )  + glob_long;
+
+            //latLngZoom.on("tableBuilt", function(){
+            latLngZoom.setData(glob_dataLatLngZoom); 
+            //});
+
+      });
+
+</script>

@@ -1,0 +1,27 @@
+
+<div>
+      <style>
+            #btn {
+                  background-color: red;
+            }
+      </style>
+
+      <button id="btn" onclick=" foo();" style="font-family: 'Times'; ">
+            Cliccami
+      </button>
+
+</div>
+
+<script>
+      function foo() {
+            console.log("" + document.getElementById("btn").id);
+      }
+      function btn_translate( ) {
+            if( lang == "ita" ) {
+                  document.getElementById("btn").textContent = "Cliccami"; 
+            } else {
+                  document.getElementById("btn").textContent = "Click me"; 
+            }
+
+      }
+</script>

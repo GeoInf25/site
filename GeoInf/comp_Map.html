@@ -1,0 +1,48 @@
+
+<div>
+      <style>
+            /*#btn {
+                  background-color: red;
+            }*/
+      </style>
+
+      <!--
+      <button id="btn" onclick=" foo();" style="font-family: 'Times'; ">
+            Cliccami
+      </button>
+      -->
+      <div id="map" style="height: 85vh"></div>
+
+</div>
+
+<script>
+      
+      glob_map = L.map('map', {
+
+		zoomControl: false, // Lo disabilitiamo per controllare l'ordine di inserimento
+
+		zoomSnap: 1, //1
+		zoomDelta: 1,
+		wheelPxPerZoomLevel: 70, //60 
+
+		//openFreeMap (necessario)
+		maxZoom: 19,
+
+	}).setView([46.035235, 10.980633], 3.0);
+
+      //ZOOM Control 
+
+	L.control.zoom({ position: 'topleft' }).addTo( glob_map );
+
+      Object.values(glob_baseMaps)[ 0 ].addTo( glob_map );
+
+      /*
+      function btn_translate( ) {
+            if( glob_lang == "ita" ) {
+                  document.getElementById("btn").textContent = "Cliccami"; 
+            } else if( glob_lang == "eng" ) {
+                  document.getElementById("btn").textContent = "Click me"; 
+            }
+      }
+      */
+</script>

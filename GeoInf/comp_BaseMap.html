@@ -1,0 +1,110 @@
+
+<div>
+      <style>
+            /*#btn {
+                  background-color: red;
+            }*/
+      </style>
+
+      <!--
+      <button id="btn" onclick=" foo();" style="font-family: 'Times'; ">
+            Cliccami
+      </button>
+      -->
+      <div>
+
+            <div id="baseMap"
+			style="width: 15%; max-width: 15%; height: 15vh; max-height: 15vh; float: left; margin: 0; padding: 0; ">
+		</div> <!-- 1.75vh style='float: left; ' width: 100%; -->
+      </div>
+
+</div>
+
+<script>
+
+      //FUNZIONI CON SCOPE GLOBALE!
+      function ChangeBaseMap( numbOption ) {
+            Object.values(glob_baseMaps).forEach(layer => {
+                  if (glob_map.hasLayer(layer)) {
+                        glob_map.removeLayer(layer);
+                  }
+            });
+
+            Object.values(glob_baseMaps)[ numbOption - 1 ].addTo( glob_map ); //TABULATOR JS INIZIA DA 1
+             
+      } 
+
+      var actionsFormatter = function(cell, formatterParams, onRendered){
+            var rowNumber = cell.getRow().getPosition(true); 
+            // Nota: passando 'true' a getPosition(true) conta solo le righe visibili/attive
+
+            var baseMapRadioName = ""; 
+            (
+                  () => { 
+                        if( rowNumber == 1 ) { //TABULATOR JS INIZIA DA 1
+                              ( glob_lang == "eng" ? baseMapRadioName = "OpenStreetMap " : ( glob_lang == "ita" ? baseMapRadioName = "OpenStreetMap " : "" ) );  
+                        } else if( rowNumber == 2 ) {
+                              ( glob_lang == "eng" ? baseMapRadioName = "CyclOSM" : ( glob_lang == "ita" ? baseMapRadioName = "CyclOSM" : "" ) );    
+                        } else if( rowNumber == 3 ) {
+                              ( glob_lang == "eng" ? baseMapRadioName = "WorldTopoMap" : ( glob_lang == "ita" ? baseMapRadioName = "WorldTopoMap" : "" ) );   
+                        } else if( rowNumber == 4 ) {
+                              ( glob_lang == "eng" ? baseMapRadioName = "WorldImagery" : ( glob_lang == "ita" ? baseMapRadioName = "WorldImagery" : "" ) );   
+                        }
+                  }
+            )()
+
+            var result = ""; 
+            result = `
+                  <div style="border: 0; margin: 0vh; padding: 0vh; overflow-x: auto;" >
+                        <input type="radio" id=${"baseMapRadio" + rowNumber } name="baseMapGroup" value=${baseMapRadioName}
+                        onchange=${ (
+                                    () => {
+                                          return ( " 'ChangeBaseMap( " + rowNumber + "); ' " ); //ATTENZIONE VIRGOLETTE '... ' NECESSARIE
+                                    }
+                              )() }
+                        >
+                              ${baseMapRadioName}
+                        </input>
+                  </div>`;
+            return result;  
+      };
+
+      mapButtons = new Tabulator("#baseMap", { 
+            data: glob_baseMap, //[{}], // Messo un oggetto vuoto per mostrare almeno una riga di test
+            layout: "fitColumns", 
+            //height: "100%", //Evitare per MANCANZA di SCROLLBAR verticale
+
+            //autoColumns: true, // Crea automaticamente le colonne in base alle chiavi 
+            columns: [
+                  {
+                        title: "BaseMap (TileLayer)", 
+                        headerTooltip: true, 
+                        field: "baseMap",
+                        widthGrow: 1, 
+                        formatter: actionsFormatter,
+                        resizable: false, 
+                        headerSort: false, 
+                        // Gestione del click 
+                        cellClick: function(e, cell){ 
+                              //var rowData = cell.getRow().getData();
+                              var target = e.target; // L'elemento cliccato
+                              console.log( "Click Cell ... " );
+
+                        }
+                },
+            ],
+
+
+            footerElement:
+                  "<div style='height: 2vh'>" +
+                  "<br>" +
+                  "</div>"
+      });
+
+      //CSS via JS
+      document.getElementById("baseMap").style.fontFamily = glob_font;
+      
+	mapButtons.element.style.fontSize = "1.3vh"; 
+
+
+</script>
