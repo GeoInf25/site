@@ -1,5 +1,4 @@
 
-
 <html>
 
 <head>
@@ -42,7 +41,7 @@
     }
     </style>
 
-</head>
+</head> 
 
 <body>
 
@@ -50,16 +49,20 @@
         <div id="left" class="split" > 
             <div id="comp_Map"></div>
             <div class="hDelimiter"></div>
-            <div>
-                <div id="comp_LatLngZoom"></div>
+            <div >   
+                <div id="comp_TypeLang" ></div> 
+                <div id="comp_LatLngZoom" ></div> 
                 <div id="comp_MapButtons"></div>
                 <div id="comp_BaseMap"></div>
-            </div>
+                <div id="comp_TypeDistance"></div>  
+
+            </div>  
             
 
         </div>
 
         <div id="right" class="split" >
+            <div id="comp_InitialDataRow00"></div>  
 
         </div>
     </div>
@@ -75,7 +78,7 @@
 
             // La funzione viene eseguita SOLO QUANDO rilasci la barra
             onDragEnd: function(sizes) { 
-                glob_map.invalidateSize();
+                glob_map.invalidateSize(); 
 
             }
         }); 
@@ -95,17 +98,24 @@
                 script.textContent = htmlDoc.querySelector("script").textContent; //querySelectorAll
                 document.body.appendChild(script);  
 
-                } catch( error ) {
+                } catch( error ) { 
                     console.error('Errore nel caricamento del file:', error) 
                 };
 
         }
 
         ( async () => { //Mantenere Async per chiamate ... 
+                //BLOCCO 'LEFT' 
                 await Imp("comp_Map");
+                await Imp("comp_TypeLang");
                 await Imp("comp_LatLngZoom");
                 await Imp("comp_MapButtons");
                 await Imp("comp_BaseMap");
+                await Imp("comp_TypeDistance");
+
+                //BLOCCO 'RIGHT' 
+                await Imp("comp_InitialDataRow00");
+
                 // altri COMP ... 
                 console.log("Testo di esempio ... "); 
                 

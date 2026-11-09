@@ -14,7 +14,9 @@
       <div>
 
             <div id="baseMap"
-			style="width: 15%; max-width: 15%; height: 15vh; max-height: 15vh; float: left; margin: 0; padding: 0; ">
+			style="width: 14%; max-width: 14%; height: 15vh; max-height: 15vh; float: left; 
+                        margin-top: 0; margin-bottom: 0; margin-left: 0; margin-right: 1px; 
+                        padding: 0; ">
 		</div> <!-- 1.75vh style='float: left; ' width: 100%; -->
       </div>
 
@@ -31,10 +33,12 @@
             });
 
             Object.values(glob_baseMaps)[ numbOption - 1 ].addTo( glob_map ); //TABULATOR JS INIZIA DA 1
+
+            glob_numbBaseMap = numbOption; //Attenzione ad inizio conteggio
              
       } 
 
-      var actionsFormatter = function(cell, formatterParams, onRendered){
+      var actionsFormatterBaseMap = function(cell, formatterParams, onRendered){
             var rowNumber = cell.getRow().getPosition(true); 
             // Nota: passando 'true' a getPosition(true) conta solo le righe visibili/attive
 
@@ -51,17 +55,18 @@
                               ( glob_lang == "eng" ? baseMapRadioName = "WorldImagery" : ( glob_lang == "ita" ? baseMapRadioName = "WorldImagery" : "" ) );   
                         }
                   }
-            )()
+            )() 
 
             var result = ""; 
             result = `
                   <div style="border: 0; margin: 0vh; padding: 0vh; overflow-x: auto;" >
-                        <input type="radio" id=${"baseMapRadio" + rowNumber } name="baseMapGroup" value=${baseMapRadioName}
+                        <input type="radio" id=${"baseMapRadio" + rowNumber } name="baseMapGroup" value=${baseMapRadioName} style="transform: scale(1.2)"; 
                         onchange=${ (
                                     () => {
                                           return ( " 'ChangeBaseMap( " + rowNumber + "); ' " ); //ATTENZIONE VIRGOLETTE '... ' NECESSARIE
                                     }
                               )() }
+                        ${ ( rowNumber == glob_numbBaseMap ? "checked" : "" )}
                         >
                               ${baseMapRadioName}
                         </input>
@@ -69,42 +74,47 @@
             return result;  
       };
 
-      mapButtons = new Tabulator("#baseMap", { 
-            data: glob_baseMap, //[{}], // Messo un oggetto vuoto per mostrare almeno una riga di test
-            layout: "fitColumns", 
-            //height: "100%", //Evitare per MANCANZA di SCROLLBAR verticale
+      funcBaseMap = () => {
+            return new Tabulator("#baseMap", { 
+                  data: glob_baseMap, //[{}], // Messo un oggetto vuoto per mostrare almeno una riga di test
+                  layout: "fitColumns", 
+                  //height: "100%", //Evitare per MANCANZA di SCROLLBAR verticale
 
-            //autoColumns: true, // Crea automaticamente le colonne in base alle chiavi 
-            columns: [
-                  {
-                        title: "BaseMap (TileLayer)", 
-                        headerTooltip: true, 
-                        field: "baseMap",
-                        widthGrow: 1, 
-                        formatter: actionsFormatter,
-                        resizable: false, 
-                        headerSort: false, 
-                        // Gestione del click 
-                        cellClick: function(e, cell){ 
-                              //var rowData = cell.getRow().getData();
-                              var target = e.target; // L'elemento cliccato
-                              console.log( "Click Cell ... " );
+                  //autoColumns: true, // Crea automaticamente le colonne in base alle chiavi 
+                  columns: [
+                        {
+                              title: ( glob_lang == "eng" ? "Base Map (TileLayer)" : ( glob_lang == "ita" ? "Mappa Base (TileLayer)" : "" ) ), 
+                              headerTooltip: true, 
+                              headerHozAlign: "center", 
+                              field: "baseMap",
+                              widthGrow: 1, 
+                              formatter: actionsFormatterBaseMap,
+                              resizable: false, 
+                              headerSort: false, 
+                              // Gestione del click 
+                              cellClick: function(e, cell){ 
+                                    //var rowData = cell.getRow().getData();
+                                    var target = e.target; // L'elemento cliccato
+                                    console.log( "Click Cell ... " );
 
-                        }
-                },
-            ],
+                              }
+                  },
+                  ],
 
 
-            footerElement:
-                  "<div style='height: 2vh'>" +
-                  "<br>" +
-                  "</div>"
-      });
+                  footerElement:
+                        "<div style='height: 2vh'>" +
+                        "<br>" +
+                        "</div>"
+            });
+      }
+
+      baseMap = funcBaseMap( ); 
 
       //CSS via JS
       document.getElementById("baseMap").style.fontFamily = glob_font;
       
-	mapButtons.element.style.fontSize = "1.3vh"; 
+	baseMap.element.style.fontSize = "1.3vh"; 
 
 
 </script>

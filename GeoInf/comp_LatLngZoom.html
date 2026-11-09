@@ -14,7 +14,9 @@
       <div>
 
             <div id="latLngZoom"
-			style="width: 13%; max-width: 13%; height: 15vh; max-height: 15vh; float: left; margin: 0; padding: 0; ">
+			style="width: 11%; max-width: 11%; height: 15vh; max-height: 15vh; float: left; 
+                        margin-top: 0; margin-bottom: 0; margin-left: 0; margin-right: 1px; 
+                        padding: 0; ">
 		</div> <!-- 1.75vh style='float: left; ' width: 100%; -->
       </div>
 
@@ -22,38 +24,35 @@
 
 <script>
 
-      latLngZoom = new Tabulator("#latLngZoom", {
-            data: glob_dataLatLngZoom, // Carica i dati 
-            layout: "fitColumns", 
-            //height: "100%", //Evitare per MANCANZA di SCROLLBAR verticale
+      funcLatLngZoom = () => {
+            return new Tabulator("#latLngZoom", {
+                  data: glob_dataLatLngZoom, // Carica i dati 
+                  layout: "fitColumns", 
+                  //height: "100%", //Evitare per MANCANZA di SCROLLBAR verticale
 
-            //autoColumns: true, // Crea automaticamente le colonne in base alle chiavi 
-            columns: [
-                  { title: "Coordinates", headerTooltip: true, field: "Coordinates", widthGrow: 1, formatter: "textarea", resizable: false },
-            ],
+                  //autoColumns: true, // Crea automaticamente le colonne in base alle chiavi 
+                  columns: [
+                        { 
+                              title: ( glob_lang == "eng" ? "Coordinates" : ( glob_lang == "ita" ? "Coordinate" : "" ) ), 
+                              headerTooltip: true, 
+                              headerHozAlign: "center", 
+                              field: "Coordinates", 
+                              widthGrow: 1, 
+                              formatter: "textarea", 
+                              resizable: false 
+                        },
+                  ],
 
 
-            footerElement:
-                  "<div style='height: 2vh'>" +
-                  "<br>" +
-                  "</div>"
-      });
+                  footerElement:
+                        "<div style='height: 2vh'>" +
+                        "<br>" +
+                        "</div>"
+            });
 
-      //CSS via JS
-      document.getElementById("latLngZoom").style.fontFamily = glob_font;
+      }
 
-      //latLngZoom.element.style.fontFamily = "'Courier New', monospace";
-	latLngZoom.element.style.fontSize = "1.3vh";
-
-      glob_map.addEventListener('zoomend', function (e) {
-            glob_zoom = (glob_map.getZoom()).toFixed(2); 
-            glob_dataLatLngZoom[2].Coordinates = (glob_lang == "eng" ? "Zoom: " : "Zoom: " ) + glob_zoom;
-
-            //latLngZoom.on("tableBuilt", function() { 
-            latLngZoom.setData(glob_dataLatLngZoom);
-            //});
-
-      });
+      latLngZoom = funcLatLngZoom(); 
 
       //*** EVENTS ***//
 
@@ -68,5 +67,21 @@
             //});
 
       });
+
+      glob_map.addEventListener('zoomend', function (e) {
+            glob_zoom = (glob_map.getZoom()).toFixed(2); 
+            glob_dataLatLngZoom[2].Coordinates = (glob_lang == "eng" ? "Zoom: " : "Zoom: " ) + glob_zoom;
+
+            //latLngZoom.on("tableBuilt", function() { 
+            latLngZoom.setData(glob_dataLatLngZoom);
+            //});
+
+      });
+
+      //CSS via JS
+      document.getElementById("latLngZoom").style.fontFamily = glob_font;
+
+      //latLngZoom.element.style.fontFamily = "'Courier New', monospace";
+      latLngZoom.element.style.fontSize = "1.3vh";
 
 </script>

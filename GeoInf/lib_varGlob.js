@@ -1,17 +1,30 @@
 
-var glob_font = "Tahoma"; 
+var glob_font = "Times"; 
 
-var glob_lang = "eng"; // eng, ita
+/* *** */ 
 
-var glob_map = null; 
+var glob_lang = "eng"; // eng, ita //CONTEGGIO RADIO BUTTON 
+
+var glob_typeLang = [ /* NUMERO RIGHE CON CELLE VUOTE */
+      {typeLang:""}, 
+      {typeLang:""}, 
+]
+
+/* *** */ 
+
+var glob_map = null;  
+
+/* *** */ 
 
 var glob_lat = null; 
 var glob_long = null;  
 var glob_zoom = 3.0; //Valore INIZIALE da aggiornare 
 
+/* *** */ 
+
 var glob_baseOSM = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 	maxZoom: 19,
-}); //.addTo(glob_map);
+}); //.addTo(glob_map); 
 
 var glob_baseCyclOsmMap = L.tileLayer('https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png', {
 	maxZoom: 19,
@@ -32,6 +45,8 @@ var glob_baseMaps = {
     "WorldImagery": glob_baseGoogleSatellite,
 };
 
+/* *** */ 
+
 var glob_dataLatLngZoom = [ 
       {
             Coordinates: "Latitude: --" 
@@ -44,12 +59,16 @@ var glob_dataLatLngZoom = [
       },
 ]; 
 
+/* *** */ 
+
 var glob_mapButtons = [ /* NUMERO RIGHE CON CELLE VUOTE */
       {mapButtons: ""},
       {mapButtons: ""},
       {mapButtons: ""},
       
 ]; 
+
+/* *** */ 
 
 var glob_baseMap = [ /* NUMERO RIGHE CON CELLE VUOTE */
       {baseMap: ""},
@@ -58,3 +77,42 @@ var glob_baseMap = [ /* NUMERO RIGHE CON CELLE VUOTE */
       {baseMap: ""},
       
 ]; 
+
+var glob_numbBaseMap = 1; //OpenStreetMap //CONTEGGIO RADIO BUTTON 
+
+/* *** */ 
+
+var glob_typeDistance = [ /* NUMERO RIGHE CON CELLE VUOTE */
+      {typeDistance:""}, 
+      {typeDistance:""}, 
+]
+
+var glob_numbTypeDistance = 1; //Euclidean //CONTEGGIO RADIO BUTTON 
+
+/* *** */ 
+
+var glob_initialDataRow00 = [ 
+      {initialDataRow00:""}, 
+      {initialDataRow00:""}, 
+]
+
+/* *** */ 
+
+//Elenco Tabella Tabulator JS con funzioni di inizializzazione relative
+var latLngZoom = null; 
+var funcLatLngZoom = null; 
+
+var baseMap = null; 
+var funcBaseMap = null; 
+
+var mapButtons = null; 
+var funcMapButtons = null; 
+
+var typeDistance = null; 
+var funcTypeDistance = null; 
+
+var typeLang = null; 
+var funcTypeLang = null; 
+
+var initialDataRow00 = null; 
+var funcInitialDataRow00 = null; 

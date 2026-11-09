@@ -14,7 +14,9 @@
       <div>
 
             <div id="mapButtons"
-			style="width: 15%; max-width: 15%; height: 15vh; max-height: 15vh; float: left; margin: 0; padding: 0; ">
+			style="width: 13%; max-width: 13%; height: 15vh; max-height: 15vh; float: left; 
+                        margin-top: 0; margin-bottom: 0; margin-left: 0; margin-right: 1px; 
+                        padding: 0; ">
 		</div> <!-- 1.75vh style='float: left; ' width: 100%; -->
       </div>
 
@@ -41,7 +43,7 @@
             console.log( "Click on Button Remove Area ... "); 
       }
 
-      var actionsFormatter = function(cell, formatterParams, onRendered){
+      var actionsFormatterMapButtons = function(cell, formatterParams, onRendered){
             var rowNumber = cell.getRow().getPosition(true); 
             // Nota: passando 'true' a getPosition(true) conta solo le righe visibili/attive
 
@@ -56,10 +58,10 @@
                                           else if( rowNumber == 3 ) { return " ' Area(); ' " }
                                     }
                               )() } 
-                              style="width: 55%; color: white; background-color: transparent; border: 1px solid white; border-radius: 4px; margin: 0vh; padding: 0.05vh; ">
+                              style="width: 55%; color: white; background-color: transparent; border: 1px solid white; border-radius: 4px; margin: 0vh; padding: 0.05vh; font-family: ${ glob_font }; ">
                                     ${ (
                                           () => { 
-                                                if( rowNumber == 1 ) { //TABULATOR JS INIZIA DA 1
+                                                if( rowNumber == 1 ) { //TABULATOR JS INIZIA DA 1 
                                                       return( glob_lang == "eng" ? "VARIABLES" : ( glob_lang == "ita" ? "VARIABILI" : "" ) );  
                                                 } else if( rowNumber == 2 ) {
                                                       return( glob_lang == "eng" ? "DISTANCE" : ( glob_lang == "ita" ? "DISTANZA" : "" ) );    
@@ -76,10 +78,10 @@
                                     () => {
                                           if( rowNumber == 1 ) { /* */ }
                                           else if( rowNumber == 2 ) { return " ' RemoveDistance(); ' " }
-                                          else if( rowNumber == 3 ) { return " ' RemoveArea(); ' " }
+                                          else if( rowNumber == 3 ) { return " ' RemoveArea(); ' " } 
                                     }
                               )() }
-                              style="width: 40%; color: white; background-color: transparent; border: 1px solid white; border-radius: 4px; margin: 0vh; padding: 0.05vh; ">
+                              style="width: 40%; color: white; background-color: transparent; border: 1px solid white; border-radius: 4px; margin: 0vh; padding: 0.05vh; font-family: ${ glob_font }; ">
                                     ${ (
                                           () => { 
                                                 if( rowNumber == 1 ) { //TABULATOR JS INIZIA DA 1
@@ -101,37 +103,42 @@
             return result;  
       };
 
-      mapButtons = new Tabulator("#mapButtons", { 
-            data: glob_mapButtons, //[{}], // Messo un oggetto vuoto per mostrare almeno una riga di test
-            layout: "fitColumns", 
-            //height: "100%", //Evitare per MANCANZA di SCROLLBAR verticale
+      funcMapButtons = () => {
+            return new Tabulator("#mapButtons", { 
+                  data: glob_mapButtons, //[{}], // Messo un oggetto vuoto per mostrare almeno una riga di test
+                  layout: "fitColumns", 
+                  //height: "100%", //Evitare per MANCANZA di SCROLLBAR verticale
 
-            //autoColumns: true, // Crea automaticamente le colonne in base alle chiavi 
-            columns: [
-                  {
-                        title: "Map Control Buttons", 
-                        headerTooltip: true, 
-                        field: "mapButtons",
-                        widthGrow: 1, 
-                        formatter: actionsFormatter,
-                        resizable: false, 
-                        headerSort: false, 
-                        // Gestione del click 
-                        cellClick: function(e, cell){ 
-                              //var rowData = cell.getRow().getData();
-                              var target = e.target; // L'elemento cliccato
-                              console.log( "Cell Click ... " );
+                  //autoColumns: true, // Crea automaticamente le colonne in base alle chiavi 
+                  columns: [
+                        {
+                              title: ( glob_lang == "eng" ? "Map Control Buttons" : ( glob_lang == "ita" ? "Pulsanti Controllo Mappa" : "" ) ), 
+                              headerTooltip: true, 
+                              headerHozAlign: "center", 
+                              field: "mapButtons",
+                              widthGrow: 1, 
+                              formatter: actionsFormatterMapButtons,
+                              resizable: false, 
+                              headerSort: false, 
+                              // Gestione del click 
+                              cellClick: function(e, cell){ 
+                                    //var rowData = cell.getRow().getData();
+                                    var target = e.target; // L'elemento cliccato
+                                    console.log( "Cell Click ... " );
 
-                        }
-                },
-            ],
+                              }
+                  },
+                  ],
 
 
-            footerElement:
-                  "<div style='height: 2vh'>" +
-                  "<br>" +
-                  "</div>"
-      });
+                  footerElement:
+                        "<div style='height: 2vh'>" +
+                        "<br>" +
+                        "</div>"
+            });
+      }
+
+      mapButtons = funcMapButtons(); 
 
       //CSS via JS
       document.getElementById("mapButtons").style.fontFamily = glob_font;
