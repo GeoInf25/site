@@ -7,4 +7,6 @@ comp_TypeDistance.html
 comp_TypeLang.html
 index.html
 lib_varGlob.js
+nodi_finali_filtrati_01.csv
+nodi_finali_filtrati_02.csv
 NomiFile.txt
