@@ -32,7 +32,28 @@
                   default: glob_lang = "eng"; break; 
             }
 
+            //btnTab (Intestazioni Tab)
+
+            if( glob_lang == "eng" ) {
+                  document.getElementById("btnTab01").innerText = "INITIAL DATA";
+                  document.getElementById("titleTab01").innerText = "INITIAL DATA";
+                  document.getElementById("btnTab02").innerText = "CHARGE COLUMNS LOCALIZATION";
+                  document.getElementById("titleTab02").innerText = "CHARGE COLUMNS LOCALIZATION";
+                  document.getElementById("btnTab03").innerText = "ROUTE SEARCH";
+                  document.getElementById("titleTab03").innerText = "ROUTE SEARCH";
+
+            } else if( glob_lang == "ita" ) {
+                  document.getElementById("btnTab01").innerText = "DATI INIZIALI";
+                  document.getElementById("titleTab01").innerText = "DATI INIZIALI";
+                  document.getElementById("btnTab02").innerText = "LOCALIZZAZIONE COLONNINE DI RICARICA";
+                  document.getElementById("titleTab02").innerText = "LOCALIZZAZIONE COLONNINE DI RICARICA";
+                  document.getElementById("btnTab03").innerText = "RICERCA PERCORSI";
+                  document.getElementById("titleTab03").innerText = "RICERCA PERCORSI";
+            }
+
             //ReDraw Tabelle Tabulator JS INCOMPLETO
+
+            //Traduzione COMPONENTI
 
             latLngZoom.destroy(); 
             latLngZoom = funcLatLngZoom(); 

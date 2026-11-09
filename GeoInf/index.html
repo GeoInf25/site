@@ -17,6 +17,8 @@
 
     <script src="./lib_varGlob.js"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/danfojs@1.2.0/lib/bundle.min.js"></script>
+
     <style>
     .container {  
         display: flex;
@@ -62,7 +64,54 @@
         </div>
 
         <div id="right" class="split" >
-            <div id="comp_InitialDataRow00"></div>  
+            <div id="tabHeader">
+
+                <button id="btnTab01" onclick="btnTabClick( 1 );" >INITIAL DATA</button>
+                <button id="btnTab02" onclick="btnTabClick( 2 );" >CHARGE COLUMNS LOCALIZATION</button>
+                <button id="btnTab03" onclick="btnTabClick( 3 );" >ROUTE SEARCH</button> 
+                <br>
+
+            </div>
+            <div id="tab01" >
+                <p id="titleTab01">- INITIAL DATA -</p>
+                <div id="comp_InitialDataRow00"></div> 
+            </div> 
+            <div id="tab02" >
+                <p id="titleTab02">- CHARGE COLUMNS LOCALIZATION -</p>
+                <!-- --> 
+            </div> 
+            <div id="tab03" >
+                <p id="titleTab03">- ROUTE SEARCH -</p>
+                 <!-- --> 
+            </div> 
+
+            <script>
+                var btnTabStyle = `font-family: ${glob_font}; font-weight: bold; font-size: 1.7vh; border: 0; padding: 0; margin-left: 5px; `;
+                var titleTabStyle = `width: 100%; text-align: center; text-decoration: underline; font-family: ${glob_font}; font-weight: bold; font-size: 1.7vh; border: 0; padding: 0; margin-left: 5px; `; 
+
+                document.getElementById("btnTab01").style.cssText = btnTabStyle;
+                document.getElementById("btnTab02").style.cssText = btnTabStyle;
+                document.getElementById("btnTab03").style.cssText = btnTabStyle;
+
+                document.getElementById("titleTab01").style.cssText = titleTabStyle;
+                document.getElementById("titleTab02").style.cssText = titleTabStyle;
+                document.getElementById("titleTab03").style.cssText = titleTabStyle;
+
+                btnTabClick = ( numbTab ) => {
+                    for( var i = 1; i <= 3; i++ ) {
+                        if( i == numbTab ) {
+                            document.getElementById("tab0" + i).style.display = 'block';
+                            //console.log( "Click: " + i );
+                        } else {
+                            document.getElementById("tab0" + i).style.display = 'none';
+                        }
+                    }
+                }
+
+                //Primo avvio
+                btnTabClick( 1 );  
+
+            </script>
 
         </div>
     </div>
@@ -72,7 +121,7 @@
         // Inizializzazione base
         Split(['#left', '#right'], {
             sizes: [ 65 , 35 ],       // Percentuali iniziali dei div (es. 50% e 50%)
-            minSize: 100,         // Dimensione minima in pixel per ogni div
+            minSize: [100, 100],         // Dimensione minima in pixel per ogni div
             gutterSize: 10,       // Spessore della barra di trascinamento in pixel
             direction: 'horizontal', // 'horizontal' o 'vertical'
 
